@@ -25,15 +25,9 @@ A minimal, zero-dependency starter for building single-page applications with pu
 ## Getting Started
 
 ```bash
-npm start       # serves on http://localhost:3000
+npm serve       # serves on http://localhost:3000
 ```
 
-Or with any static file server:
-
-```bash
-npx serve . -l 3000
-python -m http.server 8000
-```
 
 ## Architecture
 
