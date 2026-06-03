@@ -35,17 +35,20 @@ studNow/
 │   ├── main.js
 │   └── router.js
 └── components/
-    ├── navbar/
-    │   ├── navbar.js
-    │   └── navbar.css
-    ├── footer/
-    │   └── footer.js
-    ├── card/
-    │   ├── card.js
-    │   └── card.css
-    ├── form-field/
-    │   ├── form-field.js
-    │   └── form-field.css
+    ├── desktop/
+    │   ├── navbar/
+    │   │   ├── navbar.js
+    │   │   └── navbar.css
+    │   ├── footer/
+    │   │   └── footer.js
+    │   ├── card/
+    │   │   ├── card.js
+    │   │   └── card.css
+    │   └── form-field/
+    │       ├── form-field.js
+    │       └── form-field.css
+    ├── mobile/
+    ├── shared/
     └── pages/
         ├── home/
         │   └── home.js

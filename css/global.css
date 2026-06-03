@@ -1,3 +1,6 @@
+@import "tailwindcss";
+
+
 /* variables, reset, base */
 /* ── Reset ─────────────────────────────────────────── */
 *, *::before, *::after {
@@ -50,6 +53,7 @@ body {
 
 main {
   flex: 1;
+  padding-bottom: 6rem;
 }
 
 a {
@@ -91,6 +95,32 @@ h3 { font-size: 1.25rem; }
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+#navbar,
+#footer {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  #navbar,
+  #footer {
+    display: none;
+  }
+
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  main {
+    padding-bottom: 7.5rem;
+  }
+}
+
+@media (min-width: 901px) {
+  #bottom-bar {
+    display: none;
+  }
 }
 
 @keyframes fadeIn {

@@ -1,9 +1,9 @@
 // reusable, no id conflicts
 // inject styles once (guard against duplicates)
-if (!document.querySelector('link[href="/components/card/card.css"]')) {
+if (!document.querySelector('link[href="/components/desktop/card/card.css"]')) {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = '/components/card/card.css';
+  link.href = '/components/desktop/card/card.css';
   document.head.appendChild(link);
 }
 

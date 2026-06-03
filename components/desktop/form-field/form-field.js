@@ -1,9 +1,9 @@
 // reusable, generates unique id per instance
 // inject styles once
-if (!document.querySelector('link[href="/components/form-field/form-field.css"]')) {
+if (!document.querySelector('link[href="/components/desktop/form-field/form-field.css"]')) {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = '/components/form-field/form-field.css';
+  link.href = '/components/desktop/form-field/form-field.css';
   document.head.appendChild(link);
 }
 

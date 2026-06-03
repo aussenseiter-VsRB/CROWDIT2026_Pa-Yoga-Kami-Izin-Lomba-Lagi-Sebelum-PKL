@@ -2,7 +2,7 @@
 // inject styles once
 const link = document.createElement('link');
 link.rel = 'stylesheet';
-link.href = '/components/navbar/navbar.css';
+link.href = '/components/desktop/navbar/navbar.css';
 document.head.appendChild(link);
 
 export function Navbar() {
