@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx @tailwindcss/cli -i ./css/global.css -o ./dist/output.css --watch",
+    "dev": "concurrently \"npx @tailwindcss/cli -i ./css/global.css -o ./dist/output.css --watch\" \"npx serve .\"",
     "build": "npx @tailwindcss/cli -i ./css/global.css -o ./dist/output.css",
     "serve": "python3 -m http.server 3000"
   },
@@ -24,5 +24,8 @@
   "dependencies": {
     "@tailwindcss/cli": "^4.3.0",
     "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
   }
 }
