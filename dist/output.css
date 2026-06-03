@@ -10,8 +10,6 @@
     --color-white: #fff;
     --tracking-tight: -0.025em;
     --blur-md: 12px;
-    --default-transition-duration: 150ms;
-    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
   }
@@ -302,7 +300,8 @@ h3 {
     padding-bottom: env(safe-area-inset-bottom);
   }
   main {
-    padding-bottom: 7.5rem;
+    padding-top: 5.5rem;
+    padding-bottom: 7.75rem;
   }
 }
 @media (min-width: 901px) {

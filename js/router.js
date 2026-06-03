@@ -5,6 +5,9 @@ import { Contact } from '/components/pages/contact/contact.js';
 import { Groups }  from '/components/pages/groups/groups.js';
 import { Chat }    from '/components/pages/chat/chat.js';
 import { Profile } from '/components/pages/profile/profile.js';
+import { Signup }  from '/components/pages/signup/signup.js';
+import { Search }  from '/components/pages/search/search.js';
+import { Notifications } from '/components/pages/notifications/notifications.js';
 
 const routes = {
   '/':         Home,
@@ -13,6 +16,9 @@ const routes = {
   '/groups':   Groups,
   '/chat':     Chat,
   '/profile':  Profile,
+  '/signup':   Signup,
+  '/search':   Search,
+  '/notifications': Notifications,
 };
 
 export async function router() {

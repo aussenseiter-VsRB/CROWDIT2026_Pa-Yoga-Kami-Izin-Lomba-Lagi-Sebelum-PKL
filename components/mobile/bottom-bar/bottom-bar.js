@@ -10,6 +10,7 @@ const items = [
     icon: `
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 3l7 7-7 11-7-11 7-7z"></path>
+        <path d="M12 10l3 2-3 2-3-2 3-2z"></path>
       </svg>
     `,
   },
@@ -18,10 +19,10 @@ const items = [
     href: '#/groups',
     icon: `
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
-        <path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        <path d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+        <path d="M16 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+        <path d="M5 20v-1a3 3 0 0 1 3-3h0"></path>
+        <path d="M19 20v-1a3 3 0 0 0-3-3h0"></path>
       </svg>
     `,
   },
@@ -30,7 +31,8 @@ const items = [
     href: '#/chat',
     icon: `
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
+        <path d="M21 14a4 4 0 0 1-4 4H9l-5 3v-3.8A4 4 0 0 1 3 14V8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
+        <path d="M8 10h8"></path>
       </svg>
     `,
   },
