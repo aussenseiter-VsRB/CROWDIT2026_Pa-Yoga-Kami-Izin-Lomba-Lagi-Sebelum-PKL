@@ -19,7 +19,6 @@ export function TopBar() {
         </a>
         <div class="top-bar__title" aria-label="StudNow">
           <strong>StudNow</strong>
-          <span>Forum belajar</span>
         </div>
       </div>
       <div class="top-bar__actions" aria-label="Aksi cepat">
