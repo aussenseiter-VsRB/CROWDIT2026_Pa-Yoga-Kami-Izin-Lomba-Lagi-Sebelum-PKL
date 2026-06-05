@@ -1,7 +1,7 @@
-if (!document.querySelector('link[href="/components/pages/home/home.css"]')) {
+if (!document.querySelector('link[href="/pages/pages-mobile/home/home.css"]')) {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = '/components/pages/home/home.css';
+  link.href = '/pages/pages-mobile/home/home.css';
   document.head.appendChild(link);
 }
 

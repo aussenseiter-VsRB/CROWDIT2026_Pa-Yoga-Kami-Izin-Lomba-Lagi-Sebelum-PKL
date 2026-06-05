@@ -1,43 +1,56 @@
 .card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: var(--space-md);
-  transition: border-color var(--transition), transform var(--transition);
-  cursor: default;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-sm);
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    border-color var(--transition);
 }
 
 .card:hover {
-  border-color: var(--accent);
   transform: translateY(-2px);
+  border-color: rgba(0, 122, 255, 0.18);
+  box-shadow: var(--shadow-md);
 }
 
 .card-tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.6rem;
+  padding: 0 0.7rem;
+  margin-bottom: 0.85rem;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 122, 255, 0.09);
   color: var(--accent);
-  margin-bottom: var(--space-xs);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .card-title {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 400;
-  margin-bottom: var(--space-xs);
-  transition: color var(--transition);
+  margin-bottom: 0.55rem;
+  font-size: 1.15rem;
 }
 
 .card-description {
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
+.card-footer {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(26, 26, 26, 0.08);
 }
 
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-md);
-  margin-top: var(--space-md);
+  gap: 1rem;
+  margin-top: 1rem;
 }

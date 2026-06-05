@@ -1,7 +1,9 @@
-if (!document.querySelector('link[href="/components/pages/home/home.css"]')) {
+import { PageHeader } from '/components/desktop/page-header/page-header.js';
+
+if (!document.querySelector('link[href="/pages/pages-desktop/home/home.css"]')) {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = '/components/pages/home/home.css';
+  link.href = '/pages/pages-desktop/home/home.css';
   document.head.appendChild(link);
 }
 
@@ -12,7 +14,7 @@ const forums = [
     title: 'Advanced Calculus III Midterm Prep',
     description:
       'Working through chapter 4 practice problems, focusing on double integrals and vector fields. Join if you need help with the homework!',
-    joined: '3/6 Joined',
+    joined: '3/6 joined',
     status: 'Online',
     action: 'Open',
   },
@@ -20,7 +22,7 @@ const forums = [
     title: 'Data Structures Algorithms',
     description:
       'Reviewing binary trees, graph traversals, and dynamic programming approaches for the upcoming coding interview mock sessions.',
-    joined: '12/15 Joined',
+    joined: '12/15 joined',
     status: 'Online',
     action: 'Open',
   },
@@ -28,7 +30,7 @@ const forums = [
     title: 'Intro to Modern Philosophy',
     description:
       "Discussion group for Kant's Critique of Pure Reason. Meeting resumes tomorrow at 10:00 AM EST. Read chapter 2 before joining.",
-    joined: '4/8 Joined',
+    joined: '4/8 joined',
     status: 'Offline',
     action: 'Details',
   },
@@ -36,7 +38,7 @@ const forums = [
     title: 'Organic Chemistry Lab Prep',
     description:
       'Sharing pre-lab notes and discussing the safety protocols for the synthesis of aspirin experiment.',
-    joined: '2/4 Joined',
+    joined: '2/4 joined',
     status: 'Offline',
     action: 'Details',
   },
@@ -57,13 +59,18 @@ function ForumCard(forum) {
   return `
     <article class="home-forum-card">
       <div class="home-forum-card__header">
-        <h2>${forum.title}</h2>
+        <div>
+          <span class="home-forum-card__eyebrow">${forum.status}</span>
+          <h2>${forum.title}</h2>
+        </div>
         <span class="home-status ${statusClass}">
           <span aria-hidden="true"></span>
           ${forum.status}
         </span>
       </div>
+
       <p>${forum.description}</p>
+
       <div class="home-forum-card__footer">
         <span class="home-joined">
           ${peopleIcon()}
@@ -79,14 +86,11 @@ function ForumCard(forum) {
 
 export async function Home() {
   const el = document.createElement('section');
-  el.className = 'home-page';
+  el.className = 'home-page container section';
 
   el.innerHTML = `
     <div class="home-page__inner">
-      <header class="home-hero">
-        <h1>Explore Forums</h1>
-        <p>Find a study group, join the discussion, and excel together.</p>
-      </header>
+      <div class="home-hero"></div>
 
       <nav class="home-topics" aria-label="Forum topics">
         ${topics.map((topic, index) => `
@@ -96,11 +100,38 @@ export async function Home() {
         `).join('')}
       </nav>
 
+      <section class="home-stats" aria-label="Community stats">
+        <div class="home-stat">
+          <span class="home-stat__value">24</span>
+          <span class="home-stat__label">Active groups</span>
+        </div>
+        <div class="home-stat">
+          <span class="home-stat__value">48</span>
+          <span class="home-stat__label">New posts today</span>
+        </div>
+        <div class="home-stat">
+          <span class="home-stat__value">16</span>
+          <span class="home-stat__label">Mentors online</span>
+        </div>
+      </section>
+
       <div class="home-forum-list">
         ${forums.map(ForumCard).join('')}
       </div>
     </div>
   `;
+
+  el.querySelector('.home-hero').appendChild(
+    PageHeader({
+      eyebrow: 'Explore',
+      title: 'Explore Forums',
+      description: 'Find a study group, join the discussion, and move faster together with a clean, calm desktop layout.',
+      actions: [
+        { label: 'Browse groups', href: '/groups', variant: 'secondary' },
+        { label: 'Create account', href: '/signup', variant: 'primary' },
+      ],
+    }),
+  );
 
   return el;
 }

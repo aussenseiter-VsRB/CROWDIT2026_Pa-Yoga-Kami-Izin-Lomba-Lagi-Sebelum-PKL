@@ -1,7 +1,18 @@
 export async function Footer() {
+  if (!document.querySelector('link[href="/components/desktop/footer/footer.css"]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/components/desktop/footer/footer.css';
+    document.head.appendChild(link);
+  }
+
   const el = document.createElement('footer');
   el.classList.add('footer');
-  el.style.cssText = 'text-align:center;padding:var(--space-md);border-top:1px solid var(--border);color:var(--muted);font-size:0.85rem;margin-top:auto';
-  el.innerHTML = `&copy; ${new Date().getFullYear()} MyApp`;
+  el.innerHTML = `
+    <div class="container footer__inner">
+      <span class="footer__brand">StudNow</span>
+      <p class="footer__copy">&copy; ${new Date().getFullYear()} Minimal study forum for collaborative learning.</p>
+    </div>
+  `;
   return el;
 }
