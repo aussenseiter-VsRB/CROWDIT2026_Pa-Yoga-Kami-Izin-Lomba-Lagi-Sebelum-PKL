@@ -38,6 +38,8 @@
   --radius-md: 20px;
   --radius-lg: 32px;
   --radius-pill: 999px;
+  --auth-shell-width: 1160px;
+  --auth-shell-min-height: min(760px, calc(100vh - 8rem));
 
   --shadow-sm: 0 10px 30px rgba(15, 23, 42, 0.04);
   --shadow-md: 0 18px 48px rgba(15, 23, 42, 0.08);

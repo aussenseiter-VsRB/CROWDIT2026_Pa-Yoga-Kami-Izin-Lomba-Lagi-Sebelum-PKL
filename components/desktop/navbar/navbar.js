@@ -25,20 +25,24 @@ export function Navbar() {
 
       <div class="navbar-actions">
         <a class="navbar-action" href="/search" data-link>Search</a>
-        <a class="navbar-action navbar-action--primary" href="/signup" data-link>Create</a>
+        <a class="navbar-action navbar-action--primary" href="/login" data-link>Login</a>
       </div>
     </div>
   `;
+
+  const isAuthRoute = () => ['/login', '/signup'].includes(window.location.pathname.replace(/\/$/, '') || '/');
 
   function setActive() {
     const path = window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/$/, '');
     el.querySelectorAll('.navbar-nav a, .navbar-actions a').forEach((a) => {
       a.classList.toggle('active', a.getAttribute('href') === path);
     });
+    el.style.display = isAuthRoute() ? 'none' : '';
   }
 
   setActive();
   window.addEventListener('popstate', setActive);
+  window.addEventListener('routechange', setActive);
 
   return el;
 }
