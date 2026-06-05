@@ -72,7 +72,7 @@ export function BottomBar() {
   };
 
   setActive();
-  window.addEventListener('popstate', setActive);
+  window.addEventListener('route-change', setActive);
 
   return el;
 }

@@ -33,6 +33,8 @@ export async function router() {
 
   main.innerHTML = '';
   main.appendChild(await Page());
+
+  window.dispatchEvent(new CustomEvent('route-change'));
 }
 
 export function navigateTo(path) {
