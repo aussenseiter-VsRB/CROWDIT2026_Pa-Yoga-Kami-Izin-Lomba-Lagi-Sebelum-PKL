@@ -6,7 +6,7 @@ document.head.appendChild(link);
 const items = [
   {
     label: 'Explore',
-    href: '#/',
+    href: '/',
     icon: `
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 3l7 7-7 11-7-11 7-7z"></path>
@@ -16,7 +16,7 @@ const items = [
   },
   {
     label: 'Groups',
-    href: '#/groups',
+    href: '/groups',
     icon: `
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
@@ -28,7 +28,7 @@ const items = [
   },
   {
     label: 'Chat',
-    href: '#/chat',
+    href: '/chat',
     icon: `
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M21 14a4 4 0 0 1-4 4H9l-5 3v-3.8A4 4 0 0 1 3 14V8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
@@ -38,7 +38,7 @@ const items = [
   },
   {
     label: 'Profil',
-    href: '#/profile',
+    href: '/profile',
     icon: `
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M20 21a8 8 0 0 0-16 0"></path>
@@ -65,14 +65,14 @@ export function BottomBar() {
   `;
 
   const setActive = () => {
-    const hash = window.location.hash || '#/';
+    const path = window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/$/, '');
     el.querySelectorAll('.bottom-bar__item').forEach((item) => {
-      item.classList.toggle('is-active', item.getAttribute('href') === hash);
+      item.classList.toggle('is-active', item.getAttribute('href') === path);
     });
   };
 
   setActive();
-  window.addEventListener('hashchange', setActive);
+  window.addEventListener('popstate', setActive);
 
   return el;
 }

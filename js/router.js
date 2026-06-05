@@ -22,18 +22,22 @@ const routes = {
 };
 
 export async function router() {
-  const path = window.location.hash.slice(1) || '/';
+  const path = window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/$/, '');
   const Page = routes[path] ?? routes['/'];
 
   const main = document.querySelector('#main');
 
-  // trigger re-animation on page swap
   main.style.animation = 'none';
-  main.offsetHeight; // reflow
+  main.offsetHeight;
   main.style.animation = '';
 
   main.innerHTML = '';
   main.appendChild(await Page());
 }
 
-window.addEventListener('hashchange', router);
+export function navigateTo(path) {
+  history.pushState(null, null, path);
+  router();
+}
+
+window.addEventListener('popstate', router);

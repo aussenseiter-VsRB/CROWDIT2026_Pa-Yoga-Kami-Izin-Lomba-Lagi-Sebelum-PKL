@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npx @tailwindcss/cli -i ./css/global.css -o ./dist/output.css --watch\" \"npx serve .\"",
+    "dev": "concurrently \"npx @tailwindcss/cli -i ./css/global.css -o ./dist/output.css --watch\" \"npx serve -s .\"",
     "build": "npx @tailwindcss/cli -i ./css/global.css -o ./dist/output.css",
-    "serve": "python3 -m http.server 3000"
+    "serve": "npx serve -s ."
   },
   "repository": {
     "type": "git",
