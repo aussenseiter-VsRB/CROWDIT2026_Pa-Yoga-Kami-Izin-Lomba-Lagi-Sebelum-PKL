@@ -1,59 +1,73 @@
 .form-field {
-  margin-bottom: var(--space-md);
+  margin-bottom: 1rem;
 }
 
 .form-field label {
   display: block;
-  font-weight: 400;
-  margin-bottom: var(--space-xs);
+  margin-bottom: 0.5rem;
   color: var(--muted);
-  font-size: 0.85rem;
-  text-transform: uppercase;
+  font-size: 0.82rem;
+  font-weight: 700;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .form-field input,
 .form-field textarea {
   width: 100%;
-  padding: 0.75rem;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.9);
   color: var(--text);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 300;
-  transition: border-color var(--transition);
+  font: inherit;
+  font-size: 0.98rem;
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition);
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #9ca3af;
 }
 
 .form-field input:focus,
 .form-field textarea:focus {
   outline: none;
-  border-color: var(--accent);
+  border-color: rgba(0, 122, 255, 0.4);
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.12);
+  background: #ffffff;
 }
 
 .form-field textarea {
-  min-height: 120px;
+  min-height: 140px;
   resize: vertical;
 }
 
 .contact-form {
-  max-width: 480px;
+  max-width: 560px;
 }
 
 .contact-form button {
-  background: var(--accent);
-  color: var(--bg);
-  border: none;
-  padding: 0.75rem 2rem;
-  border-radius: var(--radius);
-  font-family: var(--font-display);
-  font-size: 1rem;
+  appearance: none;
+  border: 0;
+  min-height: 2.9rem;
+  padding: 0 1.4rem;
+  border-radius: var(--radius-pill);
+  background: var(--text);
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.92rem;
   font-weight: 700;
   cursor: pointer;
-  transition: opacity var(--transition);
+  transition:
+    transform var(--transition),
+    background-color var(--transition);
 }
 
 .contact-form button:hover {
-  opacity: 0.8;
+  transform: translateY(-1px);
+  background: #0f172a;
 }

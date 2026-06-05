@@ -9,7 +9,15 @@
       "Courier New", monospace;
     --color-white: #fff;
     --tracking-tight: -0.025em;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --blur-md: 12px;
+    --default-transition-duration: 150ms;
+    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
   }
@@ -181,6 +189,22 @@
       max-width: 96rem;
     }
   }
+  .flex {
+    display: flex;
+  }
+  .grid {
+    display: grid;
+  }
+  .transform {
+    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  }
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+  .border {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
   .bg-white\/70 {
     background-color: color-mix(in srgb, #fff 70%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -191,10 +215,22 @@
     --tw-tracking: var(--tracking-tight);
     letter-spacing: var(--tracking-tight);
   }
+  .filter {
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
+  }
   .backdrop-blur-md {
     --tw-backdrop-blur: blur(var(--blur-md));
     -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
     backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  }
+  .backdrop-filter {
+    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  }
+  .transition {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
   .active\:scale-95 {
     &:active {
@@ -211,34 +247,48 @@
   padding: 0;
 }
 :root {
-  --bg: #0e0e0e;
-  --surface: #161616;
-  --border: #2a2a2a;
-  --text: #f0ece4;
-  --muted: #888;
-  --accent: #c8f04d;
-  --accent-2: #f04d4d;
-  --font-display: 'Fraunces', serif;
-  --font-body: 'DM Sans', sans-serif;
+  --bg: #fafafe;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-dim: #dad9df;
+  --surface-tint: rgba(255, 255, 255, 0.72);
+  --border: rgba(26, 26, 26, 0.08);
+  --border-strong: rgba(26, 26, 26, 0.14);
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --accent: #007aff;
+  --accent-soft: rgba(0, 122, 255, 0.12);
+  --accent-2: #ff3b30;
+  --success: #34c759;
+  --font-display: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --space-2xs: 0.25rem;
   --space-xs: 0.5rem;
   --space-sm: 1rem;
-  --space-md: 2rem;
-  --space-lg: 4rem;
-  --space-xl: 8rem;
-  --max-width: 1100px;
-  --radius: 4px;
-  --transition: 0.2s ease;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --max-width: 1120px;
+  --radius-sm: 8px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-pill: 999px;
+  --auth-shell-width: 1160px;
+  --auth-shell-min-height: min(760px, calc(100vh - 8rem));
+  --shadow-sm: 0 10px 30px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 18px 48px rgba(15, 23, 42, 0.08);
+  --transition: 180ms ease;
 }
 html {
   scroll-behavior: smooth;
 }
 body {
-  background-color: var(--bg);
+  background: radial-gradient(circle at top left, rgba(0, 122, 255, 0.08), transparent 30%), radial-gradient(circle at top right, rgba(255, 255, 255, 0.7), transparent 26%), var(--bg);
   color: var(--text);
   font-family: var(--font-body);
   font-size: 1rem;
-  font-weight: 300;
-  line-height: 1.7;
+  font-weight: 400;
+  line-height: 1.6;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -257,16 +307,17 @@ img {
 }
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 400;
-  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: var(--space-md);
+  font-size: clamp(2.2rem, 3.8vw, 3.8rem);
+  margin-bottom: var(--space-sm);
 }
 h2 {
-  font-size: 1.75rem;
-  margin-bottom: var(--space-sm);
+  font-size: clamp(1.4rem, 2vw, 2.1rem);
+  margin-bottom: var(--space-xs);
 }
 h3 {
   font-size: 1.25rem;
@@ -278,7 +329,26 @@ h3 {
   padding: 0 var(--space-md);
 }
 .section {
-  padding: var(--space-xl) 0;
+  padding: clamp(2.5rem, 5vw, 5rem) 0;
+}
+.desktop-page {
+  display: grid;
+  gap: 1rem;
+}
+.desktop-page--split {
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  align-items: start;
+}
+.desktop-page__content, .desktop-page__support {
+  display: grid;
+  gap: 1rem;
+}
+.desktop-page__panel {
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-sm);
+  padding: 1.4rem;
 }
 #main {
   animation: fadeIn 0.3s ease;
@@ -300,6 +370,9 @@ h3 {
     padding-top: 4.1rem;
     padding-bottom: 7.75rem;
   }
+  .desktop-page--split {
+    grid-template-columns: 1fr;
+  }
 }
 @media (min-width: 901px) {
   #bottom-bar {
@@ -316,7 +389,85 @@ h3 {
     transform: translateY(0);
   }
 }
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
 @property --tw-tracking {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-sepia {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-drop-shadow-size {
   syntax: "*";
   inherits: false;
 }
@@ -374,7 +525,26 @@ h3 {
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
+      --tw-border-style: solid;
       --tw-tracking: initial;
+      --tw-blur: initial;
+      --tw-brightness: initial;
+      --tw-contrast: initial;
+      --tw-grayscale: initial;
+      --tw-hue-rotate: initial;
+      --tw-invert: initial;
+      --tw-opacity: initial;
+      --tw-saturate: initial;
+      --tw-sepia: initial;
+      --tw-drop-shadow: initial;
+      --tw-drop-shadow-color: initial;
+      --tw-drop-shadow-alpha: 100%;
+      --tw-drop-shadow-size: initial;
       --tw-backdrop-blur: initial;
       --tw-backdrop-brightness: initial;
       --tw-backdrop-contrast: initial;

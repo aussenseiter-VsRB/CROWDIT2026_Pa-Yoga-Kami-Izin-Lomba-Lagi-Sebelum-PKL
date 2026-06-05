@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-
-/* variables, reset, base */
 /* ── Reset ─────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -11,27 +9,41 @@
 
 /* ── Variables ─────────────────────────────────────── */
 :root {
-  --bg:        #0e0e0e;
-  --surface:   #161616;
-  --border:    #2a2a2a;
-  --text:      #f0ece4;
-  --muted:     #888;
-  --accent:    #c8f04d;
-  --accent-2:  #f04d4d;
+  --bg: #fafafe;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-dim: #dad9df;
+  --surface-tint: rgba(255, 255, 255, 0.72);
+  --border: rgba(26, 26, 26, 0.08);
+  --border-strong: rgba(26, 26, 26, 0.14);
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --accent: #007aff;
+  --accent-soft: rgba(0, 122, 255, 0.12);
+  --accent-2: #ff3b30;
+  --success: #34c759;
 
-  --font-display: 'Fraunces', serif;
-  --font-body:    'DM Sans', sans-serif;
+  --font-display: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  --space-xs:  0.5rem;
-  --space-sm:  1rem;
-  --space-md:  2rem;
-  --space-lg:  4rem;
-  --space-xl:  8rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
 
-  --max-width: 1100px;
-  --radius:    4px;
+  --max-width: 1120px;
+  --radius-sm: 8px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-pill: 999px;
+  --auth-shell-width: 1160px;
+  --auth-shell-min-height: min(760px, calc(100vh - 8rem));
 
-  --transition: 0.2s ease;
+  --shadow-sm: 0 10px 30px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 18px 48px rgba(15, 23, 42, 0.08);
+  --transition: 180ms ease;
 }
 
 /* ── Base ───────────────────────────────────────────── */
@@ -40,12 +52,15 @@ html {
 }
 
 body {
-  background-color: var(--bg);
+  background:
+    radial-gradient(circle at top left, rgba(0, 122, 255, 0.08), transparent 30%),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.7), transparent 26%),
+    var(--bg);
   color: var(--text);
   font-family: var(--font-body);
   font-size: 1rem;
-  font-weight: 300;
-  line-height: 1.7;
+  font-weight: 400;
+  line-height: 1.6;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -69,12 +84,13 @@ img {
 /* ── Headings ─────────────────────────────────────────── */
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 400;
-  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
-h1 { font-size: 2.5rem;  margin-bottom: var(--space-md); }
-h2 { font-size: 1.75rem; margin-bottom: var(--space-sm); }
+h1 { font-size: clamp(2.2rem, 3.8vw, 3.8rem); margin-bottom: var(--space-sm); }
+h2 { font-size: clamp(1.4rem, 2vw, 2.1rem); margin-bottom: var(--space-xs); }
 h3 { font-size: 1.25rem; }
 
 /* ── Utilities ──────────────────────────────────────── */
@@ -86,7 +102,31 @@ h3 { font-size: 1.25rem; }
 }
 
 .section {
-  padding: var(--space-xl) 0;
+  padding: clamp(2.5rem, 5vw, 5rem) 0;
+}
+
+.desktop-page {
+  display: grid;
+  gap: 1rem;
+}
+
+.desktop-page--split {
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  align-items: start;
+}
+
+.desktop-page__content,
+.desktop-page__support {
+  display: grid;
+  gap: 1rem;
+}
+
+.desktop-page__panel {
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-sm);
+  padding: 1.4rem;
 }
 
 /* ── Page transitions ───────────────────────────────── */
@@ -115,6 +155,10 @@ h3 { font-size: 1.25rem; }
   main {
     padding-top: 4.1rem;
     padding-bottom: 7.75rem;
+  }
+
+  .desktop-page--split {
+    grid-template-columns: 1fr;
   }
 }
 
