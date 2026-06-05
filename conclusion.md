@@ -17,9 +17,11 @@ Berikut alur kerja aplikasi ini:
 
 1. `index.html` menjadi entry point.
 2. `js/main.js` menjalankan aplikasi.
-3. `js/router.js` memilih halaman berdasarkan hash URL.
-4. Folder `components/` berisi komponen yang dipakai di halaman.
-5. `css/global.css` menyimpan style dasar, variabel, dan utility umum.
+3. `js/router.js` memilih halaman berdasarkan path URL (History API).
+4. Navigasi menggunakan `history.pushState()` — URL bersih tanpa `#`.
+5. Back/forward browser tetap berfungsi berkat event `popstate`.
+6. Folder `components/` berisi komponen yang dipakai di halaman.
+7. `css/global.css` menyimpan style dasar, variabel, dan utility umum.
 
 ## Struktur File
 
@@ -31,6 +33,8 @@ studNow/
 ├── README.md
 ├── css/
 │   └── global.css
+├── dist/
+│   └── output.css
 ├── js/
 │   ├── main.js
 │   └── router.js
@@ -40,7 +44,8 @@ studNow/
     │   │   ├── navbar.js
     │   │   └── navbar.css
     │   ├── footer/
-    │   │   └── footer.js
+    │   │   ├── footer.js
+    │   │   └── footer.css
     │   ├── card/
     │   │   ├── card.js
     │   │   └── card.css
@@ -48,14 +53,32 @@ studNow/
     │       ├── form-field.js
     │       └── form-field.css
     ├── mobile/
-    ├── shared/
+    │   ├── top-bar/
+    │   │   ├── top-bar.js
+    │   │   └── top-bar.css
+    │   └── bottom-bar/
+    │       ├── bottom-bar.js
+    │       └── bottom-bar.css
     └── pages/
         ├── home/
-        │   └── home.js
+        │   ├── home.js
+        │   └── home.css
         ├── about/
         │   └── about.js
-        └── contact/
-            └── contact.js
+        ├── contact/
+        │   └── contact.js
+        ├── groups/
+        │   └── groups.js
+        ├── chat/
+        │   └── chat.js
+        ├── profile/
+        │   └── profile.js
+        ├── signup/
+        │   └── signup.js
+        ├── search/
+        │   └── search.js
+        └── notifications/
+            └── notifications.js
 ```
 
 ## Cara Kerja Coding Ke Depan
@@ -145,11 +168,13 @@ const routes = {
 };
 ```
 
-Lalu buat link navigasinya:
+Lalu buat link navigasinya (tanpa hash, pakai path langsung):
 
 ```html
-<a href="#/blog" data-link>Blog</a>
+<a href="/blog" data-link>Blog</a>
 ```
+
+`data-link` otomatis di-intercept oleh `main.js` yang memanggil `navigateTo()` dengan `history.pushState()`.
 
 ### 6. Gunakan layout utama yang tetap
 
@@ -171,6 +196,12 @@ Saat ingin menambah fitur, urutan berpikir yang paling aman adalah:
 4. Buat file CSS terpisah bila perlu.
 5. Hubungkan ke router jika itu halaman baru.
 6. Cek lagi apakah styling dan event hanya mempengaruhi komponen tersebut.
+
+## Catatan Server
+
+Karena aplikasi pakai History API (URL bersih), server harus jalan dalam **mode SPA** — semua route diarahkan ke `index.html`.
+
+✅ Sudah otomatis saat pakai `npm run dev` atau `npm run serve` (via `serve -s`).
 
 ## Aturan Penting
 

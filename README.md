@@ -5,7 +5,7 @@ StudNow adalah starter project **SPA Vanilla JavaScript** yang ringan, tanpa fra
 ## Ringkasan
 
 - Menggunakan **JavaScript murni**
-- Routing berbasis **hash**
+- Routing berbasis **History API** (clean URL tanpa hash)
 - Komponen dipisah per folder
 - Styling global memakai **Tailwind CSS**
 - Mudah dikembangkan untuk mode **desktop** dan **mobile**
@@ -21,19 +21,26 @@ studNow/
 │   └── output.css          # Hasil build CSS yang dipakai aplikasi
 ├── js/
 │   ├── main.js             # Bootstrap aplikasi
-│   └── router.js           # Pengatur halaman berdasarkan hash
-└── components/
-    ├── desktop/            # Komponen khusus tampilan desktop
-    │   ├── navbar/
-    │   ├── footer/
-    │   ├── card/
-    │   └── form-field/
-    ├── mobile/             # Komponen khusus tampilan mobile
-    ├── shared/             # Komponen yang dipakai di semua layout
-    └── pages/              # Halaman aplikasi
-        ├── home/
-        ├── about/
-        └── contact/
+│   └── router.js           # Pengatur halaman berdasarkan path URL
+├── components/
+│   ├── desktop/            # Komponen khusus tampilan desktop
+│   │   ├── navbar/
+│   │   ├── footer/
+│   │   ├── card/
+│   │   └── form-field/
+│   ├── mobile/             # Komponen khusus tampilan mobile
+│   │   ├── top-bar/
+│   │   └── bottom-bar/
+│   └── pages/              # Halaman aplikasi
+│       ├── home/
+│       ├── about/
+│       ├── contact/
+│       ├── groups/
+│       ├── chat/
+│       ├── profile/
+│       ├── signup/
+│       ├── search/
+│       └── notifications/
 ```
 
 ## Teknologi yang Dipakai
@@ -45,27 +52,32 @@ studNow/
 
 ## Cara Menjalankan
 
-### 1. Install dependensi
+### 1. Install dependensi dan approve builds
 
 ```bash
-npm install
+pnpm install
+```
+```bash
+pnpm approve-builds
 ```
 
-### 2. Jalankan Tailwind dalam mode development
+### 2. Development (Tailwind + server otomatis)
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
-Perintah ini akan menjalankan Tailwind CLI dalam mode watch dan terus memperbarui `dist/output.css` saat `css/global.css` berubah.
+Perintah ini menjalankan Tailwind CLI dalam mode watch (memperbarui `dist/output.css` saat `css/global.css` berubah) **dan** server lokal secara bersamaan.
 
-### 3. Jalankan server lokal
+Buka `http://localhost:3000` di browser.
+
+### 3. Hanya server lokal
 
 ```bash
-npm run serve
+pnpm run serve
 ```
 
-Perintah ini akan menjalankan server lokal di `http://localhost:3000` agar aplikasi bisa dibuka di browser.
+Menjalankan server lokal saja di `http://localhost:3000`.
 
 ### 4. Build untuk produksi
 
@@ -73,29 +85,20 @@ Perintah ini akan menjalankan server lokal di `http://localhost:3000` agar aplik
 npm run build
 ```
 
-Perintah ini akan menghasilkan file CSS final di `dist/output.css`.
+Menghasilkan file CSS final di `dist/output.css`.
 
-## Workflow Harian
-
-Kalau ingin melihat perubahan langsung di browser, jalankan dua terminal:
-
-1. Terminal pertama:
-   ```bash
-   npm run dev
-   ```
-2. Terminal kedua:
-   ```bash
-   npm run serve
-   ```
-3. Buka `http://localhost:3000`
+> **Catatan:** Server menggunakan mode SPA — semua route diarahkan ke `index.html`.  
+> Ini diperlukan agar URL bersih (mis. `/about`) bisa diakses langsung tanpa 404.
 
 ## Alur Kerja Aplikasi
 
 1. `index.html` memuat layout utama.
-2. `js/main.js` menjalankan aplikasi dan memasang komponen permanen.
-3. `js/router.js` memilih halaman berdasarkan hash URL.
-4. Folder `components/pages/` menyimpan halaman seperti `home`, `about`, dan `contact`.
-5. Folder `components/desktop/`, `components/mobile/`, dan `components/shared/` dipakai untuk komponen sesuai kebutuhan tampilan.
+2. `js/main.js` menjalankan aplikasi dan memasang komponen permanen (navbar, top-bar, bottom-bar, footer).
+3. `js/router.js` memilih halaman berdasarkan path URL (mis. `/about`) menggunakan History API.
+4. Navigasi antar halaman dilakukan lewat `history.pushState()` tanpa reload.
+5. Tombol **back/forward** browser tetap berfungsi berkat event `popstate`.
+6. Folder `components/pages/` menyimpan semua halaman (home, about, contact, groups, chat, profile, signup, search, notifications).
+7. Folder `components/desktop/` dan `components/mobile/` dipakai untuk komponen sesuai kebutuhan tampilan.
 
 ## Pola Pengembangan
 
@@ -144,7 +147,7 @@ Misalnya ingin menambah halaman `blog`:
 4. Tambahkan route baru ke map router
 5. Tambahkan link navigasi ke halaman tersebut
 
-Contoh route:
+Contoh route di `js/router.js`:
 
 ```js
 import { Blog } from '/components/pages/blog/blog.js';
@@ -156,6 +159,14 @@ const routes = {
   '/blog': Blog,
 };
 ```
+
+Contoh link navigasi:
+
+```html
+<a href="/blog" data-link>Blog</a>
+```
+
+`data-link` akan di-intercept oleh `main.js` yang memanggil `navigateTo()` dengan `history.pushState()`.
 
 ## Catatan Penting
 
