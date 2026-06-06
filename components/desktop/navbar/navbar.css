@@ -38,9 +38,10 @@
   box-shadow: var(--shadow-sm);
 }
 
-.navbar-logo__mark i {
-  font-size: 1.2rem;
-  line-height: 1;
+.navbar-logo__mark svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  display: block;
 }
 
 .navbar-nav,
