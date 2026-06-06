@@ -46,6 +46,9 @@ function socialIcon(type) {
 }
 
 export async function Signup() {
+  const res = await fetch('/data/signup.json');
+  const data = await res.json();
+
   const el = document.createElement('section');
   el.className = 'signup-page';
 
@@ -64,61 +67,34 @@ export async function Signup() {
 
       <div class="signup-panel">
         <div class="signup-copy">
-          <div class="signup-mark" aria-hidden="true">SN</div>
-          <h1>Create account</h1>
-          <p>Join StudNow and start learning with a calmer, cleaner desktop experience.</p>
+          <div class="signup-mark" aria-hidden="true">${data.copy.mark}</div>
+          <h1>${data.copy.title}</h1>
+          <p>${data.copy.description}</p>
         </div>
 
         <form class="signup-form">
-          ${field({
-            type: 'text',
-            name: 'name',
-            placeholder: 'Full name',
-            icon: '<span>◌</span>',
-          })}
-          ${field({
-            type: 'email',
-            name: 'email',
-            placeholder: 'Email',
-            icon: '<span>✉</span>',
-          })}
-          ${field({
-            type: 'password',
-            name: 'password',
-            placeholder: 'Password',
-            icon: '<span>◦</span>',
-          })}
-          ${field({
-            type: 'password',
-            name: 'confirm_password',
-            placeholder: 'Confirm password',
-            icon: '<span>◦</span>',
-          })}
+          ${data.fields.map(f => field(f)).join('')}
 
           <label class="signup-terms">
             <input type="checkbox" checked />
-            <span>I agree to the terms and privacy policy</span>
+            <span>${data.termsLabel}</span>
           </label>
 
-          <button class="signup-submit" type="submit">Create account</button>
+          <button class="signup-submit" type="submit">${data.submitText}</button>
 
           <div class="signup-divider"><span>or</span></div>
 
           <div class="signup-socials" aria-label="Alternative sign up methods">
-            <button type="button" class="signup-social" aria-label="Continue with Apple">
-              ${socialIcon('apple')}
-            </button>
-            <button type="button" class="signup-social" aria-label="Continue with Google">
-              ${socialIcon('google')}
-            </button>
-            <button type="button" class="signup-social" aria-label="Continue with Facebook">
-              ${socialIcon('facebook')}
-            </button>
+            ${data.socialButtons.map(type => `
+              <button type="button" class="signup-social" aria-label="Continue with ${type.charAt(0).toUpperCase() + type.slice(1)}">
+                ${socialIcon(type)}
+              </button>
+            `).join('')}
           </div>
 
           <p class="signup-footer">
-            Already have an account?
-            <a href="/login" data-link>Login</a>
+            ${data.footer.text}
+            <a href="${data.footer.linkHref}" data-link>${data.footer.linkLabel}</a>
           </p>
         </form>
       </div>

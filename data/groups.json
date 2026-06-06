@@ -1,0 +1,28 @@
+{
+  "header": {
+    "eyebrow": "Community",
+    "title": "Grup Belajar",
+    "description": "Kelompokkan diskusi berdasarkan mata pelajaran, topik, atau kelas supaya ruang belajar terasa lebih terarah.",
+    "actions": [
+      { "label": "Browse topics", "href": "/search", "variant": "secondary" },
+      { "label": "Create group", "href": "/signup", "variant": "primary" }
+    ]
+  },
+  "cards": [
+    {
+      "tag": "Science",
+      "title": "STEM Study Rooms",
+      "description": "Forum yang padat informasi untuk kelas-kelas teknis, dengan fokus pada materi dan latihan soal."
+    },
+    {
+      "tag": "Arts",
+      "title": "Humanities Circle",
+      "description": "Ruang diskusi untuk membaca, menyusun argumen, dan berbagi referensi dengan ritme yang santai."
+    },
+    {
+      "tag": "Live",
+      "title": "Open Study Sessions",
+      "description": "Grup aktif yang bisa dipakai untuk sesi belajar bersama, review tugas, atau persiapan ujian."
+    }
+  ]
+}

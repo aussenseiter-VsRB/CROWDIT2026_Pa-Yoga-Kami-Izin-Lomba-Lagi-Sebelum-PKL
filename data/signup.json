@@ -1,0 +1,44 @@
+{
+  "eyebrow": "Akun",
+  "title": "Buat Akun",
+  "description": "Halaman ini bisa dipakai nanti untuk proses pendaftaran pengguna baru.",
+  "copy": {
+    "mark": "SN",
+    "title": "Create account",
+    "description": "Join StudNow and start learning with a calmer, cleaner desktop experience."
+  },
+  "fields": [
+    {
+      "type": "text",
+      "name": "name",
+      "placeholder": "Full name",
+      "icon": "<span>◌</span>"
+    },
+    {
+      "type": "email",
+      "name": "email",
+      "placeholder": "Email",
+      "icon": "<span>✉</span>"
+    },
+    {
+      "type": "password",
+      "name": "password",
+      "placeholder": "Password",
+      "icon": "<span>◦</span>"
+    },
+    {
+      "type": "password",
+      "name": "confirm_password",
+      "placeholder": "Confirm password",
+      "icon": "<span>◦</span>"
+    }
+  ],
+  "termsLabel": "I agree to the terms and privacy policy",
+  "submitText": "Create account",
+  "socialButtons": ["apple", "google", "facebook"],
+  "footer": {
+    "text": "Already have an account?",
+    "linkLabel": "Login",
+    "linkHref": "/login"
+  }
+}
