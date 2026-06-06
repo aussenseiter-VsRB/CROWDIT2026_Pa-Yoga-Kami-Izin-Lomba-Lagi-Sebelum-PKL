@@ -1,0 +1,302 @@
+[
+  {
+    "course": {
+      "title": "Advanced Calculus III Midterm Prep",
+      "description": "Working through chapter 4 practice problems, focusing on double integrals and vector fields. Join if you need help with the homework!",
+      "status": "Online",
+      "category": "Mathematics"
+    },
+    "schedule": {
+      "day": "Senin, Rabu, Jumat",
+      "time": "10:00 - 11:30 WIB",
+      "startDate": "12 Mei 2025",
+      "endDate": "28 Juni 2025",
+      "meetingCount": "Pertemuan ke-8 dari 12"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Google Meet",
+      "link": "https://meet.google.com/abc-defg-hij",
+      "location": ""
+    },
+    "participants": {
+      "joined": 3,
+      "capacity": 6
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 3,
+      "postCount": 24
+    }
+  },
+  {
+    "course": {
+      "title": "Data Structures Algorithms",
+      "description": "Reviewing binary trees, graph traversals, and dynamic programming approaches for the upcoming coding interview mock sessions.",
+      "status": "Online",
+      "category": "Computer Science"
+    },
+    "schedule": {
+      "day": "Selasa, Kamis",
+      "time": "14:00 - 15:30 WIB",
+      "startDate": "5 Mei 2025",
+      "endDate": "20 Juni 2025",
+      "meetingCount": "Pertemuan ke-6 dari 10"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Zoom",
+      "link": "https://zoom.us/j/1234567890",
+      "location": ""
+    },
+    "participants": {
+      "joined": 12,
+      "capacity": 15
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 12,
+      "postCount": 56
+    }
+  },
+  {
+    "course": {
+      "title": "Intro to Modern Philosophy",
+      "description": "Discussion group for Kant's Critique of Pure Reason. Meeting resumes tomorrow at 10:00 AM EST. Read chapter 2 before joining.",
+      "status": "Offline",
+      "category": "Philosophy"
+    },
+    "schedule": {
+      "day": "Sabtu",
+      "time": "09:00 - 11:00 WIB",
+      "startDate": "3 Mei 2025",
+      "endDate": "TBA",
+      "meetingCount": "Pertemuan ke-4 dari 8"
+    },
+    "meeting": {
+      "type": "Offline",
+      "platform": "",
+      "link": "",
+      "location": "Gedung Fakultas Filsafat, Ruang 203, Kampus Universitas Indonesia"
+    },
+    "participants": {
+      "joined": 4,
+      "capacity": 8
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 4,
+      "postCount": 18
+    }
+  },
+  {
+    "course": {
+      "title": "Organic Chemistry Lab Prep",
+      "description": "Sharing pre-lab notes and discussing the safety protocols for the synthesis of aspirin experiment.",
+      "status": "Offline",
+      "category": "Science"
+    },
+    "schedule": {
+      "day": "Rabu",
+      "time": "13:00 - 15:00 WIB",
+      "startDate": "7 Mei 2025",
+      "endDate": "25 Juni 2025",
+      "meetingCount": "Pertemuan ke-5 dari 8"
+    },
+    "meeting": {
+      "type": "Offline",
+      "platform": "",
+      "link": "",
+      "location": "Lab Kimia Dasar, Gedung B Lantai 2, Kampus Universitas Indonesia"
+    },
+    "participants": {
+      "joined": 2,
+      "capacity": 4
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 2,
+      "postCount": 9
+    }
+  },
+  {
+    "course": {
+      "title": "Linear Algebra Problem Solving",
+      "description": "Weekly problem session: eigenvalues, diagonalization, and applications to differential equations.",
+      "status": "Online",
+      "category": "Mathematics"
+    },
+    "schedule": {
+      "day": "Senin",
+      "time": "16:00 - 17:30 WIB",
+      "startDate": "12 Mei 2025",
+      "endDate": "30 Juni 2025",
+      "meetingCount": "Pertemuan ke-4 dari 8"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Google Meet",
+      "link": "https://meet.google.com/xyz-uvw-rst",
+      "location": ""
+    },
+    "participants": {
+      "joined": 7,
+      "capacity": 10
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 7,
+      "postCount": 32
+    }
+  },
+  {
+    "course": {
+      "title": "Intro to Machine Learning",
+      "description": "Beginner-friendly walkthroughs of supervised learning algorithms and hands-on mini-projects.",
+      "status": "Online",
+      "category": "Computer Science"
+    },
+    "schedule": {
+      "day": "Selasa, Kamis",
+      "time": "19:00 - 20:30 WIB",
+      "startDate": "1 Mei 2025",
+      "endDate": "15 Juni 2025",
+      "meetingCount": "Pertemuan ke-10 dari 14"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Zoom",
+      "link": "https://zoom.us/j/9876543210",
+      "location": ""
+    },
+    "participants": {
+      "joined": 20,
+      "capacity": 30
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 20,
+      "postCount": 87
+    }
+  },
+  {
+    "course": {
+      "title": "Shakespeare Reading Circle",
+      "description": "Casual group reading and discussion of selected plays. No prior experience required.",
+      "status": "Offline",
+      "category": "Literature"
+    },
+    "schedule": {
+      "day": "Minggu",
+      "time": "10:00 - 12:00 WIB",
+      "startDate": "4 Mei 2025",
+      "endDate": "TBA",
+      "meetingCount": "Pertemuan ke-3 dari 6"
+    },
+    "meeting": {
+      "type": "Offline",
+      "platform": "",
+      "link": "",
+      "location": "Perpustakaan Pusat, Ruang Diskusi 1, Kampus Universitas Indonesia"
+    },
+    "participants": {
+      "joined": 5,
+      "capacity": 12
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 5,
+      "postCount": 14
+    }
+  },
+  {
+    "course": {
+      "title": "Physics: Classical Mechanics",
+      "description": "Problem solving for Newtonian mechanics and rotational dynamics. Great prep for exams.",
+      "status": "Online",
+      "category": "Science"
+    },
+    "schedule": {
+      "day": "Senin, Rabu",
+      "time": "08:00 - 09:30 WIB",
+      "startDate": "5 Mei 2025",
+      "endDate": "25 Juni 2025",
+      "meetingCount": "Pertemuan ke-7 dari 12"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Google Meet",
+      "link": "https://meet.google.com/def-ghij-klm",
+      "location": ""
+    },
+    "participants": {
+      "joined": 9,
+      "capacity": 14
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 9,
+      "postCount": 41
+    }
+  },
+  {
+    "course": {
+      "title": "Statistics for Social Sciences",
+      "description": "Discussing hypothesis testing, regressions, and interpreting real survey datasets.",
+      "status": "Offline",
+      "category": "Social Sciences"
+    },
+    "schedule": {
+      "day": "Kamis",
+      "time": "15:00 - 16:30 WIB",
+      "startDate": "8 Mei 2025",
+      "endDate": "26 Juni 2025",
+      "meetingCount": "Pertemuan ke-3 dari 8"
+    },
+    "meeting": {
+      "type": "Offline",
+      "platform": "",
+      "link": "",
+      "location": "Gedung FISIP, Ruang 305, Kampus Universitas Indonesia"
+    },
+    "participants": {
+      "joined": 6,
+      "capacity": 8
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 6,
+      "postCount": 22
+    }
+  },
+  {
+    "course": {
+      "title": "Creative Writing Workshop",
+      "description": "Peer feedback on short stories and poems. Share a piece and get constructive notes.",
+      "status": "Online",
+      "category": "Literature"
+    },
+    "schedule": {
+      "day": "Jumat",
+      "time": "20:00 - 21:30 WIB",
+      "startDate": "2 Mei 2025",
+      "endDate": "TBA",
+      "meetingCount": "Pertemuan ke-6 dari 10"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Zoom",
+      "link": "https://zoom.us/j/5555555555",
+      "location": ""
+    },
+    "participants": {
+      "joined": 11,
+      "capacity": 11
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 11,
+      "postCount": 63
+    }
+  }
+]

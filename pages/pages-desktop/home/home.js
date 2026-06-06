@@ -14,10 +14,10 @@ function peopleIcon() {
   `;
 }
 
-function ForumCard(forum) {
+function ForumCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
 
-  const actionHref = forum.action === 'Details' ? '/detail' : forum.action === 'Open' ? '/open' : '/groups';
+  const actionHref = forum.action === 'Details' ? `/detail?index=${index}` : forum.action === 'Open' ? `/open?index=${index}` : '/groups';
 
   return `
     <article class="home-forum-card">
@@ -94,7 +94,7 @@ export async function Home() {
       </section>
 
       <div class="home-forum-list">
-        ${data.forums.map(ForumCard).join('')}
+        ${data.forums.map((forum, index) => ForumCard(forum, index)).join('')}
       </div>
     </div>
   `;
