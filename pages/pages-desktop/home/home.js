@@ -17,6 +17,8 @@ function peopleIcon() {
 function ForumCard(forum) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
 
+  const actionHref = forum.action === 'Details' ? '/detail' : forum.action === 'Open' ? '/open' : '/groups';
+
   return `
     <article class="home-forum-card">
       <div class="home-forum-card__header">
@@ -37,7 +39,7 @@ function ForumCard(forum) {
           ${peopleIcon()}
           ${forum.joined}
         </span>
-        <a class="home-action ${forum.action === 'Open' ? 'is-primary' : 'is-secondary'}" href="/groups" data-link>
+        <a class="home-action ${forum.action === 'Open' ? 'is-primary' : 'is-secondary'}" href="${actionHref}" data-link>
           ${forum.action}
         </a>
       </div>

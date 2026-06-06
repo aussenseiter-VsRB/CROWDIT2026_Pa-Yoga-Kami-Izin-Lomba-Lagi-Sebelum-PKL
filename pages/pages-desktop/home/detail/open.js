@@ -5,17 +5,17 @@ if (!document.querySelector('link[href="/pages/pages-desktop/home/home.css"]')) 
   document.head.appendChild(link);
 }
 
-export async function Detail() {
+export async function Open() {
   const el = document.createElement('section');
   el.className = 'home-page container section';
 
   el.innerHTML = `
     <div class="home-page__inner">
-      <section class="home-hero" aria-label="Forum detail">
+      <section class="home-hero" aria-label="Open forum">
         <div class="home-hero__copy">
-          <p class="home-hero__eyebrow">Forum Detail</p>
-          <h1 class="home-hero__title">Rincian Forum</h1>
-          <p class="home-hero__text">Lihat informasi lebih lanjut tentang forum dan ikuti diskusi di sini.</p>
+          <p class="home-hero__eyebrow">Forum Open</p>
+          <h1 class="home-hero__title">Buka Forum</h1>
+          <p class="home-hero__text">Masuk ke diskusi dan lihat konten forum secara langsung.</p>
 
           <div class="home-hero__actions">
             <a class="home-button home-button--secondary" href="/" data-link>Kembali ke Home</a>
