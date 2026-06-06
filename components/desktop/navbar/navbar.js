@@ -12,7 +12,7 @@ export function Navbar() {
   el.innerHTML = `
     <div class="container navbar__inner">
       <a class="navbar-logo" href="/" data-link aria-label="StudNow home">
-        <span class="navbar-logo__mark">S</span>
+        <span class="navbar-logo__mark"><i class="bi bi-mortarboard"></i></span>
         <span class="navbar-logo__text">StudNow</span>
       </a>
 

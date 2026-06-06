@@ -38,6 +38,11 @@
   box-shadow: var(--shadow-sm);
 }
 
+.navbar-logo__mark i {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
 .navbar-nav,
 .navbar-actions {
   display: inline-flex;
