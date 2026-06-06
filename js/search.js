@@ -98,7 +98,8 @@ class SearchEngine {
     const q = query.trim().toLowerCase();
     if (!q) return [];
 
-    const qTerms = this.tokenize(q);
+    const qTerms = this.tokenize(q).filter(t => t.length >= 2);
+    if (qTerms.length === 0) return [];
     const qNgrams = new Set();
     qTerms.forEach(t => this.ngrams(t).forEach(n => qNgrams.add(n)));
 
@@ -107,20 +108,27 @@ class SearchEngine {
     const scored = this.index.map(doc => {
       let score = 0;
       let directMatch = false;
+      const qtMatched = new Set();
       const { raw, terms, ngrams } = doc._search;
 
       const titleLower = doc.title.toLowerCase();
       const descLower = doc.description.toLowerCase();
 
       qTerms.forEach(qt => {
-        if (titleLower === qt) { score += 100; directMatch = true; }
-        else if (titleLower.startsWith(qt) || titleLower.includes(` ${qt}`)) { score += 80; directMatch = true; }
-        else if (titleLower.includes(qt)) { score += 60; directMatch = true; }
+        let hit = false;
+        if (titleLower === qt) { score += 100; hit = true; }
+        else if (titleLower.startsWith(qt) || titleLower.includes(` ${qt}`)) { score += 80; hit = true; }
+        else if (titleLower.includes(qt)) { score += 60; hit = true; }
 
-        if (descLower.includes(qt)) { score += 30; directMatch = true; }
+        if (descLower.includes(qt)) { score += 30; hit = true; }
 
-        if (doc.tags.some(t => t.toLowerCase().includes(qt))) { score += 40; directMatch = true; }
-        if (doc.category.toLowerCase().includes(qt)) { score += 35; directMatch = true; }
+        if (doc.tags.some(t => t.toLowerCase().includes(qt))) { score += 40; hit = true; }
+        if (doc.category.toLowerCase().includes(qt)) { score += 35; hit = true; }
+
+        if (hit) {
+          directMatch = true;
+          qtMatched.add(qt);
+        }
       });
 
       if (directMatch && qTerms.every(qt => terms.some(t => t.startsWith(qt) || t.includes(qt)))) {
@@ -134,6 +142,9 @@ class SearchEngine {
           score += (overlap / maxLen) * 25;
         }
       }
+
+      const coverage = qtMatched.size / qTerms.length;
+      score = score * coverage;
 
       return { ...doc, score };
     });

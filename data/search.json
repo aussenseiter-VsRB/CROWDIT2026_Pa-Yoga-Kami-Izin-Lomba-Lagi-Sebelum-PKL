@@ -4,5 +4,10 @@
     "title": "Cari Konten",
     "description": "Cari thread, kategori, dan materi belajar dengan alur yang sederhana dan fokus ke hasil paling relevan."
   },
-  "placeholder": "Cari forum, grup, kursus..."
+  "placeholder": "Cari forum, grup, kursus...",
+  "filters": ["Semua", "Forum", "Grup", "Kursus"],
+  "trendingLabel": "Sedang tren",
+  "suggestedLabel": "Disarankan untukmu",
+  "emptyTitle": "Tidak ditemukan hasil",
+  "emptySub": "Coba kata kunci atau filter yang berbeda"
 }
