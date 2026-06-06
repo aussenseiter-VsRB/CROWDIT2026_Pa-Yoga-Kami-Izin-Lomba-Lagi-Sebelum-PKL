@@ -1,0 +1,24 @@
+{
+  "header": {
+    "eyebrow": "Updates",
+    "title": "Notifikasi",
+    "description": "Rangkuman update, balasan, mention, dan aktivitas terbaru yang tampil rapi dan tidak berisik."
+  },
+  "cards": [
+    {
+      "tag": "New",
+      "title": "Balasan baru",
+      "description": "Setiap update dipresentasikan dengan hierarchy yang jelas supaya tidak terasa menumpuk."
+    },
+    {
+      "tag": "Mentions",
+      "title": "Mention penting",
+      "description": "Sorot interaksi yang membutuhkan perhatian langsung tanpa mengganggu fokus utama halaman."
+    },
+    {
+      "tag": "Digest",
+      "title": "Ringkasan aktivitas",
+      "description": "Nanti bisa diperluas menjadi notifikasi harian atau mingguan untuk memberi konteks yang lebih lengkap."
+    }
+  ]
+}

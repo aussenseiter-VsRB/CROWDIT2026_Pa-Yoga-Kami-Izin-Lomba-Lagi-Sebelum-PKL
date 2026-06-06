@@ -1,25 +1,28 @@
 import { FormField } from '/components/desktop/form-field/form-field.js';
 
 export async function Contact() {
+  const res = await fetch('/data/contact.json');
+  const data = await res.json();
+
   const el = document.createElement('section');
   el.className = 'container section';
 
   el.innerHTML = `
-    <h1>Kontak</h1>
+    <h1>${data.header.title}</h1>
     <p style="color: var(--muted); max-width: 60ch; margin-bottom: var(--space-md);">
-      Kirim pesan kalau kamu ingin bertanya atau memberi masukan untuk forum.
+      ${data.header.description}
     </p>
     <form class="contact-form"></form>
   `;
 
   const form = el.querySelector('form');
-  form.appendChild(FormField({ label: 'Nama', name: 'name' }));
-  form.appendChild(FormField({ label: 'Email', name: 'email', type: 'email' }));
-  form.appendChild(FormField({ label: 'Pesan', name: 'message', type: 'textarea' }));
+  data.formFields.forEach((field) => {
+    form.appendChild(FormField(field));
+  });
 
   const button = document.createElement('button');
   button.type = 'submit';
-  button.textContent = 'Kirim';
+  button.textContent = data.submitText;
   form.appendChild(button);
 
   return el;

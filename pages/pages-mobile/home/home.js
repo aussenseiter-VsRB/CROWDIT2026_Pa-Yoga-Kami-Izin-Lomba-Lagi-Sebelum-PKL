@@ -5,43 +5,6 @@ if (!document.querySelector('link[href="/pages/pages-mobile/home/home.css"]')) {
   document.head.appendChild(link);
 }
 
-const topics = ['All Topics', 'Computer Science', 'Mathematics', 'Philosophy'];
-
-const forums = [
-  {
-    title: 'Advanced Calculus III Midterm Prep',
-    description:
-      'Working through chapter 4 practice problems, focusing on double integrals and vector fields. Join if you need help with the homework!',
-    joined: '3/6 Joined',
-    status: 'Online',
-    action: 'Open',
-  },
-  {
-    title: 'Data Structures Algorithms',
-    description:
-      'Reviewing binary trees, graph traversals, and dynamic programming approaches for the upcoming coding interview mock sessions.',
-    joined: '12/15 Joined',
-    status: 'Online',
-    action: 'Open',
-  },
-  {
-    title: 'Intro to Modern Philosophy',
-    description:
-      "Discussion group for Kant's Critique of Pure Reason. Meeting resumes tomorrow at 10:00 AM EST. Read chapter 2 before joining.",
-    joined: '4/8 Joined',
-    status: 'Offline',
-    action: 'Details',
-  },
-  {
-    title: 'Organic Chemistry Lab Prep',
-    description:
-      'Sharing pre-lab notes and discussing the safety protocols for the synthesis of aspirin experiment.',
-    joined: '2/4 Joined',
-    status: 'Offline',
-    action: 'Details',
-  },
-];
-
 function peopleIcon() {
   return `
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -78,18 +41,21 @@ function ForumCard(forum) {
 }
 
 export async function Home() {
+  const res = await fetch('/data/home.json');
+  const data = await res.json();
+
   const el = document.createElement('section');
   el.className = 'home-page';
 
   el.innerHTML = `
     <div class="home-page__inner">
       <header class="home-hero">
-        <h1>Explore Forums</h1>
-        <p>Find a study group, join the discussion, and excel together.</p>
+        <h1>${data.mobile.title}</h1>
+        <p>${data.mobile.description}</p>
       </header>
 
       <nav class="home-topics" aria-label="Forum topics">
-        ${topics.map((topic, index) => `
+        ${data.topics.map((topic, index) => `
           <button class="home-topic ${index === 0 ? 'is-active' : ''}" type="button">
             ${topic}
           </button>
@@ -97,7 +63,7 @@ export async function Home() {
       </nav>
 
       <div class="home-forum-list">
-        ${forums.map(ForumCard).join('')}
+        ${data.mobile.forums.map(ForumCard).join('')}
       </div>
     </div>
   `;

@@ -1,0 +1,28 @@
+{
+  "header": {
+    "eyebrow": "Conversation",
+    "title": "Chat",
+    "description": "Area diskusi cepat untuk koordinasi, tanya jawab singkat, dan update real-time antar anggota.",
+    "actions": [
+      { "label": "Start thread", "href": "/groups", "variant": "secondary" },
+      { "label": "Open inbox", "href": "/notifications", "variant": "primary" }
+    ]
+  },
+  "cards": [
+    {
+      "tag": "Online",
+      "title": "Balasan cepat",
+      "description": "Percakapan dirancang supaya pertanyaan singkat bisa dijawab tanpa harus pindah konteks terlalu jauh."
+    },
+    {
+      "tag": "Pinned",
+      "title": "Topik penting",
+      "description": "Thread yang perlu perhatian khusus dapat diposisikan lebih tinggi dengan tampilan yang tetap tenang dan rapi."
+    },
+    {
+      "tag": "Focus",
+      "title": "Tanpa distraksi",
+      "description": "Komponen dan spacing dibuat lapang agar chat tetap mudah dibaca di layar desktop yang lebar."
+    }
+  ]
+}

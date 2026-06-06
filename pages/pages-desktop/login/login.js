@@ -62,6 +62,9 @@ function socialIcon(type) {
 }
 
 export async function Login() {
+  const res = await fetch('/data/login.json');
+  const data = await res.json();
+
   const el = document.createElement('section');
   el.className = 'login-page';
 
@@ -73,61 +76,37 @@ export async function Login() {
     <div class="login-shell ${transitionClass} ${directionClass}">
       <div class="login-panel">
         <div class="login-copy">
-          <div class="login-mark" aria-hidden="true">SN</div>
-          <h1>Welcome back</h1>
-          <p>Sign in with the email tied to your StudNow account.</p>
+          <div class="login-mark" aria-hidden="true">${data.copy.mark}</div>
+          <h1>${data.copy.title}</h1>
+          <p>${data.copy.description}</p>
         </div>
 
         <form class="login-form" novalidate>
-          ${field({
-            type: 'email',
-            name: 'email',
-            placeholder: 'Email',
-            icon: '<span>✉</span>',
-            autocomplete: 'email',
-            inputMode: 'email',
-            autocapitalize: 'none',
-            spellcheck: false,
-          })}
-          ${field({
-            type: 'password',
-            name: 'password',
-            placeholder: 'Password',
-            icon: '<span>◦</span>',
-            autocomplete: 'current-password',
-            spellcheck: false,
-            minLength: 8,
-            hint: 'Use at least 8 characters for a smoother sign-in.',
-            toggleable: true,
-          })}
+          ${data.fields.map(f => field(f)).join('')}
 
           <div class="login-meta">
             <label class="login-remember">
               <input type="checkbox" checked />
-              <span>Remember for 30 days</span>
+              <span>${data.meta.rememberLabel}</span>
             </label>
-            <a href="/contact" data-link>Forgot password?</a>
+            <a href="${data.meta.forgotHref}" data-link>${data.meta.forgotLabel}</a>
           </div>
 
-          <button class="login-submit" type="submit" disabled>Login</button>
+          <button class="login-submit" type="submit" disabled>${data.submitText}</button>
 
           <div class="login-divider"><span>or</span></div>
 
           <div class="login-socials" aria-label="Alternative login methods">
-            <button type="button" class="login-social" aria-label="Continue with Apple">
-              ${socialIcon('apple')}
-            </button>
-            <button type="button" class="login-social" aria-label="Continue with Google">
-              ${socialIcon('google')}
-            </button>
-            <button type="button" class="login-social" aria-label="Continue with Facebook">
-              ${socialIcon('facebook')}
-            </button>
+            ${data.socialButtons.map(type => `
+              <button type="button" class="login-social" aria-label="Continue with ${type.charAt(0).toUpperCase() + type.slice(1)}">
+                ${socialIcon(type)}
+              </button>
+            `).join('')}
           </div>
 
           <p class="login-footer">
-            New to StudNow?
-            <a href="/signup" data-link>Create an account</a>
+            ${data.footer.text}
+            <a href="${data.footer.linkHref}" data-link>${data.footer.linkLabel}</a>
           </p>
         </form>
       </div>

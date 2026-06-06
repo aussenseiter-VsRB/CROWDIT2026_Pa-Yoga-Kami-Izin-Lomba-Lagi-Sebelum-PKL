@@ -1,0 +1,24 @@
+{
+  "header": {
+    "eyebrow": "Account",
+    "title": "Profil",
+    "description": "Ringkasan akun, badge, dan kontribusi pengguna dalam tampilan yang bersih dan mudah dipindai."
+  },
+  "cards": [
+    {
+      "tag": "Stats",
+      "title": "Aktivitas mingguan",
+      "description": "Pantau posting, jawaban, dan interaksi terbaru tanpa harus keluar dari konteks profil."
+    },
+    {
+      "tag": "Badge",
+      "title": "Kontribusi komunitas",
+      "description": "Sorot pencapaian dan keahlian supaya profil terasa lebih personal dan kredibel."
+    },
+    {
+      "tag": "Settings",
+      "title": "Preferensi akun",
+      "description": "Akses pengaturan utama dengan hierarchy yang tenang, konsisten, dan tidak terlalu ramai."
+    }
+  ]
+}

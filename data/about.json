@@ -1,0 +1,24 @@
+{
+  "header": {
+    "eyebrow": "About",
+    "title": "Tentang Forum",
+    "description": "Ruang belajar yang dirancang supaya diskusi terasa rapi, hangat, dan mudah diikuti tanpa hiruk-pikuk visual."
+  },
+  "cards": [
+    {
+      "tag": "Focus",
+      "title": "Topik yang jelas",
+      "description": "Setiap ruang diskusi dibuat untuk satu tujuan agar orang bisa masuk, paham konteks, lalu langsung berkontribusi."
+    },
+    {
+      "tag": "Support",
+      "title": "Komunitas saling bantu",
+      "description": "Desain dan alur halaman mengutamakan kolaborasi, bukan sekadar menampilkan informasi sebanyak mungkin."
+    },
+    {
+      "tag": "Flow",
+      "title": "Sederhana untuk dipindai",
+      "description": "Hierarchy yang bersih membantu pengguna melihat status, aksi, dan isi penting dalam satu kali lihat."
+    }
+  ]
+}

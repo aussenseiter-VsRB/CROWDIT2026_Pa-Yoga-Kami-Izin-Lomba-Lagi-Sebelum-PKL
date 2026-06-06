@@ -2,6 +2,9 @@ import { PageHeader } from '/components/desktop/page-header/page-header.js';
 import { Card } from '/components/desktop/card/card.js';
 
 export async function About() {
+  const res = await fetch('/data/about.json');
+  const data = await res.json();
+
   const el = document.createElement('section');
   el.className = 'container section';
 
@@ -13,29 +16,13 @@ export async function About() {
   `;
 
   el.querySelector('.desktop-page__header').appendChild(
-    PageHeader({
-      eyebrow: 'About',
-      title: 'Tentang Forum',
-      description: 'Ruang belajar yang dirancang supaya diskusi terasa rapi, hangat, dan mudah diikuti tanpa hiruk-pikuk visual.',
-    }),
+    PageHeader(data.header),
   );
 
   const grid = el.querySelector('.desktop-page__grid');
-  grid.appendChild(Card({
-    tag: 'Focus',
-    title: 'Topik yang jelas',
-    description: 'Setiap ruang diskusi dibuat untuk satu tujuan agar orang bisa masuk, paham konteks, lalu langsung berkontribusi.',
-  }));
-  grid.appendChild(Card({
-    tag: 'Support',
-    title: 'Komunitas saling bantu',
-    description: 'Desain dan alur halaman mengutamakan kolaborasi, bukan sekadar menampilkan informasi sebanyak mungkin.',
-  }));
-  grid.appendChild(Card({
-    tag: 'Flow',
-    title: 'Sederhana untuk dipindai',
-    description: 'Hierarchy yang bersih membantu pengguna melihat status, aksi, dan isi penting dalam satu kali lihat.',
-  }));
+  data.cards.forEach((card) => {
+    grid.appendChild(Card(card));
+  });
 
   return el;
 }

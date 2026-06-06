@@ -1,0 +1,42 @@
+{
+  "copy": {
+    "mark": "SN",
+    "title": "Welcome back",
+    "description": "Sign in with the email tied to your StudNow account."
+  },
+  "fields": [
+    {
+      "type": "email",
+      "name": "email",
+      "placeholder": "Email",
+      "icon": "<span>✉</span>",
+      "autocomplete": "email",
+      "inputMode": "email",
+      "autocapitalize": "none",
+      "spellcheck": false
+    },
+    {
+      "type": "password",
+      "name": "password",
+      "placeholder": "Password",
+      "icon": "<span>◦</span>",
+      "autocomplete": "current-password",
+      "spellcheck": false,
+      "minLength": 8,
+      "hint": "Use at least 8 characters for a smoother sign-in.",
+      "toggleable": true
+    }
+  ],
+  "meta": {
+    "rememberLabel": "Remember for 30 days",
+    "forgotLabel": "Forgot password?",
+    "forgotHref": "/contact"
+  },
+  "submitText": "Login",
+  "socialButtons": ["apple", "google", "facebook"],
+  "footer": {
+    "text": "New to StudNow?",
+    "linkLabel": "Create an account",
+    "linkHref": "/signup"
+  }
+}

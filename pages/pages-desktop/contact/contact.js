@@ -3,6 +3,9 @@ import { FormField } from '/components/desktop/form-field/form-field.js';
 import { Card } from '/components/desktop/card/card.js';
 
 export async function Contact() {
+  const res = await fetch('/data/contact.json');
+  const data = await res.json();
+
   const el = document.createElement('section');
   el.className = 'container section';
 
@@ -17,19 +20,11 @@ export async function Contact() {
   `;
 
   el.querySelector('.desktop-page__header').appendChild(
-    PageHeader({
-      eyebrow: 'Contact',
-      title: 'Kontak',
-      description: 'Kirim pesan kalau kamu ingin bertanya, memberi masukan, atau mengusulkan fitur baru untuk forum.',
-    }),
+    PageHeader(data.header),
   );
 
   const support = el.querySelector('.desktop-page__support');
-  support.appendChild(Card({
-    tag: 'Response',
-    title: 'Respon yang rapi',
-    description: 'Form di desktop dibuat lega, fokus, dan mudah dipindai agar pesan masuk terasa profesional.',
-  }));
+  support.appendChild(Card(data.supportCard));
 
   const panel = el.querySelector('.desktop-page__panel');
   panel.innerHTML = `
@@ -37,13 +32,13 @@ export async function Contact() {
   `;
 
   const form = panel.querySelector('form');
-  form.appendChild(FormField({ label: 'Nama', name: 'name' }));
-  form.appendChild(FormField({ label: 'Email', name: 'email', type: 'email' }));
-  form.appendChild(FormField({ label: 'Pesan', name: 'message', type: 'textarea' }));
+  data.formFields.forEach((field) => {
+    form.appendChild(FormField(field));
+  });
 
   const button = document.createElement('button');
   button.type = 'submit';
-  button.textContent = 'Kirim pesan';
+  button.textContent = data.submitText;
   form.appendChild(button);
 
   return el;

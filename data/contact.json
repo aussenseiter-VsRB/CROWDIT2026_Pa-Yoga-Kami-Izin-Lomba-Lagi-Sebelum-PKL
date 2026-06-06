@@ -1,0 +1,18 @@
+{
+  "header": {
+    "eyebrow": "Contact",
+    "title": "Kontak",
+    "description": "Kirim pesan kalau kamu ingin bertanya, memberi masukan, atau mengusulkan fitur baru untuk forum."
+  },
+  "supportCard": {
+    "tag": "Response",
+    "title": "Respon yang rapi",
+    "description": "Form di desktop dibuat lega, fokus, dan mudah dipindai agar pesan masuk terasa profesional."
+  },
+  "formFields": [
+    { "label": "Nama", "name": "name", "type": "text" },
+    { "label": "Email", "name": "email", "type": "email" },
+    { "label": "Pesan", "name": "message", "type": "textarea" }
+  ],
+  "submitText": "Kirim pesan"
+}
