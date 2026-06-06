@@ -192,6 +192,9 @@
   .grid {
     display: grid;
   }
+  .hidden {
+    display: none;
+  }
   .resize {
     resize: both;
   }

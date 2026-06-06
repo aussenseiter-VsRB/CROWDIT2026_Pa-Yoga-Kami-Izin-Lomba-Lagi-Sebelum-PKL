@@ -1,3 +1,5 @@
+import { isAuthenticated, getSession } from '/js/auth.js';
+
 export function Navbar() {
   if (!document.querySelector('link[href="/components/desktop/navbar/navbar.css"]')) {
     const link = document.createElement('link');
@@ -30,12 +32,28 @@ export function Navbar() {
 
       <div class="navbar-actions">
         <a class="navbar-action" href="/search" data-link>Search</a>
-        <a class="navbar-action navbar-action--primary" href="/login" data-link>Login</a>
+        <a class="navbar-action navbar-action--primary navbar-action--auth" href="/login" data-link>Login</a>
       </div>
     </div>
   `;
 
   const isAuthRoute = () => ['/login', '/signup'].includes(window.location.pathname.replace(/\/$/, '') || '/');
+
+  function syncAuth() {
+    const authEl = el.querySelector('.navbar-action--auth');
+    if (!authEl) return;
+
+    if (isAuthenticated()) {
+      const session = getSession();
+      authEl.textContent = session.name;
+      authEl.href = '/profile';
+      authEl.classList.remove('navbar-action--primary');
+    } else {
+      authEl.textContent = 'Login';
+      authEl.href = '/login';
+      authEl.classList.add('navbar-action--primary');
+    }
+  }
 
   function setActive() {
     const path = window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/$/, '');
@@ -43,8 +61,10 @@ export function Navbar() {
       a.classList.toggle('active', a.getAttribute('href') === path);
     });
     el.style.display = isAuthRoute() ? 'none' : '';
+    syncAuth();
   }
 
+  syncAuth();
   setActive();
   window.addEventListener('route-change', setActive);
 

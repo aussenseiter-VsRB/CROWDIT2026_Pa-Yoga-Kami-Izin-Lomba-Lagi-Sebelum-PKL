@@ -64,11 +64,14 @@ export function BottomBar() {
     </div>
   `;
 
+  const isAuthRoute = () => ['/login', '/signup'].includes(window.location.pathname.replace(/\/$/, '') || '/');
+
   const setActive = () => {
     const path = window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/$/, '');
     el.querySelectorAll('.bottom-bar__item').forEach((item) => {
       item.classList.toggle('is-active', item.getAttribute('href') === path);
     });
+    el.style.display = isAuthRoute() ? 'none' : '';
   };
 
   setActive();

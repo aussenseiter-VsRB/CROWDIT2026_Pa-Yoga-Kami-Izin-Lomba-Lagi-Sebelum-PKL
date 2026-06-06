@@ -1,3 +1,5 @@
+import { isAuthenticated, getSession } from '/js/auth.js';
+
 if (!document.querySelector('link[href="/components/mobile/top-bar/top-bar.css"]')) {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
@@ -21,6 +23,23 @@ export function TopBar() {
       <a class="top-bar__create" href="/signup" data-link>Create</a>
     </div>
   `;
+
+  function syncAuth() {
+    const createEl = el.querySelector('.top-bar__create');
+    if (!createEl) return;
+
+    if (isAuthenticated()) {
+      const session = getSession();
+      createEl.textContent = session.name;
+      createEl.href = '/profile';
+    } else {
+      createEl.textContent = 'Create';
+      createEl.href = '/signup';
+    }
+  }
+
+  syncAuth();
+  window.addEventListener('route-change', syncAuth);
 
   return el;
 }

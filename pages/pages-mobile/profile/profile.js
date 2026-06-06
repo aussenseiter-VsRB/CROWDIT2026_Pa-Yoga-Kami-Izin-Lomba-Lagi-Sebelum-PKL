@@ -5,7 +5,17 @@ if (!document.querySelector('link[href="/pages/pages-mobile/mobile-page.css"]'))
   document.head.appendChild(link);
 }
 
+import { getSession, isAuthenticated, logout, navigateAfterAuth } from '/js/auth.js';
+
 export async function Profile() {
+  if (!isAuthenticated()) {
+    navigateAfterAuth('/login');
+    return document.createElement('section');
+  }
+
+  const session = getSession();
+  const initial = session.name.charAt(0).toUpperCase();
+
   const res = await fetch('/data/profile.json');
   const data = await res.json();
 
@@ -19,10 +29,10 @@ export async function Profile() {
         <p>${data.header.description}</p>
       </header>
       <div class="mobile-profile-strip">
-        <div class="mobile-avatar">SN</div>
+        <div class="mobile-avatar">${initial}</div>
         <div>
-          <strong>StudNow Learner</strong>
-          <span>12 joined groups · 8 saved threads</span>
+          <strong>${session.name}</strong>
+          <span>${session.email}</span>
         </div>
       </div>
       <div class="mobile-list">
@@ -34,7 +44,14 @@ export async function Profile() {
           </article>
         `).join('')}
       </div>
+      <button class="mobile-submit" type="button" style="margin-top:1rem">Logout</button>
     </div>
   `;
+
+  el.querySelector('.mobile-submit').addEventListener('click', () => {
+    logout();
+    navigateAfterAuth('/');
+  });
+
   return el;
 }

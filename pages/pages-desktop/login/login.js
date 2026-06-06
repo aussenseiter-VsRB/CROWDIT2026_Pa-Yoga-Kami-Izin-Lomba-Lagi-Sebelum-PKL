@@ -5,6 +5,8 @@ if (!document.querySelector('link[href="/pages/pages-desktop/login/login.css"]')
   document.head.appendChild(link);
 }
 
+import { initUsers, login, navigateAfterAuth } from '/js/auth.js';
+
 function field({ type, name, placeholder, icon, autocomplete, inputMode, autocapitalize, spellcheck, hint, toggleable = false, minLength }) {
   const inputId = `login-${name}`;
   const fieldClass = toggleable ? 'login-field login-field--toggleable' : 'login-field';
@@ -65,6 +67,8 @@ export async function Login() {
   const res = await fetch('/data/login.json');
   const data = await res.json();
 
+  await initUsers();
+
   const el = document.createElement('section');
   el.className = 'login-page';
 
@@ -82,6 +86,7 @@ export async function Login() {
         </div>
 
         <form class="login-form" novalidate>
+          <div class="login-error" aria-live="polite" hidden></div>
           ${data.fields.map(f => field(f)).join('')}
 
           <div class="login-meta">
@@ -125,6 +130,7 @@ export async function Login() {
   const emailInput = el.querySelector('input[name="email"]');
   const passwordInput = el.querySelector('input[name="password"]');
   const passwordToggle = el.querySelector('.login-field__toggle');
+  const errorEl = el.querySelector('.login-error');
 
   const syncSubmitState = () => {
     const isReady = emailInput.validity.valid && passwordInput.validity.valid;
@@ -149,12 +155,22 @@ export async function Login() {
       return;
     }
 
+    const result = login(emailInput.value, passwordInput.value);
+
+    if (!result.success) {
+      errorEl.textContent = result.error;
+      errorEl.hidden = false;
+      submit.disabled = false;
+      submit.textContent = data.submitText;
+      return;
+    }
+
+    errorEl.hidden = true;
     submit.disabled = true;
     submit.textContent = 'Signing in...';
 
     window.setTimeout(() => {
-      window.history.pushState(null, '', '/profile');
-      window.dispatchEvent(new PopStateEvent('popstate'));
+      navigateAfterAuth('/profile');
     }, 180);
   });
 
