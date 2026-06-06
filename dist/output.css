@@ -192,6 +192,9 @@
   .grid {
     display: grid;
   }
+  .resize {
+    resize: both;
+  }
   .bg-white\/70 {
     background-color: color-mix(in srgb, #fff 70%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
