@@ -1,25 +1,25 @@
-.home-page {
+.m-home-page {
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--space-xl) var(--space-md);
 }
 
-.home-hero {
+.m-home-hero {
   margin-bottom: var(--space-md);
 }
 
-.home-hero h1 {
+.m-home-hero h1 {
   margin-bottom: var(--space-xs);
 }
 
-.home-hero p {
+.m-home-hero p {
   max-width: 21rem;
   margin: 0;
   color: var(--muted);
 }
 
-.home-topics {
+.m-home-topics {
   display: flex;
   gap: 0.6rem;
   margin: 0 0 var(--space-md);
@@ -28,11 +28,11 @@
   scrollbar-width: none;
 }
 
-.home-topics::-webkit-scrollbar {
+.m-home-topics::-webkit-scrollbar {
   display: none;
 }
 
-.home-topic {
+.m-home-topic {
   flex: 0 0 auto;
   min-height: 2.2rem;
   padding: 0 1rem;
@@ -47,25 +47,25 @@
   white-space: nowrap;
 }
 
-.home-topic.is-active {
+.m-home-topic.is-active {
   background: #0a66c9;
   color: #ffffff;
 }
 
-.home-forum-list {
+.m-home-forum-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-md);
 }
 
-.home-forum-card {
+.m-home-forum-card {
   padding: var(--space-md);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   background: var(--surface);
 }
 
-.home-forum-card__header {
+.m-home-forum-card__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -73,12 +73,12 @@
   margin-bottom: 1.35rem;
 }
 
-.home-forum-card h2 {
+.m-home-forum-card h2 {
   max-width: 14.5rem;
   margin: 0;
 }
 
-.home-status {
+.m-home-status {
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;
@@ -91,38 +91,38 @@
   line-height: 1;
 }
 
-.home-status span {
+.m-home-status span {
   width: 0.48rem;
   height: 0.48rem;
   border-radius: 999px;
 }
 
-.home-status.is-online {
+.m-home-status.is-online {
   border: 1px solid #61e382;
   background: #b8ffc5;
   color: #0f2b16;
 }
 
-.home-status.is-online span {
+.m-home-status.is-online span {
   background: #008d2e;
 }
 
-.home-status.is-offline {
+.m-home-status.is-offline {
   border: 1px solid #d2d2db;
   background: #ededf3;
   color: #2b2d38;
 }
 
-.home-status.is-offline span {
+.m-home-status.is-offline span {
   background: #858b9a;
 }
 
-.home-forum-card p {
+.m-home-forum-card p {
   margin: 0;
   color: var(--muted);
 }
 
-.home-forum-card__footer {
+.m-home-forum-card__footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -132,7 +132,7 @@
   border-top: 1px solid var(--border);
 }
 
-.home-joined {
+.m-home-joined {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
@@ -147,13 +147,13 @@
   white-space: nowrap;
 }
 
-.home-joined svg {
+.m-home-joined svg {
   width: 0.95rem;
   height: 0.95rem;
   fill: currentColor;
 }
 
-.home-action {
+.m-home-action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -166,18 +166,18 @@
   letter-spacing: 0.01em;
 }
 
-.home-action.is-primary {
+.m-home-action.is-primary {
   background: #075ac5;
   color: #ffffff;
 }
 
-.home-action.is-secondary {
+.m-home-action.is-secondary {
   background: rgba(255, 255, 255, 0.12);
   color: var(--text);
 }
 
 @media (max-width: 900px) {
-  .home-page {
+  .m-home-page {
     max-width: none;
     min-height: calc(100vh - 4.1rem);
     padding: 0;
@@ -186,18 +186,19 @@
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
-  .home-page__inner {
+.m-home-page__inner {
     width: min(100%, 430px);
     margin: 0 auto;
     padding: 1.55rem 1.25rem 1.2rem;
-    overflow: hidden;
+    overflow: visible;
+    padding-bottom: calc(1.2rem + 3.1rem + env(safe-area-inset-bottom));
   }
 
-  .home-hero {
+  .m-home-hero {
     margin-bottom: 1.1rem;
   }
 
-  .home-hero h1 {
+  .m-home-hero h1 {
     margin: 0 0 0.45rem;
     font-family: inherit;
     font-size: clamp(2rem, 9vw, 2.28rem);
@@ -207,7 +208,7 @@
     letter-spacing: 0;
   }
 
-  .home-hero p {
+  .m-home-hero p {
     max-width: 21rem;
     color: #202638;
     font-size: 1.12rem;
@@ -215,27 +216,27 @@
     line-height: 1.38;
   }
 
-  .home-topics {
+  .m-home-topics {
     width: calc(100% + 1.25rem);
     margin-bottom: 2rem;
   }
 
-  .home-topic {
+  .m-home-topic {
     background: #ebeaf0;
     color: #202232;
   }
 
-  .home-topic.is-active {
+  .m-home-topic.is-active {
     background: #0a66c9;
     color: #ffffff;
   }
 
-  .home-forum-list {
+  .m-home-forum-list {
     grid-template-columns: 1fr;
     gap: 1.55rem;
   }
 
-  .home-forum-card {
+  .m-home-forum-card {
     min-height: 17.2rem;
     padding: 1.9rem 1.55rem 1.55rem;
     border: 1px solid #e2e7ef;
@@ -244,7 +245,7 @@
     box-shadow: 0 14px 34px rgba(20, 25, 38, 0.035);
   }
 
-  .home-forum-card h2 {
+  .m-home-forum-card h2 {
     font-family: inherit;
     color: #050505;
     font-size: 1.55rem;
@@ -253,7 +254,7 @@
     letter-spacing: 0;
   }
 
-  .home-forum-card p {
+  .m-home-forum-card p {
     min-height: 5.8rem;
     color: #252a3b;
     font-size: 1rem;
@@ -261,31 +262,36 @@
     line-height: 1.27;
   }
 
-  .home-forum-card__footer {
+  .m-home-forum-card__footer {
     border-top-color: #edf0f4;
   }
 
-  .home-joined {
+  .m-home-joined {
     background: #f0eff5;
     color: #182033;
   }
 
-  .home-action.is-secondary {
+  .m-home-action.is-secondary {
     background: #e8e6ec;
     color: #14151c;
   }
 }
 
 @media (max-width: 360px) {
-  .home-page__inner {
+  .m-home-page__inner {
     padding-inline: 1rem;
   }
 
-  .home-forum-card {
+  .m-home-forum-card {
     padding-inline: 1.15rem;
   }
 
-  .home-forum-card h2 {
+  .m-home-forum-card h2 {
     font-size: 1.38rem;
+  }
+
+  .m-home-status {
+    padding-inline: 0.55rem;
+    font-size: 0.78rem;
   }
 }
