@@ -1,28 +1,74 @@
 {
-  "header": {
-    "eyebrow": "Community",
-    "title": "Grup Belajar",
-    "description": "Kelompokkan diskusi berdasarkan mata pelajaran, topik, atau kelas supaya ruang belajar terasa lebih terarah.",
+  "hero": {
+    "eyebrow": "Temukan Komunitas Belajarmu",
+    "title": "Belajar bareng teman <span class=\"grp-hero__highlight\">sejurusan</span> jadi lebih seru",
+    "description": "Gabung grup belajar sesuai minat dan jurusanmu. Dapatkan teman baru, temukan referensi, dan selesaikan tugas bersama-sama.",
+    "stats": [
+      { "value": "12", "label": "Total Grup" },
+      { "value": "288", "label": "Anggota Aktif" },
+      { "value": "156", "label": "Diskusi Hari Ini" }
+    ],
     "actions": [
-      { "label": "Browse topics", "href": "/search", "variant": "secondary" },
-      { "label": "Create group", "href": "/signup", "variant": "primary" }
+      { "label": "Jelajahi Semua Grup", "href": "#groups", "variant": "primary" },
+      { "label": "Buat Grup Baru", "href": "/signup", "variant": "secondary" }
     ]
   },
-  "cards": [
+  "groups": [
     {
-      "tag": "Science",
-      "title": "STEM Study Rooms",
-      "description": "Forum yang padat informasi untuk kelas-kelas teknis, dengan fokus pada materi dan latihan soal."
+      "department": "Computer Science",
+      "title": "Algoritma & Struktur Data",
+      "description": "Grup fokus untuk mahasiswa Ilmu Komputer yang ingin mendalami algoritma sorting, graph traversal, dan dynamic programming.",
+      "members": 82,
+      "maxMembers": 100
     },
     {
-      "tag": "Arts",
-      "title": "Humanities Circle",
-      "description": "Ruang diskusi untuk membaca, menyusun argumen, dan berbagi referensi dengan ritme yang santai."
+      "department": "Mathematics",
+      "title": "Kalkulus & Aljabar Linear",
+      "description": "Diskusi dan pemecahan soal kalkulus multivariabel, aljabar linear, dan persamaan diferensial untuk mahasiswa MIPA dan Teknik.",
+      "members": 64,
+      "maxMembers": 100
     },
     {
-      "tag": "Live",
-      "title": "Open Study Sessions",
-      "description": "Grup aktif yang bisa dipakai untuk sesi belajar bersama, review tugas, atau persiapan ujian."
+      "department": "Physics",
+      "title": "Fisika Klasik & Modern",
+      "description": "Grup belajar untuk membahas mekanika Newton, termodinamika, elektromagnetisme, dan pengantar fisika kuantum.",
+      "members": 45,
+      "maxMembers": 100
+    },
+    {
+      "department": "Science",
+      "title": "Kimia Dasar & Organik",
+      "description": "Grup fokus pada pemahaman konsep kimia dasar, stoikiometri, ikatan kimia, dan reaksi organik sederhana.",
+      "members": 38,
+      "maxMembers": 100
+    },
+    {
+      "department": "Literature",
+      "title": "Linguistik & Sastra",
+      "description": "Ruang diskusi untuk mahasiswa Sastra dan Linguistik, mencakup analisis teks, teori sastra, dan morfologi bahasa.",
+      "members": 27,
+      "maxMembers": 100
+    },
+    {
+      "department": "Social Sciences",
+      "title": "Sosiologi & Antropologi",
+      "description": "Grup diskusi tentang teori sosial, metode penelitian kualitatif, dan studi antropologi kontemporer.",
+      "members": 18,
+      "maxMembers": 100
+    },
+    {
+      "department": "Arts",
+      "title": "Desain Grafis & Visual",
+      "description": "Komunitas belajar desain grafis, tipografi, teori warna, dan penggunaan tools seperti Figma dan Adobe Suite.",
+      "members": 9,
+      "maxMembers": 100
+    },
+    {
+      "department": "Philosophy",
+      "title": "Filsafat & Etika",
+      "description": "Grup diskusi pemikiran filsafat barat dan timur, etika terapan, dan logika dasar untuk mahasiswa filsafat.",
+      "members": 5,
+      "maxMembers": 100
     }
   ]
 }

@@ -1,0 +1,268 @@
+.m-help {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.m-help__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.m-help__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--surface-hover);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.m-help__back:active {
+  background: var(--surface-alt);
+}
+
+.m-help__back svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.m-help__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.m-help__search {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.m-help__search-input {
+  width: 100%;
+  min-height: 2.6rem;
+  padding: 0 0.85rem 0 2.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.65rem;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.m-help__search-input:focus {
+  border-color: var(--accent);
+}
+
+.m-help__search-input::placeholder {
+  color: var(--muted-alt);
+  font-weight: 500;
+}
+
+.m-help__search-icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: var(--muted-alt);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.m-help__section {
+  margin-bottom: 1.5rem;
+}
+
+.m-help__section-title {
+  margin: 0 0 0.5rem 0.15rem;
+  color: var(--muted-alt);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.m-help__card {
+  border: 1px solid var(--border-color);
+  border-radius: 0.85rem;
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+
+.m-help__faq {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  border: 0;
+  width: 100%;
+  font: inherit;
+  text-align: left;
+  background: none;
+  color: inherit;
+}
+
+.m-help__faq + .m-help__faq {
+  border-top: 1px solid var(--surface-hover);
+}
+
+.m-help__faq:active {
+  background: var(--surface-hover);
+}
+
+.m-help__faq-icon {
+  flex: 0 0 1.4rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: 0.1rem;
+  border-radius: 999px;
+  background: var(--surface-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.m-help__faq-icon svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.m-help__faq-body {
+  flex: 1;
+}
+
+.m-help__faq-question {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.m-help__faq-answer {
+  font-size: 0.78rem;
+  color: var(--muted-alt);
+  margin-top: 0.25rem;
+  line-height: 1.5;
+  display: none;
+}
+
+.m-help__faq--open .m-help__faq-answer {
+  display: block;
+}
+
+.m-help__faq-chevron {
+  flex: 0 0 auto;
+  color: var(--border-color);
+  margin-top: 0.1rem;
+  transition: transform 0.2s;
+}
+
+.m-help__faq--open .m-help__faq-chevron {
+  transform: rotate(90deg);
+}
+
+.m-help__faq-chevron svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.m-help__contact {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.m-help__contact:active {
+  background: var(--surface-hover);
+}
+
+.m-help__contact-icon {
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.55rem;
+  background: var(--success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.m-help__contact-icon svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.m-help__contact-body {
+  flex: 1;
+}
+
+.m-help__contact-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.m-help__contact-desc {
+  font-size: 0.75rem;
+  color: var(--muted-alt);
+  margin-top: 0.1rem;
+}
+
+.m-help__contact-chevron {
+  flex: 0 0 auto;
+  color: var(--border-color);
+}
+
+.m-help__contact-chevron svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

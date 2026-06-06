@@ -5,10 +5,10 @@ if (!document.querySelector('link[href="/pages/pages-mobile/mobile-page.css"]'))
   document.head.appendChild(link);
 }
 
-import { initUsers, register, navigateAfterAuth } from '/js/auth.js';
+import { initUsers, login, navigateAfterAuth } from '/js/auth.js';
 
-export async function Signup() {
-  const res = await fetch('/data/signup.json');
+export async function Login() {
+  const res = await fetch('/data/login.json');
   const data = await res.json();
 
   await initUsers();
@@ -18,15 +18,14 @@ export async function Signup() {
   el.innerHTML = `
     <div class="mobile-page__inner">
       <header class="mobile-page__hero">
-        <p class="mobile-page__eyebrow">${data.eyebrow}</p>
+        <p class="mobile-page__eyebrow">${data.copy.mark}</p>
         <h1>${data.copy.title}</h1>
         <p>${data.copy.description}</p>
       </header>
       <form class="mobile-form">
         <p class="mobile-page__error" aria-live="polite" hidden></p>
-        ${data.fields.map((field) => `
-          <input class="mobile-input" type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" autocomplete="${field.name}" />
-        `).join('')}
+        <input class="mobile-input" type="email" name="email" placeholder="Email" autocomplete="email" inputmode="email" required />
+        <input class="mobile-input" type="password" name="password" placeholder="Password" autocomplete="current-password" required />
         <button class="mobile-submit" type="submit">${data.submitText}</button>
       </form>
       <p class="mobile-card" style="font-size: 0.9rem; color: #3c4253;">
@@ -41,31 +40,17 @@ export async function Signup() {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const nameInput = form.querySelector('input[name="name"]');
     const emailInput = form.querySelector('input[name="email"]');
     const passwordInput = form.querySelector('input[name="password"]');
-    const confirmInput = form.querySelector('input[name="confirm_password"]');
     const submitBtn = form.querySelector('.mobile-submit');
 
-    if (!nameInput.value.trim() || !emailInput.value.trim() || !passwordInput.value) {
-      errorEl.textContent = 'Semua field harus diisi';
+    if (!emailInput.value.trim() || !passwordInput.value) {
+      errorEl.textContent = 'Email dan password harus diisi';
       errorEl.hidden = false;
       return;
     }
 
-    if (passwordInput.value !== confirmInput.value) {
-      errorEl.textContent = 'Password tidak cocok';
-      errorEl.hidden = false;
-      return;
-    }
-
-    if (passwordInput.value.length < 8) {
-      errorEl.textContent = 'Password minimal 8 karakter';
-      errorEl.hidden = false;
-      return;
-    }
-
-    const result = register(nameInput.value.trim(), emailInput.value.trim(), passwordInput.value);
+    const result = login(emailInput.value.trim(), passwordInput.value);
 
     if (!result.success) {
       errorEl.textContent = result.error;
@@ -75,7 +60,7 @@ export async function Signup() {
 
     errorEl.hidden = true;
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Creating account...';
+    submitBtn.textContent = 'Signing in...';
 
     window.setTimeout(() => {
       navigateAfterAuth('/profile');

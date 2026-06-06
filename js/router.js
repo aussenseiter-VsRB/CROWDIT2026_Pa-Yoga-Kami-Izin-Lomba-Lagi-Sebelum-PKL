@@ -19,8 +19,12 @@ import { Groups as MobileGroups } from '/pages/pages-mobile/groups/groups.js';
 import { Chat as MobileChat } from '/pages/pages-mobile/chat/chat.js';
 import { Profile as MobileProfile } from '/pages/pages-mobile/profile/profile.js';
 import { Signup as MobileSignup } from '/pages/pages-mobile/signup/signup.js';
+import { Login as MobileLogin } from '/pages/pages-mobile/login/login.js';
 import { Search as MobileSearch } from '/pages/pages-mobile/search/search.js';
 import { Notifications as MobileNotifications } from '/pages/pages-mobile/notifications/notifications.js';
+import { EditProfile as MobileEditProfile } from '/pages/pages-mobile/edit-profile/edit-profile.js';
+import { Settings as MobileSettings } from '/pages/pages-mobile/settings/settings.js';
+import { Help as MobileHelp } from '/pages/pages-mobile/help/help.js';
 
 const desktopRoutes = {
   '/':         DesktopHome,
@@ -44,9 +48,13 @@ const mobileRoutes = {
   '/groups':   MobileGroups,
   '/chat':     MobileChat,
   '/profile':  MobileProfile,
+  '/login':    MobileLogin,
   '/signup':   MobileSignup,
   '/search':   MobileSearch,
   '/notifications': MobileNotifications,
+  '/edit-profile': MobileEditProfile,
+  '/settings': MobileSettings,
+  '/help': MobileHelp,
 };
 
 function getRoutes() {

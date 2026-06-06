@@ -12,16 +12,23 @@
   --bg: #fafafe;
   --bg-elevated: #ffffff;
   --surface: #ffffff;
+  --surface-alt: #ebeaf0;
+  --surface-hover: #f0f2f6;
   --surface-dim: #dad9df;
   --surface-tint: rgba(255, 255, 255, 0.72);
   --border: rgba(26, 26, 26, 0.08);
   --border-strong: rgba(26, 26, 26, 0.14);
+  --border-color: #e2e7ef;
   --text: #1a1a1a;
+  --text-secondary: #0d0f15;
   --muted: #6b7280;
+  --muted-alt: #687386;
   --accent: #007aff;
   --accent-soft: rgba(0, 122, 255, 0.12);
+  --accent-alt: #075ac5;
   --accent-2: #ff3b30;
   --success: #34c759;
+  --tag-bg: #eef5ff;
 
   --font-display: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-body: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -43,12 +50,47 @@
 
   --shadow-sm: 0 10px 30px rgba(15, 23, 42, 0.04);
   --shadow-md: 0 18px 48px rgba(15, 23, 42, 0.08);
+  --card-shadow: 0 4px 12px rgba(20, 25, 38, 0.035);
   --transition: 180ms ease;
+}
+
+[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at top left, rgba(10, 132, 255, 0.06), transparent 30%),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.03), transparent 26%),
+    var(--bg);
+}
+
+[data-theme="dark"] {
+  --bg: #1c1c1e;
+  --bg-elevated: #2c2c2e;
+  --surface: #2c2c2e;
+  --surface-alt: #3a3a3c;
+  --surface-hover: #3a3a3c;
+  --surface-dim: #48484a;
+  --surface-tint: rgba(0, 0, 0, 0.72);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --border-color: #38383a;
+  --text: #f2f2f7;
+  --text-secondary: #e5e5ea;
+  --muted: #8e8e93;
+  --muted-alt: #98989d;
+  --accent: #0a84ff;
+  --accent-soft: rgba(10, 132, 255, 0.15);
+  --accent-alt: #0a84ff;
+  --accent-2: #ff453a;
+  --success: #30d158;
+  --tag-bg: rgba(10, 132, 255, 0.15);
+  --shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 18px 48px rgba(0, 0, 0, 0.4);
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 /* ── Base ───────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 body {
@@ -142,14 +184,22 @@ h3 { font-size: 1.25rem; }
   display: block;
 }
 
+#footer.is-hidden {
+  display: none;
+}
+
 @media (max-width: 900px) {
   #navbar,
   #footer {
     display: none;
   }
 
+  #footer.is-hidden {
+    display: none;
+  }
+
   body {
-    background: #fafafe;
+    background: var(--bg);
   }
 
   body {

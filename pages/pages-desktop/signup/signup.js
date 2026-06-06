@@ -5,6 +5,8 @@ if (!document.querySelector('link[href="/pages/pages-desktop/signup/signup.css"]
   document.head.appendChild(link);
 }
 
+import { initUsers, register, navigateAfterAuth } from '/js/auth.js';
+
 function field({ type, name, placeholder, icon }) {
   return `
     <label class="signup-field">
@@ -49,6 +51,8 @@ export async function Signup() {
   const res = await fetch('/data/signup.json');
   const data = await res.json();
 
+  await initUsers();
+
   const el = document.createElement('section');
   el.className = 'signup-page';
 
@@ -73,6 +77,7 @@ export async function Signup() {
         </div>
 
         <form class="signup-form">
+          <div class="signup-error" aria-live="polite" hidden></div>
           ${data.fields.map(f => field(f)).join('')}
 
           <label class="signup-terms">
@@ -100,6 +105,53 @@ export async function Signup() {
       </div>
     </div>
   `;
+
+  const form = el.querySelector('.signup-form');
+  const submit = el.querySelector('.signup-submit');
+  const errorEl = el.querySelector('.signup-error');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const nameInput = form.querySelector('input[name="name"]');
+    const emailInput = form.querySelector('input[name="email"]');
+    const passwordInput = form.querySelector('input[name="password"]');
+    const confirmInput = form.querySelector('input[name="confirm_password"]');
+
+    if (!nameInput.value.trim() || !emailInput.value.trim() || !passwordInput.value) {
+      errorEl.textContent = 'Semua field harus diisi';
+      errorEl.hidden = false;
+      return;
+    }
+
+    if (passwordInput.value !== confirmInput.value) {
+      errorEl.textContent = 'Password tidak cocok';
+      errorEl.hidden = false;
+      return;
+    }
+
+    if (passwordInput.value.length < 8) {
+      errorEl.textContent = 'Password minimal 8 karakter';
+      errorEl.hidden = false;
+      return;
+    }
+
+    const result = register(nameInput.value.trim(), emailInput.value.trim(), passwordInput.value);
+
+    if (!result.success) {
+      errorEl.textContent = result.error;
+      errorEl.hidden = false;
+      return;
+    }
+
+    errorEl.hidden = true;
+    submit.disabled = true;
+    submit.textContent = 'Creating account...';
+
+    window.setTimeout(() => {
+      navigateAfterAuth('/profile');
+    }, 180);
+  });
 
   return el;
 }

@@ -11,6 +11,9 @@ importers:
       '@tailwindcss/cli':
         specifier: ^4.3.0
         version: 4.3.0
+      bootstrap-icons:
+        specifier: ^1.13.1
+        version: 1.13.1
       tailwindcss:
         specifier: ^4.3.0
         version: 4.3.0
@@ -225,6 +228,9 @@ packages:
   ansi-styles@6.2.3:
     resolution: {integrity: sha512-4Dj6M28JB+oAH8kFkTLUo+a2jwOFkuqb3yucU0CANcRRUbxS0cP0nZYCGjcc3BNXwRIsUVmDGgzawme7zvJHvg==}
     engines: {node: '>=12'}
+
+  bootstrap-icons@1.13.1:
+    resolution: {integrity: sha512-ijombt4v6bv5CLeXvRWKy7CuM3TRTuPEuGaGKvTV5cz65rQSY8RQ2JcHt6b90cBBAC7s8fsf2EkQDldzCoXUjw==}
 
   chalk@5.6.2:
     resolution: {integrity: sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA==}
@@ -576,6 +582,8 @@ snapshots:
   ansi-regex@6.2.2: {}
 
   ansi-styles@6.2.3: {}
+
+  bootstrap-icons@1.13.1: {}
 
   chalk@5.6.2: {}
 

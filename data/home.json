@@ -16,115 +16,115 @@
       { "value": "16", "label": "Mentor online" }
     ]
   },
-  "topics": ["All Topics", "Computer Science", "Mathematics", "Philosophy"],
+  "topics": ["Semua Topik", "Ilmu Komputer", "Matematika", "Filsafat"],
   "forums": [
     {
-      "title": "Advanced Calculus III Midterm Prep",
-      "description": "Working through chapter 4 practice problems, focusing on double integrals and vector fields. Join if you need help with the homework!",
-      "joined": "3/6 joined",
+      "title": "Persiapan UTS Kalkulus Lanjut III",
+      "description": "Membahas latihan soal bab 4, fokus pada integral lipat dua dan medan vektor. Bergabunglah jika Anda butuh bantuan dengan PR!",
+      "joined": "3/6 bergabung",
       "status": "Online",
-      "action": "Open"
+      "action": "Buka"
     },
     {
-      "title": "Data Structures Algorithms",
-      "description": "Reviewing binary trees, graph traversals, and dynamic programming approaches for the upcoming coding interview mock sessions.",
-      "joined": "12/15 joined",
+      "title": "Struktur Data & Algoritma",
+      "description": "Meninjau pohon biner, penelusuran graf, dan pendekatan pemrograman dinamis untuk simulasi wawancara kerja pemrograman mendatang.",
+      "joined": "12/15 bergabung",
       "status": "Online",
-      "action": "Open"
+      "action": "Buka"
     },
     {
-      "title": "Intro to Modern Philosophy",
-      "description": "Discussion group for Kant's Critique of Pure Reason. Meeting resumes tomorrow at 10:00 AM EST. Read chapter 2 before joining.",
-      "joined": "4/8 joined",
+      "title": "Pengantar Filsafat Modern",
+      "description": "Grup diskusi untuk Critique of Pure Reason karya Kant. Pertemuan dilanjutkan besok pukul 10.00 EST. Baca bab 2 sebelum bergabung.",
+      "joined": "4/8 bergabung",
       "status": "Offline",
-      "action": "Details"
+      "action": "Detail"
     },
     {
-      "title": "Organic Chemistry Lab Prep",
-      "description": "Sharing pre-lab notes and discussing the safety protocols for the synthesis of aspirin experiment.",
-      "joined": "2/4 joined",
+      "title": "Persiapan Lab Kimia Organik",
+      "description": "Berbagi catatan sebelum lab dan mendiskusikan protokol keselamatan untuk eksperimen sintesis aspirin.",
+      "joined": "2/4 bergabung",
       "status": "Offline",
-      "action": "Details"
+      "action": "Detail"
     },
     {
-      "title": "Linear Algebra Problem Solving",
-      "description": "Weekly problem session: eigenvalues, diagonalization, and applications to differential equations.",
-      "joined": "7/10 joined",
+      "title": "Pemecahan Masalah Aljabar Linear",
+      "description": "Sesi latihan mingguan: nilai eigen, diagonalisasi, dan penerapan pada persamaan diferensial.",
+      "joined": "7/10 bergabung",
       "status": "Online",
-      "action": "Open"
+      "action": "Buka"
     },
     {
-      "title": "Intro to Machine Learning",
-      "description": "Beginner-friendly walkthroughs of supervised learning algorithms and hands-on mini-projects.",
-      "joined": "20/30 joined",
+      "title": "Pengantar Pembelajaran Mesin",
+      "description": "Panduan ramah pemula tentang algoritma pembelajaran mesin terawasi (supervised learning) dan proyek mini langsung.",
+      "joined": "20/30 bergabung",
       "status": "Online",
-      "action": "Open"
+      "action": "Buka"
     },
     {
-      "title": "Shakespeare Reading Circle",
-      "description": "Casual group reading and discussion of selected plays. No prior experience required.",
-      "joined": "5/12 joined",
+      "title": "Klub Membaca Shakespeare",
+      "description": "Kelompok santai untuk membaca dan mendiskusikan naskah drama pilihan. Tidak memerlukan pengalaman sebelumnya.",
+      "joined": "5/12 bergabung",
       "status": "Offline",
-      "action": "Details"
+      "action": "Detail"
     },
     {
-      "title": "Physics: Classical Mechanics",
-      "description": "Problem solving for Newtonian mechanics and rotational dynamics. Great prep for exams.",
-      "joined": "9/14 joined",
+      "title": "Fisika: Mekanika Klasik",
+      "description": "Pemecahan masalah untuk mekanika Newton dan dinamika rotasi. Persiapan yang bagus untuk ujian.",
+      "joined": "9/14 bergabung",
       "status": "Online",
-      "action": "Open"
+      "action": "Buka"
     },
     {
-      "title": "Statistics for Social Sciences",
-      "description": "Discussing hypothesis testing, regressions, and interpreting real survey datasets.",
-      "joined": "6/8 joined",
+      "title": "Statistika untuk Ilmu Sosial",
+      "description": "Membahas pengujian hipotesis, regresi, dan menafsirkan kumpulan data survei nyata.",
+      "joined": "6/8 bergabung",
       "status": "Offline",
-      "action": "Details"
+      "action": "Detail"
     },
     {
-      "title": "Creative Writing Workshop",
-      "description": "Peer feedback on short stories and poems. Share a piece and get constructive notes.",
-      "joined": "11/11 joined",
+      "title": "Lokakarya Penulisan Kreatif",
+      "description": "Umpan balik dari rekan sejawat tentang cerita pendek dan puisi. Bagikan karya Anda dan dapatkan masukan yang membangun.",
+      "joined": "11/11 bergabung",
       "status": "Online",
-      "action": "Open"
+      "action": "Buka"
     }
   ],
   "stats": [
-    { "value": "24", "label": "Active groups" },
-    { "value": "48", "label": "New posts today" },
-    { "value": "16", "label": "Mentors online" }
+    { "value": "24", "label": "Grup aktif" },
+    { "value": "48", "label": "Postingan baru hari ini" },
+    { "value": "16", "label": "Mentor online" }
   ],
   "mobile": {
-    "title": "Explore Forums",
-    "description": "Find a study group, join the discussion, and excel together.",
+    "title": "Jelajahi Forum",
+    "description": "Temukan grup belajar, bergabunglah dalam diskusi, dan unggul bersama.",
     "forums": [
       {
-        "title": "Advanced Calculus III Midterm Prep",
-        "description": "Working through chapter 4 practice problems, focusing on double integrals and vector fields. Join if you need help with the homework!",
-        "joined": "3/6 Joined",
+        "title": "Persiapan UTS Kalkulus Lanjut III",
+        "description": "Membahas latihan soal bab 4, fokus pada integral lipat dua dan medan vektor. Bergabunglah jika Anda butuh bantuan dengan PR!",
+        "joined": "3/6 bergabung",
         "status": "Online",
-        "action": "Open"
+        "action": "Buka"
       },
       {
-        "title": "Data Structures Algorithms",
-        "description": "Reviewing binary trees, graph traversals, and dynamic programming approaches for the upcoming coding interview mock sessions.",
-        "joined": "12/15 Joined",
+        "title": "Struktur Data & Algoritma",
+        "description": "Meninjau pohon biner, penelusuran graf, dan pendekatan pemrograman dinamis untuk simulasi wawancara kerja pemrograman mendatang.",
+        "joined": "12/15 bergabung",
         "status": "Online",
-        "action": "Open"
+        "action": "Buka"
       },
       {
-        "title": "Intro to Modern Philosophy",
-        "description": "Discussion group for Kant's Critique of Pure Reason. Meeting resumes tomorrow at 10:00 AM EST. Read chapter 2 before joining.",
-        "joined": "4/8 Joined",
+        "title": "Pengantar Filsafat Modern",
+        "description": "Grup diskusi untuk Critique of Pure Reason karya Kant. Pertemuan dilanjutkan besok pukul 10.00 EST. Baca bab 2 sebelum bergabung.",
+        "joined": "4/8 bergabung",
         "status": "Offline",
-        "action": "Details"
+        "action": "Detail"
       },
       {
-        "title": "Organic Chemistry Lab Prep",
-        "description": "Sharing pre-lab notes and discussing the safety protocols for the synthesis of aspirin experiment.",
-        "joined": "2/4 Joined",
+        "title": "Persiapan Lab Kimia Organik",
+        "description": "Berbagi catatan sebelum lab dan mendiskusikan protokol keselamatan untuk eksperimen sintesis aspirin.",
+        "joined": "2/4 bergabung",
         "status": "Offline",
-        "action": "Details"
+        "action": "Detail"
       }
     ]
   }

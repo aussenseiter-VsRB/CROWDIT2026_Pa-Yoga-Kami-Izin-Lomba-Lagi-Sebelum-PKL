@@ -38,6 +38,12 @@
   box-shadow: var(--shadow-sm);
 }
 
+.navbar-logo__mark svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  display: block;
+}
+
 .navbar-nav,
 .navbar-actions {
   display: inline-flex;
