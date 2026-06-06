@@ -345,8 +345,14 @@ h3 {
 #navbar, #footer {
   display: block;
 }
+#footer.is-hidden {
+  display: none;
+}
 @media (max-width: 900px) {
   #navbar, #footer {
+    display: none;
+  }
+  #footer.is-hidden {
     display: none;
   }
   body {

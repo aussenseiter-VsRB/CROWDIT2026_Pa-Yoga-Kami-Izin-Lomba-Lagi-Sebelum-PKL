@@ -142,9 +142,17 @@ h3 { font-size: 1.25rem; }
   display: block;
 }
 
+#footer.is-hidden {
+  display: none;
+}
+
 @media (max-width: 900px) {
   #navbar,
   #footer {
+    display: none;
+  }
+
+  #footer.is-hidden {
     display: none;
   }
 

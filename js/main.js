@@ -18,6 +18,14 @@ async function init() {
     navigateTo(link.getAttribute('href'));
   });
 
+  function toggleFooter() {
+    const hide = ['/login', '/signup'].includes(window.location.pathname.replace(/\/$/, '') || '/');
+    document.querySelector('#footer').classList.toggle('is-hidden', hide);
+  }
+
+  window.addEventListener('route-change', toggleFooter);
+  toggleFooter();
+
   router();
 }
 
