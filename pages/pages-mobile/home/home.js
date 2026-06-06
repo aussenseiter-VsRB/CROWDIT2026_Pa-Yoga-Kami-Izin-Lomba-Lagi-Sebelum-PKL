@@ -18,21 +18,21 @@ function ForumCard(forum) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
 
   return `
-    <article class="home-forum-card">
-      <div class="home-forum-card__header">
+    <article class="m-home-forum-card">
+      <div class="m-home-forum-card__header">
         <h2>${forum.title}</h2>
-        <span class="home-status ${statusClass}">
+        <span class="m-home-status ${statusClass}">
           <span aria-hidden="true"></span>
           ${forum.status}
         </span>
       </div>
       <p>${forum.description}</p>
-      <div class="home-forum-card__footer">
-        <span class="home-joined">
+      <div class="m-home-forum-card__footer">
+        <span class="m-home-joined">
           ${peopleIcon()}
           ${forum.joined}
         </span>
-        <a class="home-action ${forum.action === 'Open' ? 'is-primary' : 'is-secondary'}" href="/groups" data-link>
+        <a class="m-home-action ${forum.action === 'Open' ? 'is-primary' : 'is-secondary'}" href="/groups" data-link>
           ${forum.action}
         </a>
       </div>
@@ -45,24 +45,24 @@ export async function Home() {
   const data = await res.json();
 
   const el = document.createElement('section');
-  el.className = 'home-page';
+  el.className = 'm-home-page';
 
   el.innerHTML = `
-    <div class="home-page__inner">
-      <header class="home-hero">
+    <div class="m-home-page__inner">
+      <header class="m-home-hero">
         <h1>${data.mobile.title}</h1>
         <p>${data.mobile.description}</p>
       </header>
 
-      <nav class="home-topics" aria-label="Forum topics">
+      <nav class="m-home-topics" aria-label="Forum topics">
         ${data.topics.map((topic, index) => `
-          <button class="home-topic ${index === 0 ? 'is-active' : ''}" type="button">
+          <button class="m-home-topic ${index === 0 ? 'is-active' : ''}" type="button">
             ${topic}
           </button>
         `).join('')}
       </nav>
 
-      <div class="home-forum-list">
+      <div class="m-home-forum-list">
         ${data.mobile.forums.map(ForumCard).join('')}
       </div>
     </div>
