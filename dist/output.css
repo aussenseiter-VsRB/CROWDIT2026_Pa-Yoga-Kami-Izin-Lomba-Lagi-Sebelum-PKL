@@ -192,6 +192,9 @@
   .grid {
     display: grid;
   }
+  .resize {
+    resize: both;
+  }
   .bg-white\/70 {
     background-color: color-mix(in srgb, #fff 70%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -342,8 +345,14 @@ h3 {
 #navbar, #footer {
   display: block;
 }
+#footer.is-hidden {
+  display: none;
+}
 @media (max-width: 900px) {
   #navbar, #footer {
+    display: none;
+  }
+  #footer.is-hidden {
     display: none;
   }
   body {
