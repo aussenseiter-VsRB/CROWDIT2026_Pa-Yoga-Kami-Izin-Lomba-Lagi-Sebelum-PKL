@@ -91,6 +91,7 @@ export async function router() {
   main.innerHTML = '';
   main.appendChild(await Page());
 
+  previousPath = path;
   window.dispatchEvent(new CustomEvent('route-change'));
 }
 

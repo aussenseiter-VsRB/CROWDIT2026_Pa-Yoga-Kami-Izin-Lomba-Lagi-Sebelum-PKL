@@ -149,10 +149,15 @@ h3 { font-size: 1.25rem; }
   }
 
   body {
+    background: #fafafe;
+  }
+
+  body {
     padding-bottom: env(safe-area-inset-bottom);
   }
 
   main {
+    width: 100%;
     padding-top: 4.1rem;
     padding-bottom: 7.75rem;
   }
