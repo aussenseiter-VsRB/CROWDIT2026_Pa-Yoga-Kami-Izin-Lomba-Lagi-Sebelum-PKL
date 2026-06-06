@@ -18,7 +18,7 @@ export async function Signup() {
   el.innerHTML = `
     <div class="mobile-page__inner">
       <header class="mobile-page__hero">
-        <p class="mobile-page__eyebrow">${data.eyebrow}</p>
+        <p class="mobile-page__eyebrow">${data.copy.eyebrow}</p>
         <h1>${data.copy.title}</h1>
         <p>${data.copy.description}</p>
       </header>

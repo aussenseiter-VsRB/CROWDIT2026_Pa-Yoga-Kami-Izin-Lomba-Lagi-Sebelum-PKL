@@ -6,12 +6,7 @@ if (!document.querySelector('link[href="/pages/pages-desktop/home/home.css"]')) 
 }
 
 function peopleIcon() {
-  return `
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
-      <path d="M5 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"></path>
-    </svg>
-  `;
+  return '<i class="bi bi-people"></i>';
 }
 
 function ForumCard(forum, index) {

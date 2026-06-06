@@ -9,7 +9,7 @@ import { getSession, isAuthenticated, navigateAfterAuth } from '/js/auth.js';
 import { navigateTo } from '/js/router.js';
 
 function iconArrowLeft() {
-  return '<svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>';
+  return '<i class="bi bi-arrow-left"></i>';
 }
 
 export async function EditProfile() {
@@ -38,44 +38,40 @@ export async function EditProfile() {
     <div class="m-edit-profile__form">
       <div class="m-edit-profile__field">
         <label class="m-edit-profile__label" for="ep-name">Nama Lengkap</label>
-        <input class="m-edit-profile__input" id="ep-name" type="text" value="${session.name}" maxlength="50" />
+        <input class="m-edit-profile__input" id="ep-name" type="text" value="${session.name}" />
       </div>
-
       <div class="m-edit-profile__field">
         <label class="m-edit-profile__label" for="ep-email">Email</label>
-        <input class="m-edit-profile__input" id="ep-email" type="email" value="${session.email}" maxlength="100" />
+        <input class="m-edit-profile__input" id="ep-email" type="email" value="${session.email}" />
       </div>
-
       <div class="m-edit-profile__field">
         <label class="m-edit-profile__label" for="ep-bio">Bio</label>
-        <textarea class="m-edit-profile__textarea" id="ep-bio" maxlength="200">${session.bio || ''}</textarea>
+        <textarea class="m-edit-profile__input m-edit-profile__textarea" id="ep-bio" rows="3" placeholder="Tulis bio singkat..."></textarea>
       </div>
-
-      <div class="m-edit-profile__actions">
-        <button class="m-edit-profile__save" type="button">Simpan</button>
-        <button class="m-edit-profile__cancel" type="button">Batal</button>
-      </div>
+      <button class="m-edit-profile__save" type="button">Simpan</button>
     </div>
   `;
 
   el.querySelector('.m-edit-profile__back').addEventListener('click', () => navigateTo('/profile'));
-  el.querySelector('.m-edit-profile__cancel').addEventListener('click', () => navigateTo('/profile'));
 
   el.querySelector('.m-edit-profile__save').addEventListener('click', () => {
     const name = el.querySelector('#ep-name').value.trim();
     const email = el.querySelector('#ep-email').value.trim();
-    const bio = el.querySelector('#ep-bio').value.trim();
     if (!name || !email) return;
-
     const users = JSON.parse(localStorage.getItem('studnow_users') || '[]');
     const idx = users.findIndex(u => u.email === session.email);
     if (idx !== -1) {
-      users[idx] = { ...users[idx], name, email, bio };
+      users[idx].name = name;
+      users[idx].email = email;
       localStorage.setItem('studnow_users', JSON.stringify(users));
+      const ses = JSON.parse(sessionStorage.getItem('studnow_session') || localStorage.getItem('studnow_session'));
+      if (ses) {
+        ses.name = name;
+        ses.email = email;
+        const storage = sessionStorage.getItem('studnow_session') ? 'sessionStorage' : 'localStorage';
+        window[storage].setItem('studnow_session', JSON.stringify(ses));
+      }
     }
-
-    const sess = { ...session, name, email, bio };
-    localStorage.setItem('studnow_session', JSON.stringify(sess));
     navigateTo('/profile');
   });
 

@@ -1,10 +1,10 @@
 [
   {
     "course": {
-      "title": "Advanced Calculus III Midterm Prep",
-      "description": "Working through chapter 4 practice problems, focusing on double integrals and vector fields. Join if you need help with the homework!",
+      "title": "Persiapan UTS Kalkulus Lanjut III",
+      "description": "Membahas latihan soal bab 4, fokus pada integral lipat dua dan medan vektor. Bergabunglah jika Anda butuh bantuan dengan PR!",
       "status": "Online",
-      "category": "Mathematics"
+      "category": "Matematika"
     },
     "schedule": {
       "day": "Senin, Rabu, Jumat",
@@ -31,10 +31,10 @@
   },
   {
     "course": {
-      "title": "Data Structures Algorithms",
-      "description": "Reviewing binary trees, graph traversals, and dynamic programming approaches for the upcoming coding interview mock sessions.",
+      "title": "Struktur Data & Algoritma",
+      "description": "Meninjau pohon biner, penelusuran graf, dan pendekatan pemrograman dinamis untuk simulasi wawancara kerja pemrograman mendatang.",
       "status": "Online",
-      "category": "Computer Science"
+      "category": "Ilmu Komputer"
     },
     "schedule": {
       "day": "Selasa, Kamis",
@@ -61,10 +61,10 @@
   },
   {
     "course": {
-      "title": "Intro to Modern Philosophy",
-      "description": "Discussion group for Kant's Critique of Pure Reason. Meeting resumes tomorrow at 10:00 AM EST. Read chapter 2 before joining.",
+      "title": "Pengantar Filsafat Modern",
+      "description": "Grup diskusi untuk Critique of Pure Reason karya Kant. Pertemuan dilanjutkan besok pukul 10.00 EST. Baca bab 2 sebelum bergabung.",
       "status": "Offline",
-      "category": "Philosophy"
+      "category": "Filsafat"
     },
     "schedule": {
       "day": "Sabtu",
@@ -91,10 +91,10 @@
   },
   {
     "course": {
-      "title": "Organic Chemistry Lab Prep",
-      "description": "Sharing pre-lab notes and discussing the safety protocols for the synthesis of aspirin experiment.",
+      "title": "Persiapan Lab Kimia Organik",
+      "description": "Berbagi catatan sebelum lab dan mendiskusikan protokol keselamatan untuk eksperimen sintesis aspirin.",
       "status": "Offline",
-      "category": "Science"
+      "category": "Sains"
     },
     "schedule": {
       "day": "Rabu",
@@ -121,10 +121,10 @@
   },
   {
     "course": {
-      "title": "Linear Algebra Problem Solving",
-      "description": "Weekly problem session: eigenvalues, diagonalization, and applications to differential equations.",
+      "title": "Pemecahan Masalah Aljabar Linear",
+      "description": "Sesi latihan mingguan: nilai eigen, diagonalisasi, dan penerapan pada persamaan diferensial.",
       "status": "Online",
-      "category": "Mathematics"
+      "category": "Matematika"
     },
     "schedule": {
       "day": "Senin",
@@ -151,10 +151,10 @@
   },
   {
     "course": {
-      "title": "Intro to Machine Learning",
-      "description": "Beginner-friendly walkthroughs of supervised learning algorithms and hands-on mini-projects.",
+      "title": "Pengantar Pembelajaran Mesin",
+      "description": "Panduan ramah pemula tentang algoritma pembelajaran mesin terawasi (supervised learning) dan proyek mini langsung.",
       "status": "Online",
-      "category": "Computer Science"
+      "category": "Ilmu Komputer"
     },
     "schedule": {
       "day": "Selasa, Kamis",
@@ -181,10 +181,10 @@
   },
   {
     "course": {
-      "title": "Shakespeare Reading Circle",
-      "description": "Casual group reading and discussion of selected plays. No prior experience required.",
+      "title": "Klub Membaca Shakespeare",
+      "description": "Kelompok santai untuk membaca dan mendiskusikan naskah drama pilihan. Tidak memerlukan pengalaman sebelumnya.",
       "status": "Offline",
-      "category": "Literature"
+      "category": "Sastra"
     },
     "schedule": {
       "day": "Minggu",
@@ -211,10 +211,10 @@
   },
   {
     "course": {
-      "title": "Physics: Classical Mechanics",
-      "description": "Problem solving for Newtonian mechanics and rotational dynamics. Great prep for exams.",
+      "title": "Fisika: Mekanika Klasik",
+      "description": "Pemecahan masalah untuk mekanika Newton dan dinamika rotasi. Persiapan yang bagus untuk ujian.",
       "status": "Online",
-      "category": "Science"
+      "category": "Sains"
     },
     "schedule": {
       "day": "Senin, Rabu",
@@ -241,10 +241,10 @@
   },
   {
     "course": {
-      "title": "Statistics for Social Sciences",
-      "description": "Discussing hypothesis testing, regressions, and interpreting real survey datasets.",
+      "title": "Statistika untuk Ilmu Sosial",
+      "description": "Membahas pengujian hipotesis, regresi, dan menafsirkan kumpulan data survei nyata.",
       "status": "Offline",
-      "category": "Social Sciences"
+      "category": "Ilmu Sosial"
     },
     "schedule": {
       "day": "Kamis",
@@ -271,10 +271,10 @@
   },
   {
     "course": {
-      "title": "Creative Writing Workshop",
-      "description": "Peer feedback on short stories and poems. Share a piece and get constructive notes.",
+      "title": "Lokakarya Penulisan Kreatif",
+      "description": "Umpan balik dari rekan sejawat tentang cerita pendek dan puisi. Bagikan karya Anda dan dapatkan masukan yang membangun.",
       "status": "Online",
-      "category": "Literature"
+      "category": "Sastra"
     },
     "schedule": {
       "day": "Jumat",

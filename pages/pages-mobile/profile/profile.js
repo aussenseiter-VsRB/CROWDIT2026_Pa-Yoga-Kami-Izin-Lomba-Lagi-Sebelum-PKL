@@ -20,31 +20,31 @@ function saveInterests(interests) {
 }
 
 function iconEdit() {
-  return '<svg viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>';
+  return '<i class="bi bi-pencil"></i>';
 }
 
 function iconQr() {
-  return '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="3" height="3" rx="0.5"/><rect x="18" y="14" width="3" height="3" rx="0.5"/><rect x="18" y="18" width="3" height="3" rx="0.5"/></svg>';
+  return '<i class="bi bi-qr-code"></i>';
 }
 
 function iconSettings() {
-  return '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  return '<i class="bi bi-gear"></i>';
 }
 
 function iconHelp() {
-  return '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+  return '<i class="bi bi-question-circle"></i>';
 }
 
 function iconChevron() {
-  return '<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>';
+  return '<i class="bi bi-chevron-right"></i>';
 }
 
 function iconPlus() {
-  return '<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+  return '<i class="bi bi-plus"></i>';
 }
 
 function iconX() {
-  return '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  return '<i class="bi bi-x"></i>';
 }
 
 function renderInterestTags(interests, onRemove) {

@@ -10,31 +10,31 @@ import { navigateTo } from '/js/router.js';
 import { getTheme, toggleTheme } from '/js/theme.js';
 
 function iconArrowLeft() {
-  return '<svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>';
+  return '<i class="bi bi-arrow-left"></i>';
 }
 
 function iconBell() {
-  return '<svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';
+  return '<i class="bi bi-bell"></i>';
 }
 
 function iconLock() {
-  return '<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+  return '<i class="bi bi-lock"></i>';
 }
 
 function iconMoon() {
-  return '<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  return '<i class="bi bi-moon"></i>';
 }
 
 function iconGlobe() {
-  return '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';
+  return '<i class="bi bi-globe"></i>';
 }
 
 function iconTrash() {
-  return '<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+  return '<i class="bi bi-trash"></i>';
 }
 
 function iconChevron() {
-  return '<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>';
+  return '<i class="bi bi-chevron-right"></i>';
 }
 
 export async function Settings() {

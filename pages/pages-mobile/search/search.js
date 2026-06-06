@@ -35,9 +35,8 @@ function highlight(text, query) {
   return escape(text).replace(re, '<mark>$1</mark>');
 }
 
-const ICON_MAP = { Forum: '💬', Grup: '👥', Kursus: '📚' };
+const ICON_MAP = { Forum: 'chat-dots', Grup: 'people', Kursus: 'book' };
 const COLOR_MAP = { Forum: 'blue', Grup: 'purple', Kursus: 'green' };
-const URL_MAP = { Forum: '/groups', Grup: '/groups', Kursus: '/detail' };
 
 function buildDiscoveryData(index) {
   const tagCounts = {};
@@ -46,14 +45,14 @@ function buildDiscoveryData(index) {
     const allTags = [doc.category, ...doc.tags].filter(Boolean);
     allTags.forEach(t => {
       tagCounts[t] = (tagCounts[t] || 0) + 1;
-      if (!tagIcons[t]) tagIcons[t] = ICON_MAP[doc.type] || '📄';
+      if (!tagIcons[t]) tagIcons[t] = ICON_MAP[doc.type] || 'file-text';
     });
   });
 
   const trendingTags = Object.entries(tagCounts)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5)
-    .map(([label, count]) => ({ label, count, icon: tagIcons[label] || '🔥' }));
+    .map(([label, count]) => ({ label, count, icon: tagIcons[label] || 'fire' }));
 
   const seen = new Set();
   const suggested = [];
@@ -63,14 +62,14 @@ function buildDiscoveryData(index) {
     seen.add(doc.title);
     suggested.push({
       type: doc.type,
-      icon: ICON_MAP[doc.type] || '📄',
+      icon: ICON_MAP[doc.type] || 'file-text',
       color: COLOR_MAP[doc.type] || 'blue',
       title: doc.title,
       sub: doc.meta ? `${doc.type === 'Forum' ? 'Forum' : doc.type === 'Grup' ? 'Grup' : 'Kursus'} · ${doc.meta}` : doc.type,
       description: doc.description,
       tags: doc.tags,
       stat: doc.meta || '',
-      url: URL_MAP[doc.type] || '/search',
+      url: doc.url,
     });
   }
   return { trendingTags, suggested };
@@ -80,7 +79,7 @@ function TrendingCard(item) {
   return `
     <article class="mobile-card" data-search="${escape(item.label)}" role="button" tabindex="0" style="cursor:pointer;padding:0.6rem 0.8rem">
       <div style="display:flex;align-items:center;gap:0.55rem">
-        <div style="width:1.6rem;height:1.6rem;border-radius:0.45rem;display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0;background:var(--surface-alt)">${item.icon}</div>
+        <div style="width:1.6rem;height:1.6rem;border-radius:0.45rem;display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0;background:var(--surface-alt)"><i class="bi bi-${item.icon}"></i></div>
         <div style="flex:1;min-width:0">
           <p style="margin:0;font-size:0.82rem;font-weight:700;line-height:1.3">${escape(item.label)}</p>
           <p style="margin:0;color:var(--muted-alt);font-size:0.68rem">${item.count} konten</p>
@@ -95,7 +94,7 @@ function SuggestedCard(item) {
     <a class="mobile-card" href="${item.url}" data-link style="display:block;text-decoration:none;color:inherit">
       <div style="display:flex;align-items:flex-start;gap:0.7rem;margin-bottom:0.5rem">
         <div style="width:2.4rem;height:2.4rem;border-radius:0.7rem;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:var(--surface-alt)">
-          ${item.icon}
+          <i class="bi bi-${item.icon}"></i>
         </div>
         <div style="flex:1;min-width:0">
           <p style="margin:0;font-size:0.95rem;font-weight:700;line-height:1.3">${escape(item.title)}</p>
@@ -160,12 +159,9 @@ export async function Search() {
       </header>
 
       <div class="mobile-search-box" role="search" style="position:relative">
-        <svg style="position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);width:1.15rem;height:1.15rem;color:var(--accent);opacity:0.6;pointer-events:none;z-index:1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="M21 21l-4.35-4.35"></path>
-        </svg>
+        <i class="bi bi-search" style="position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);font-size:1.15rem;color:var(--accent);opacity:0.6;pointer-events:none;z-index:1"></i>
         <input class="mobile-input" type="search" placeholder="${data.placeholder}" autocomplete="off" style="padding:0 2.8rem 0 2.6rem;min-height:3.2rem;border:2px solid rgba(0,122,255,0.12);border-radius:999px;background:#fff;font-size:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.04),inset 0 1px 2px rgba(0,0,0,0.02)" />
-        <button class="search-page__clear" aria-label="Hapus pencarian" style="position:absolute;right:0.5rem;top:50%;transform:translateY(-50%);width:1.6rem;height:1.6rem;border:none;border-radius:50%;background:#c7c7cc;color:#fff;font-size:0.7rem;font-weight:700;cursor:pointer;opacity:0.7;z-index:1">✕</button>
+        <button class="search-page__clear" aria-label="Hapus pencarian" style="position:absolute;right:0.5rem;top:50%;transform:translateY(-50%);width:1.6rem;height:1.6rem;border:none;border-radius:50%;background:#c7c7cc;color:#fff;font-size:0.7rem;font-weight:700;cursor:pointer;opacity:0.7;z-index:1"><i class="bi bi-x"></i></button>
       </div>
 
       <div class="search-page__filters" id="js-filters" style="display:flex;gap:0.5rem;margin-bottom:1.2rem;overflow-x:auto;scrollbar-width:none">${filtersHtml}</div>
@@ -185,7 +181,7 @@ export async function Search() {
         <p class="mobile-search-hint" id="js-results-label" style="color:var(--muted);font-size:0.85rem;text-align:center;padding:0.5rem 0"></p>
         <div class="mobile-list" id="js-results-list"></div>
         <div class="search-page__empty" hidden id="js-empty" style="text-align:center;padding:3rem 0">
-          <p style="font-size:2.5rem;opacity:0.25;margin-bottom:0.5rem">🔍</p>
+          <p style="font-size:2.5rem;opacity:0.25;margin-bottom:0.5rem"><i class="bi bi-search"></i></p>
           <p style="color:var(--muted);font-size:1rem;font-weight:700;margin-bottom:0.25rem">${data.emptyTitle}</p>
           <p style="color:var(--muted-alt);font-size:0.85rem">${data.emptySub}</p>
         </div>

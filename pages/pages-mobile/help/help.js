@@ -9,23 +9,23 @@ import { isAuthenticated, navigateAfterAuth } from '/js/auth.js';
 import { navigateTo } from '/js/router.js';
 
 function iconArrowLeft() {
-  return '<svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>';
+  return '<i class="bi bi-arrow-left"></i>';
 }
 
 function iconSearch() {
-  return '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+  return '<i class="bi bi-search"></i>';
 }
 
 function iconQuestion() {
-  return '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+  return '<i class="bi bi-question-circle"></i>';
 }
 
 function iconChat() {
-  return '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  return '<i class="bi bi-chat-dots"></i>';
 }
 
 function iconChevron() {
-  return '<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>';
+  return '<i class="bi bi-chevron-right"></i>';
 }
 
 const faqs = [
@@ -78,34 +78,28 @@ export async function Help() {
 
   function renderFaqs(filter = '') {
     const container = el.querySelector('#help-faqs');
-    container.innerHTML = '';
-    const lower = filter.toLowerCase();
-
-    faqs.forEach((faq, i) => {
-      if (filter && !faq.q.toLowerCase().includes(lower) && !faq.a.toLowerCase().includes(lower)) return;
-
-      const btn = document.createElement('button');
-      btn.className = 'm-help__faq';
-      btn.type = 'button';
-      btn.innerHTML = `
-        <span class="m-help__faq-icon">${iconQuestion()}</span>
-        <span class="m-help__faq-body">
-          <span class="m-help__faq-question">${faq.q}</span>
-          <span class="m-help__faq-answer">${faq.a}</span>
-        </span>
-        <span class="m-help__faq-chevron">${iconChevron()}</span>
-      `;
-      btn.addEventListener('click', () => btn.classList.toggle('m-help__faq--open'));
-      container.appendChild(btn);
-    });
+    if (!container) return;
+    const terms = filter.toLowerCase().split(/\s+/).filter(Boolean);
+    const filtered = terms.length
+      ? faqs.filter(f => terms.some(t => f.q.toLowerCase().includes(t) || f.a.toLowerCase().includes(t)))
+      : faqs;
+    container.innerHTML = filtered.map((f, i) => `
+      <details class="m-help__faq"${i === 0 ? ' open' : ''}>
+        <summary class="m-help__faq-summary">
+          <span>${f.q}</span>
+          <span class="m-help__faq-icon">${iconChevron()}</span>
+        </summary>
+        <p class="m-help__faq-answer">${f.a}</p>
+      </details>
+    `).join('');
   }
 
   renderFaqs();
 
-  el.querySelector('.m-help__back').addEventListener('click', () => navigateTo('/profile'));
-
   const searchInput = el.querySelector('.m-help__search-input');
   searchInput.addEventListener('input', () => renderFaqs(searchInput.value));
+
+  el.querySelector('.m-help__back').addEventListener('click', () => navigateTo('/profile'));
 
   return el;
 }

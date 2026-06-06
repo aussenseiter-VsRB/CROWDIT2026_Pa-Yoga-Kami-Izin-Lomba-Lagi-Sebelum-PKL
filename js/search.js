@@ -29,26 +29,38 @@ class SearchEngine {
 
     const docs = [];
 
-    home.forums.forEach(f => {
+    home.forums.forEach((f, i) => {
+      const course = Array.isArray(detail) && detail[i]?.course;
+      const url = (f.action === 'Detail')
+        ? `/detail?index=${i}`
+        : (f.action === 'Buka')
+          ? `/open?index=${i}`
+          : '/groups';
       docs.push({
         type: 'Forum',
         title: f.title,
         description: f.description,
-        url: '/groups',
-        tags: [f.status],
-        category: f.title.split(' ').slice(-2).join(' '),
+        url,
+        tags: [f.status].filter(Boolean),
+        category: course?.category || '',
       });
     });
 
-    home.mobile?.forums?.forEach(f => {
+    home.mobile?.forums?.forEach((f, i) => {
       if (!docs.find(d => d.title === f.title)) {
+        const course = Array.isArray(detail) && detail[i]?.course;
+        const url = (f.action === 'Detail')
+          ? `/detail?index=${i}`
+          : (f.action === 'Buka')
+            ? `/open?index=${i}`
+            : '/groups';
         docs.push({
           type: 'Forum',
           title: f.title,
           description: f.description,
-          url: '/groups',
-          tags: [f.status],
-          category: '',
+          url,
+          tags: [f.status].filter(Boolean),
+          category: course?.category || '',
         });
       }
     });

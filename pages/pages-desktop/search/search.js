@@ -18,9 +18,8 @@ function highlight(text, query) {
   return escape(text).replace(re, '<mark>$1</mark>');
 }
 
-const ICON_MAP = { Forum: '💬', Grup: '👥', Kursus: '📚' };
+const ICON_MAP = { Forum: 'chat-dots', Grup: 'people', Kursus: 'book' };
 const COLOR_MAP = { Forum: 'blue', Grup: 'purple', Kursus: 'green' };
-const URL_MAP = { Forum: '/groups', Grup: '/groups', Kursus: '/detail' };
 
 function buildDiscoveryData(index) {
   const tagCounts = {};
@@ -29,14 +28,14 @@ function buildDiscoveryData(index) {
     const allTags = [doc.category, ...doc.tags].filter(Boolean);
     allTags.forEach(t => {
       tagCounts[t] = (tagCounts[t] || 0) + 1;
-      if (!tagIcons[t]) tagIcons[t] = ICON_MAP[doc.type] || '📄';
+      if (!tagIcons[t]) tagIcons[t] = ICON_MAP[doc.type] || 'file-text';
     });
   });
 
   const trendingTags = Object.entries(tagCounts)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5)
-    .map(([label, count]) => ({ label, count, icon: tagIcons[label] || '🔥' }));
+    .map(([label, count]) => ({ label, count, icon: tagIcons[label] || 'fire' }));
 
   const seen = new Set();
   const suggested = [];
@@ -46,14 +45,14 @@ function buildDiscoveryData(index) {
     seen.add(doc.title);
     suggested.push({
       type: doc.type,
-      icon: ICON_MAP[doc.type] || '📄',
+      icon: ICON_MAP[doc.type] || 'file-text',
       color: COLOR_MAP[doc.type] || 'blue',
       title: doc.title,
       sub: doc.meta ? `${doc.type === 'Forum' ? 'Forum' : doc.type === 'Grup' ? 'Grup' : 'Kursus'} · ${doc.meta}` : doc.type,
       description: doc.description,
       tags: doc.tags,
       stat: doc.meta || '',
-      url: URL_MAP[doc.type] || '/search',
+      url: doc.url,
     });
   }
   return { trendingTags, suggested };
@@ -63,7 +62,7 @@ function TrendingCard(item) {
   return `
     <article class="result-card" data-search="${escape(item.label)}" role="button" tabindex="0">
       <div class="result-card__body" style="display:flex;align-items:center;gap:0.6rem;padding:0.7rem 1rem">
-        <div class="result-card__avatar result-card__avatar--blue" style="border-radius:0.5rem;width:1.7rem;height:1.7rem;font-size:0.8rem">${item.icon}</div>
+        <div class="result-card__avatar result-card__avatar--blue" style="border-radius:0.5rem;width:1.7rem;height:1.7rem;font-size:0.8rem"><i class="bi bi-${item.icon}"></i></div>
         <div style="flex:1;min-width:0">
           <p class="result-card__title" style="font-size:0.82rem;margin-bottom:0.05rem">${escape(item.label)}</p>
           <p class="result-card__subtitle" style="font-size:0.7rem">${item.count} konten</p>
@@ -78,7 +77,7 @@ function SuggestedCard(item) {
     <a class="result-card" href="${item.url}" data-link>
       <div class="result-card__body">
         <div class="result-card__header">
-          <div class="result-card__avatar result-card__avatar--${item.color}">${item.icon}</div>
+          <div class="result-card__avatar result-card__avatar--${item.color}"><i class="bi bi-${item.icon}"></i></div>
           <div class="result-card__meta">
             <p class="result-card__title">${escape(item.title)}</p>
             <p class="result-card__subtitle">${escape(item.sub)}</p>
@@ -147,12 +146,9 @@ export async function Search() {
           <p class="search-page__desc">${data.header.description}</p>
         </div>
         <div class="search-page__bar">
-          <svg class="search-page__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="M21 21l-4.35-4.35"></path>
-          </svg>
+          <i class="bi bi-search search-page__icon"></i>
           <input class="search-page__input" type="search" placeholder="${data.placeholder}" autocomplete="off" />
-          <button class="search-page__clear" aria-label="Hapus pencarian">✕</button>
+          <button class="search-page__clear" aria-label="Hapus pencarian"><i class="bi bi-x"></i></button>
         </div>
       </div>
 
@@ -173,7 +169,7 @@ export async function Search() {
         <p class="search-page__hint" id="js-results-label"></p>
         <div class="search-page__results" id="js-results-list"></div>
         <div class="search-page__empty" hidden id="js-empty">
-          <p class="search-page__empty-icon">🔍</p>
+          <p class="search-page__empty-icon"><i class="bi bi-search"></i></p>
           <p class="search-page__empty-title">${data.emptyTitle}</p>
           <p class="search-page__empty-sub">${data.emptySub}</p>
         </div>
