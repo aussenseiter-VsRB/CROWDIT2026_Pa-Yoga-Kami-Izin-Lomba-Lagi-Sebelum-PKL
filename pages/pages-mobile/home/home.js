@@ -32,7 +32,7 @@ function ForumCard(forum) {
           ${peopleIcon()}
           ${forum.joined}
         </span>
-        <a class="m-home-action ${forum.action === 'Open' ? 'is-primary' : 'is-secondary'}" href="/groups" data-link>
+        <a class="m-home-action ${(forum.action === 'Open' || forum.action === 'Buka') ? 'is-primary' : 'is-secondary'}" href="/groups" data-link>
           ${forum.action}
         </a>
       </div>
