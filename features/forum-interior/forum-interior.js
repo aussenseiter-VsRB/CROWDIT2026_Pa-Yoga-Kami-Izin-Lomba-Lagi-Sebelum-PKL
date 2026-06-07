@@ -1,7 +1,7 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
-import { fetchData } from '../../js/utils/api.js';
-import { getHashPath, getHashParams, asset, navigateTo } from '../../js/utils/url.js';
+import { getHashParams, asset, navigateTo } from '../../js/utils/url.js';
 import { getForumStatus } from '../../js/forum-access.js';
+import { getUsersForContext } from '../../js/dummy-users.js';
 import { isFollowing, toggleFollow, notifyNewMessage } from '../../js/notifications.js';
 
 injectStyle('/css/_shared.css');
@@ -141,26 +141,35 @@ function ChannelSidebar(serverName, channels, activeId, forumId, forumType) {
   `;
 }
 
-function MemberList(members, memberCount, memberLimit, forumIndex) {
-  const groups = { online: [], idle: [], offline: [] };
-  members.forEach(m => { (groups[m.status] || groups.offline).push(m); });
-  const labels = { online: 'Online', idle: 'Idle', offline: 'Offline' };
-  const dots = { online: 'online', idle: 'idle', offline: 'offline' };
+function ActiveMembersPanel(users, serverName) {
+  const maxShow = 25;
+  const shown = users.slice(0, maxShow);
 
-  return `
-    <div class="forum-members">
-      ${AvatarStackHtml(memberCount, memberLimit, forumIndex)}
-      ${['online', 'idle', 'offline'].filter(g => groups[g].length).map(g => `
-        <div class="forum-members__cat">${labels[g]} \u2014 ${groups[g].length}</div>
-        ${groups[g].map(m => `
-          <a class="forum-members__user" href="/profile?user=${encodeURIComponent(m.name)}" data-link>
-            <span class="forum-members__dot forum-members__dot--${dots[g]}"></span>
-            ${m.name}
-          </a>
-        `).join('')}
-      `).join('')}
-    </div>
-  `;
+  let html = `<div class="forum-active-members">`;
+  html += `<div class="forum-active-members__header"><i class="bi bi-people"></i> Anggota Aktif</div>`;
+  html += `<div class="forum-active-members__list">`;
+
+  shown.forEach(u => {
+    const isLocal = u.isLocal;
+    const name = isLocal ? `${u.firstName} (Kamu)` : `${u.firstName} ${u.lastName}`.trim();
+    const initial = u.firstName.charAt(0).toUpperCase();
+    const imgSrc = u.image || '';
+
+    html += `<div class="forum-active-member ${isLocal ? 'forum-active-member--local' : ''}">`;
+    if (imgSrc) {
+      html += `<img class="forum-active-member__avatar" src="${imgSrc}" alt="${u.firstName}" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"><rect width="36" height="36" rx="18" fill="${'#007aff'}"/><text x="18" y="23" text-anchor="middle" fill="white" font-size="16" font-weight="700">${initial}</text></svg>`)}'" />`;
+    } else {
+      html += `<div class="forum-active-member__avatar forum-active-member__avatar--fallback">${initial}</div>`;
+    }
+    html += `<span class="forum-active-member__name">${name}</span>`;
+    if (isLocal) {
+      html += `<span class="forum-active-member__badge">Kamu</span>`;
+    }
+    html += `</div>`;
+  });
+
+  html += `</div></div>`;
+  return html;
 }
 
 function formatDate(iso) {
@@ -193,7 +202,7 @@ function MessageArea(channel, dateStr) {
 }
 
 function renderDesktop(el, opts) {
-  let { serverName, channels, members, memberCount, memberLimit, forumIndex, backLink, forumId, forumType, activeChannel } = opts;
+  let { serverName, channels, members, memberCount, memberLimit, forumIndex, backLink, forumId, forumType, activeChannel, activeUsers } = opts;
 
   function appendMessage(msg) {
     const msgs = el.querySelector('#js-forum-msgs');
@@ -211,7 +220,7 @@ function renderDesktop(el, opts) {
       <div class="forum-layout">
         ${ChannelSidebar(serverName, channels, activeChannel.id, forumId, forumType)}
         ${MessageArea(activeChannel, dateStr)}
-        ${MemberList(members, memberCount, memberLimit, forumIndex)}
+        ${ActiveMembersPanel(activeUsers, serverName)}
       </div>
     `;
 
@@ -327,25 +336,6 @@ function forumStyles() {
       color: var(--muted-alt, #8e8e93); font-size: 0.82rem; font-style: italic;
     }
 
-    .forum-member-list { padding: 0.5rem 0.85rem; }
-    .forum-member-item {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.4rem 0; font-size: 0.82rem;
-      text-decoration: none; color: inherit;
-    }
-    .forum-member-item__dot {
-      width: 0.4rem; height: 0.4rem; border-radius: 50%; flex-shrink: 0;
-    }
-    .forum-member-item__dot--online { background: var(--success, #34c759); }
-    .forum-member-item__dot--idle { background: #ff9f0a; }
-    .forum-member-item__dot--offline { background: var(--muted-alt, #8e8e93); }
-    .forum-member-item__name { font-weight: 600; }
-    .forum-member-cat {
-      font-size: 0.65rem; font-weight: 800; color: var(--muted-alt, #8e8e93);
-      letter-spacing: 0.06em; text-transform: uppercase; margin: 0.5rem 0 0.25rem;
-    }
-    .forum-member-cat:first-child { margin-top: 0; }
-
     .forum-follow-btn {
       background: none; border: 1px solid var(--border-color);
       border-radius: 999px; padding: 0.2rem 0.6rem;
@@ -357,11 +347,28 @@ function forumStyles() {
       background: var(--accent-soft); border-color: var(--accent);
       color: var(--accent);
     }
+
+    .forum-active-panel {
+      border-top: 1px solid var(--border-color);
+      margin-top: 0.75rem;
+      padding-top: 0.5rem;
+    }
+    .forum-active-panel__header {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--muted-alt);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
   `;
 }
 
 function renderMobile(el, opts) {
-  const { serverName, channels, members, memberCount, memberLimit, forumIndex, backLink, forumId, forumType } = opts;
+  const { serverName, channels, members, memberCount, memberLimit, forumIndex, backLink, forumId, forumType, activeUsers } = opts;
   let activeChannel = channels[0];
 
   if (!document.querySelector('style[data-forum-mobile]')) {
@@ -369,6 +376,36 @@ function renderMobile(el, opts) {
     s.setAttribute('data-forum-mobile', '');
     s.textContent = forumStyles();
     document.head.appendChild(s);
+  }
+
+  function renderActiveMembers() {
+    const maxShow = 25;
+    const shown = activeUsers.slice(0, maxShow);
+
+    let html = `<div class="forum-member-list">`;
+    html += `<p class="forum-member-cat" style="margin-top:0"><i class="bi bi-people"></i> Anggota Aktif (${activeUsers.length})</p>`;
+
+    shown.forEach(u => {
+      const isLocal = u.isLocal;
+      const name = isLocal ? `${u.firstName} (Kamu)` : `${u.firstName} ${u.lastName}`.trim();
+      const initial = u.firstName.charAt(0).toUpperCase();
+      const imgSrc = u.image || '';
+
+      html += `<div class="forum-member-item" style="display:flex;align-items:center;gap:0.5rem;padding:0.4rem 0;font-size:0.82rem;">`;
+      if (imgSrc) {
+        html += `<img src="${imgSrc}" alt="${u.firstName}" style="width:1.8rem;height:1.8rem;border-radius:50%;object-fit:cover;flex-shrink:0" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="14" fill="${'#007aff'}"/><text x="14" y="19" text-anchor="middle" fill="white" font-size="13" font-weight="700">${initial}</text></svg>`)}'" />`;
+      } else {
+        html += `<div style="width:1.8rem;height:1.8rem;border-radius:50%;background:var(--accent,#007aff);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;flex-shrink:0">${initial}</div>`;
+      }
+      html += `<span style="font-weight:600">${name}</span>`;
+      if (isLocal) {
+        html += `<span style="font-size:0.65rem;color:var(--accent,#007aff);font-weight:700;margin-left:auto">Kamu</span>`;
+      }
+      html += `</div>`;
+    });
+
+    html += `</div>`;
+    return html;
   }
 
   function renderMemberList() {
@@ -432,6 +469,9 @@ function renderMobile(el, opts) {
           <p class="mobile-section-title">Anggota (${members.length})</p>
           <div class="forum-member-list">${renderMemberList()}</div>
         ` : ''}
+        <div class="forum-active-panel">
+          ${renderActiveMembers()}
+        </div>
       </div>
     `;
 
@@ -494,7 +534,7 @@ function renderMobile(el, opts) {
             <div style="font-size:0.85rem;font-weight:700"># ${activeChannel.name}</div>
             <div style="font-size:0.68rem;color:var(--muted-alt,#8e8e93)">${activeChannel.topic || ''}</div>
           </div>
-          ${members.length ? `
+          ${activeUsers.length ? `
             <button id="js-members-toggle" style="background:none;border:none;font-size:1rem;color:var(--muted-alt);cursor:pointer;padding:0.25rem" aria-label="Anggota">
               <i class="bi bi-people"></i>
             </button>
@@ -515,7 +555,7 @@ function renderMobile(el, opts) {
 
     el.querySelector('#js-m-back').addEventListener('click', renderChannelList);
 
-    if (members.length) {
+    if (activeUsers.length) {
       let showingMembers = false;
       const membersToggle = el.querySelector('#js-members-toggle');
       const msgsContainer = el.querySelector('#js-m-msgs');
@@ -523,14 +563,32 @@ function renderMobile(el, opts) {
       membersToggle.addEventListener('click', () => {
         showingMembers = !showingMembers;
         if (showingMembers) {
-          msgsContainer.innerHTML = `
-            <div class="forum-member-list">
-              ${AvatarStackHtml(memberCount, memberLimit, forumIndex)}
-              <p class="forum-member-cat" style="margin-top:0">Anggota (${members.length})</p>
-              ${renderMemberList()}
-            </div>
-          `;
-          populateStacks(msgsContainer);
+          const maxShow = 25;
+          const shown = activeUsers.slice(0, maxShow);
+          let html = `<div class="forum-member-list">`;
+          html += `<p class="forum-member-cat" style="margin-top:0"><i class="bi bi-people"></i> Anggota Aktif (${activeUsers.length})</p>`;
+
+          shown.forEach(u => {
+            const isLocal = u.isLocal;
+            const name = isLocal ? `${u.firstName} (Kamu)` : `${u.firstName} ${u.lastName}`.trim();
+            const initial = u.firstName.charAt(0).toUpperCase();
+            const imgSrc = u.image || '';
+
+            html += `<div class="forum-member-item" style="display:flex;align-items:center;gap:0.5rem;padding:0.4rem 0;font-size:0.82rem;">`;
+            if (imgSrc) {
+              html += `<img src="${imgSrc}" alt="${u.firstName}" style="width:1.8rem;height:1.8rem;border-radius:50%;object-fit:cover;flex-shrink:0" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="14" fill="${'#007aff'}"/><text x="14" y="19" text-anchor="middle" fill="white" font-size="13" font-weight="700">${initial}</text></svg>`)}'" />`;
+            } else {
+              html += `<div style="width:1.8rem;height:1.8rem;border-radius:50%;background:var(--accent,#007aff);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;flex-shrink:0">${initial}</div>`;
+            }
+            html += `<span style="font-weight:600">${name}</span>`;
+            if (isLocal) {
+              html += `<span style="font-size:0.65rem;color:var(--accent,#007aff);font-weight:700;margin-left:auto">Kamu</span>`;
+            }
+            html += `</div>`;
+          });
+
+          html += `</div>`;
+          msgsContainer.innerHTML = html;
         } else {
           msgsContainer.innerHTML = activeChannel.messages.length === 0
             ? '<div class="forum-m-empty">Belum ada pesan di sini.</div>'
@@ -598,8 +656,6 @@ export async function ForumInterior() {
     return el;
   }
 
-  initForumUsers();
-
   const [forumRes, detailRes, groupsRes] = await Promise.all([
     fetch(asset('/data/forum.json')).then(r => r.json()),
     fetch(asset('/data/detail.json')).then(r => r.json()),
@@ -637,15 +693,15 @@ export async function ForumInterior() {
     : (forumData.memberLimit || 100);
   const activeChannel = channels[0];
 
+  const activeUsers = await getUsersForContext(forumIndex, 25);
+
   document.querySelector('#footer').style.display = 'none';
   document.querySelector('#main').style.paddingBottom = '0';
 
   if (window.innerWidth <= 900) {
     const el = document.createElement('section');
     el.className = 'mobile-page';
-    renderMobile(el, { serverName, channels, members, memberCount, memberLimit, forumIndex, activeChannel, backLink, forumId, forumType });
-    populateStacks(el);
-    usersPromise.then(() => populateStacks(el));
+    renderMobile(el, { serverName, channels, members, memberCount, memberLimit, forumIndex, activeChannel, backLink, forumId, forumType, activeUsers });
     return el;
   }
 
@@ -657,9 +713,7 @@ export async function ForumInterior() {
   el.style.flex = '1';
   el.style.padding = '0 1.5rem';
   el.style.margin = '0.75rem 0 0';
-  renderDesktop(el, { serverName, channels, members, memberCount, memberLimit, forumIndex, activeChannel, backLink, forumId, forumType });
-  populateStacks(el);
-  usersPromise.then(() => populateStacks(el));
+  renderDesktop(el, { serverName, channels, members, memberCount, memberLimit, forumIndex, activeChannel, backLink, forumId, forumType, activeUsers });
   return el;
 }
 

@@ -1,7 +1,7 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
-import { fetchData } from '../../js/utils/api.js';
 import { getHashParams, getHashPath, asset, navigateTo } from '../../js/utils/url.js';
 import { getForumStatus, joinForum, requestJoin, leaveForum } from '../../js/forum-access.js';
+import { isAuthenticated } from '../../js/auth.js';
 import { AvatarStackHtml, populateStacks, initForumUsers } from '../forum-interior/forum-interior.js';
 
 injectStyle('/css/_shared.css');
@@ -166,6 +166,10 @@ function attachCTA(el, data) {
   const { forumType, index, privacy, serverName, status } = data;
 
   btn.addEventListener('click', () => {
+    if (!isAuthenticated()) {
+      navigateTo('/login');
+      return;
+    }
     if (status === 'joined') {
       navigateTo(`/forum-interior?${forumType === 'course' ? 'index' : 'group'}=${index}`);
       return;
