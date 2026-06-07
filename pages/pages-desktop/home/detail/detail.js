@@ -192,7 +192,7 @@ export async function Detail() {
             </div>
           </div>
 
-          <a class="dtl-join-btn" href="${item.forum.joinLink}" data-link>
+          <a class="dtl-join-btn" href="/forum?index=${index}" data-link>
             Gabung ke Forum
             <i class="bi bi-arrow-right"></i>
           </a>

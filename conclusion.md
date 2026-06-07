@@ -1,227 +1,217 @@
 # Conclusion
 
-Proyek ini memakai arsitektur **Vanilla JavaScript SPA** yang sederhana, rapi, dan mudah dikembangkan.  
+Proyek ini memakai arsitektur **Vanilla JavaScript SPA** yang sederhana, rapi, dan mudah dikembangkan.
 Prinsip utamanya adalah:
 
+- **Data-driven** — konten dari file JSON, rendering terpisah di JS
 - **Satu file untuk satu tanggung jawab**
 - **Komponen dibuat modular**
 - **CSS dipisah per komponen**
-- **Routing diatur terpusat**
+- **Routing diatur terpusat** (dua route table: desktop + mobile)
 - **Layout utama tidak di-render ulang**
-
-Dengan pola ini, alur coding ke depan jadi lebih gampang dipelihara karena setiap fitur punya tempat yang jelas.
 
 ## Struktur Kerja Utama
 
-Berikut alur kerja aplikasi ini:
-
-1. `index.html` menjadi entry point.
-2. `js/main.js` menjalankan aplikasi.
-3. `js/router.js` memilih halaman berdasarkan path URL (History API).
+1. `index.html` menjadi entry point — memuat layout tetap (navbar, top-bar, bottom-bar, footer, `#main`).
+2. `js/main.js` menjalankan aplikasi: mount komponen tetap, intercept `[data-link]`, panggil `router()`.
+3. `js/router.js` memilih route table berdasarkan viewport (≤900px mobile) dan merender halaman ke `#main`.
 4. Navigasi menggunakan `history.pushState()` — URL bersih tanpa `#`.
-5. Back/forward browser tetap berfungsi berkat event `popstate`.
-6. Folder `components/` berisi komponen yang dipakai di halaman.
-7. `css/global.css` menyimpan style dasar, variabel, dan utility umum.
+5. Back/forward browser berfungsi berkat event `popstate`.
+6. Router melepas `route-change` custom event; komponen tetap mendengarnya untuk update state.
+7. Semua halaman membaca data dari `/data/{page}.json`.
 
 ## Struktur File
 
 ```txt
 studNow/
 ├── index.html
-├── conclusion.md
-├── design.md
 ├── README.md
+├── design.md
+├── conclusion.md
+├── package.json
 ├── css/
 │   └── global.css
 ├── dist/
 │   └── output.css
 ├── js/
-│   ├── main.js
-│   └── router.js
-└── components/
-    ├── desktop/
-    │   ├── navbar/
-    │   │   ├── navbar.js
-    │   │   └── navbar.css
-    │   ├── footer/
-    │   │   ├── footer.js
-    │   │   └── footer.css
-    │   ├── card/
-    │   │   ├── card.js
-    │   │   └── card.css
-    │   └── form-field/
-    │       ├── form-field.js
-    │       └── form-field.css
-    ├── mobile/
-    │   ├── top-bar/
-    │   │   ├── top-bar.js
-    │   │   └── top-bar.css
-    │   └── bottom-bar/
-    │       ├── bottom-bar.js
-    │       └── bottom-bar.css
-    └── pages/
-        ├── home/
-        │   ├── home.js
-        │   └── home.css
-        ├── about/
-        │   └── about.js
-        ├── contact/
-        │   └── contact.js
-        ├── groups/
-        │   └── groups.js
-        ├── chat/
-        │   └── chat.js
-        ├── profile/
-        │   └── profile.js
-        ├── signup/
-        │   └── signup.js
-        ├── search/
-        │   └── search.js
-        └── notifications/
-            └── notifications.js
+│   ├── main.js             # Bootstrap aplikasi
+│   ├── router.js           # Router desktop + mobile
+│   ├── auth.js             # Login/register/session (localStorage)
+│   ├── search.js           # Fuzzy search engine
+│   └── theme.js            # Inisialisasi tema
+├── data/                   # Single source of truth — semua konten halaman
+│   ├── home.json
+│   ├── detail.json
+│   ├── groups.json
+│   ├── search.json
+│   ├── login.json
+│   ├── signup.json
+│   ├── profile.json
+│   ├── chat.json
+│   ├── notifications.json
+│   ├── about.json
+│   ├── contact.json
+│   └── users.json
+├── pages/
+│   ├── pages-desktop/      # Halaman untuk viewport ≥901px
+│   │   ├── home/
+│   │   │   ├── home.js
+│   │   │   ├── home.css
+│   │   │   └── detail/
+│   │   │       ├── detail.js
+│   │   │       └── open.js
+│   │   ├── about/about.js
+│   │   ├── chat/chat.js
+│   │   ├── contact/contact.js
+│   │   ├── groups/groups.js + .css
+│   │   ├── login/login.js + .css
+│   │   ├── notifications/notifications.js
+│   │   ├── profile/profile.js
+│   │   ├── search/search.js + .css
+│   │   └── signup/signup.js + .css
+│   └── pages-mobile/       # Halaman untuk viewport ≤900px
+│       ├── home/home.js
+│       ├── about/about.js
+│       ├── chat/chat.js
+│       ├── contact/contact.js
+│       ├── edit-profile/edit-profile.js
+│       ├── groups/groups.js
+│       ├── help/help.js
+│       ├── login/login.js
+│       ├── notifications/notifications.js
+│       ├── profile/profile.js
+│       ├── search/search.js
+│       ├── settings/settings.js
+│       └── signup/signup.js
+├── components/
+│   ├── desktop/
+│   │   ├── navbar/navbar.js + .css
+│   │   ├── footer/footer.js + .css
+│   │   ├── card/card.js + .css
+│   │   ├── form-field/form-field.js + .css
+│   │   └── page-header/page-header.js + .css
+│   ├── mobile/
+│   │   ├── top-bar/top-bar.js + .css
+│   │   └── bottom-bar/bottom-bar.js + .css
+│   └── shared/             # (cadangan)
+└── node_modules/
 ```
 
 ## Cara Kerja Coding Ke Depan
 
-Kalau mau menambah fitur baru, ikuti pola ini:
+### 1. Buat halaman baru
 
-### 1. Buat halaman atau komponen baru
-
-Kalau fiturnya berupa halaman baru, buat folder baru di:
+Buat folder di `pages/pages-desktop/nama-halaman/` (dan/atau `pages/pages-mobile/nama-halaman/`).
 
 ```txt
-components/pages/nama-page/
+pages/pages-desktop/blog/blog.js
+pages/pages-desktop/blog/blog.css    # opsional
 ```
 
-Lalu buat file JS utama untuk halaman tersebut, misalnya:
+Fungsi utama harus `export async function Blog()` yang mengembalikan DOM element.
 
-```txt
-components/pages/blog/blog.js
-```
+### 2. Daftarkan ke router
 
-Kalau fiturnya berupa komponen reusable, buat folder di:
-
-```txt
-components/nama-komponen/
-```
-
-Contoh:
-
-```txt
-components/button/
-components/modal/
-components/feature-card/
-```
-
-### 2. Pisahkan style per komponen
-
-Setiap komponen idealnya punya file CSS sendiri.  
-Contohnya:
-
-```txt
-components/card/card.js
-components/card/card.css
-```
-
-Cara ini membuat style lebih aman dan tidak cepat bercampur dengan komponen lain.
-
-### 3. Inject CSS hanya sekali
-
-Untuk komponen yang punya CSS sendiri, pola yang dipakai adalah:
-
-- cek dulu apakah `<link>` sudah ada di `document.head`
-- kalau belum ada, baru tambahkan
-
-Ini mencegah CSS dimuat dua kali saat komponen dipakai berulang.
-
-### 4. Buat komponen sebagai fungsi
-
-Semua komponen dibuat sebagai fungsi yang mengembalikan DOM element.  
-Contohnya:
+Update `js/router.js`:
 
 ```js
-export function Card(props) {
-  const el = document.createElement('article');
-  return el;
-}
-```
+import { Blog as DesktopBlog } from '/pages/pages-desktop/blog/blog.js';
+// atau untuk mobile:
+import { Blog as MobileBlog } from '/pages/pages-mobile/blog/blog.js';
 
-Keuntungan pola ini:
-
-- mudah dipakai ulang
-- mudah dites
-- tidak bergantung pada framework
-- event bisa diikat langsung ke instance komponen
-
-### 5. Daftarkan halaman baru ke router
-
-Kalau menambah halaman baru, update `js/router.js`:
-
-```js
-import { Blog } from '/components/pages/blog/blog.js';
-
-const routes = {
-  '/': Home,
-  '/about': About,
-  '/contact': Contact,
-  '/blog': Blog,
+const desktopRoutes = {
+  // ...
+  '/blog': DesktopBlog,
 };
 ```
 
-Lalu buat link navigasinya (tanpa hash, pakai path langsung):
+### 3. Buat data JSON
+
+Buat file `/data/blog.json` dengan konten halaman. Halaman akan fetch data tersebut saat di-render.
+
+### 4. Tambahkan link navigasi
 
 ```html
 <a href="/blog" data-link>Blog</a>
 ```
 
-`data-link` otomatis di-intercept oleh `main.js` yang memanggil `navigateTo()` dengan `history.pushState()`.
+`data-link` di-intercept oleh `main.js` yang memanggil `navigateTo()` dengan `history.pushState()`.
 
-### 6. Gunakan layout utama yang tetap
+### 5. Buat komponen reusable
 
-Elemen berikut tidak perlu di-render ulang saat pindah halaman:
+Kalau fiturnya reusable, simpan di:
 
-- `#navbar`
-- `#footer`
+```txt
+components/desktop/button/
+components/mobile/bottom-sheet/
+components/shared/modal/
+```
 
-Yang berubah hanya isi `#main`.  
-Ini bikin perpindahan halaman lebih ringan dan lebih cepat.
+Setiap komponen dibuat sebagai fungsi yang mengembalikan DOM element.
 
-## Alur Pikir Saat Coding
+### 6. Pisahkan CSS
 
-Saat ingin menambah fitur, urutan berpikir yang paling aman adalah:
+Setiap komponen idealnya punya file CSS sendiri. Inject via JavaScript dengan pola cek duplikasi:
 
-1. Tentukan apakah ini **halaman** atau **komponen reusable**.
-2. Tentukan folder yang sesuai.
-3. Buat file JS untuk struktur DOM.
-4. Buat file CSS terpisah bila perlu.
-5. Hubungkan ke router jika itu halaman baru.
-6. Cek lagi apakah styling dan event hanya mempengaruhi komponen tersebut.
+```js
+if (!document.querySelector('link[href="/path/ke/file.css"]')) {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = '/path/ke/file.css';
+  document.head.appendChild(link);
+}
+```
+
+## Autentikasi
+
+- State disimpan di `localStorage` (`studnow_users` + `studnow_session`).
+- `auth.js` menyediakan `initUsers()`, `login()`, `register()`, `logout()`, `getSession()`, `isAuthenticated()`.
+- Seed users di `data/users.json` dengan version-gated re-seeding.
+- Halaman profile dan halaman yang membutuhkan login harus redirect ke `/login` jika tidak ada session.
+
+## Data JSON
+
+- Semua konten halaman berasal dari file JSON — **bukan hardcoded di JS**.
+- Format data konsisten antar halaman.
+- Desktop dan mobile berbagi file JSON yang sama; konten spesifik mobile diletakkan di properti `mobile`.
+- `data/detail.json` berisi array yang di-link dengan forum di `home.json` via indeks — pastikan urutan konsisten.
+
+## Search Engine
+
+- `js/search.js` mengekspor singleton `searchEngine`.
+- Inisialisasi async (`searchEngine.init()`) — mem-fetch home, groups, dan detail, lalu membangun indeks.
+- Fuzzy search dengan character n-grams (2-4), field-weighted scoring, dan coverage-ratio multiplier.
+- Halaman search menunggu `searchEngine.init()` sebelum mengakses indeks.
+
+## Aturan Ikon
+
+- Semua ikon menggunakan **Bootstrap Icons** (`<i class="bi bi-{nama}">`) — di-load via CDN di `index.html`.
+- **Jangan gunakan emoji characters** atau inline SVG untuk ikon.
+- Pengecualian: social brand icons (Apple/Google/Facebook) di halaman auth, dan logo StudNow di navbar/top-bar — tetap inline SVG.
 
 ## Catatan Server
 
-Karena aplikasi pakai History API (URL bersih), server harus jalan dalam **mode SPA** — semua route diarahkan ke `index.html`.
+Karena aplikasi menggunakan History API (URL bersih), server harus berjalan dalam **mode SPA** — semua route diarahkan ke `index.html`.
 
-✅ Sudah otomatis saat pakai `npm run dev` atau `npm run serve` (via `serve -s`).
+Sudah otomatis saat pakai `npm run dev` atau `npm run serve` (via `serve -s`).
 
 ## Aturan Penting
 
 - Jangan menaruh semua logic di satu file besar.
-- Jangan mencampur style global dengan style komponen kalau bisa dihindari.
+- Jangan mencampur style global dengan style komponen.
 - Jangan menduplikasi code yang bisa dijadikan komponen reusable.
-- Jangan re-render navbar dan footer setiap pindah halaman.
+- Jangan re-render navbar, top-bar, bottom-bar, dan footer setiap pindah halaman.
 - Jaga nama file tetap konsisten dengan nama foldernya.
+- Jangan gunakan emoji characters untuk ikon — gunakan Bootstrap Icons.
 
 ## Kesimpulan Akhir
 
 Struktur proyek ini cocok untuk dikembangkan bertahap karena:
 
-- sederhana
-- mudah dibaca
-- mudah dipisah per fitur
+- sederhana dan zero-framework
+- data-driven (JSON sebagai single source of truth)
+- mudah dibaca dan dipisah per fitur
+- responsif dengan dua route table terpisah
 - gampang di-maintain
 
-Jadi, kalau ke depan ingin menambah halaman, komponen, atau interaksi baru, cukup ikuti pola:
-
-**buat file komponen -> pisahkan CSS -> daftarkan ke router -> hubungkan ke layout utama**
-
-Dengan begitu, kode tetap rapi dan alur development tetap konsisten.
+**buat halaman -> buat data JSON -> daftarkan ke router -> hubungkan ke layout**

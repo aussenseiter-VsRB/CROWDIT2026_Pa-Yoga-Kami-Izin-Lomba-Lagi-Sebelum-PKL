@@ -35,8 +35,8 @@ export async function Groups() {
         </div>
       </header>
       <div class="mobile-list">
-        ${data.groups.map((g) => `
-          <article class="mobile-card">
+        ${data.groups.map((g, i) => `
+          <a class="mobile-card" href="/forum?group=${i}" data-link style="display:block;text-decoration:none;color:inherit">
             <span class="mobile-card__tag">${g.department}</span>
             <h2>${g.title}</h2>
             <p>${g.description}</p>
@@ -44,7 +44,7 @@ export async function Groups() {
               <span style="font-size:0.78rem;color:#687386;font-weight:600">${memberLabel(g.members, g.maxMembers)}</span>
               <span style="font-size:0.78rem;color:#687386;font-weight:600">${statusPct(g.members, g.maxMembers)}%</span>
             </div>
-          </article>
+          </a>
         `).join('')}
       </div>
     </div>

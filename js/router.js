@@ -11,6 +11,7 @@ import { Search as DesktopSearch } from '/pages/pages-desktop/search/search.js';
 import { Notifications as DesktopNotifications } from '/pages/pages-desktop/notifications/notifications.js';
 import { Detail as DesktopDetail } from '/pages/pages-desktop/home/detail/detail.js';
 import { Open as DesktopOpen } from '/pages/pages-desktop/home/detail/open.js';
+import { Forum as DesktopForum } from '/pages/pages-desktop/forum/forum.js';
 
 import { Home as MobileHome } from '/pages/pages-mobile/home/home.js';
 import { About as MobileAbout } from '/pages/pages-mobile/about/about.js';
@@ -25,6 +26,7 @@ import { Notifications as MobileNotifications } from '/pages/pages-mobile/notifi
 import { EditProfile as MobileEditProfile } from '/pages/pages-mobile/edit-profile/edit-profile.js';
 import { Settings as MobileSettings } from '/pages/pages-mobile/settings/settings.js';
 import { Help as MobileHelp } from '/pages/pages-mobile/help/help.js';
+import { Forum as MobileForum } from '/pages/pages-mobile/forum/forum.js';
 
 const desktopRoutes = {
   '/':         DesktopHome,
@@ -39,6 +41,7 @@ const desktopRoutes = {
   '/notifications': DesktopNotifications,
   '/detail':   DesktopDetail,
   '/open':     DesktopOpen,
+  '/forum':    DesktopForum,
 };
 
 const mobileRoutes = {
@@ -55,6 +58,7 @@ const mobileRoutes = {
   '/edit-profile': MobileEditProfile,
   '/settings': MobileSettings,
   '/help': MobileHelp,
+  '/forum':    MobileForum,
 };
 
 function getRoutes() {

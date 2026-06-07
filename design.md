@@ -1,51 +1,108 @@
 # StudNow Design System
 
-A high-fidelity, Apple-inspired mobile design system focused on "User-for-User" simplicity, minimalist aesthetics, and functional elegance.
+Desain sistem yang terinspirasi dari pendekatan Apple — fokus pada kesederhanaan, hierarki visual yang bersih, dan fungsionalitas yang elegan. Menggunakan Bootstrap Icons untuk semua ikon aplikasi.
 
-## 🎨 Color Palette
+## Color Palette
 
 ### Brand Colors
-- **Primary (Blue):** `#007AFF` (System Blue) - Used for primary actions, active navigation states, and progress indicators.
-- **Surface:** `#FAFAFE` - The primary background color for a clean, off-white aesthetic.
-- **Surface Dim:** `#DAD9DF` - Used for subtle borders and secondary backgrounds.
-- **Surface Container:** `#FFFFFF` - Pure white for card backgrounds and elevated surfaces.
+- **Primary (Blue):** `#007AFF` (System Blue) — tombol utama, state navigasi aktif, indikator progress.
+- **Surface:** `#FAFAFE` — latar belakang utama (off-white).
+- **Surface Dim:** `#DAD9DF` — border subtle dan background sekunder.
+- **Surface Container:** `#FFFFFF` — putih murni untuk kartu dan permukaan yang terangkat.
 
 ### Functional Colors
-- **Success:** `#34C759` - Active status indicators and completed steps.
-- **Error/Destructive:** `#FF3B30` - Logout actions and critical alerts.
-- **Text Primary:** `#1A1A1A` - Headings and primary body copy.
-- **Text Secondary:** `#6B7280` - Captions, labels, and message previews.
+- **Success:** `#34C759` — indikator status aktif, langkah selesai.
+- **Error/Destructive:** `#FF3B30` — aksi logout, alert kritis.
+- **Text Primary:** `#1A1A1A` — heading dan body utama.
+- **Text Secondary (Muted):** `#6B7280` — caption, label, pratinjau pesan.
+- **Accent Alt:** `#5856D6` — aksen sekunder (filter aktif, tag).
+- **Surface Hover:** `#E5E5EA` — divider, batas elemen.
 
 ## Typography
-- **Primary Font:** Inter / SF Pro
-- **Headings:** Bold weight, tracking-tight (e.g., `-0.02em`), used for page titles and section headers.
-- **Body:** Medium/Regular weight for legibility.
-- **Labels:** Semibold, smaller scale (10-12px) for navigation and status tags.
 
-## 📐 Layout & Spacing
-- **Border Radius:** 
-  - `ROUND_EIGHT`: 8px for small components/tags.
-  - `ROUND_TWENTY`: 20px for chat bubbles and buttons.
-  - `ROUND_THIRTY_TWO`: 32px for main containers, modals, and profile sections.
-- **Margins:** Wide page margins (typically 20px) to provide "breathing room" and a premium feel.
-- **Elevation:** "Shadow-sm" or subtle soft shadows (e.g., `0 10px 30px rgba(0,0,0,0.04)`) to define depth without harsh lines.
+- **Primary Font:** Inter (sans-serif, di-load via Google Fonts).
+- **Headings:** Bold/ExtraBold, `tracking-tight` (`-0.02em`) untuk judul halaman dan section headers.
+- **Body:** Regular/Medium untuk keterbacaan.
+- **Labels:** Semibold, skala kecil (0.7–0.85rem) untuk navigasi dan status tags.
 
-## ✨ Components & Patterns
+## Layout & Spacing
+
+- **Border Radius:**
+  - 8px (`0.5rem`) — komponen kecil dan tags.
+  - 20px (`1.25rem`) — tombol hero, chat bubbles.
+  - 32px (`2rem`) — container utama, modal, section profile.
+- **Margins:** `container` class (lebar maksimum 1200px, padding 2rem di desktop).
+- **Elevation:** Shadow halus (`box-shadow: 0 2px 8px rgba(0,0,0,0.04)`) untuk mendefinisikan kedalaman tanpa garis keras.
+- **Gap:** CSS `gap` utility; jarak antar kartu umumnya 1rem–1.5rem.
+
+## Components & Patterns
 
 ### Glassmorphism
-- Used for Top App Bars and Bottom Navigation.
-- **Effect:** `backdrop-blur-md` with `bg-white/70`.
+- Tidak digunakan di versi saat ini. Navigasi menggunakan background solid dengan border-bottom tipis.
 
-### Navigation
-- **Bottom Bar:** 4-tab layout (Explore, Groups, Chat, Profile) with minimalist icons and pill-shaped active state indicators.
-- **Top Bar:** Large titles with minimalist trailing action icons (QR, Search, Notifications).
+### Navigasi Desktop (Navbar)
+- Layout: logo kiri, link navigasi tengah, auth right.
+- Border-bottom tipis (`1px solid var(--surface-hover)`).
+- Auth state: tombol "Login" diganti dengan nama user (link ke `/profile`) saat terautentikasi.
+- Sembunyi di halaman auth (`/login`, `/signup`).
+
+### Navigasi Mobile
+- **Top Bar:** Logo StudNow kiri, link "Create"/nama user kanan, border-bottom tipis.
+- **Bottom Bar:** 4 tab (Explore, Groups, Chat, Profil) dengan ikon Bootstrap Icons dan indikator aktif berbentuk pill. Sembunyi di halaman auth.
+- Router melepas `route-change` event; bottom-bar mendengarnya untuk update state aktif.
+
+### Hero Card (Search Page)
+- Satu kartu terpadu berisi eyebrow, judul, deskripsi, dan search bar.
+- Search bar: input tinggi (`3.6rem`), border tebal, ikon accent, focus glow ring.
+- Filter pills di bawah search bar (Semua/Forum/Grup/Kursus).
+
+### Auth Pages (Login/Signup)
+- Layout dua kolom desktop: visual (glow + orb) di kiri, form panel di kanan.
+- Social buttons (Apple, Google, Facebook) menggunakan inline SVG (brand icons — dikecualikan dari aturan Bootstrap Icons).
+- Transisi antar halaman login/signup dengan animasi slide.
+- Validasi real-time dengan error display.
+
+### Detail / Open Pages
+- `Detail`: halaman penuh dengan jadwal, informasi pertemuan (online/offline), partisipan, dan forum card.
+- `Open`: versi ringkas dengan informasi pertemuan, partisipan, dan tombol gabung.
+- Progress bar partisipan, status online/offline.
+
+### Profile Page (Desktop)
+- Avatar (initial), nama, email.
+- Learning Interests (CRUD dengan localStorage).
+- Menu: Edit Profil, My QR Code, Pengaturan, Bantuan.
+- Logout button.
+
+### Profile Page (Mobile)
+- Cover dengan grid dan ring dekoratif, avatar besar, stats (Postingan/Mengikuti/Badge).
+- Learning Interests, menu pengaturan, logout.
+
+### Cards
+- **Forum Card (Home):** Header (status badge + title), deskripsi, footer (member count + action button).
+- **Group Card (Groups):** Department tag, status (Populer/Aktif/Kurang Aktif), progress bar anggota.
+- **Result Card (Search):** Type tag, title (dengan highlight), deskripsi, tags, metadata.
 
 ### Interaction States
-- **Buttons:** Smooth transitions, active scaling (e.g., `active:scale-95`).
-- **Progress Bars:** Thin, elegant lines with soft blue tints and descriptive micro-copy.
+- Buttons: `cursor: pointer`, `transition` halus, `active:scale` pada beberapa tombol.
+- Focus: ring `box-shadow` pada input (search bar, form fields).
+- Filter pills: background solid saat aktif, subtle saat non-aktif.
 
-## 🧩 Shared Components Reference
-- **TopAppBar:** Small or Medium, standard Apple alignment.
-- **BottomNavBar:** Label + Icon type, 4 destinations.
-- **Chat Bubbles:** High corner radius (20px), Primary Blue for sender, Light Gray for receiver.
-- **Pill Tags:** High corner radius, light gray background, for interest and category tagging.
+## Ikon
+
+Semua ikon aplikasi menggunakan **Bootstrap Icons v1.11.3** (CDN) — berupa elemen `<i class="bi bi-{nama}">`. Pengecualian:
+- Social brand icons (Apple, Google, Facebook) pada halaman login/signup — inline SVG.
+- Logo StudNow di navbar dan top-bar — inline SVG.
+- Emoji characters **tidak boleh** digunakan.
+
+## Data-Driven Pages
+
+- Semua konten halaman di-load dari file JSON di `/data/`.
+- Format data konsisten: home (forums + mobile subset), detail (array kursus), groups, search (copy only), dsb.
+- Desktop dan mobile berbagi data JSON yang sama; properti `mobile` digunakan untuk data yang berbeda (mis. daftar forum yang lebih pendek di mobile).
+- Search engine mengindeks data dari home, groups, dan detail saat inisialisasi.
+
+## Responsive Breakpoint
+
+- **Desktop:** ≥901px — route table desktop, komponen navbar + footer.
+- **Mobile:** ≤900px — route table mobile (override desktop), komponen top-bar + bottom-bar.
+- Router otomatis merespon resize dan mengganti halaman jika melewati breakpoint.

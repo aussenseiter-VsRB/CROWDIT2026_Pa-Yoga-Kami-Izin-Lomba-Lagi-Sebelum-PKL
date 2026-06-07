@@ -12,7 +12,7 @@ function peopleIcon() {
 function ForumCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
 
-  const actionHref = (forum.action === 'Details' || forum.action === 'Detail') ? `/detail?index=${index}` : (forum.action === 'Open' || forum.action === 'Buka') ? `/open?index=${index}` : '/groups';
+  const actionHref = forum.action === 'Detail' ? `/detail?index=${index}` : `/open?index=${index}`;
 
   return `
     <article class="m-home-forum-card">
@@ -29,7 +29,7 @@ function ForumCard(forum, index) {
           ${peopleIcon()}
           ${forum.joined}
         </span>
-        <a class="m-home-action ${(forum.action === 'Open' || forum.action === 'Buka') ? 'is-primary' : 'is-secondary'}" href="${actionHref}" data-link>
+        <a class="m-home-action is-primary" href="${actionHref}" data-link>
           ${forum.action}
         </a>
       </div>

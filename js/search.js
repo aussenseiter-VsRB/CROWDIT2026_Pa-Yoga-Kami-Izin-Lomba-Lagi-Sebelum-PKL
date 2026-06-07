@@ -31,16 +31,11 @@ class SearchEngine {
 
     home.forums.forEach((f, i) => {
       const course = Array.isArray(detail) && detail[i]?.course;
-      const url = (f.action === 'Detail')
-        ? `/detail?index=${i}`
-        : (f.action === 'Buka')
-          ? `/open?index=${i}`
-          : '/groups';
       docs.push({
         type: 'Forum',
         title: f.title,
         description: f.description,
-        url,
+        url: `/forum?index=${i}`,
         tags: [f.status].filter(Boolean),
         category: course?.category || '',
       });
@@ -49,41 +44,36 @@ class SearchEngine {
     home.mobile?.forums?.forEach((f, i) => {
       if (!docs.find(d => d.title === f.title)) {
         const course = Array.isArray(detail) && detail[i]?.course;
-        const url = (f.action === 'Detail')
-          ? `/detail?index=${i}`
-          : (f.action === 'Buka')
-            ? `/open?index=${i}`
-            : '/groups';
         docs.push({
           type: 'Forum',
           title: f.title,
           description: f.description,
-          url,
+          url: `/forum?index=${i}`,
           tags: [f.status].filter(Boolean),
           category: course?.category || '',
         });
       }
     });
 
-    (groups.groups || []).forEach(g => {
+    (groups.groups || []).forEach((g, i) => {
       docs.push({
         type: 'Grup',
         title: g.title,
         description: g.description,
-        url: '/groups',
+        url: `/forum?group=${i}`,
         tags: [g.department],
         category: g.department,
         meta: `${g.members}/${g.maxMembers} anggota`,
       });
     });
 
-    (Array.isArray(detail) ? detail : []).forEach(d => {
+    (Array.isArray(detail) ? detail : []).forEach((d, i) => {
       if (d.course) {
         docs.push({
           type: 'Kursus',
           title: d.course.title,
           description: d.course.description,
-          url: '/detail',
+          url: `/forum?index=${i}`,
           tags: [d.course.category, d.course.status].filter(Boolean),
           category: d.course.category,
           meta: `${d.participants?.joined || 0}/${d.participants?.capacity || 0} peserta`,
