@@ -45,6 +45,8 @@
   font-weight: 700;
   letter-spacing: 0.02em;
   white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
 }
 
 .m-home-topic.is-active {
@@ -164,6 +166,7 @@
   font-size: 0.84rem;
   font-weight: 800;
   letter-spacing: 0.01em;
+  text-decoration: none;
 }
 
 .m-home-action.is-primary {

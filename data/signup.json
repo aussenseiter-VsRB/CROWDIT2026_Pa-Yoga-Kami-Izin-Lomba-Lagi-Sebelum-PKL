@@ -1,9 +1,7 @@
 {
-  "eyebrow": "Akun",
-  "title": "Buat Akun",
-  "description": "Halaman ini bisa dipakai nanti untuk proses pendaftaran pengguna baru.",
   "copy": {
     "mark": "SN",
+    "eyebrow": "Akun",
     "title": "Create account",
     "description": "Join StudNow and start learning with a calmer, cleaner desktop experience."
   },
@@ -12,25 +10,25 @@
       "type": "text",
       "name": "name",
       "placeholder": "Full name",
-      "icon": "<span>◌</span>"
+      "icon": "<i class=\"bi bi-person\"></i>"
     },
     {
       "type": "email",
       "name": "email",
       "placeholder": "Email",
-      "icon": "<span>✉</span>"
+      "icon": "<i class=\"bi bi-envelope\"></i>"
     },
     {
       "type": "password",
       "name": "password",
       "placeholder": "Password",
-      "icon": "<span>◦</span>"
+      "icon": "<i class=\"bi bi-lock\"></i>"
     },
     {
       "type": "password",
       "name": "confirm_password",
       "placeholder": "Confirm password",
-      "icon": "<span>◦</span>"
+      "icon": "<i class=\"bi bi-lock\"></i>"
     }
   ],
   "termsLabel": "I agree to the terms and privacy policy",

@@ -6,18 +6,13 @@ if (!document.querySelector('link[href="/pages/pages-desktop/home/home.css"]')) 
 }
 
 function peopleIcon() {
-  return `
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
-      <path d="M5 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"></path>
-    </svg>
-  `;
+  return '<i class="bi bi-people"></i>';
 }
 
 function ForumCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
 
-  const actionHref = (forum.action === 'Details' || forum.action === 'Detail') ? `/detail?index=${index}` : (forum.action === 'Open' || forum.action === 'Buka') ? `/open?index=${index}` : '/groups';
+  const actionHref = forum.action === 'Detail' ? `/detail?index=${index}` : `/open?index=${index}`;
 
   return `
     <article class="home-forum-card">
@@ -39,7 +34,7 @@ function ForumCard(forum, index) {
           ${peopleIcon()}
           ${forum.joined}
         </span>
-        <a class="home-action ${(forum.action === 'Open' || forum.action === 'Buka') ? 'is-primary' : 'is-secondary'}" href="${actionHref}" data-link>
+        <a class="home-action is-primary" href="${actionHref}" data-link>
           ${forum.action}
         </a>
       </div>

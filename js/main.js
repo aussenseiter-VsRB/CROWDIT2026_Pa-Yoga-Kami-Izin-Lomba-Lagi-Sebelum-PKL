@@ -5,8 +5,11 @@ import { TopBar }  from '/components/mobile/top-bar/top-bar.js';
 import { BottomBar } from '/components/mobile/bottom-bar/bottom-bar.js';
 import { router, navigateTo } from './router.js';
 import { initTheme } from './theme.js';
+import { seedSampleNotifications } from './notifications.js';
 
 async function init() {
+  seedSampleNotifications();
+
   initTheme();
   document.querySelector('#navbar').appendChild(await Navbar());
   document.querySelector('#top-bar').appendChild(await TopBar());

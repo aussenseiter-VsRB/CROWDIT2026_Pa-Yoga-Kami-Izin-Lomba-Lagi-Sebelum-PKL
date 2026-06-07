@@ -6,7 +6,7 @@ if (!document.querySelector('link[href="/pages/pages-desktop/groups/groups.css"]
 }
 
 function peopleIcon() {
-  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M5 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/></svg>';
+  return '<i class="bi bi-people"></i>';
 }
 
 function getStatus(members) {
@@ -21,7 +21,7 @@ function statusLabel(status) {
   return 'Kurang Aktif';
 }
 
-function GroupCard(group) {
+function GroupCard(group, index) {
   const status = getStatus(group.members);
   const pct = Math.round((group.members / group.maxMembers) * 100);
   const joinedText = group.members === 0
@@ -29,7 +29,7 @@ function GroupCard(group) {
     : `${group.members}/${group.maxMembers} anggota`;
 
   return `
-    <article class="grp-card">
+    <a class="grp-card" href="/forum?group=${index}" data-link style="text-decoration:none;color:inherit;display:block">
       <div class="grp-card__top">
         <span class="grp-card__dept">${group.department}</span>
         <span class="grp-status grp-status--${status}">
@@ -53,9 +53,7 @@ function GroupCard(group) {
           <div class="grp-card__bar-fill grp-card__bar-fill--${status}" style="width:${pct}%"></div>
         </div>
       </div>
-
-      <button class="grp-join-btn" type="button">Gabung ke Grup</button>
-    </article>
+    </a>
   `;
 }
 
@@ -101,7 +99,7 @@ export async function Groups() {
   `;
 
   const grid = el.querySelector('.grp-grid');
-  grid.innerHTML = data.groups.map(GroupCard).join('');
+  grid.innerHTML = data.groups.map((g, i) => GroupCard(g, i)).join('');
 
   return el;
 }

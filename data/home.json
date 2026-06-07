@@ -12,7 +12,7 @@
     "title": "Ringkasan komunitas",
     "stats": [
       { "value": "24", "label": "Grup aktif" },
-      { "value": "48", "label": "Posting baru hari ini" },
+      { "value": "48", "label": "Postingan baru hari ini" },
       { "value": "16", "label": "Mentor online" }
     ]
   },

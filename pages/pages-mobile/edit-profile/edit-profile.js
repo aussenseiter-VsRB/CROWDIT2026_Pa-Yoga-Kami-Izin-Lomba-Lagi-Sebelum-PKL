@@ -8,8 +8,17 @@ if (!document.querySelector('link[href="/pages/pages-mobile/edit-profile/edit-pr
 import { getSession, isAuthenticated, navigateAfterAuth } from '/js/auth.js';
 import { navigateTo } from '/js/router.js';
 
-function iconArrowLeft() {
-  return '<svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>';
+const AVATAR_KEY = 'studnow_avatar';
+
+function iconArrowLeft() { return '<i class="bi bi-arrow-left"></i>'; }
+function iconCamera() { return '<i class="bi bi-camera"></i>'; }
+
+function getAvatar() {
+  return localStorage.getItem(AVATAR_KEY);
+}
+
+function saveAvatar(base64) {
+  localStorage.setItem(AVATAR_KEY, base64);
 }
 
 export async function EditProfile() {
@@ -20,6 +29,7 @@ export async function EditProfile() {
 
   const session = getSession();
   const initial = session.name.charAt(0).toUpperCase();
+  const avatarSrc = getAvatar();
 
   const el = document.createElement('section');
   el.className = 'm-edit-profile';
@@ -31,51 +41,83 @@ export async function EditProfile() {
     </div>
 
     <div class="m-edit-profile__photo">
-      <div class="m-edit-profile__avatar">${initial}</div>
-      <button class="m-edit-profile__change-photo" type="button">Ubah Foto</button>
+      <div class="m-edit-profile__avatar" id="js-ep-avatar">
+        ${avatarSrc ? `<img class="m-edit-profile__avatar-img" src="${avatarSrc}" alt="Foto profil" />` : initial}
+      </div>
+      <div class="m-edit-profile__photo-actions">
+        <button class="m-edit-profile__change-photo" id="js-ep-change" type="button">${iconCamera()} Ubah Foto</button>
+        <button class="m-edit-profile__change-photo m-edit-profile__change-photo--danger" id="js-ep-remove" type="button">Hapus</button>
+      </div>
+      <input type="file" accept="image/*" class="m-edit-profile__avatar-input" id="js-ep-input" hidden />
     </div>
 
     <div class="m-edit-profile__form">
       <div class="m-edit-profile__field">
         <label class="m-edit-profile__label" for="ep-name">Nama Lengkap</label>
-        <input class="m-edit-profile__input" id="ep-name" type="text" value="${session.name}" maxlength="50" />
+        <input class="m-edit-profile__input" id="ep-name" type="text" value="${session.name}" />
       </div>
-
       <div class="m-edit-profile__field">
         <label class="m-edit-profile__label" for="ep-email">Email</label>
-        <input class="m-edit-profile__input" id="ep-email" type="email" value="${session.email}" maxlength="100" />
+        <input class="m-edit-profile__input" id="ep-email" type="email" value="${session.email}" />
       </div>
-
       <div class="m-edit-profile__field">
         <label class="m-edit-profile__label" for="ep-bio">Bio</label>
-        <textarea class="m-edit-profile__textarea" id="ep-bio" maxlength="200">${session.bio || ''}</textarea>
+        <textarea class="m-edit-profile__input m-edit-profile__textarea" id="ep-bio" rows="3" placeholder="Tulis bio singkat..."></textarea>
       </div>
-
       <div class="m-edit-profile__actions">
-        <button class="m-edit-profile__save" type="button">Simpan</button>
-        <button class="m-edit-profile__cancel" type="button">Batal</button>
+        <button class="m-edit-profile__cancel" id="js-ep-cancel" type="button">Batal</button>
+        <button class="m-edit-profile__save" id="js-ep-save" type="button">Simpan</button>
       </div>
     </div>
   `;
 
   el.querySelector('.m-edit-profile__back').addEventListener('click', () => navigateTo('/profile'));
-  el.querySelector('.m-edit-profile__cancel').addEventListener('click', () => navigateTo('/profile'));
+  el.querySelector('#js-ep-cancel').addEventListener('click', () => navigateTo('/profile'));
 
-  el.querySelector('.m-edit-profile__save').addEventListener('click', () => {
+  const avatarEl = el.querySelector('#js-ep-avatar');
+  const changeBtn = el.querySelector('#js-ep-change');
+  const removeBtn = el.querySelector('#js-ep-remove');
+  const input = el.querySelector('#js-ep-input');
+
+  changeBtn.addEventListener('click', () => input.click());
+  input.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const dataUrl = ev.target.result;
+      saveAvatar(dataUrl);
+      avatarEl.innerHTML = `<img class="m-edit-profile__avatar-img" src="${dataUrl}" alt="Foto profil" />`;
+    };
+    reader.readAsDataURL(file);
+    input.value = '';
+  });
+
+  removeBtn.addEventListener('click', () => {
+    localStorage.removeItem(AVATAR_KEY);
+    avatarEl.innerHTML = initial;
+  });
+
+  el.querySelector('#js-ep-save').addEventListener('click', () => {
     const name = el.querySelector('#ep-name').value.trim();
     const email = el.querySelector('#ep-email').value.trim();
     const bio = el.querySelector('#ep-bio').value.trim();
     if (!name || !email) return;
-
     const users = JSON.parse(localStorage.getItem('studnow_users') || '[]');
     const idx = users.findIndex(u => u.email === session.email);
     if (idx !== -1) {
-      users[idx] = { ...users[idx], name, email, bio };
+      users[idx].name = name;
+      users[idx].email = email;
       localStorage.setItem('studnow_users', JSON.stringify(users));
+      const ses = JSON.parse(sessionStorage.getItem('studnow_session') || localStorage.getItem('studnow_session'));
+      if (ses) {
+        ses.name = name;
+        ses.email = email;
+        const storage = sessionStorage.getItem('studnow_session') ? 'sessionStorage' : 'localStorage';
+        window[storage].setItem('studnow_session', JSON.stringify(ses));
+      }
     }
-
-    const sess = { ...session, name, email, bio };
-    localStorage.setItem('studnow_session', JSON.stringify(sess));
+    if (bio) localStorage.setItem('studnow_bio', bio);
     navigateTo('/profile');
   });
 

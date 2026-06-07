@@ -2,27 +2,12 @@
   "header": {
     "eyebrow": "Search",
     "title": "Cari Konten",
-    "description": "Cari thread, kategori, dan materi belajar dengan alur yang sederhana dan fokus ke hasil paling relevan.",
-    "actions": [
-      { "label": "Browse groups", "href": "/groups", "variant": "secondary" },
-      { "label": "Open notifications", "href": "/notifications", "variant": "primary" }
-    ]
+    "description": "Cari thread, kategori, dan materi belajar dengan alur yang sederhana dan fokus ke hasil paling relevan."
   },
-  "cards": [
-    {
-      "tag": "Tip",
-      "title": "Gunakan kata kunci spesifik",
-      "description": "Pencarian yang lebih terarah membantu menemukan diskusi yang benar-benar relevan lebih cepat."
-    },
-    {
-      "tag": "Filter",
-      "title": "Saring menurut topik",
-      "description": "Nanti halaman ini bisa dikembangkan dengan filter kategori, kelas, atau popularitas."
-    },
-    {
-      "tag": "Result",
-      "title": "Hasil yang mudah dipindai",
-      "description": "Kartu hasil dibuat bersih supaya pengguna bisa membandingkan beberapa thread sekaligus dengan cepat."
-    }
-  ]
+  "placeholder": "Cari forum, grup, kursus...",
+  "filters": ["Semua", "Forum", "Grup", "Kursus"],
+  "trendingLabel": "Sedang tren",
+  "suggestedLabel": "Disarankan untukmu",
+  "emptyTitle": "Tidak ditemukan hasil",
+  "emptySub": "Coba kata kunci atau filter yang berbeda"
 }

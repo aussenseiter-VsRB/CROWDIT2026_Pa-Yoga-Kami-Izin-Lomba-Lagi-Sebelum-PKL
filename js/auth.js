@@ -3,7 +3,7 @@ const USERS_VERSION_KEY = 'studnow_users_version';
 const SESSION_KEY = 'studnow_session';
 const CURRENT_VERSION = 2;
 
-function getUsers() {
+export function getUsers() {
   const stored = localStorage.getItem(USERS_KEY);
   return stored ? JSON.parse(stored) : [];
 }

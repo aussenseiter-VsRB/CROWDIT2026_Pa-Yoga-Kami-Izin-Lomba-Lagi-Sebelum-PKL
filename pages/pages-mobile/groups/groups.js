@@ -5,11 +5,23 @@ if (!document.querySelector('link[href="/pages/pages-mobile/mobile-page.css"]'))
   document.head.appendChild(link);
 }
 
+function getStatus(members) {
+  if (members >= 50) return 'popular';
+  if (members >= 10) return 'active';
+  return 'inactive';
+}
+
+function statusLabel(status) {
+  if (status === 'popular') return 'Populer';
+  if (status === 'active') return 'Aktif';
+  return 'Kurang Aktif';
+}
+
 function memberLabel(members, maxMembers) {
   const pct = Math.round((members / maxMembers) * 100);
   return members === 0
     ? 'Belum ada anggota'
-    : `${members}/${maxMembers} (${pct}%)`;
+    : `${members}/${maxMembers} anggota`;
 }
 
 function statusPct(members, maxMembers) {
@@ -35,17 +47,30 @@ export async function Groups() {
         </div>
       </header>
       <div class="mobile-list">
-        ${data.groups.map((g) => `
-          <article class="mobile-card">
-            <span class="mobile-card__tag">${g.department}</span>
-            <h2>${g.title}</h2>
-            <p>${g.description}</p>
-            <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid #e2e7ef;display:flex;justify-content:space-between;align-items:center">
-              <span style="font-size:0.78rem;color:#687386;font-weight:600">${memberLabel(g.members, g.maxMembers)}</span>
-              <span style="font-size:0.78rem;color:#687386;font-weight:600">${statusPct(g.members, g.maxMembers)}%</span>
-            </div>
-          </article>
-        `).join('')}
+        ${data.groups.map((g, i) => {
+          const status = getStatus(g.members);
+          const pct = statusPct(g.members, g.maxMembers);
+          return `
+            <a class="mobile-card" href="/forum?group=${i}" data-link style="display:block;text-decoration:none;color:inherit">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:0.5rem;margin-bottom:0.6rem">
+                <span class="mobile-card__tag">${g.department}</span>
+                <span class="mobile-status-badge mobile-status-badge--${status}">
+                  <span class="mobile-status-badge__dot"></span>
+                  ${statusLabel(status)}
+                </span>
+              </div>
+              <h2>${g.title}</h2>
+              <p>${g.description}</p>
+              <div class="mobile-progress">
+                <span class="mobile-progress__label">${memberLabel(g.members, g.maxMembers)}</span>
+                <div class="mobile-progress__bar">
+                  <div class="mobile-progress__fill mobile-progress__fill--${status}" style="width:${pct}%"></div>
+                </div>
+                <span class="mobile-progress__pct">${pct}%</span>
+              </div>
+            </a>
+          `;
+        }).join('')}
       </div>
     </div>
   `;

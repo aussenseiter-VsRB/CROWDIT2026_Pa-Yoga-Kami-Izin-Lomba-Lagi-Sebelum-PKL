@@ -6,6 +6,8 @@
   border-bottom: 1px solid var(--border-color);
   background: var(--bg-elevated);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .top-bar__inner {
@@ -27,6 +29,7 @@
   font-size: 1.24rem;
   font-weight: 800;
   line-height: 1;
+  text-decoration: none;
 }
 
 .top-bar__brand svg {
@@ -35,11 +38,46 @@
   fill: var(--accent);
 }
 
+.top-bar__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.top-bar__icon-btn:active {
+  background: var(--hover-bg, rgba(128,128,128,0.15));
+}
+
 .top-bar__create {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   color: var(--accent);
   font-size: 0.96rem;
   font-weight: 800;
   line-height: 1;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.top-bar__create:active {
+  opacity: 0.7;
+}
+
+.top-bar__notif-dot {
+  position: absolute;
+  top: -0.1rem;
+  right: -0.2rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--accent-2);
 }
 
 @media (max-width: 900px) {
