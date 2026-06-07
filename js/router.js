@@ -43,34 +43,37 @@ let previousPath = getHashPath();
 export async function router() {
   const path = getHashPath();
   const Page = routes[path] ?? routes['/'];
+
   const authRoutes = new Set(['/login', '/signup']);
   const isAuthTransition = authRoutes.has(previousPath) && authRoutes.has(path);
   const direction = previousPath === '/login' && path === '/signup'
     ? 'to-signup'
     : previousPath === '/signup' && path === '/login'
-      ? 'to-login'
-      : '';
+    ? 'to-login'
+    : '';
 
-  const main = document.querySelector('#main');
-  window.__routeTransition = {
-    from: previousPath,
-    to: path,
-    isAuthTransition,
-    direction,
-  };
+  // wait for #main to exist instead of silently bailing
+  let main = document.querySelector('#main');
+  if (!main) {
+    await new Promise(resolve => {
+      const observer = new MutationObserver(() => {
+        main = document.querySelector('#main');
+        if (main) { observer.disconnect(); resolve(); }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+  }
 
+  window.__routeTransition = { from: previousPath, to: path, isAuthTransition, direction };
   main.classList.toggle('is-auth-transition', isAuthTransition);
   main.dataset.routeFrom = previousPath;
   main.dataset.routeTo = path;
   main.dataset.routeDirection = direction;
-
   main.style.animation = 'none';
   main.offsetHeight;
   main.style.animation = '';
-
   main.innerHTML = '';
   main.appendChild(await Page());
-
   previousPath = path;
   window.dispatchEvent(new CustomEvent('route-change'));
 }

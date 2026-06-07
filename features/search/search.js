@@ -452,7 +452,7 @@ export async function Search() {
 
   try {
     await searchEngine.init();
-    const data = await fetchData('/features/search/search.json');
+    const data = await fetchData('/data/search.json');
 
     const isMobile = window.innerWidth <= 900;
     const pageEl = isMobile ? renderMobile(data) : renderDesktop(data);

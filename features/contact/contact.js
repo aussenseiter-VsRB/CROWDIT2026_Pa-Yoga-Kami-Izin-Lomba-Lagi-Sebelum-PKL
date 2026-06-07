@@ -41,6 +41,37 @@ function renderDesktop(data) {
   button.textContent = data.submitText;
   form.appendChild(button);
 
+  const errorEl = document.createElement('p');
+  errorEl.className = 'contact-error';
+  errorEl.setAttribute('aria-live', 'polite');
+  errorEl.hidden = true;
+  form.prepend(errorEl);
+
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const inputs = form.querySelectorAll('input, textarea');
+    let valid = true;
+    inputs.forEach(inp => { if (!inp.value.trim()) valid = false; });
+    if (!valid) {
+      errorEl.textContent = 'Semua field harus diisi';
+      errorEl.hidden = false;
+      return;
+    }
+    errorEl.hidden = true;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Mengirim...';
+    setTimeout(() => {
+      submitBtn.textContent = 'Terkirim!';
+      form.reset();
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = data.submitText;
+      }, 2000);
+    }, 500);
+  });
+
   return el;
 }
 

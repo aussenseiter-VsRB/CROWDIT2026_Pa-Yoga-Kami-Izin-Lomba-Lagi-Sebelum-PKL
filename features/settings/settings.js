@@ -1,18 +1,24 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
-injectStyle('/features/settings/settings.css');
-
+import { fetchData } from '../../js/utils/api.js';
 import { isAuthenticated, navigateAfterAuth } from '../../js/auth.js';
 import { navigateTo } from '../../js/utils/url.js';
 import { getTheme, toggleTheme } from '../../js/theme.js';
 
-function iconArrowLeft() { return '<i class="bi bi-arrow-left"></i>'; }
-function iconBell() { return '<i class="bi bi-bell"></i>'; }
-function iconLock() { return '<i class="bi bi-lock"></i>'; }
-function iconMoon() { return '<i class="bi bi-moon"></i>'; }
-function iconGlobe() { return '<i class="bi bi-globe2"></i>'; }
-function iconTrash() { return '<i class="bi bi-trash"></i>'; }
-function iconChevron() { return '<i class="bi bi-chevron-right"></i>'; }
-function iconShield() { return '<i class="bi bi-shield-check"></i>'; }
+injectStyle('/features/settings/settings.css');
+
+function icon(name) {
+  const map = {
+    'arrow-left': 'bi-arrow-left', 'bell': 'bi-bell', 'lock': 'bi-lock',
+    'moon': 'bi-moon', 'globe2': 'bi-globe2', 'trash': 'bi-trash',
+    'chevron-right': 'bi-chevron-right', 'shield-check': 'bi-shield-check',
+  };
+  return `<i class="bi ${map[name] || 'bi-' + name}"></i>`;
+}
+
+function iconColor(style) {
+  const map = { blue: '#007aff', orange: '#ff9f0a', purple: '#5856d6', green: '#34c759', gray: '#8e8e93', red: '#ff3b30' };
+  return map[style] || '#8e8e93';
+}
 
 export async function Settings() {
   if (!isAuthenticated()) {
@@ -20,112 +26,100 @@ export async function Settings() {
     return document.createElement('section');
   }
 
+  const data = await fetchData('/features/settings/settings.json');
   const el = document.createElement('section');
   el.className = 'm-settings';
 
   el.innerHTML = `
     <div class="m-settings__header">
-      <button class="m-settings__back" type="button" aria-label="Kembali">${iconArrowLeft()}</button>
-      <h1 class="m-settings__title">Pengaturan</h1>
+      <button class="m-settings__back" type="button" aria-label="Kembali">${icon('arrow-left')}</button>
+      <h1 class="m-settings__title">${data.header.title}</h1>
     </div>
 
-    <div class="m-settings__section">
-      <p class="m-settings__section-title">Notifikasi</p>
-      <div class="m-settings__card">
-        <label class="m-settings__item">
-          <span class="m-settings__item-icon m-settings__item-icon--blue">${iconBell()}</span>
-          <span class="m-settings__item-body">
-            <span class="m-settings__item-label">Push Notifikasi</span>
-            <span class="m-settings__item-desc">Terima notifikasi kegiatan</span>
-          </span>
-          <span class="m-settings__toggle">
-            <input type="checkbox" checked />
-            <span class="m-settings__toggle-slider"></span>
-          </span>
-        </label>
-        <label class="m-settings__item" style="border-top:1px solid var(--border-color);padding-top:0.75rem;margin-top:0.5rem">
-          <span class="m-settings__item-icon m-settings__item-icon--orange" style="background:#ff9f0a">${iconShield()}</span>
-          <span class="m-settings__item-body">
-            <span class="m-settings__item-label">Mention & Reply</span>
-            <span class="m-settings__item-desc">Notifikasi saat di-mention</span>
-          </span>
-          <span class="m-settings__toggle">
-            <input type="checkbox" checked />
-            <span class="m-settings__toggle-slider"></span>
-          </span>
-        </label>
+    ${data.sections.map(section => `
+      <div class="m-settings__section">
+        <p class="m-settings__section-title">${section.title}</p>
+        <div class="m-settings__card">
+          ${section.items.map(item => {
+            const bg = iconColor(item.iconStyle);
+            if (item.type === 'toggle') {
+              return `
+                <label class="m-settings__item">
+                  <span class="m-settings__item-icon" style="background:${bg}">${icon(item.icon)}</span>
+                  <span class="m-settings__item-body">
+                    <span class="m-settings__item-label">${item.label}</span>
+                    <span class="m-settings__item-desc">${item.desc}</span>
+                  </span>
+                  <span class="m-settings__toggle">
+                    <input type="checkbox" ${item.defaultChecked ? 'checked' : ''} />
+                    <span class="m-settings__toggle-slider"></span>
+                  </span>
+                </label>
+              `;
+            }
+            if (item.type === 'toggle-theme') {
+              return `
+                <label class="m-settings__item">
+                  <span class="m-settings__item-icon" style="background:${bg}">${icon(item.icon)}</span>
+                  <span class="m-settings__item-body">
+                    <span class="m-settings__item-label">${item.label}</span>
+                    <span class="m-settings__item-desc">${item.desc}</span>
+                  </span>
+                  <span class="m-settings__toggle">
+                    <input type="checkbox" id="settings-dark-mode" />
+                    <span class="m-settings__toggle-slider"></span>
+                  </span>
+                </label>
+              `;
+            }
+            if (item.type === 'delete') {
+              return `
+                <button class="m-settings__item" type="button" id="js-delete-account">
+                  <span class="m-settings__item-icon" style="background:${bg}">${icon(item.icon)}</span>
+                  <span class="m-settings__item-body">
+                    <span class="m-settings__item-label">${item.label}</span>
+                    <span class="m-settings__item-desc">${item.desc}</span>
+                  </span>
+                  <span class="m-settings__item-chevron">${icon('chevron-right')}</span>
+                </button>
+              `;
+            }
+            return `
+              <button class="m-settings__item" type="button">
+                <span class="m-settings__item-icon" style="background:${bg}">${icon(item.icon)}</span>
+                <span class="m-settings__item-body">
+                  <span class="m-settings__item-label">${item.label}</span>
+                  <span class="m-settings__item-desc">${item.desc}</span>
+                </span>
+                <span class="m-settings__item-chevron">${icon('chevron-right')}</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
       </div>
-    </div>
+    `).join('')}
 
-    <div class="m-settings__section">
-      <p class="m-settings__section-title">Tampilan</p>
-      <div class="m-settings__card">
-        <label class="m-settings__item">
-          <span class="m-settings__item-icon m-settings__item-icon--purple">${iconMoon()}</span>
-          <span class="m-settings__item-body">
-            <span class="m-settings__item-label">Mode Gelap</span>
-            <span class="m-settings__item-desc">Tampilan dengan tema gelap</span>
-          </span>
-          <span class="m-settings__toggle">
-            <input type="checkbox" id="settings-dark-mode" />
-            <span class="m-settings__toggle-slider"></span>
-          </span>
-        </label>
-      </div>
-    </div>
-
-    <div class="m-settings__section">
-      <p class="m-settings__section-title">Akun</p>
-      <div class="m-settings__card">
-        <button class="m-settings__item" type="button">
-          <span class="m-settings__item-icon m-settings__item-icon--green">${iconLock()}</span>
-          <span class="m-settings__item-body">
-            <span class="m-settings__item-label">Privasi</span>
-            <span class="m-settings__item-desc">Kontrol data dan privasi</span>
-          </span>
-          <span class="m-settings__item-chevron">${iconChevron()}</span>
-        </button>
-        <button class="m-settings__item" type="button" style="border-top:1px solid var(--border-color);padding-top:0.75rem;margin-top:0.5rem">
-          <span class="m-settings__item-icon m-settings__item-icon--gray">${iconGlobe()}</span>
-          <span class="m-settings__item-body">
-            <span class="m-settings__item-label">Bahasa</span>
-            <span class="m-settings__item-desc">Indonesia</span>
-          </span>
-          <span class="m-settings__item-chevron">${iconChevron()}</span>
-        </button>
-      </div>
-    </div>
-
-    <div class="m-settings__section">
-      <p class="m-settings__section-title">Lainnya</p>
-      <div class="m-settings__card">
-        <button class="m-settings__item" type="button" id="js-delete-account">
-          <span class="m-settings__item-icon m-settings__item-icon--red">${iconTrash()}</span>
-          <span class="m-settings__item-body">
-            <span class="m-settings__item-label">Hapus Akun</span>
-            <span class="m-settings__item-desc">Hapus akun dan semua data</span>
-          </span>
-          <span class="m-settings__item-chevron">${iconChevron()}</span>
-        </button>
-      </div>
-    </div>
-
-    <p style="text-align:center;font-size:0.75rem;color:var(--muted-alt);margin-top:2rem">StudNow v1.0.0</p>
+    <p style="text-align:center;font-size:0.75rem;color:var(--muted-alt);margin-top:2rem">${data.version}</p>
   `;
 
   el.querySelector('.m-settings__back').addEventListener('click', () => navigateTo('/profile'));
 
   const darkToggle = el.querySelector('#settings-dark-mode');
-  darkToggle.checked = getTheme() === 'dark';
-  darkToggle.addEventListener('change', toggleTheme);
+  if (darkToggle) {
+    darkToggle.checked = getTheme() === 'dark';
+    darkToggle.addEventListener('change', toggleTheme);
+  }
 
-  el.querySelector('#js-delete-account').addEventListener('click', () => {
-    if (confirm('Apakah Anda yakin ingin menghapus akun? Semua data akan hilang.')) {
-      localStorage.clear();
-      sessionStorage.clear();
-      navigateTo('/');
-    }
-  });
+  const deleteBtn = el.querySelector('#js-delete-account');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', () => {
+      if (confirm(data.confirmDelete)) {
+        localStorage.clear();
+        sessionStorage.clear();
+        navigateTo('/');
+      }
+    });
+  }
 
   return el;
 }

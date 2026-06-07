@@ -1,11 +1,10 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
+import { asset } from '../../js/utils/url.js';
+import { initForumUsers, AvatarStackHtml, populateStacks } from '../forum/forum.js';
 
 injectStyle('/features/home/home.css');
-
-function peopleIcon() {
-  return '<i class="bi bi-people"></i>';
-}
+injectStyle('/features/forum/_members.css');
 
 function ForumCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
@@ -27,10 +26,7 @@ function ForumCard(forum, index) {
       <p>${forum.description}</p>
 
       <div class="home-forum-card__footer">
-        <span class="home-joined">
-          ${peopleIcon()}
-          ${forum.joined}
-        </span>
+        ${AvatarStackHtml(forum.memberCount || 0, forum.memberLimit || 100, index)}
         <a class="home-action is-primary" href="${actionHref}" data-link>
           ${forum.action}
         </a>
@@ -54,10 +50,7 @@ function mForumCard(forum, index) {
       </div>
       <p>${forum.description}</p>
       <div class="m-home-forum-card__footer">
-        <span class="m-home-joined">
-          ${peopleIcon()}
-          ${forum.joined}
-        </span>
+        ${AvatarStackHtml(forum.memberCount || 0, forum.memberLimit || 100, index)}
         <a class="m-home-action is-primary" href="${actionHref}" data-link>
           ${forum.action}
         </a>
@@ -165,11 +158,43 @@ function renderMobile(data) {
   return el;
 }
 
+function mergeCourseData(forum, course, forumCourse) {
+  return {
+    ...forum,
+    title: course?.title || forum.title || 'Forum',
+    description: course?.description || forum.description || '',
+    status: course?.status || forum.status || 'Online',
+    memberCount: forumCourse?.memberCount || forum.memberCount || 0,
+    memberLimit: forumCourse?.memberLimit || forum.memberLimit || 100,
+  };
+}
+
 export async function Home() {
+  const usersPromise = initForumUsers();
   try {
-    const data = await fetchData('/features/home/home.json');
+    const [homeData, detailData, forumData] = await Promise.all([
+      fetchData('/features/home/home.json'),
+      fetch(asset('/data/detail.json')).then(r => r.json()),
+      fetch(asset('/data/forum.json')).then(r => r.json()),
+    ]);
+
+    const data = {
+      ...homeData,
+      forums: homeData.forums.map((f, i) =>
+        mergeCourseData(f, detailData[i]?.course, forumData.courses[i])
+      ),
+      mobile: {
+        ...homeData.mobile,
+        forums: homeData.mobile.forums.map((f, i) =>
+          mergeCourseData(f, detailData[i]?.course, forumData.courses[i])
+        ),
+      },
+    };
+
     const isMobile = window.innerWidth <= 900;
-    return isMobile ? renderMobile(data) : renderDesktop(data);
+    const el = isMobile ? renderMobile(data) : renderDesktop(data);
+    usersPromise.then(() => populateStacks(el));
+    return el;
   } catch (err) {
     const el = document.createElement('section');
     el.className = 'home-page container section';

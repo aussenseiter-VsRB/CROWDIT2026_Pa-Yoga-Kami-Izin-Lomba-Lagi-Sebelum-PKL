@@ -37,7 +37,10 @@ function renderDesktop(data) {
                 <a class="card" href="/dm?user=${encodeURIComponent(name)}" data-link style="display:flex;align-items:center;gap:0.75rem;padding:0.85rem 1rem;cursor:pointer;text-decoration:none;color:inherit;border-radius:12px;border:1px solid var(--border-color);transition:box-shadow 0.15s;background:var(--card-bg)">
                   <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:${color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;flex-shrink:0">${initial}</div>
                   <div style="flex:1;min-width:0">
-                    <div style="font-weight:600;font-size:0.9rem;color:var(--text)">${name}</div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem">
+                      <span style="font-weight:600;font-size:0.9rem;color:var(--text)">${name}</span>
+                      <span style="font-size:0.68rem;color:var(--muted-alt);white-space:nowrap">Online</span>
+                    </div>
                     <div style="font-size:0.78rem;color:var(--muted-alt)">Teman</div>
                   </div>
                 </a>
@@ -122,21 +125,16 @@ function renderMobile(data) {
     ${friendCards}
     <div class="mobile-page__inner">
       <div class="mobile-list">
-        ${data.cards.map((card, i) => {
+        ${data.cards.map((card) => {
           const initial = (card.title || '?').charAt(0).toUpperCase();
-          const msgCount = Math.floor(Math.random() * 12) + 1;
-          const hasUnread = i < 2;
           return `
-            <article class="mobile-card" style="display:flex;align-items:center;gap:0.75rem;padding:0.9rem 1rem;cursor:pointer;${hasUnread ? 'border-left:3px solid var(--accent)' : ''}">
+            <article class="mobile-card" style="display:flex;align-items:center;gap:0.75rem;padding:0.9rem 1rem">
               <div style="width:2.6rem;height:2.6rem;border-radius:50%;background:${friendColor(card.title)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;flex-shrink:0">${initial}</div>
               <div style="flex:1;min-width:0">
-                <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem">
-                  <span style="font-weight:700;font-size:0.92rem;color:var(--text)">${card.title}</span>
-                  <span style="font-size:0.68rem;color:var(--muted-alt);white-space:nowrap">${i === 0 ? '2m lalu' : i === 1 ? '1j lalu' : '3j lalu'}</span>
-                </div>
-                <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-top:0.1rem">
-                  <span style="font-size:0.82rem;color:var(--muted-alt);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">${card.description}</span>
-                  ${hasUnread ? `<span style="background:var(--accent);color:#fff;font-size:0.6rem;font-weight:800;padding:0.1rem 0.4rem;border-radius:999px;line-height:1.3">${msgCount}</span>` : ''}
+                <div style="font-weight:700;font-size:0.92rem;color:var(--text)">${card.title}</div>
+                <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.1rem">
+                  <span style="font-size:0.68rem;font-weight:600;color:var(--accent)">${card.tag}</span>
+                  <span style="font-size:0.82rem;color:var(--muted-alt);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${card.description}</span>
                 </div>
               </div>
             </article>
@@ -150,7 +148,7 @@ function renderMobile(data) {
 
 export async function Chat() {
   try {
-    const data = await fetchData('/features/chat/chat.json');
+    const data = await fetchData('/data/chat.json');
     const isMobile = window.innerWidth <= 900;
     return isMobile ? renderMobile(data) : renderDesktop(data);
   } catch (err) {

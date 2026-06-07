@@ -155,7 +155,7 @@ function renderMobile(data) {
 }
 
 export async function Groups() {
-  const data = await fetchData('/features/groups/groups.json');
+  const data = await fetchData('/data/groups.json');
 
   const isMobile = window.innerWidth <= 900;
   return isMobile ? renderMobile(data) : renderDesktop(data);

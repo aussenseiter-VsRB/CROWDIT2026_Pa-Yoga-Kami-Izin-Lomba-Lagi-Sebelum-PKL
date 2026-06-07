@@ -1,0 +1,33 @@
+{
+  "header": { "title": "Pengaturan" },
+  "sections": [
+    {
+      "title": "Notifikasi",
+      "items": [
+        { "type": "toggle", "icon": "bell", "iconStyle": "blue", "label": "Push Notifikasi", "desc": "Terima notifikasi kegiatan", "defaultChecked": true },
+        { "type": "toggle", "icon": "shield-check", "iconStyle": "orange", "label": "Mention & Reply", "desc": "Notifikasi saat di-mention", "defaultChecked": true }
+      ]
+    },
+    {
+      "title": "Tampilan",
+      "items": [
+        { "type": "toggle-theme", "icon": "moon", "iconStyle": "purple", "label": "Mode Gelap", "desc": "Tampilan dengan tema gelap" }
+      ]
+    },
+    {
+      "title": "Akun",
+      "items": [
+        { "type": "link", "icon": "lock", "iconStyle": "green", "label": "Privasi", "desc": "Kontrol data dan privasi" },
+        { "type": "link", "icon": "globe2", "iconStyle": "gray", "label": "Bahasa", "desc": "Indonesia" }
+      ]
+    },
+    {
+      "title": "Lainnya",
+      "items": [
+        { "type": "delete", "icon": "trash", "iconStyle": "red", "label": "Hapus Akun", "desc": "Hapus akun dan semua data" }
+      ]
+    }
+  ],
+  "version": "StudNow v1.0.0",
+  "confirmDelete": "Apakah Anda yakin ingin menghapus akun? Semua data akan hilang."
+}

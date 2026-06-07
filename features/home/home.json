@@ -18,76 +18,16 @@
   },
   "topics": ["Semua Topik", "Ilmu Komputer", "Matematika", "Filsafat"],
   "forums": [
-    {
-      "title": "Persiapan UTS Kalkulus Lanjut III",
-      "description": "Membahas latihan soal bab 4, fokus pada integral lipat dua dan medan vektor. Bergabunglah jika Anda butuh bantuan dengan PR!",
-      "joined": "3/6 bergabung",
-      "status": "Online",
-      "action": "Buka"
-    },
-    {
-      "title": "Struktur Data & Algoritma",
-      "description": "Meninjau pohon biner, penelusuran graf, dan pendekatan pemrograman dinamis untuk simulasi wawancara kerja pemrograman mendatang.",
-      "joined": "12/15 bergabung",
-      "status": "Online",
-      "action": "Buka"
-    },
-    {
-      "title": "Pengantar Filsafat Modern",
-      "description": "Grup diskusi untuk Critique of Pure Reason karya Kant. Pertemuan dilanjutkan besok pukul 10.00 EST. Baca bab 2 sebelum bergabung.",
-      "joined": "4/8 bergabung",
-      "status": "Offline",
-      "action": "Detail"
-    },
-    {
-      "title": "Persiapan Lab Kimia Organik",
-      "description": "Berbagi catatan sebelum lab dan mendiskusikan protokol keselamatan untuk eksperimen sintesis aspirin.",
-      "joined": "2/4 bergabung",
-      "status": "Offline",
-      "action": "Detail"
-    },
-    {
-      "title": "Pemecahan Masalah Aljabar Linear",
-      "description": "Sesi latihan mingguan: nilai eigen, diagonalisasi, dan penerapan pada persamaan diferensial.",
-      "joined": "7/10 bergabung",
-      "status": "Online",
-      "action": "Buka"
-    },
-    {
-      "title": "Pengantar Pembelajaran Mesin",
-      "description": "Panduan ramah pemula tentang algoritma pembelajaran mesin terawasi (supervised learning) dan proyek mini langsung.",
-      "joined": "20/30 bergabung",
-      "status": "Online",
-      "action": "Buka"
-    },
-    {
-      "title": "Klub Membaca Shakespeare",
-      "description": "Kelompok santai untuk membaca dan mendiskusikan naskah drama pilihan. Tidak memerlukan pengalaman sebelumnya.",
-      "joined": "5/12 bergabung",
-      "status": "Offline",
-      "action": "Detail"
-    },
-    {
-      "title": "Fisika: Mekanika Klasik",
-      "description": "Pemecahan masalah untuk mekanika Newton dan dinamika rotasi. Persiapan yang bagus untuk ujian.",
-      "joined": "9/14 bergabung",
-      "status": "Online",
-      "action": "Buka"
-    },
-    {
-      "title": "Statistika untuk Ilmu Sosial",
-      "description": "Membahas pengujian hipotesis, regresi, dan menafsirkan kumpulan data survei nyata.",
-      "joined": "6/8 bergabung",
-      "status": "Offline",
-      "action": "Detail"
-    },
-    {
-      "title": "Lokakarya Penulisan Kreatif",
-      "description": "Umpan balik dari rekan sejawat tentang cerita pendek dan puisi. Bagikan karya Anda dan dapatkan masukan yang membangun.",
-      "joined": "11/11 bergabung",
-      "status": "Online",
-      "action": "Buka"
-    }
+    { "action": "Buka" },
+    { "action": "Buka" },
+    { "action": "Detail" },
+    { "action": "Detail" },
+    { "action": "Buka" },
+    { "action": "Buka" },
+    { "action": "Detail" },
+    { "action": "Buka" },
+    { "action": "Detail" },
+    { "action": "Buka" }
   ],
   "stats": [
     { "value": "24", "label": "Grup aktif" },
@@ -98,34 +38,10 @@
     "title": "Jelajahi Forum",
     "description": "Temukan grup belajar, bergabunglah dalam diskusi, dan unggul bersama.",
     "forums": [
-      {
-        "title": "Persiapan UTS Kalkulus Lanjut III",
-        "description": "Membahas latihan soal bab 4, fokus pada integral lipat dua dan medan vektor. Bergabunglah jika Anda butuh bantuan dengan PR!",
-        "joined": "3/6 bergabung",
-        "status": "Online",
-        "action": "Buka"
-      },
-      {
-        "title": "Struktur Data & Algoritma",
-        "description": "Meninjau pohon biner, penelusuran graf, dan pendekatan pemrograman dinamis untuk simulasi wawancara kerja pemrograman mendatang.",
-        "joined": "12/15 bergabung",
-        "status": "Online",
-        "action": "Buka"
-      },
-      {
-        "title": "Pengantar Filsafat Modern",
-        "description": "Grup diskusi untuk Critique of Pure Reason karya Kant. Pertemuan dilanjutkan besok pukul 10.00 EST. Baca bab 2 sebelum bergabung.",
-        "joined": "4/8 bergabung",
-        "status": "Offline",
-        "action": "Detail"
-      },
-      {
-        "title": "Persiapan Lab Kimia Organik",
-        "description": "Berbagi catatan sebelum lab dan mendiskusikan protokol keselamatan untuk eksperimen sintesis aspirin.",
-        "joined": "2/4 bergabung",
-        "status": "Offline",
-        "action": "Detail"
-      }
+      { "action": "Buka" },
+      { "action": "Buka" },
+      { "action": "Detail" },
+      { "action": "Detail" }
     ]
   }
 }
