@@ -1,4 +1,4 @@
-import { navigateTo } from '/js/utils/url.js';
+import { navigateTo, asset } from './utils/url.js';
 
 const USERS_KEY = 'studnow_users';
 const USERS_VERSION_KEY = 'studnow_users_version';
@@ -18,7 +18,7 @@ function saveUsers(users) {
 export async function initUsers() {
   const storedVersion = Number(localStorage.getItem(USERS_VERSION_KEY));
   if (storedVersion !== CURRENT_VERSION) {
-    const res = await fetch('/data/users.json');
+    const res = await fetch(asset('/data/users.json'));
     const users = await res.json();
     saveUsers(users);
   }

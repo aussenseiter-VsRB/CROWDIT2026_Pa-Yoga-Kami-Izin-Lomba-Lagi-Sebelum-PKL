@@ -1,9 +1,9 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
 injectStyle('/features/settings/settings.css');
 
-import { isAuthenticated, navigateAfterAuth } from '/js/auth.js';
-import { navigateTo } from '/js/utils/url.js';
-import { getTheme, toggleTheme } from '/js/theme.js';
+import { isAuthenticated, navigateAfterAuth } from '../../js/auth.js';
+import { navigateTo } from '../../js/utils/url.js';
+import { getTheme, toggleTheme } from '../../js/theme.js';
 
 function iconArrowLeft() { return '<i class="bi bi-arrow-left"></i>'; }
 function iconBell() { return '<i class="bi bi-bell"></i>'; }

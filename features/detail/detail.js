@@ -1,5 +1,5 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
-import { getHashParams } from '/js/utils/url.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
+import { getHashParams, asset } from '../../js/utils/url.js';
 injectStyle('/features/detail/detail.css');
 
 function iconPeople() {
@@ -127,7 +127,7 @@ export async function Detail() {
   const params = getHashParams();
   const index = parseInt(params.get('index'), 10) || 0;
 
-  const res = await fetch('/features/detail/detail.json');
+  const res = await fetch(asset('/features/detail/detail.json'));
   const data = await res.json();
   const item = data[index] ?? data[0];
 

@@ -1,6 +1,6 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
-import { fetchData } from '/js/utils/api.js';
-import { searchEngine } from '/js/search.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
+import { fetchData } from '../../js/utils/api.js';
+import { searchEngine } from '../../js/search.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/search/search.css');

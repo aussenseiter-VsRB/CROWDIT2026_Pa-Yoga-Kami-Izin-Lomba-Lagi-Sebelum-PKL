@@ -1,6 +1,7 @@
 const loaded = new Set();
 
-export function injectStyle(href) {
+export function injectStyle(path) {
+  const href = `${window.BASE}${path}`;
   if (loaded.has(href)) return;
   loaded.add(href);
   const link = document.createElement('link');

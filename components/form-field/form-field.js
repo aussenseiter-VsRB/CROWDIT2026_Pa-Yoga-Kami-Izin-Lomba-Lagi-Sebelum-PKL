@@ -1,4 +1,4 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
 injectStyle('/components/form-field/form-field.css');
 
 export function FormField({ label, name, type = 'text' }) {

@@ -1,7 +1,7 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
-import { fetchData } from '/js/utils/api.js';
-import { getHashPath, getHashParams } from '/js/utils/url.js';
-import { isFollowing, toggleFollow, notifyNewMessage } from '/js/notifications.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
+import { fetchData } from '../../js/utils/api.js';
+import { getHashPath, getHashParams, asset } from '../../js/utils/url.js';
+import { isFollowing, toggleFollow, notifyNewMessage } from '../../js/notifications.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/forum/forum.css');
@@ -500,9 +500,9 @@ export async function Forum() {
   const groupIdx = parseInt(params.get('group'), 10);
 
   const [forumRes, detailRes, groupsRes] = await Promise.all([
-    fetch('/features/forum/forum.json').then(r => r.json()),
-    fetch('/features/detail/detail.json').then(r => r.json()),
-    fetch('/features/groups/groups.json').then(r => r.json()),
+    fetch(asset('/features/forum/forum.json')).then(r => r.json()),
+    fetch(asset('/features/detail/detail.json')).then(r => r.json()),
+    fetch(asset('/features/groups/groups.json')).then(r => r.json()),
   ]);
 
   let forumData, serverName, forumId, forumType;

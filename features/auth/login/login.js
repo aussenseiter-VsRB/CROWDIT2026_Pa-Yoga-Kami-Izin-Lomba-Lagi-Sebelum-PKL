@@ -1,8 +1,8 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
+import { injectStyle } from '../../../js/utils/styleLoader.js';
 
 injectStyle('/css/_shared.css');
-import { fetchData } from '/js/utils/api.js';
-import { initUsers, login, navigateAfterAuth } from '/js/auth.js';
+import { fetchData } from '../../../js/utils/api.js';
+import { initUsers, login, navigateAfterAuth } from '../../../js/auth.js';
 
 function field({ type, name, placeholder, icon, autocomplete, inputMode, autocapitalize, spellcheck, hint, toggleable = false, minLength }) {
   const inputId = `login-${name}`;

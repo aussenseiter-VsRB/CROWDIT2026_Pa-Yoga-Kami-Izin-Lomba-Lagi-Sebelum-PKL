@@ -1,4 +1,4 @@
-import { getUsers } from '/js/auth.js';
+import { getUsers } from './auth.js';
 
 const USER_FOLLOWS_KEY = 'studnow_user_follows';
 

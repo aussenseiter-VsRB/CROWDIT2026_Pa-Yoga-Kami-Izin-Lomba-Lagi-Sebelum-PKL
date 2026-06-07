@@ -1,8 +1,8 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
 injectStyle('/features/edit-profile/edit-profile.css');
 
-import { getSession, isAuthenticated, navigateAfterAuth } from '/js/auth.js';
-import { navigateTo } from '/js/utils/url.js';
+import { getSession, isAuthenticated, navigateAfterAuth } from '../../js/auth.js';
+import { navigateTo } from '../../js/utils/url.js';
 
 const AVATAR_KEY = 'studnow_avatar';
 

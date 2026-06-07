@@ -1,9 +1,9 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
-import { fetchData } from '/js/utils/api.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
+import { fetchData } from '../../js/utils/api.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/notifications/notifications.css');
-import { getUnreadNotifications, getAllNotifications, markAsRead, markAllAsRead, getUnreadCount } from '/js/notifications.js';
+import { getUnreadNotifications, getAllNotifications, markAsRead, markAllAsRead, getUnreadCount } from '../../js/notifications.js';
 
 function timeAgo(dateStr) {
   const diff = Date.now() - new Date(dateStr).getTime();

@@ -1,5 +1,5 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
-import { getHashPath } from '/js/utils/url.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
+import { getHashPath } from '../../js/utils/url.js';
 injectStyle('/components/bottom-bar/bottom-bar.css');
 
 const items = [

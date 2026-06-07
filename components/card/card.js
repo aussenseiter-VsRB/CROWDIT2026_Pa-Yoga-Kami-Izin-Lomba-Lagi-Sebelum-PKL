@@ -1,4 +1,4 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
 injectStyle('/components/card/card.css');
 
 export function Card({ tag = '', title, description, footer = '' }) {

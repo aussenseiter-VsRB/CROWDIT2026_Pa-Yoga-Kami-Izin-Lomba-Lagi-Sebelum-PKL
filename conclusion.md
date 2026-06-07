@@ -123,6 +123,7 @@ studNow/
 - Path selalu ditulis sebagai clean path (`/forum`) — hash prefix ditangani oleh `navigateTo()`
 - `getHashPath()` mengembalikan path tanpa hash dan tanpa query string (e.g. `/forum`)
 - `getHashParams()` mengembalikan `URLSearchParams` dari hash query string
+- `asset(path)` mengembalikan path absolut dengan `window.BASE` — digunakan untuk semua `fetch()` ke file statis
 - Jangan pernah menulis `window.location.pathname`, `history.pushState()`, atau `window.location.hash` langsung di luar `js/utils/url.js`
 - Back/forward browser tetap berfungsi karena browser merekam setiap perubahan hash di history stack
 
@@ -274,6 +275,17 @@ injectStyle('/features/home/_hero.css');
 - CSS partial (prefix `_`) hanya di-inject dari file JS fiturnya — tidak standalone.
 
 ---
+
+## Base Path (GitHub Pages)
+
+- `window.BASE` didefinisikan di `index.html` sebagai path subfolder GitHub Pages (e.g. `/CROWDIT2026_...`)
+- Semua absolute path ke file statis menggunakan `window.BASE` yang diprefix secara otomatis:
+  - **Static imports** — menggunakan relative path (e.g. `../../js/utils/url.js`)
+  - **`injectStyle()`** — BASE ditambahkan di `js/utils/styleLoader.js`
+  - **`fetchData()`** — BASE ditambahkan di `js/utils/api.js`
+  - **Raw `fetch()`** — gunakan `asset(path)` dari `js/utils/url.js`
+- Jangan hardcode nama subfolder di luar `index.html`
+- File `.nojekyll` diperlukan di root agar GitHub Pages tidak mengabaikan file dengan prefix `_` (seperti `_shared.css`)
 
 ## Catatan Server
 

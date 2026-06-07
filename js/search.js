@@ -1,3 +1,5 @@
+import { asset } from './utils/url.js';
+
 class SearchEngine {
   constructor() {
     this.index = [];
@@ -22,9 +24,9 @@ class SearchEngine {
     if (this.ready) return;
 
     const [home, groups, detail] = await Promise.all([
-      fetch('/features/home/home.json').then(r => r.json()),
-      fetch('/features/groups/groups.json').then(r => r.json()),
-      fetch('/features/detail/detail.json').then(r => r.json()),
+      fetch(asset('/features/home/home.json')).then(r => r.json()),
+      fetch(asset('/features/groups/groups.json')).then(r => r.json()),
+      fetch(asset('/features/detail/detail.json')).then(r => r.json()),
     ]);
 
     const docs = [];

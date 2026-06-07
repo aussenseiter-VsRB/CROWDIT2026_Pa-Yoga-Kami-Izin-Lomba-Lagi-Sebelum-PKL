@@ -1,4 +1,4 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
 injectStyle('/components/qr-modal/qr-modal.css');
 
 export function showQrModal({ name = '', email = '' } = {}) {

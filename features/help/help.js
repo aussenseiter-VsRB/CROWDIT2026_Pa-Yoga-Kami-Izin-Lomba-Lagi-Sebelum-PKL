@@ -1,8 +1,8 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
 injectStyle('/features/help/help.css');
 
-import { isAuthenticated, navigateAfterAuth } from '/js/auth.js';
-import { navigateTo } from '/js/utils/url.js';
+import { isAuthenticated, navigateAfterAuth } from '../../js/auth.js';
+import { navigateTo } from '../../js/utils/url.js';
 
 function iconArrowLeft() { return '<i class="bi bi-arrow-left"></i>'; }
 function iconSearch() { return '<i class="bi bi-search"></i>'; }

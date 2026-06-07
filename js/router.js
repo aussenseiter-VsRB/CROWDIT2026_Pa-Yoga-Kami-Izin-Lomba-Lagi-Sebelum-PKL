@@ -1,22 +1,22 @@
 // maps paths → page components (viewport adaptation handled inside each page)
-import { getHashPath } from '/js/utils/url.js';
-import { Home } from '/features/home/home.js';
-import { About } from '/features/about/about.js';
-import { Contact } from '/features/contact/contact.js';
-import { Groups } from '/features/groups/groups.js';
-import { Chat } from '/features/chat/chat.js';
-import { Profile } from '/features/profile/profile.js';
-import { Login } from '/features/auth/login/login.js';
-import { Signup } from '/features/auth/signup/signup.js';
-import { Search } from '/features/search/search.js';
-import { Notifications } from '/features/notifications/notifications.js';
-import { Detail } from '/features/detail/detail.js';
-import { Open } from '/features/open/open.js';
-import { Forum } from '/features/forum/forum.js';
-import { DM } from '/features/dm/dm.js';
-import { EditProfile } from '/features/edit-profile/edit-profile.js';
-import { Settings } from '/features/settings/settings.js';
-import { Help } from '/features/help/help.js';
+import { getHashPath } from './utils/url.js';
+import { Home } from '../features/home/home.js';
+import { About } from '../features/about/about.js';
+import { Contact } from '../features/contact/contact.js';
+import { Groups } from '../features/groups/groups.js';
+import { Chat } from '../features/chat/chat.js';
+import { Profile } from '../features/profile/profile.js';
+import { Login } from '../features/auth/login/login.js';
+import { Signup } from '../features/auth/signup/signup.js';
+import { Search } from '../features/search/search.js';
+import { Notifications } from '../features/notifications/notifications.js';
+import { Detail } from '../features/detail/detail.js';
+import { Open } from '../features/open/open.js';
+import { Forum } from '../features/forum/forum.js';
+import { DM } from '../features/dm/dm.js';
+import { EditProfile } from '../features/edit-profile/edit-profile.js';
+import { Settings } from '../features/settings/settings.js';
+import { Help } from '../features/help/help.js';
 
 const routes = {
   '/':              Home,

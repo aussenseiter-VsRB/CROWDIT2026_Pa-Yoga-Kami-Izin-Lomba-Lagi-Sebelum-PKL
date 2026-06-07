@@ -1,4 +1,4 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
 injectStyle('/components/page-header/page-header.css');
 
 function renderAction(action) {

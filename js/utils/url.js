@@ -11,3 +11,7 @@ export function getHashParams() {
 export function navigateTo(path) {
   window.location.hash = path;
 }
+
+export function asset(path) {
+  return `${window.BASE}${path}`;
+}

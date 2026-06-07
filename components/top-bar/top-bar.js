@@ -1,7 +1,7 @@
-import { isAuthenticated, getSession } from '/js/auth.js';
-import { getUnreadCount } from '/js/notifications.js';
+import { isAuthenticated, getSession } from '../../js/auth.js';
+import { getUnreadCount } from '../../js/notifications.js';
 
-import { injectStyle } from '/js/utils/styleLoader.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
 injectStyle('/components/top-bar/top-bar.css');
 
 function getBadgeCount() {

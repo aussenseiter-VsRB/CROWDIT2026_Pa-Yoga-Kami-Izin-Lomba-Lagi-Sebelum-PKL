@@ -1,5 +1,5 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
-import { fetchData } from '/js/utils/api.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
+import { fetchData } from '../../js/utils/api.js';
 
 injectStyle('/features/home/home.css');
 

@@ -1,7 +1,7 @@
-import { isAuthenticated, getSession } from '/js/auth.js';
-import { getUnreadCount } from '/js/notifications.js';
-import { injectStyle } from '/js/utils/styleLoader.js';
-import { getHashPath } from '/js/utils/url.js';
+import { isAuthenticated, getSession } from '../../js/auth.js';
+import { getUnreadCount } from '../../js/notifications.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
+import { getHashPath } from '../../js/utils/url.js';
 
 function getBadgeCount() {
   try { return getUnreadCount(); } catch { return 0; }

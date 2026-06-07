@@ -1,4 +1,4 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
 injectStyle('/components/tambah-minat/tambah-minat.css');
 
 export function TambahMinat({ interests = [], onChange } = {}) {

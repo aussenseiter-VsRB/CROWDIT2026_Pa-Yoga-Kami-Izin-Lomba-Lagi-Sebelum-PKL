@@ -1,10 +1,10 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
-import { fetchData } from '/js/utils/api.js';
-import { getSession, isAuthenticated, logout, navigateAfterAuth, getUsers } from '/js/auth.js';
-import { getHashParams, navigateTo } from '/js/utils/url.js';
-import { TambahMinat } from '/components/tambah-minat/tambah-minat.js';
-import { showQrModal } from '/components/qr-modal/qr-modal.js';
-import { isFollowing, toggleFollowUser, getFollowingCount, getFollowersCount, getFriends } from '/js/follow.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
+import { fetchData } from '../../js/utils/api.js';
+import { getSession, isAuthenticated, logout, navigateAfterAuth, getUsers } from '../../js/auth.js';
+import { getHashParams, navigateTo } from '../../js/utils/url.js';
+import { TambahMinat } from '../../components/tambah-minat/tambah-minat.js';
+import { showQrModal } from '../../components/qr-modal/qr-modal.js';
+import { isFollowing, toggleFollowUser, getFollowingCount, getFollowersCount, getFriends } from '../../js/follow.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/profile/profile.css');

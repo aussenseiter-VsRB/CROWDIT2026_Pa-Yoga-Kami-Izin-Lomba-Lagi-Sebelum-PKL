@@ -1,5 +1,5 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
-import { getHashPath } from '/js/utils/url.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
+import { getHashPath } from '../../js/utils/url.js';
 
 export async function Footer() {
   injectStyle('/components/footer/footer.css');

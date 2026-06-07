@@ -1,13 +1,13 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
-import { fetchData } from '/js/utils/api.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
+import { fetchData } from '../../js/utils/api.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/chat/chat.css');
-import { PageHeader } from '/components/page-header/page-header.js';
-import { Card } from '/components/card/card.js';
-import { getSession } from '/js/auth.js';
-import { getFriendNames } from '/js/follow.js';
-import { navigateTo } from '/js/utils/url.js';
+import { PageHeader } from '../../components/page-header/page-header.js';
+import { Card } from '../../components/card/card.js';
+import { getSession } from '../../js/auth.js';
+import { getFriendNames } from '../../js/follow.js';
+import { navigateTo } from '../../js/utils/url.js';
 
 
 function friendColor(name) {

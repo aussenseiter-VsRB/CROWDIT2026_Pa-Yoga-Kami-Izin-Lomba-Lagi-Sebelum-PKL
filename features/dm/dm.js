@@ -1,10 +1,9 @@
-import { injectStyle } from '/js/utils/styleLoader.js';
-import { fetchData } from '/js/utils/api.js';
-import { getSession } from '/js/auth.js';
-import { nameToEmail, emailToName } from '/js/follow.js';
-import { getDMMessages, sendDMMessage } from '/js/dm.js';
-import { getHashParams } from '/js/utils/url.js';
-import { navigateTo } from '/js/utils/url.js';
+import { injectStyle } from '../../js/utils/styleLoader.js';
+import { fetchData } from '../../js/utils/api.js';
+import { getSession } from '../../js/auth.js';
+import { nameToEmail, emailToName } from '../../js/follow.js';
+import { getDMMessages, sendDMMessage } from '../../js/dm.js';
+import { getHashParams, navigateTo } from '../../js/utils/url.js';
 
 injectStyle('/features/dm/dm.css');
 
