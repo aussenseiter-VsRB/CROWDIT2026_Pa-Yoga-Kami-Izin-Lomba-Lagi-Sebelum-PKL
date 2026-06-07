@@ -22,9 +22,9 @@ class SearchEngine {
     if (this.ready) return;
 
     const [home, groups, detail] = await Promise.all([
-      fetch('/data/home.json').then(r => r.json()),
-      fetch('/data/groups.json').then(r => r.json()),
-      fetch('/data/detail.json').then(r => r.json()),
+      fetch('/features/home/home.json').then(r => r.json()),
+      fetch('/features/groups/groups.json').then(r => r.json()),
+      fetch('/features/detail/detail.json').then(r => r.json()),
     ]);
 
     const docs = [];

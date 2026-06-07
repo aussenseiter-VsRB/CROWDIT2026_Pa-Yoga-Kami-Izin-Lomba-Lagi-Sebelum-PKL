@@ -1,12 +1,11 @@
 // mounts navbar/footer, wires router
-import { Navbar }  from '/components/desktop/navbar/navbar.js';
-import { Footer }  from '/components/desktop/footer/footer.js';
-import { TopBar }  from '/components/mobile/top-bar/top-bar.js';
-import { BottomBar } from '/components/mobile/bottom-bar/bottom-bar.js';
+import { Navbar }  from '/components/navbar/navbar.js';
+import { Footer }  from '/components/footer/footer.js';
+import { TopBar }  from '/components/top-bar/top-bar.js';
+import { BottomBar } from '/components/bottom-bar/bottom-bar.js';
 import { router, navigateTo } from './router.js';
 import { initTheme } from './theme.js';
 import { seedSampleNotifications } from './notifications.js';
-
 async function init() {
   seedSampleNotifications();
 
