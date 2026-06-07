@@ -8,6 +8,7 @@ if (!document.querySelector('link[href="/pages/pages-desktop/profile/profile.css
 import { getSession, isAuthenticated, logout, navigateAfterAuth } from '/js/auth.js';
 import { navigateTo } from '/js/router.js';
 import { TambahMinat } from '/components/desktop/tambah-minat/tambah-minat.js';
+import { showQrModal } from '/components/desktop/qr-modal/qr-modal.js';
 
 const INTERESTS_KEY = 'studnow_interests';
 const AVATAR_KEY = 'studnow_avatar';
@@ -170,7 +171,7 @@ export async function Profile() {
                 <span class="d-profile__menu-chevron">${iconMap('chevron')}</span>
               </a>
 
-              <a class="d-profile__menu-item" href="#">
+              <a class="d-profile__menu-item" href="#" data-qr>
                 <span class="d-profile__menu-icon d-profile__menu-icon--green">${iconMap('qr')}</span>
                 <span class="d-profile__menu-text">
                   <span class="d-profile__menu-label">My QR Code</span>
@@ -343,6 +344,11 @@ export async function Profile() {
     privacyIcon.innerHTML = pub ? iconMap('globe') : iconMap('lock');
     privacyLabel.textContent = pub ? 'Profil Publik' : 'Profil Privat';
     privacyDesc.textContent = pub ? 'Dilihat oleh semua pengguna' : 'Hanya untuk Anda';
+  });
+
+  el.querySelector('[data-qr]').addEventListener('click', (e) => {
+    e.preventDefault();
+    showQrModal({ name: session.name, email: session.email });
   });
 
   el.querySelector('.d-profile__logout').addEventListener('click', () => {
