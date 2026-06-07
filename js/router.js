@@ -1,4 +1,5 @@
 // maps paths → page components (viewport adaptation handled inside each page)
+import { getHashPath } from '/js/utils/url.js';
 import { Home } from '/features/home/home.js';
 import { About } from '/features/about/about.js';
 import { Contact } from '/features/contact/contact.js';
@@ -37,10 +38,10 @@ const routes = {
   '/help':          Help,
 };
 
-let previousPath = window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/$/, '');
+let previousPath = getHashPath();
 
 export async function router() {
-  const path = window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/$/, '');
+  const path = getHashPath();
   const Page = routes[path] ?? routes['/'];
   const authRoutes = new Set(['/login', '/signup']);
   const isAuthTransition = authRoutes.has(previousPath) && authRoutes.has(path);
@@ -73,10 +74,3 @@ export async function router() {
   previousPath = path;
   window.dispatchEvent(new CustomEvent('route-change'));
 }
-
-export function navigateTo(path) {
-  history.pushState(null, null, path);
-  router();
-}
-
-window.addEventListener('popstate', router);

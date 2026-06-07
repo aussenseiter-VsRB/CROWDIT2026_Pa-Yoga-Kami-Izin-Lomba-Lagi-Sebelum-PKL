@@ -3,7 +3,8 @@ import { fetchData } from '/js/utils/api.js';
 import { getSession } from '/js/auth.js';
 import { nameToEmail, emailToName } from '/js/follow.js';
 import { getDMMessages, sendDMMessage } from '/js/dm.js';
-import { navigateTo } from '/js/router.js';
+import { getHashParams } from '/js/utils/url.js';
+import { navigateTo } from '/js/utils/url.js';
 
 injectStyle('/features/dm/dm.css');
 
@@ -171,7 +172,7 @@ export async function DM() {
   el.innerHTML = '<p style="color:var(--muted)"><i class="bi bi-arrow-repeat"></i> Memuat...</p>';
 
   try {
-    const params = new URLSearchParams(window.location.search);
+    const params = getHashParams();
     const otherParam = params.get('user');
 
     const session = getSession();

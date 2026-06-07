@@ -31,7 +31,8 @@ studNow/
 │       ├── dom.js                # Helper DOM (createElement, query shortcuts)
 │       ├── format.js             # Format tanggal, angka, string
 │       ├── api.js                # Fetch wrapper dengan loading/error state
-│       └── styleLoader.js        # Inject CSS tanpa duplikasi
+│       ├── styleLoader.js        # Inject CSS tanpa duplikasi
+│       └── url.js                # Hash routing utilities (getHashPath, getHashParams, navigateTo)
 ├── css/
 │   └── _shared.css               # Shared mobile layout (mobile-page, mobile-card, dll)
 ├── data/                         # Data cross-feature / shared
@@ -114,13 +115,24 @@ studNow/
 
 ---
 
+## Routing
+
+- Menggunakan **Hash Routing** (`/#/route`) untuk kompatibilitas penuh dengan GitHub Pages
+- Router mendengar `hashchange` event — bukan `popstate`
+- `navigateTo(path)` dari `js/utils/url.js` adalah satu-satunya fungsi yang boleh mengubah URL
+- Path selalu ditulis sebagai clean path (`/forum`) — hash prefix ditangani oleh `navigateTo()`
+- `getHashPath()` mengembalikan path tanpa hash dan tanpa query string (e.g. `/forum`)
+- `getHashParams()` mengembalikan `URLSearchParams` dari hash query string
+- Jangan pernah menulis `window.location.pathname`, `history.pushState()`, atau `window.location.hash` langsung di luar `js/utils/url.js`
+- Back/forward browser tetap berfungsi karena browser merekam setiap perubahan hash di history stack
+
 ## Alur Kerja Aplikasi
 
 1. `index.html` memuat layout utama (navbar, top-bar, bottom-bar, footer, `#main`).
 2. `js/main.js` menginisialisasi app: mount komponen tetap, intercept klik `[data-link]`, panggil `router()`.
 3. `js/router.js` menggunakan satu route table — setiap halaman mengecek viewport (`isMobile`) untuk menampilkan versi yang sesuai.
-4. Navigasi menggunakan `history.pushState()` — URL bersih tanpa hash.
-5. Tombol back/forward browser berfungsi berkat `popstate` event.
+4. Navigasi menggunakan **hash routing** (`/#/route`) — URL bersih tanpa query string di pathname.
+5. Tombol back/forward browser berfungsi berkat `hashchange` event.
 6. Router melepas `route-change` custom event; navbar, top-bar, bottom-bar, dan footer mendengarnya untuk update state.
 7. Semua halaman membaca data dari file JSON miliknya sendiri di folder `features/`.
 
@@ -265,4 +277,4 @@ injectStyle('/features/home/_hero.css');
 
 ## Catatan Server
 
-Karena aplikasi menggunakan History API, server harus berjalan dalam **mode SPA** — semua route diarahkan ke `index.html`. Sudah otomatis saat pakai `npm run dev` atau `npm run serve` (via `serve -s`).
+Aplikasi menggunakan **Hash Routing** (`/#/route`) — tidak perlu konfigurasi server SPA. Kompatibel dengan GitHub Pages tanpa file `.nojekyll` atau fallback 404. Server lokal (`npm run dev` / `npm run serve`) tetap bisa digunakan untuk development.

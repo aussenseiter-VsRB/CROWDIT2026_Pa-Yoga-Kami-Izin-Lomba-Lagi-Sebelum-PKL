@@ -6,7 +6,7 @@ Forum belajar berbasis web — **Vanilla JavaScript SPA** tanpa framework.
 
 ## Tentang
 
-StudNow adalah platform forum belajar responsif yang dibangun dengan JavaScript murni. Tidak ada React, Vue, atau framework lainnya — hanya HTML, CSS, dan ES Modules dengan History API untuk routing SPA.
+StudNow adalah platform forum belajar responsif yang dibangun dengan JavaScript murni. Tidak ada React, Vue, atau framework lainnya — hanya HTML, CSS, dan ES Modules dengan Hash Routing untuk SPA.
 
 ---
 
@@ -14,7 +14,7 @@ StudNow adalah platform forum belajar responsif yang dibangun dengan JavaScript 
 
 | | |
 |---|---|
-| **Routing** | History API — clean URL tanpa hash |
+| **Routing** | Hash Routing — `/#/route` (GitHub Pages compatible) |
 | **Styling** | Tailwind CSS v4 + CSS per fitur |
 | **Ikon** | Bootstrap Icons v1.11.3 via CDN |
 | **Data** | JSON files — single source of truth |
@@ -57,7 +57,17 @@ npm run serve
 npm run build
 ```
 
-> Server berjalan dalam **mode SPA** (`serve -s`) — semua URL diarahkan ke `index.html` agar routing History API tidak menghasilkan 404.
+### Hanya server lokal
+
+```bash
+npm run serve
+```
+
+## Deployment (GitHub Pages)
+
+Karena menggunakan **Hash Routing**, aplikasi bisa di-deploy ke GitHub Pages tanpa konfigurasi khusus — cukup push ke `gh-pages` branch atau atur GitHub Pages di repo settings. Tidak perlu file `.nojekyll` atau fallback 404.
+
+> Routing menggunakan **hash** (`/#/route`) — kompatibel dengan GitHub Pages tanpa konfigurasi server. Server lokal (`serve -s`) tetap bisa digunakan untuk development.
 
 ---
 

@@ -1,7 +1,7 @@
 import { injectStyle } from '/js/utils/styleLoader.js';
 import { fetchData } from '/js/utils/api.js';
 import { getSession, isAuthenticated, logout, navigateAfterAuth, getUsers } from '/js/auth.js';
-import { navigateTo } from '/js/router.js';
+import { getHashParams, navigateTo } from '/js/utils/url.js';
 import { TambahMinat } from '/components/tambah-minat/tambah-minat.js';
 import { showQrModal } from '/components/qr-modal/qr-modal.js';
 import { isFollowing, toggleFollowUser, getFollowingCount, getFollowersCount, getFriends } from '/js/follow.js';
@@ -138,7 +138,7 @@ function renderMobileAvatarContent(initial) {
 }
 
 function renderDesktop() {
-  const params = new URLSearchParams(window.location.search);
+  const params = getHashParams();
   const viewedUser = params.get('user') || null;
 
   const session = getSession();
@@ -505,7 +505,7 @@ function renderDesktop() {
 }
 
 function renderMobile() {
-  const params = new URLSearchParams(window.location.search);
+  const params = getHashParams();
   const viewedUser = params.get('user') || null;
 
   const session = getSession();

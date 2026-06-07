@@ -1,4 +1,5 @@
 import { injectStyle } from '/js/utils/styleLoader.js';
+import { getHashParams } from '/js/utils/url.js';
 injectStyle('/features/detail/detail.css');
 
 function iconPeople() {
@@ -123,7 +124,7 @@ function ParticipantsBlock(participants) {
 }
 
 export async function Detail() {
-  const params = new URLSearchParams(window.location.search);
+  const params = getHashParams();
   const index = parseInt(params.get('index'), 10) || 0;
 
   const res = await fetch('/features/detail/detail.json');

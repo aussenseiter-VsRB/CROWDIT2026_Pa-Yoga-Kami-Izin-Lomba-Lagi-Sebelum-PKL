@@ -7,7 +7,7 @@ import { PageHeader } from '/components/page-header/page-header.js';
 import { Card } from '/components/card/card.js';
 import { getSession } from '/js/auth.js';
 import { getFriendNames } from '/js/follow.js';
-import { navigateTo } from '/js/router.js';
+import { navigateTo } from '/js/utils/url.js';
 
 
 function friendColor(name) {

@@ -1,4 +1,5 @@
 import { injectStyle } from '/js/utils/styleLoader.js';
+import { getHashPath } from '/js/utils/url.js';
 injectStyle('/components/bottom-bar/bottom-bar.css');
 
 const items = [
@@ -40,10 +41,10 @@ export function BottomBar() {
     </div>
   `;
 
-  const isAuthRoute = () => ['/login', '/signup'].includes(window.location.pathname.replace(/\/$/, '') || '/');
+  const isAuthRoute = () => ['/login', '/signup'].includes(getHashPath());
 
   const setActive = () => {
-    const path = window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/$/, '');
+    const path = getHashPath();
     el.querySelectorAll('.bottom-bar__item').forEach((item) => {
       item.classList.toggle('is-active', item.getAttribute('href') === path);
     });

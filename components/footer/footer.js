@@ -1,4 +1,5 @@
 import { injectStyle } from '/js/utils/styleLoader.js';
+import { getHashPath } from '/js/utils/url.js';
 
 export async function Footer() {
   injectStyle('/components/footer/footer.css');
@@ -42,15 +43,14 @@ export async function Footer() {
     </div>
   `;
 
-  const isAuthRoute = () => ['/login', '/signup'].includes(window.location.pathname.replace(/\/$/, '') || '/');
+  const isAuthRoute = () => ['/login', '/signup'].includes(getHashPath());
 
   const syncVisibility = () => {
     el.style.display = isAuthRoute() ? 'none' : '';
   };
 
   syncVisibility();
-  window.addEventListener('routechange', syncVisibility);
-  window.addEventListener('popstate', syncVisibility);
+  window.addEventListener('route-change', syncVisibility);
 
   return el;
 }

@@ -1,6 +1,7 @@
 import { isAuthenticated, getSession } from '/js/auth.js';
 import { getUnreadCount } from '/js/notifications.js';
 import { injectStyle } from '/js/utils/styleLoader.js';
+import { getHashPath } from '/js/utils/url.js';
 
 function getBadgeCount() {
   try { return getUnreadCount(); } catch { return 0; }
@@ -45,7 +46,7 @@ export function Navbar() {
     `;
   }
 
-  const isAuthRoute = () => ['/login', '/signup'].includes(window.location.pathname.replace(/\/$/, '') || '/');
+  const isAuthRoute = () => ['/login', '/signup'].includes(getHashPath());
 
   function syncAuth() {
     const authEl = el.querySelector('.navbar-action--auth');
@@ -64,7 +65,7 @@ export function Navbar() {
   }
 
   function setActive() {
-    const path = window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/$/, '');
+    const path = getHashPath();
     el.querySelectorAll('.navbar-nav a, .navbar-actions a').forEach((a) => {
       a.classList.toggle('active', a.getAttribute('href') === path);
     });

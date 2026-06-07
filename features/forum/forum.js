@@ -1,5 +1,6 @@
 import { injectStyle } from '/js/utils/styleLoader.js';
 import { fetchData } from '/js/utils/api.js';
+import { getHashPath, getHashParams } from '/js/utils/url.js';
 import { isFollowing, toggleFollow, notifyNewMessage } from '/js/notifications.js';
 
 injectStyle('/css/_shared.css');
@@ -180,7 +181,8 @@ function renderDesktop(el, opts) {
           };
           activeChannel.messages.push(msg);
 
-          notifyNewMessage(forumId, forumType, serverName, activeChannel.name, 'Saya', msg.text, window.location.pathname + window.location.search);
+          const link = getHashPath() + (getHashParams().toString() ? '?' + getHashParams().toString() : '');
+          notifyNewMessage(forumId, forumType, serverName, activeChannel.name, 'Saya', msg.text, link);
 
           input.value = '';
           appendMessage(msg);
@@ -473,7 +475,8 @@ function renderMobile(el, opts) {
         };
         activeChannel.messages.push(msg);
 
-        notifyNewMessage(forumId, forumType, serverName, activeChannel.name, 'Saya', msg.text, window.location.pathname + window.location.search);
+        const link = getHashPath() + (getHashParams().toString() ? '?' + getHashParams().toString() : '');
+        notifyNewMessage(forumId, forumType, serverName, activeChannel.name, 'Saya', msg.text, link);
 
         input.value = '';
         appendMessage(msg);
@@ -492,7 +495,7 @@ function renderMobile(el, opts) {
 }
 
 export async function Forum() {
-  const params = new URLSearchParams(window.location.search);
+  const params = getHashParams();
   const courseIdx = parseInt(params.get('index'), 10);
   const groupIdx = parseInt(params.get('group'), 10);
 

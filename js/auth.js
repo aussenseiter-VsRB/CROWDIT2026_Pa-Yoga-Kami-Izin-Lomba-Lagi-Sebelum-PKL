@@ -1,3 +1,5 @@
+import { navigateTo } from '/js/utils/url.js';
+
 const USERS_KEY = 'studnow_users';
 const USERS_VERSION_KEY = 'studnow_users_version';
 const SESSION_KEY = 'studnow_session';
@@ -60,6 +62,5 @@ export function isAuthenticated() {
 }
 
 export function navigateAfterAuth(path) {
-  history.pushState(null, null, path);
-  window.dispatchEvent(new PopStateEvent('popstate'));
+  navigateTo(path);
 }
