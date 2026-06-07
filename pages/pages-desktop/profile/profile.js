@@ -7,6 +7,7 @@ if (!document.querySelector('link[href="/pages/pages-desktop/profile/profile.css
 
 import { getSession, isAuthenticated, logout, navigateAfterAuth } from '/js/auth.js';
 import { navigateTo } from '/js/router.js';
+import { TambahMinat } from '/components/desktop/tambah-minat/tambah-minat.js';
 
 const INTERESTS_KEY = 'studnow_interests';
 const AVATAR_KEY = 'studnow_avatar';
@@ -84,28 +85,6 @@ function iconMap(name) {
   return map[name] || '';
 }
 
-function renderInterestTags(interests, onRemove) {
-  const container = document.createElement('div');
-  container.className = 'd-profile__tags';
-
-  interests.forEach((interest, index) => {
-    const tag = document.createElement('span');
-    tag.className = 'd-profile__tag';
-    tag.innerHTML = `
-      ${interest}
-      <button class="d-profile__tag-remove" type="button" data-index="${index}" aria-label="Hapus ${interest}">${iconMap('x')}</button>
-    `;
-    const btn = tag.querySelector('.d-profile__tag-remove');
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      onRemove(index);
-    });
-    container.appendChild(tag);
-  });
-
-  return container;
-}
-
 function renderAvatarContent(initial) {
   const avatarSrc = getAvatar();
   if (avatarSrc) {
@@ -177,14 +156,7 @@ export async function Profile() {
         </div>
 
         <div class="d-profile__grid">
-          <div class="d-profile__interests">
-            <p class="d-profile__section-title">Learning Interest</p>
-            <div class="d-profile__tags-wrap"></div>
-            <div class="d-profile__add-interest">
-              <input class="d-profile__interest-input" type="text" placeholder="Tambah minat..." maxlength="30" />
-              <button class="d-profile__interest-add" type="button" aria-label="Tambah minat">${iconMap('plus')}</button>
-            </div>
-          </div>
+          <div class="d-profile__tambah-minat"></div>
 
           <div>
             <p class="d-profile__section-title">Pengaturan</p>
@@ -334,6 +306,16 @@ export async function Profile() {
 
   bioEditBtn.addEventListener('click', enterBioEdit);
 
+  const tmContainer = el.querySelector('.d-profile__tambah-minat');
+  const tmComponent = TambahMinat({
+    interests,
+    onChange: (newInterests) => {
+      interests = newInterests;
+      saveInterests(interests);
+    },
+  });
+  tmContainer.appendChild(tmComponent);
+
   const activities = getActivities();
   const activityList = el.querySelector('.d-profile__activity-list');
   activities.forEach((act) => {
@@ -361,41 +343,6 @@ export async function Profile() {
     privacyIcon.innerHTML = pub ? iconMap('globe') : iconMap('lock');
     privacyLabel.textContent = pub ? 'Profil Publik' : 'Profil Privat';
     privacyDesc.textContent = pub ? 'Dilihat oleh semua pengguna' : 'Hanya untuk Anda';
-  });
-
-  function renderInterests() {
-    const wrap = el.querySelector('.d-profile__tags-wrap');
-    wrap.innerHTML = '';
-    const tags = renderInterestTags(interests, (index) => {
-      interests.splice(index, 1);
-      saveInterests(interests);
-      renderInterests();
-    });
-    wrap.appendChild(tags);
-  }
-
-  renderInterests();
-
-  const input = el.querySelector('.d-profile__interest-input');
-  const addBtn = el.querySelector('.d-profile__interest-add');
-
-  function addInterest() {
-    const val = input.value.trim();
-    if (!val) return;
-    if (interests.includes(val)) {
-      input.value = '';
-      return;
-    }
-    interests.push(val);
-    saveInterests(interests);
-    renderInterests();
-    input.value = '';
-    input.focus();
-  }
-
-  addBtn.addEventListener('click', addInterest);
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') addInterest();
   });
 
   el.querySelector('.d-profile__logout').addEventListener('click', () => {
