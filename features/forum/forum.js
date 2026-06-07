@@ -1,73 +1,11 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
-import { getHashPath, getHashParams, asset } from '../../js/utils/url.js';
-import { isFollowing, toggleFollow, notifyNewMessage } from '../../js/notifications.js';
+import { getHashParams, getHashPath, asset, navigateTo } from '../../js/utils/url.js';
+import { getForumStatus, joinForum, requestJoin, leaveForum } from '../../js/forum-access.js';
+import { AvatarStackHtml, populateStacks, initForumUsers } from '../forum-interior/forum-interior.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/forum/forum.css');
-injectStyle('/features/forum/_members.css');
-
-let users = [];
-let usersPromise = null;
-
-export function initForumUsers() {
-  if (usersPromise) return usersPromise;
-  usersPromise = fetch('https://dummyjson.com/users?limit=100&select=id,firstName,lastName,image')
-    .then(r => { if (!r.ok) throw new Error('DummyJSON fetch failed'); return r.json(); })
-    .then(data => { users = data.users || []; })
-    .catch(() => { users = []; });
-  return usersPromise;
-}
-
-function seededShuffle(array, seed) {
-  const arr = [...array];
-  let s = seed;
-  for (let i = arr.length - 1; i > 0; i--) {
-    s = (s * 9301 + 49297) % 233280;
-    const j = Math.floor((s / 233280) * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-export function AvatarStackHtml(memberCount, memberLimit, forumIndex) {
-  const n = Math.min(memberCount, 5);
-  const fallback = 'https://dummyjson.com/icon/user/28';
-  let avatars = '';
-  for (let i = 0; i < n; i++) {
-    avatars += `<img class="forum-member-avatar" src="${fallback}" alt="" loading="lazy" data-avatar-idx="${i}" />`;
-  }
-  const remainder = memberCount - n;
-  const label = remainder > 0 ? `+${remainder} members` : `${memberCount} members`;
-  return `
-    <div class="forum-member-stack" data-forum-index="${forumIndex}" data-member-count="${memberCount}">
-      <div class="forum-member-avatars">
-        ${avatars}
-      </div>
-      <span class="forum-member-count">${label}</span>
-    </div>
-  `;
-}
-
-export function populateStacks(root) {
-  if (users.length === 0) return;
-  const stacks = root.querySelectorAll('.forum-member-stack');
-  stacks.forEach(stack => {
-    const idx = parseInt(stack.dataset.forumIndex, 10);
-    const memberCount = parseInt(stack.dataset.memberCount, 10);
-    const n = Math.min(memberCount, 5);
-    const shuffled = seededShuffle(users, idx);
-    const items = shuffled.slice(0, n);
-    const imgs = stack.querySelectorAll('.forum-member-avatar');
-    imgs.forEach((img, i) => {
-      if (items[i]) {
-        img.src = items[i].image;
-        img.alt = items[i].firstName;
-        img.onerror = function () { this.src = 'https://dummyjson.com/icon/user/28'; };
-      }
-    });
-  });
-}
 
 function timeAgo(iso) {
   const diff = Date.now() - new Date(iso).getTime();
@@ -81,499 +19,180 @@ function timeAgo(iso) {
   return `${days}h lalu`;
 }
 
-const avatarColors = ['#007aff', '#5856d6', '#34c759', '#ff9f0a', '#ff3b30', '#af52de', '#5ac8fa', '#ff9500'];
+const lastActivity = '2025-06-02T18:00:00Z';
 
-function createMsgEl(msg) {
-  const el = document.createElement('div');
-  el.className = 'forum-msg';
-  if (msg.system) {
-    el.classList.add('forum-msg--system');
-    el.innerHTML = `<div class="forum-msg__text">${msg.text}</div>`;
-    return el;
+function renderCTA(status, privacy) {
+  if (status === 'joined') {
+    return `<button class="forum-cta forum-cta--open" type="button" id="js-forum-cta"><i class="bi bi-box-arrow-in-right"></i> Buka Forum</button>`;
   }
-  const initial = msg.user.charAt(0).toUpperCase();
-  const colorIdx = msg.user.length % avatarColors.length;
+  if (status === 'pending') {
+    return `<button class="forum-cta forum-cta--pending" type="button" disabled><i class="bi bi-clock"></i> Permintaan Terkirim</button>`;
+  }
+  if (privacy === 'private') {
+    return `<button class="forum-cta forum-cta--request" type="button" id="js-forum-cta"><i class="bi bi-lock"></i> Minta Bergabung</button>`;
+  }
+  return `<button class="forum-cta forum-cta--join" type="button" id="js-forum-cta"><i class="bi bi-plus-circle"></i> Gabung Forum</button>`;
+}
+
+function renderLandingDesktop(data) {
+  const { serverName, forumType, description, memberCount, memberLimit, channels, members, privacy, forumIndex, backLink, status } = data;
+  const isLocked = privacy === 'private' && status !== 'joined';
+
+  const el = document.createElement('section');
+  el.className = 'container section';
+  el.style.display = 'flex';
+  el.style.flexDirection = 'column';
+  el.style.alignItems = 'center';
+
   el.innerHTML = `
-    <div class="forum-msg__avatar" style="background:${avatarColors[colorIdx]}">${initial}</div>
-    <div class="forum-msg__body">
-      <div class="forum-msg__header">
-        <span class="forum-msg__user">${msg.user}</span>
-        <span class="forum-msg__time">${timeAgo(msg.time)}</span>
+    <div class="forum-landing">
+      <a class="forum-back" href="${backLink}" data-link><i class="bi bi-arrow-left"></i> Kembali</a>
+
+      <div class="forum-landing__banner">
+        <div class="forum-landing__avatar">${serverName.charAt(0)}</div>
+        <div class="forum-landing__info">
+          <h1 class="forum-landing__name">${serverName}</h1>
+          <div class="forum-landing__meta">
+            <span class="forum-landing__type">${forumType === 'course' ? 'Kursus' : 'Grup'}</span>
+            <span class="forum-landing__dot"></span>
+            <span class="forum-landing__privacy forum-landing__privacy--${privacy}">
+              <i class="bi ${privacy === 'private' ? 'bi-lock' : 'bi-unlock'}"></i>
+              ${privacy === 'private' ? 'Private' : 'Public'}
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="forum-msg__text">${msg.text.replace(/https?:\/\/[^\s]+/g, '<a href="$&" target="_blank" rel="noopener">$&</a>')}</div>
+
+      <p class="forum-landing__desc">${description || 'Diskusi dan kolaborasi untuk anggota forum.'}</p>
+
+      <div class="forum-landing__stats">
+        <div class="forum-landing__members">
+          ${AvatarStackHtml(memberCount, memberLimit, forumIndex)}
+        </div>
+        <span class="forum-landing__activity">
+          <i class="bi bi-chat-dots"></i> ${channels.reduce((s, c) => s + c.messages.length, 0)} pesan
+        </span>
+        <span class="forum-landing__activity">
+          <i class="bi bi-clock"></i> ${timeAgo(lastActivity)}
+        </span>
+      </div>
+
+      <div class="forum-landing__section">
+        <h3 class="forum-landing__section-title">Saluran</h3>
+        <div class="forum-landing__channels ${isLocked ? 'forum-landing__channels--locked' : ''}">
+          ${channels.map(ch => `
+            <div class="forum-landing__channel">
+              <i class="bi ${ch.type === 'voice' ? 'bi-mic' : 'bi-hash'}"></i>
+              <span>${ch.name}</span>
+              ${isLocked ? '<i class="bi bi-lock forum-landing__channel-lock"></i>' : `<span class="forum-landing__channel-count">${ch.messages.length}</span>`}
+            </div>
+          `).join('')}
+          ${isLocked ? '<div class="forum-landing__blur"><i class="bi bi-lock"></i> Gabung untuk melihat pesan</div>' : ''}
+        </div>
+      </div>
+
+      <div class="forum-landing__cta">
+        ${renderCTA(status, privacy)}
+      </div>
     </div>
   `;
+
   return el;
 }
 
-function ChannelSidebar(serverName, channels, activeId, forumId, forumType) {
-  const textCh = channels.filter(c => c.type !== 'voice');
-  const voiceCh = channels.filter(c => c.type === 'voice');
-  const following = isFollowing(forumId, forumType);
-  return `
-    <div class="forum-sidebar">
-      <div class="forum-sidebar__server">
-        <i class="bi bi-collection"></i>
-        ${serverName}
-        <button class="forum-follow-btn ${following ? 'forum-follow-btn--active' : ''}" id="js-forum-follow" type="button" title="${following ? 'Berhenti mengikuti' : 'Ikuti forum ini'}">
-          <i class="bi ${following ? 'bi-bell-fill' : 'bi-bell'}"></i>
-        </button>
-      </div>
-      <div class="forum-sidebar__scroll">
-        <div class="forum-sidebar__cat">Teks</div>
-        ${textCh.map(ch => `
-          <button class="forum-sidebar__channel ${ch.id === activeId ? 'forum-sidebar__channel--active' : ''}" data-channel="${ch.id}">
-            <i class="bi bi-hash"></i>
-            ${ch.name}
-          </button>
-        `).join('')}
-        ${voiceCh.length ? `<div class="forum-sidebar__cat">Suara</div>` : ''}
-        ${voiceCh.map(ch => `
-          <button class="forum-sidebar__channel forum-sidebar__channel--voice" data-channel="${ch.id}">
-            <i class="bi bi-mic"></i>
-            ${ch.name}
-          </button>
-        `).join('')}
-      </div>
-    </div>
-  `;
-}
+function renderLandingMobile(data) {
+  const { serverName, forumType, description, memberCount, memberLimit, channels, members, privacy, forumIndex, backLink, status } = data;
+  const isLocked = privacy === 'private' && status !== 'joined';
 
-function MemberList(members, memberCount, memberLimit, forumIndex) {
-  const groups = { online: [], idle: [], offline: [] };
-  members.forEach(m => { (groups[m.status] || groups.offline).push(m); });
-  const labels = { online: 'Online', idle: 'Idle', offline: 'Offline' };
-  const dots = { online: 'online', idle: 'idle', offline: 'offline' };
+  const el = document.createElement('section');
+  el.className = 'mobile-page';
 
-  return `
-    <div class="forum-members">
-      ${AvatarStackHtml(memberCount, memberLimit, forumIndex)}
-      ${['online', 'idle', 'offline'].filter(g => groups[g].length).map(g => `
-        <div class="forum-members__cat">${labels[g]} \u2014 ${groups[g].length}</div>
-        ${groups[g].map(m => `
-          <a class="forum-members__user" href="/profile?user=${encodeURIComponent(m.name)}" data-link>
-            <span class="forum-members__dot forum-members__dot--${dots[g]}"></span>
-            ${m.name}
-          </a>
-        `).join('')}
-      `).join('')}
-    </div>
-  `;
-}
-
-function formatDate(iso) {
-  const d = new Date(iso);
-  return d.toLocaleDateString('id-ID', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-}
-
-function MessageArea(channel, dateStr) {
-  return `
-    <div class="forum-main">
-      <div class="forum-header">
-        <span class="forum-header__name"><i class="bi bi-hash" style="font-size:0.9rem;margin-right:0.2rem"></i>${channel.name}</span>
-        <span class="forum-header__divider"></span>
-        <span class="forum-header__topic">${channel.topic || ''}</span>
-      </div>
-      <div class="forum-messages" id="js-forum-msgs">
-        <div class="forum-msg forum-msg--system">
-          <div class="forum-msg__text">${dateStr}</div>
-        </div>
-        ${channel.messages.length === 0
-          ? '<div class="forum-empty" id="js-forum-empty">Belum ada pesan di sini. Mulai diskusi!</div>'
-          : channel.messages.map(m => createMsgEl(m).outerHTML).join('')
-        }
-      </div>
-      <div class="forum-input-wrap">
-        <input class="forum-input" id="js-forum-input" type="text" placeholder="Ketik pesan... / Send a message..." autocomplete="off" />
-      </div>
-    </div>
-  `;
-}
-
-function renderDesktop(el, opts) {
-  let { serverName, channels, members, memberCount, memberLimit, forumIndex, backLink, forumId, forumType, activeChannel } = opts;
-
-  function appendMessage(msg) {
-    const msgs = el.querySelector('#js-forum-msgs');
-    if (!msgs) return;
-    const empty = msgs.querySelector('#js-forum-empty');
-    if (empty) empty.remove();
-    msgs.appendChild(createMsgEl(msg));
-    msgs.scrollTop = msgs.scrollHeight;
-  }
-
-  function render() {
-    const dateStr = formatDate(activeChannel.messages.length > 0 ? activeChannel.messages[0].time : new Date().toISOString());
-    el.innerHTML = `
-      <a class="forum-back" href="${backLink}" data-link><i class="bi bi-arrow-left"></i> Kembali</a>
-      <div class="forum-layout">
-        ${ChannelSidebar(serverName, channels, activeChannel.id, forumId, forumType)}
-        ${MessageArea(activeChannel, dateStr)}
-        ${MemberList(members, memberCount, memberLimit, forumIndex)}
-      </div>
-    `;
-
-    el.querySelectorAll('.forum-sidebar__channel').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.dataset.channel;
-        const found = channels.find(c => c.id === id);
-        if (found && found.type !== 'voice') {
-          activeChannel = found;
-          render();
-        }
-      });
-    });
-
-    const followBtn = el.querySelector('#js-forum-follow');
-    if (followBtn) {
-      followBtn.addEventListener('click', () => {
-        const nowFollowing = toggleFollow(forumId, forumType, serverName);
-        followBtn.classList.toggle('forum-follow-btn--active', nowFollowing);
-        followBtn.querySelector('i').className = `bi ${nowFollowing ? 'bi-bell-fill' : 'bi-bell'}`;
-        followBtn.title = nowFollowing ? 'Berhenti mengikuti' : 'Ikuti forum ini';
-      });
-    }
-
-    const input = el.querySelector('#js-forum-input');
-    if (input) {
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && input.value.trim()) {
-          const msg = {
-            user: 'Saya',
-            text: input.value.trim(),
-            time: new Date().toISOString(),
-          };
-          activeChannel.messages.push(msg);
-
-          const link = getHashPath() + (getHashParams().toString() ? '?' + getHashParams().toString() : '');
-          notifyNewMessage(forumId, forumType, serverName, activeChannel.name, 'Saya', msg.text, link);
-
-          input.value = '';
-          appendMessage(msg);
-        }
-      });
-    }
-
-    const msgs = el.querySelector('.forum-messages');
-    if (msgs) msgs.scrollTop = msgs.scrollHeight;
-  }
-
-  render();
-}
-
-function forumStyles() {
-  return `
-    .forum-channels { margin-bottom: 1rem; }
-    .forum-channel-item {
-      display: flex; align-items: center; gap: 0.6rem;
-      padding: 0.7rem 0.85rem; margin-bottom: 0.25rem;
-      border-radius: 0.6rem; cursor: pointer;
-      background: var(--surface, #fff);
-      border: 1px solid var(--border-color, #e5e5ea);
-      transition: background 0.15s;
-      text-decoration: none; color: inherit;
-      width: 100%; text-align: left; font: inherit;
-    }
-    .forum-channel-item:active { background: var(--surface-alt, #f5f5f7); transform: scale(0.99); }
-    .forum-channel-item i { font-size: 1rem; color: var(--muted-alt, #8e8e93); width: 1.2rem; text-align: center; }
-    .forum-channel-item__name { font-size: 0.9rem; font-weight: 700; }
-    .forum-channel-item__count {
-      font-size: 0.72rem; color: var(--muted-alt, #8e8e93);
-      margin-left: auto; background: var(--surface-alt, #f2f2f7);
-      padding: 0.1rem 0.45rem; border-radius: 999px; font-weight: 700;
-    }
-
-    .forum-mobile-msgs { padding: 0; flex: 1; overflow-y: auto; min-height: 0; overscroll-behavior: contain; }
-    .forum-m-msg {
-      display: flex; gap: 0.6rem; padding: 0.5rem 0.85rem;
-      animation: fadeInUp 0.2s ease;
-    }
-    .forum-m-msg__avatar {
-      width: 1.8rem; height: 1.8rem; border-radius: 50%;
-      color: #fff; display: flex; align-items: center; justify-content: center;
-      font-size: 0.65rem; font-weight: 700; flex-shrink: 0; margin-top: 0.1rem;
-    }
-    .forum-m-msg__body { flex: 1; min-width: 0; }
-    .forum-m-msg__user { font-size: 0.82rem; font-weight: 700; }
-    .forum-m-msg__time { font-size: 0.6rem; color: var(--muted-alt, #8e8e93); margin-left: 0.4rem; }
-    .forum-m-msg__text { font-size: 0.82rem; line-height: 1.5; word-break: break-word; margin-top: 0.05rem; }
-
-    .forum-m-input-wrap {
-      display: flex; gap: 0.5rem; padding: 0.6rem 0.85rem;
-      border-top: 1px solid var(--border-color);
-      background: var(--surface, #fff);
-      flex-shrink: 0;
-    }
-    .forum-m-input {
-      flex: 1; padding: 0.55rem 0.85rem;
-      border: 1.5px solid var(--border-color, #e5e5ea);
-      border-radius: 0.6rem; font: inherit; font-size: 0.85rem;
-      outline: none; background: var(--bg, #fafafe);
-      transition: border-color 0.15s;
-    }
-    .forum-m-input:focus { border-color: var(--accent, #007aff); }
-    .forum-m-send {
-      width: 2.4rem; height: 2.4rem; border-radius: 50%;
-      border: none; background: var(--accent, #007aff); color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; cursor: pointer; flex-shrink: 0;
-      transition: transform 0.15s, opacity 0.15s;
-    }
-    .forum-m-send:active { transform: scale(0.9); opacity: 0.8; }
-    .forum-m-empty {
-      padding: 2rem 0.85rem; text-align: center;
-      color: var(--muted-alt, #8e8e93); font-size: 0.82rem; font-style: italic;
-    }
-
-    .forum-member-list { padding: 0.5rem 0.85rem; }
-    .forum-member-item {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.4rem 0; font-size: 0.82rem;
-      text-decoration: none; color: inherit;
-    }
-    .forum-member-item__dot {
-      width: 0.4rem; height: 0.4rem; border-radius: 50%; flex-shrink: 0;
-    }
-    .forum-member-item__dot--online { background: var(--success, #34c759); }
-    .forum-member-item__dot--idle { background: #ff9f0a; }
-    .forum-member-item__dot--offline { background: var(--muted-alt, #8e8e93); }
-    .forum-member-item__name { font-weight: 600; }
-    .forum-member-cat {
-      font-size: 0.65rem; font-weight: 800; color: var(--muted-alt, #8e8e93);
-      letter-spacing: 0.06em; text-transform: uppercase; margin: 0.5rem 0 0.25rem;
-    }
-    .forum-member-cat:first-child { margin-top: 0; }
-
-    .forum-follow-btn {
-      background: none; border: 1px solid var(--border-color);
-      border-radius: 999px; padding: 0.2rem 0.6rem;
-      font-size: 0.75rem; cursor: pointer; color: var(--muted);
-      display: inline-flex; align-items: center; gap: 0.3rem;
-      transition: all 0.15s;
-    }
-    .forum-follow-btn--active {
-      background: var(--accent-soft); border-color: var(--accent);
-      color: var(--accent);
-    }
-  `;
-}
-
-function renderMobile(el, opts) {
-  const { serverName, channels, members, memberCount, memberLimit, forumIndex, backLink, forumId, forumType } = opts;
-  let activeChannel = channels[0];
-
-  if (!document.querySelector('style[data-forum-mobile]')) {
-    const s = document.createElement('style');
-    s.setAttribute('data-forum-mobile', '');
-    s.textContent = forumStyles();
-    document.head.appendChild(s);
-  }
-
-  function renderMemberList() {
-    const groups = { online: [], idle: [], offline: [] };
-    members.forEach(m => { (groups[m.status] || groups.offline).push(m); });
-    const labels = { online: 'Online', idle: 'Idle', offline: 'Offline' };
-    const dots = { online: 'online', idle: 'idle', offline: 'offline' };
-
-    return `
-      ${AvatarStackHtml(memberCount, memberLimit, forumIndex)}
-      ${['online', 'idle', 'offline'].filter(g => groups[g].length).map(g => `
-        <p class="forum-member-cat">${labels[g]} \u2014 ${groups[g].length}</p>
-        ${groups[g].map(m => `
-          <a class="forum-member-item" href="/profile?user=${encodeURIComponent(m.name)}" data-link>
-            <span class="forum-member-item__dot forum-member-item__dot--${dots[g]}"></span>
-            <span class="forum-member-item__name">${m.name}</span>
-          </a>
-        `).join('')}
-      `).join('')}
-    `;
-  }
-
-  function renderChannelList() {
-    const following = isFollowing(forumId, forumType);
-    el.innerHTML = `
-      <div class="mobile-page__inner">
-        <header class="mobile-page__hero" style="padding-bottom:0.5rem">
-          <a class="forum-back" href="${backLink}" data-link style="display:inline-flex;align-items:center;gap:0.35rem;font-size:0.82rem;font-weight:600;color:var(--muted,#6b7280);text-decoration:none;margin-bottom:0.5rem">
-            <i class="bi bi-arrow-left"></i> Kembali
-          </a>
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem">
-            <div>
-              <p class="mobile-page__eyebrow" style="margin-bottom:0.15rem">${serverName}</p>
-              <h1 style="margin:0;font-size:1.4rem">Saluran</h1>
-            </div>
-            <button class="forum-follow-btn ${following ? 'forum-follow-btn--active' : ''}" id="js-forum-follow" type="button">
-              <i class="bi ${following ? 'bi-bell-fill' : 'bi-bell'}"></i>
-              ${following ? 'Mengikuti' : 'Ikuti'}
-            </button>
+  el.innerHTML = `
+    <div class="mobile-page__inner">
+      <header class="mobile-page__hero" style="padding-bottom:0.5rem">
+        <a class="forum-back" href="${backLink}" data-link style="display:inline-flex;align-items:center;gap:0.35rem;font-size:0.82rem;font-weight:600;color:var(--muted,#6b7280);text-decoration:none;margin-bottom:0.75rem">
+          <i class="bi bi-arrow-left"></i> Kembali
+        </a>
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem">
+          <div style="width:2.8rem;height:2.8rem;border-radius:0.75rem;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;flex-shrink:0">${serverName.charAt(0)}</div>
+          <div>
+            <p class="mobile-page__eyebrow" style="margin-bottom:0.1rem">${forumType === 'course' ? 'Kursus' : 'Grup'}</p>
+            <h1 style="margin:0;font-size:1.25rem">${serverName}</h1>
           </div>
-        </header>
-        <div class="forum-channels">
-          ${channels.filter(c => c.type !== 'voice').map(ch => `
-            <button class="forum-channel-item" data-channel="${ch.id}">
-              <i class="bi bi-hash"></i>
-              <span class="forum-channel-item__name">${ch.name}</span>
-              <span class="forum-channel-item__count">${ch.messages.length}</span>
-            </button>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem">
+          <span class="forum-landing__privacy forum-landing__privacy--${privacy}" style="display:inline-flex;align-items:center;gap:0.25rem;padding:0.15rem 0.5rem;border-radius:999px;font-size:0.72rem;font-weight:700">
+            <i class="bi ${privacy === 'private' ? 'bi-lock' : 'bi-unlock'}"></i>
+            ${privacy === 'private' ? 'Private' : 'Public'}
+          </span>
+        </div>
+      </header>
+
+      <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin:0 0 1rem">${description || 'Diskusi dan kolaborasi untuk anggota forum.'}</p>
+
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;flex-wrap:wrap">
+        ${AvatarStackHtml(memberCount, memberLimit, forumIndex)}
+        <span style="font-size:0.75rem;color:var(--muted-alt)"><i class="bi bi-chat-dots"></i> ${channels.reduce((s, c) => s + c.messages.length, 0)} pesan</span>
+        <span style="font-size:0.75rem;color:var(--muted-alt)"><i class="bi bi-clock"></i> ${timeAgo(lastActivity)}</span>
+      </div>
+
+      <div class="forum-landing__section" style="margin-bottom:1.25rem">
+        <h3 class="forum-landing__section-title" style="font-size:0.72rem;margin-bottom:0.5rem">Saluran</h3>
+        <div class="forum-landing__channels ${isLocked ? 'forum-landing__channels--locked' : ''}">
+          ${channels.map(ch => `
+            <div class="forum-landing__channel" style="padding:0.55rem 0.75rem">
+              <i class="bi ${ch.type === 'voice' ? 'bi-mic' : 'bi-hash'}"></i>
+              <span>${ch.name}</span>
+              ${isLocked ? '<i class="bi bi-lock forum-landing__channel-lock" style="margin-left:auto;font-size:0.7rem"></i>' : `<span class="forum-landing__channel-count">${ch.messages.length}</span>`}
+            </div>
           `).join('')}
-          ${channels.filter(c => c.type === 'voice').length ? `
-            <p style="font-size:0.65rem;font-weight:800;color:var(--muted-alt,#8e8e93);letter-spacing:0.06em;text-transform:uppercase;margin:0.75rem 0 0.25rem 0.25rem">Suara</p>
-            ${channels.filter(c => c.type === 'voice').map(ch => `
-              <button class="forum-channel-item" data-channel="${ch.id}">
-                <i class="bi bi-mic"></i>
-                <span class="forum-channel-item__name">${ch.name}</span>
-              </button>
-            `).join('')}
-          ` : ''}
-        </div>
-        ${members.length ? `
-          <p class="mobile-section-title">Anggota (${members.length})</p>
-          <div class="forum-member-list">${renderMemberList()}</div>
-        ` : ''}
-      </div>
-    `;
-
-    const followBtn = el.querySelector('#js-forum-follow');
-    if (followBtn) {
-      followBtn.addEventListener('click', () => {
-        const nowFollowing = toggleFollow(forumId, forumType, serverName);
-        followBtn.classList.toggle('forum-follow-btn--active', nowFollowing);
-        followBtn.innerHTML = `<i class="bi ${nowFollowing ? 'bi-bell-fill' : 'bi-bell'}"></i> ${nowFollowing ? 'Mengikuti' : 'Ikuti'}`;
-      });
-    }
-
-    el.querySelectorAll('.forum-channel-item').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.dataset.channel;
-        const found = channels.find(c => c.id === id);
-        if (found) {
-          activeChannel = found;
-          renderMessages();
-        }
-      });
-    });
-  }
-
-  function createMsgEl(msg) {
-    const initial = msg.user.charAt(0).toUpperCase();
-    const colorIdx = msg.user.length % avatarColors.length;
-    const el = document.createElement('div');
-    el.className = 'forum-m-msg';
-    el.innerHTML = `
-      <div class="forum-m-msg__avatar" style="background:${avatarColors[colorIdx]}">${initial}</div>
-      <div class="forum-m-msg__body">
-        <div>
-          <span class="forum-m-msg__user">${msg.user}</span>
-          <span class="forum-m-msg__time">${timeAgo(msg.time)}</span>
-        </div>
-        <div class="forum-m-msg__text">${msg.text}</div>
-      </div>
-    `;
-    return el;
-  }
-
-  function appendMessage(msg) {
-    const msgs = el.querySelector('#js-m-msgs');
-    if (!msgs) return;
-    const empty = msgs.querySelector('.forum-m-empty');
-    if (empty) empty.remove();
-    msgs.appendChild(createMsgEl(msg));
-    msgs.scrollTop = msgs.scrollHeight;
-  }
-
-  function renderMessages() {
-    el.innerHTML = `
-      <div style="position:fixed;inset:4.1rem 0 4rem;z-index:110;background:var(--bg,#fafafe);display:flex;flex-direction:column">
-        <header style="padding:0.5rem 0.85rem;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:0.5rem;flex-shrink:0;background:var(--surface,#fff)">
-          <button class="forum-back" id="js-m-back" style="background:none;border:none;font-size:1.1rem;color:var(--accent,#007aff);cursor:pointer;padding:0.25rem">
-            <i class="bi bi-chevron-left"></i>
-          </button>
-          <div style="flex:1;min-width:0">
-            <div style="font-size:0.85rem;font-weight:700"># ${activeChannel.name}</div>
-            <div style="font-size:0.68rem;color:var(--muted-alt,#8e8e93)">${activeChannel.topic || ''}</div>
-          </div>
-          ${members.length ? `
-            <button id="js-members-toggle" style="background:none;border:none;font-size:1rem;color:var(--muted-alt);cursor:pointer;padding:0.25rem" aria-label="Anggota">
-              <i class="bi bi-people"></i>
-            </button>
-          ` : ''}
-        </header>
-        <div class="forum-mobile-msgs" id="js-m-msgs">
-          ${activeChannel.messages.length === 0
-            ? '<div class="forum-m-empty">Belum ada pesan di sini.</div>'
-            : activeChannel.messages.map(m => createMsgEl(m).outerHTML).join('')
-          }
-        </div>
-        <div class="forum-m-input-wrap" style="flex-shrink:0">
-          <input class="forum-m-input" id="js-m-input" type="text" placeholder="Ketik pesan..." autocomplete="off" />
-          <button class="forum-m-send" id="js-m-send"><i class="bi bi-arrow-up"></i></button>
+          ${isLocked ? '<div class="forum-landing__blur"><i class="bi bi-lock"></i> Gabung untuk melihat pesan</div>' : ''}
         </div>
       </div>
-    `;
 
-    el.querySelector('#js-m-back').addEventListener('click', renderChannelList);
+      <div class="forum-landing__cta">
+        ${renderCTA(status, privacy)}
+      </div>
+    </div>
+  `;
 
-    if (members.length) {
-      let showingMembers = false;
-      const membersToggle = el.querySelector('#js-members-toggle');
-      const msgsContainer = el.querySelector('#js-m-msgs');
+  return el;
+}
 
-      membersToggle.addEventListener('click', () => {
-        showingMembers = !showingMembers;
-        if (showingMembers) {
-          msgsContainer.innerHTML = `
-            <div class="forum-member-list">
-              ${AvatarStackHtml(memberCount, memberLimit, forumIndex)}
-              <p class="forum-member-cat" style="margin-top:0">Anggota (${members.length})</p>
-              ${renderMemberList()}
-            </div>
-          `;
-          populateStacks(msgsContainer);
-        } else {
-          msgsContainer.innerHTML = activeChannel.messages.length === 0
-            ? '<div class="forum-m-empty">Belum ada pesan di sini.</div>'
-            : activeChannel.messages.map(m => createMsgEl(m).outerHTML).join('');
-          setTimeout(() => {
-            const msgs = el.querySelector('#js-m-msgs');
-            if (msgs) msgs.scrollTop = msgs.scrollHeight;
-          }, 10);
-        }
-      });
+function attachCTA(el, data) {
+  const btn = el.querySelector('#js-forum-cta');
+  if (!btn) return;
+
+  const { forumType, index, privacy, serverName, status } = data;
+
+  btn.addEventListener('click', () => {
+    if (status === 'joined') {
+      navigateTo(`/forum-interior?${forumType === 'course' ? 'index' : 'group'}=${index}`);
+      return;
     }
-
-    const input = el.querySelector('#js-m-input');
-    const sendBtn = el.querySelector('#js-m-send');
-    function sendMsg() {
-      if (input.value.trim()) {
-        const msg = {
-          user: 'Saya',
-          text: input.value.trim(),
-          time: new Date().toISOString(),
-        };
-        activeChannel.messages.push(msg);
-
-        const link = getHashPath() + (getHashParams().toString() ? '?' + getHashParams().toString() : '');
-        notifyNewMessage(forumId, forumType, serverName, activeChannel.name, 'Saya', msg.text, link);
-
-        input.value = '';
-        appendMessage(msg);
-        input.focus();
-      }
+    if (privacy === 'public') {
+      joinForum(forumType, index);
+      updateCTA(el, 'joined');
+      navigateTo(`/forum-interior?${forumType === 'course' ? 'index' : 'group'}=${index}`);
+    } else {
+      requestJoin(forumType, index, serverName);
+      updateCTA(el, 'pending');
     }
-    input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(); });
-    sendBtn.addEventListener('click', sendMsg);
+  });
+}
 
-    const msgs = el.querySelector('#js-m-msgs');
-    if (msgs) msgs.scrollTop = msgs.scrollHeight;
-    input.focus();
+function updateCTA(el, newStatus) {
+  const cta = el.querySelector('.forum-landing__cta');
+  if (!cta) return;
+  if (newStatus === 'joined') {
+    cta.innerHTML = renderCTA('joined', 'public');
+  } else if (newStatus === 'pending') {
+    cta.innerHTML = renderCTA('pending', 'private');
   }
-
-  renderChannelList();
+  attachCTA(el, { ...el.__forumData, status: newStatus });
 }
 
 export async function Forum() {
-  initForumUsers();
-
   const params = getHashParams();
   const courseIdx = parseInt(params.get('index'), 10);
   const groupIdx = parseInt(params.get('group'), 10);
@@ -584,25 +203,25 @@ export async function Forum() {
     fetch(asset('/data/groups.json')).then(r => r.json()),
   ]);
 
-  let forumData, serverName, forumId, forumType, forumIndex = 0;
+  let forumData, serverName, forumType, index = 0, description = '';
   if (!isNaN(courseIdx) && forumRes.courses[courseIdx]) {
     forumData = forumRes.courses[courseIdx];
     serverName = detailRes[courseIdx]?.course?.title || 'Forum';
-    forumId = 'course-' + courseIdx;
+    description = detailRes[courseIdx]?.course?.description || '';
     forumType = 'course';
-    forumIndex = courseIdx;
+    index = courseIdx;
   } else if (!isNaN(groupIdx) && forumRes.groups[groupIdx]) {
     forumData = forumRes.groups[groupIdx];
     serverName = groupsRes.groups[groupIdx]?.title || 'Grup';
-    forumId = 'group-' + groupIdx;
+    description = groupsRes.groups[groupIdx]?.description || '';
     forumType = 'group';
-    forumIndex = forumRes.courses.length + groupIdx;
+    index = groupIdx;
   } else {
     forumData = forumRes.courses[0];
     serverName = 'Forum';
-    forumId = 'course-0';
+    description = '';
     forumType = 'course';
-    forumIndex = 0;
+    index = 0;
   }
 
   const backLink = forumType === 'group' ? '/groups' : '/';
@@ -614,30 +233,38 @@ export async function Forum() {
   const memberLimit = forumType === 'group'
     ? (groupsRes.groups[groupIdx]?.maxMembers || 100)
     : (forumData.memberLimit || 100);
-  const activeChannel = channels[0];
+  const privacy = forumData.privacy || 'public';
+  const forumIndex = forumType === 'course' ? index : (forumRes.courses.length + index);
+  const status = getForumStatus(forumType, index);
 
-  document.querySelector('#footer').style.display = 'none';
-  document.querySelector('#main').style.paddingBottom = '0';
-
-  if (window.innerWidth <= 900) {
+  if (status === 'joined') {
     const el = document.createElement('section');
-    el.className = 'mobile-page';
-    renderMobile(el, { serverName, channels, members, memberCount, memberLimit, forumIndex, activeChannel, backLink, forumId, forumType });
-    populateStacks(el);
-    usersPromise.then(() => populateStacks(el));
+    el.className = 'container section';
+    el.innerHTML = `<p style="text-align:center;padding:2rem;color:var(--muted)"><i class="bi bi-arrow-repeat"></i> Mengalihkan ke forum...</p>`;
+    navigateTo(`/forum-interior?${forumType === 'course' ? 'index' : 'group'}=${index}`);
     return el;
   }
 
-  const el = document.createElement('section');
-  el.className = 'container';
-  el.style.display = 'flex';
-  el.style.flexDirection = 'column';
-  el.style.minHeight = '0';
-  el.style.flex = '1';
-  el.style.padding = '0 1.5rem';
-  el.style.margin = '0.75rem 0 0';
-  renderDesktop(el, { serverName, channels, members, memberCount, memberLimit, forumIndex, activeChannel, backLink, forumId, forumType });
+  initForumUsers();
+
+  const isMobile = window.innerWidth <= 900;
+  const data = { serverName, forumType, description, memberCount, memberLimit, channels, members, privacy, forumIndex, backLink, status, index };
+
+  const el = isMobile ? renderLandingMobile(data) : renderLandingDesktop(data);
+  el.__forumData = data;
+
+  attachCTA(el, data);
   populateStacks(el);
-  usersPromise.then(() => populateStacks(el));
+
+  const onUpdate = () => {
+    const current = getForumStatus(forumType, index);
+    if (current === 'joined' && el.__forumData.status !== 'joined') {
+      el.__forumData.status = 'joined';
+      updateCTA(el, 'joined');
+    }
+  };
+  window.addEventListener('forum-join-update', onUpdate, { once: false });
+  el._cleanup = () => window.removeEventListener('forum-join-update', onUpdate);
+
   return el;
 }

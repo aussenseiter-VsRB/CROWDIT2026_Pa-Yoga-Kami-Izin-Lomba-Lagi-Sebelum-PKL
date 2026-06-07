@@ -56,6 +56,7 @@ studNow/
 │   ├── search.js                 # Fuzzy search engine (n-gram, field-weighted)
 │   ├── theme.js                  # Inisialisasi tema
 │   ├── notifications.js          # Manajemen notifikasi
+│   ├── forum-access.js           # Join/request/approve forum — localStorage state
 │   └── utils/
 │       ├── dom.js                # Helper DOM (createElement, query shortcuts)
 │       ├── format.js             # Format tanggal, angka, string
@@ -101,8 +102,12 @@ studNow/
 │   │   ├── edit-profile.js       # Membaca dari /data/profile.json
 │   │   └── edit-profile.css
 │   ├── forum/
-│   │   ├── forum.js              # Membaca dari /data/forum.json + /data/detail.json + /data/groups.json
-│   │   └── forum.css
+│   │   ├── forum.js              # Landing page — join gate, privacy badge, CTA
+│   │   ├── forum.css             # Landing styles + interior styles (sidebar, messages, members)
+│   │   └── _members.css          # Partial: avatar stack + member list
+│   ├── forum-interior/
+│   │   ├── forum-interior.js     # Interior page — channels, messages, members (only when joined)
+│   │   └── forum-interior.css
 │   ├── groups/
 │   │   ├── groups.js             # Membaca dari /data/groups.json
 │   │   └── groups.css
@@ -160,7 +165,7 @@ studNow/
 |---|---|---|
 | `data/detail.json` | shared | `features/detail/`, `features/open/`, `features/home/`, `features/forum/`, `js/search.js` |
 | `data/groups.json` | shared | `features/groups/`, `features/forum/`, `js/search.js` |
-| `data/forum.json` | shared | `features/forum/`, `features/home/` |
+| `data/forum.json` | shared | `features/forum/`, `features/forum-interior/`, `features/home/`, `features/chat/` |
 | `data/chat.json` | shared | `features/chat/`, `features/dm/` |
 | `data/profile.json` | shared | `features/profile/`, `features/edit-profile/` |
 | `data/auth.json` | shared | `features/auth/login/`, `features/auth/signup/` |
@@ -173,10 +178,23 @@ studNow/
 | `features/help/help.json` | spesifik | `features/help/` saja |
 | `features/settings/settings.json` | spesifik | `features/settings/` saja |
 
+### Data Tambahan — Forum Join Flow
+
+Data join forum disimpan di `localStorage` dengan key `studnow_forums`:
+
+```json
+{
+  "course_3": { "type": "course", "index": 3, "status": "joined", "joinedAt": 1700000000000 },
+  "group_1":  { "type": "group", "index": 1, "status": "pending", "requestedAt": 1700000000000 }
+}
+```
+
+Status: `joined` | `pending` | `none` (none = tidak ada di localStorage). Private forum auto-approve setelah 5-15 detik (simulasi).
+
 ### Hubungan Antar Data (Canonical Sources)
 
 - **`detail.json` adalah canonical source** untuk data kursus (`title`, `description`, `status`, `category`). Semua halaman yang butuh data kursus fetch dari `detail.json` — tidak boleh copy field ke JSON sendiri
-- **`forum.json` adalah canonical source** untuk data forum kursus (`memberCount`, `memberLimit`, `channels`, `messages`). Home page mengambil `memberCount`/`memberLimit` dari `forum.json`, bukan dari `home.json`
+- **`forum.json` adalah canonical source** untuk data forum kursus (`memberCount`, `memberLimit`, `channels`, `messages`, `privacy`). Home page mengambil `memberCount`/`memberLimit` dari `forum.json`, bukan dari `home.json`
 - **`groups.json` adalah canonical source** untuk data grup (`title`, `description`, `department`, `members`, `maxMembers`). Forum page untuk group mengambil `memberCount`/`maxMembers` dari `groups.json`, bukan dari `forum.json`
 - **Hubungan via indeks array** — `home.json` forums terhubung ke `detail.json` dan `forum.json.courses` via posisi indeks. Urutan array `home.forums` HARUS identik dengan urutan `detail.json` dan `forum.json.courses` (10 entri)
 - `data/search.json` hanya boleh berisi UI copy — data hasil pencarian dihitung runtime dari search engine
@@ -246,6 +264,7 @@ const data = await fetchData('/features/open/open.json');
 5. Tombol back/forward browser berfungsi berkat `hashchange` event.
 6. Router melepas `route-change` custom event; navbar, top-bar, bottom-bar, dan footer mendengarnya untuk update state.
 7. Halaman shared membaca dari `data/`, halaman spesifik membaca dari `features/nama/nama.json`.
+8. **Forum Join Flow** — `/#/forum` menampilkan landing page (info forum + CTA). Join public langsung masuk ke interior (`/#/forum-interior`). Private forum butuh approval (auto-approve simulasi 5-15 detik). `js/forum-access.js` mengelola semua state join.
 
 ---
 

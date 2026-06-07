@@ -13,6 +13,7 @@ import { Notifications } from '../features/notifications/notifications.js';
 import { Detail } from '../features/detail/detail.js';
 import { Open } from '../features/open/open.js';
 import { Forum } from '../features/forum/forum.js';
+import { ForumInterior } from '../features/forum-interior/forum-interior.js';
 import { DM } from '../features/dm/dm.js';
 import { EditProfile } from '../features/edit-profile/edit-profile.js';
 import { Settings } from '../features/settings/settings.js';
@@ -32,6 +33,7 @@ const routes = {
   '/detail':        Detail,
   '/open':          Open,
   '/forum':         Forum,
+  '/forum-interior': ForumInterior,
   '/dm':            DM,
   '/edit-profile':  EditProfile,
   '/settings':      Settings,
