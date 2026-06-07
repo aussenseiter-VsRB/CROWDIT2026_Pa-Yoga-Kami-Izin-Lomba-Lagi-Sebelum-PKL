@@ -30,8 +30,7 @@ export function Navbar() {
         <nav class="navbar-nav" aria-label="Desktop navigation">
           <a href="/" data-link>Explore</a>
           <a href="/groups" data-link>Groups</a>
-          <a href="/chat" data-link>Chat</a>
-          <a href="/profile" data-link>Profile</a>
+          ${isAuthenticated() ? '<a href="/chat" data-link>Chat</a><a href="/profile" data-link>Profile</a>' : ''}
         </nav>
 
         <div class="navbar-actions">

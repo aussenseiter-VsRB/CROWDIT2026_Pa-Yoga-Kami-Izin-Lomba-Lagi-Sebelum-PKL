@@ -57,6 +57,7 @@ studNow/
 │   ├── theme.js                  # Inisialisasi tema
 │   ├── notifications.js          # Manajemen notifikasi
 │   ├── forum-access.js           # Join/request/approve forum — localStorage state
+│   ├── dummy-users.js            # DummyJSON cache (24h TTL), seeded shuffle, getUsersForContext
 │   └── utils/
 │       ├── dom.js                # Helper DOM (createElement, query shortcuts)
 │       ├── format.js             # Format tanggal, angka, string
@@ -172,6 +173,7 @@ studNow/
 | `data/notifications.json` | shared | `features/notifications/`, `js/notifications.js` |
 | `data/search.json` | shared | `features/search/` (UI copy saja — bukan hasil pencarian) |
 | `data/users.json` | shared | `js/auth.js` |
+| `js/dummy-users.js` | utility | `features/forum/`, `features/forum-interior/`, `features/home/` |
 | `features/home/home.json` | spesifik | `features/home/` saja (hero, stats, topics, action) |
 | `features/about/about.json` | spesifik | `features/about/` saja |
 | `features/contact/contact.json` | spesifik | `features/contact/` saja |
@@ -264,7 +266,8 @@ const data = await fetchData('/features/open/open.json');
 5. Tombol back/forward browser berfungsi berkat `hashchange` event.
 6. Router melepas `route-change` custom event; navbar, top-bar, bottom-bar, dan footer mendengarnya untuk update state.
 7. Halaman shared membaca dari `data/`, halaman spesifik membaca dari `features/nama/nama.json`.
-8. **Forum Join Flow** — `/#/forum` menampilkan landing page (info forum + CTA). Join public langsung masuk ke interior (`/#/forum-interior`). Private forum butuh approval (auto-approve simulasi 5-15 detik). `js/forum-access.js` mengelola semua state join.
+8. **Forum Join Flow** — `/#/forum` menampilkan card-list forum (daftar semua course + group forum). Join public langsung masuk ke interior (`/#/forum-interior`). Private forum butuh approval (auto-approve simulasi 5-15 detik). `js/forum-access.js` mengelola semua state join.
+9. **DummyJSON Integrasi** — `js/dummy-users.js` menyediakan `getUsersForContext(forumIndex, count)` yang mengembalikan array user dengan logged-in user di posisi 0. Cache 24 jam dengan `seededShuffle()` untuk konsistensi avatar per forum index. Fetch eksternal via raw `fetch()` (bukan `fetchData()`). `Promise.allSettled` dipakai di forum page untuk paralel fetch lokal + DummyJSON tanpa crash saat DummyJSON unreachable. Graceful fallback: user tanpa gambar ditampilkan sebagai inisial SVG.
 
 ---
 
