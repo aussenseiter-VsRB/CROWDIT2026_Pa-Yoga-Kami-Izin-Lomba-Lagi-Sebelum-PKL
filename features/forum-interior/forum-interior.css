@@ -1,0 +1,9 @@
+/* Forum Interior — layout & overrides */
+/* Most styles come from features/forum/forum.css */
+
+.forum-interior-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}

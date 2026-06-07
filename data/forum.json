@@ -3,6 +3,7 @@
     {
       "memberCount": 90,
       "memberLimit": 100,
+      "privacy": "public",
       "channels": [
         {
           "id": "umum",
@@ -52,6 +53,7 @@
     {
       "memberCount": 45,
       "memberLimit": 50,
+      "privacy": "public",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Obrolan umum struktur data dan algoritma",
@@ -80,6 +82,7 @@
     {
       "memberCount": 30,
       "memberLimit": 50,
+      "privacy": "private",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Diskusi Critique of Pure Reason dan pemikiran Kant",
@@ -103,6 +106,7 @@
     {
       "memberCount": 87,
       "memberLimit": 100,
+      "privacy": "public",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Persiapan dan diskusi lab kimia organik",
@@ -126,6 +130,7 @@
     {
       "memberCount": 56,
       "memberLimit": 75,
+      "privacy": "private",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Latihan soal aljabar linear — eigenvalue dan diagonalisasi",
@@ -149,6 +154,7 @@
     {
       "memberCount": 90,
       "memberLimit": 100,
+      "privacy": "public",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Machine learning untuk pemula — supervised learning",
@@ -173,6 +179,7 @@
     {
       "memberCount": 34,
       "memberLimit": 50,
+      "privacy": "private",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Membaca dan mendiskusikan naskah drama Shakespeare",
@@ -196,6 +203,7 @@
     {
       "memberCount": 78,
       "memberLimit": 100,
+      "privacy": "public",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Mekanika Newton dan dinamika rotasi",
@@ -219,6 +227,7 @@
     {
       "memberCount": 42,
       "memberLimit": 60,
+      "privacy": "public",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Pengujian hipotesis, regresi, dan analisis data survei",
@@ -242,6 +251,7 @@
     {
       "memberCount": 65,
       "memberLimit": 80,
+      "privacy": "public",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Umpan balik dan diskusi karya tulis",
@@ -272,6 +282,7 @@
   ],
   "groups": [
     {
+      "privacy": "public",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Diskusi algoritma, sorting, graph, dan DP",
@@ -289,6 +300,7 @@
       ]
     },
     {
+      "privacy": "public",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Kalkulus multivariabel dan aljabar linear",
@@ -306,6 +318,7 @@
       ]
     },
     {
+      "privacy": "private",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Fisika klasik dan modern",
@@ -323,6 +336,7 @@
       ]
     },
     {
+      "privacy": "public",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Kimia dasar, stoikiometri, dan reaksi organik",
@@ -340,6 +354,7 @@
       ]
     },
     {
+      "privacy": "private",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Analisis teks, teori sastra, dan morfologi bahasa",
@@ -357,6 +372,7 @@
       ]
     },
     {
+      "privacy": "public",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Teori sosial dan metode penelitian kualitatif",
@@ -374,6 +390,7 @@
       ]
     },
     {
+      "privacy": "public",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Desain grafis, UI/UX, dan visual",
@@ -391,6 +408,7 @@
       ]
     },
     {
+      "privacy": "public",
       "channels": [
         {
           "id": "umum", "name": "umum", "topic": "Filsafat barat, etika terapan, dan logika",

@@ -92,7 +92,7 @@ Lihat `conclusion.md` untuk dokumentasi arsitektur lengkap.
 
 ## Fitur
 
-- **Forum** — buat, baca, dan diskusi topik belajar
+- **Forum** — landing page dengan join gate (public langsung masuk, private minta approval), interior dengan channel, pesan, dan anggota
 - **Grup** — bergabung dan kelola grup belajar
 - **Kursus** — telusuri dan buka materi kursus
 - **Pencarian** — fuzzy search dengan typo-tolerance di semua konten

@@ -1,7 +1,7 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
 import { asset } from '../../js/utils/url.js';
-import { initForumUsers, AvatarStackHtml, populateStacks } from '../forum/forum.js';
+import { initForumUsers, AvatarStackHtml, populateStacks } from '../forum-interior/forum-interior.js';
 
 injectStyle('/features/home/home.css');
 injectStyle('/features/forum/_members.css');
