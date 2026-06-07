@@ -176,7 +176,23 @@ function renderMobile(data) {
           }
           return `<input class="mobile-input" type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" autocomplete="${field.name}" />`;
         }).join('')}
+        <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;color:var(--text);cursor:pointer;margin:0.5rem 0">
+          <input type="checkbox" checked style="accent-color:var(--accent)" />
+          <span>${data.termsLabel}</span>
+        </label>
         <button class="mobile-submit" type="submit">${data.submitText}</button>
+        <div style="display:flex;align-items:center;gap:0.75rem;margin:1rem 0;color:var(--muted-alt);font-size:0.82rem">
+          <span style="flex:1;height:1px;background:var(--border-color)"></span>
+          <span>or</span>
+          <span style="flex:1;height:1px;background:var(--border-color)"></span>
+        </div>
+        <div style="display:flex;justify-content:center;gap:0.75rem">
+          ${data.socialButtons.map(type => `
+            <button type="button" style="width:2.8rem;height:2.8rem;border-radius:50%;border:1px solid var(--border-color);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:1.1rem" aria-label="Continue with ${type.charAt(0).toUpperCase() + type.slice(1)}">
+              ${socialIcon(type)}
+            </button>
+          `).join('')}
+        </div>
       </form>
       <p class="mobile-card" style="font-size:0.9rem;text-align:center;color:var(--text)">
         ${data.footer.text} <a href="${data.footer.linkHref}" data-link style="color:var(--accent);font-weight:800;">${data.footer.linkLabel}</a>
@@ -245,11 +261,11 @@ function renderMobile(data) {
 }
 
 export async function Signup() {
-  injectStyle('/features/signup/signup.css');
+  injectStyle('/features/auth/signup/signup.css');
 
   let data;
   try {
-    data = await fetchData('/features/auth/signup/signup.json');
+    data = (await fetchData('/data/auth.json')).signup;
   } catch {
     const el = document.createElement('section');
     el.className = 'signup-page';

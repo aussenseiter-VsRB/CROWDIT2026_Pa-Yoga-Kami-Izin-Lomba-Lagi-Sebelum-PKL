@@ -195,7 +195,26 @@ function renderMobile(data) {
             ${iconEye()}
           </button>
         </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:0.75rem 0">
+          <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;color:var(--text);cursor:pointer">
+            <input type="checkbox" checked style="accent-color:var(--accent)" />
+            <span>${data.meta.rememberLabel}</span>
+          </label>
+          <a href="${data.meta.forgotHref}" data-link style="font-size:0.82rem;color:var(--accent);font-weight:600;text-decoration:none">${data.meta.forgotLabel}</a>
+        </div>
         <button class="mobile-submit" type="submit">${data.submitText}</button>
+        <div style="display:flex;align-items:center;gap:0.75rem;margin:1rem 0;color:var(--muted-alt);font-size:0.82rem">
+          <span style="flex:1;height:1px;background:var(--border-color)"></span>
+          <span>or</span>
+          <span style="flex:1;height:1px;background:var(--border-color)"></span>
+        </div>
+        <div style="display:flex;justify-content:center;gap:0.75rem">
+          ${data.socialButtons.map(type => `
+            <button type="button" style="width:2.8rem;height:2.8rem;border-radius:50%;border:1px solid var(--border-color);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:1.1rem" aria-label="Continue with ${type.charAt(0).toUpperCase() + type.slice(1)}">
+              ${socialIcon(type)}
+            </button>
+          `).join('')}
+        </div>
       </form>
       <p class="mobile-card" style="font-size:0.9rem;text-align:center;color:var(--text)">
         ${data.footer.text} <a href="${data.footer.linkHref}" data-link style="color:var(--accent);font-weight:800;">${data.footer.linkLabel}</a>
@@ -248,11 +267,11 @@ function renderMobile(data) {
 }
 
 export async function Login() {
-  injectStyle('/features/login/login.css');
+  injectStyle('/features/auth/login/login.css');
 
   let data;
   try {
-    data = await fetchData('/features/auth/login/login.json');
+    data = (await fetchData('/data/auth.json')).login;
   } catch {
     const el = document.createElement('section');
     el.className = 'login-page';

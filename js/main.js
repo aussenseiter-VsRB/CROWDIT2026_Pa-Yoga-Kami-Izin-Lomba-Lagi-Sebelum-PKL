@@ -9,9 +9,12 @@ import { initTheme } from './theme.js';
 import { seedSampleNotifications } from './notifications.js';
 
 async function init() {
-  seedSampleNotifications();
+  // save the intended route BEFORE any component can clobber it
+  const intendedHash = window.location.hash;
 
+  seedSampleNotifications();
   initTheme();
+
   document.querySelector('#navbar').appendChild(await Navbar());
   document.querySelector('#top-bar').appendChild(await TopBar());
   document.querySelector('#bottom-bar').appendChild(await BottomBar());
@@ -31,14 +34,17 @@ async function init() {
   }
 
   window.addEventListener('route-change', toggleFooter);
+  window.addEventListener('hashchange', () => router());
   toggleFooter();
 
-  if (!window.location.hash) {
-    navigateTo('/');
+  // restore intended hash if something clobbered it during component mount
+  if (!intendedHash || intendedHash === '#') {
+    history.replaceState(null, '', '#/');
+  } else {
+    history.replaceState(null, '', intendedHash);
   }
+
   router();
 }
-
-window.addEventListener('hashchange', () => router());
 
 init();

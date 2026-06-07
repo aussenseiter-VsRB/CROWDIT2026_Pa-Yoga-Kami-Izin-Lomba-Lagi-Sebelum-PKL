@@ -23,36 +23,22 @@ class SearchEngine {
   async init() {
     if (this.ready) return;
 
-    const [home, groups, detail] = await Promise.all([
-      fetch(asset('/features/home/home.json')).then(r => r.json()),
-      fetch(asset('/features/groups/groups.json')).then(r => r.json()),
-      fetch(asset('/features/detail/detail.json')).then(r => r.json()),
+    const [groups, detail] = await Promise.all([
+      fetch(asset('/data/groups.json')).then(r => r.json()),
+      fetch(asset('/data/detail.json')).then(r => r.json()),
     ]);
 
     const docs = [];
 
-    home.forums.forEach((f, i) => {
-      const course = Array.isArray(detail) && detail[i]?.course;
-      docs.push({
-        type: 'Forum',
-        title: f.title,
-        description: f.description,
-        url: `/forum?index=${i}`,
-        tags: [f.status].filter(Boolean),
-        category: course?.category || '',
-      });
-    });
-
-    home.mobile?.forums?.forEach((f, i) => {
-      if (!docs.find(d => d.title === f.title)) {
-        const course = Array.isArray(detail) && detail[i]?.course;
+    (Array.isArray(detail) ? detail : []).forEach((d, i) => {
+      if (d.course) {
         docs.push({
           type: 'Forum',
-          title: f.title,
-          description: f.description,
+          title: d.course.title,
+          description: d.course.description,
           url: `/forum?index=${i}`,
-          tags: [f.status].filter(Boolean),
-          category: course?.category || '',
+          tags: [d.course.status].filter(Boolean),
+          category: d.course.category,
         });
       }
     });

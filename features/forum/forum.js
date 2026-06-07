@@ -5,6 +5,69 @@ import { isFollowing, toggleFollow, notifyNewMessage } from '../../js/notificati
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/forum/forum.css');
+injectStyle('/features/forum/_members.css');
+
+let users = [];
+let usersPromise = null;
+
+export function initForumUsers() {
+  if (usersPromise) return usersPromise;
+  usersPromise = fetch('https://dummyjson.com/users?limit=100&select=id,firstName,lastName,image')
+    .then(r => { if (!r.ok) throw new Error('DummyJSON fetch failed'); return r.json(); })
+    .then(data => { users = data.users || []; })
+    .catch(() => { users = []; });
+  return usersPromise;
+}
+
+function seededShuffle(array, seed) {
+  const arr = [...array];
+  let s = seed;
+  for (let i = arr.length - 1; i > 0; i--) {
+    s = (s * 9301 + 49297) % 233280;
+    const j = Math.floor((s / 233280) * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+export function AvatarStackHtml(memberCount, memberLimit, forumIndex) {
+  const n = Math.min(memberCount, 5);
+  const fallback = 'https://dummyjson.com/icon/user/28';
+  let avatars = '';
+  for (let i = 0; i < n; i++) {
+    avatars += `<img class="forum-member-avatar" src="${fallback}" alt="" loading="lazy" data-avatar-idx="${i}" />`;
+  }
+  const remainder = memberCount - n;
+  const label = remainder > 0 ? `+${remainder} members` : `${memberCount} members`;
+  return `
+    <div class="forum-member-stack" data-forum-index="${forumIndex}" data-member-count="${memberCount}">
+      <div class="forum-member-avatars">
+        ${avatars}
+      </div>
+      <span class="forum-member-count">${label}</span>
+    </div>
+  `;
+}
+
+export function populateStacks(root) {
+  if (users.length === 0) return;
+  const stacks = root.querySelectorAll('.forum-member-stack');
+  stacks.forEach(stack => {
+    const idx = parseInt(stack.dataset.forumIndex, 10);
+    const memberCount = parseInt(stack.dataset.memberCount, 10);
+    const n = Math.min(memberCount, 5);
+    const shuffled = seededShuffle(users, idx);
+    const items = shuffled.slice(0, n);
+    const imgs = stack.querySelectorAll('.forum-member-avatar');
+    imgs.forEach((img, i) => {
+      if (items[i]) {
+        img.src = items[i].image;
+        img.alt = items[i].firstName;
+        img.onerror = function () { this.src = 'https://dummyjson.com/icon/user/28'; };
+      }
+    });
+  });
+}
 
 function timeAgo(iso) {
   const diff = Date.now() - new Date(iso).getTime();
@@ -76,7 +139,7 @@ function ChannelSidebar(serverName, channels, activeId, forumId, forumType) {
   `;
 }
 
-function MemberList(members) {
+function MemberList(members, memberCount, memberLimit, forumIndex) {
   const groups = { online: [], idle: [], offline: [] };
   members.forEach(m => { (groups[m.status] || groups.offline).push(m); });
   const labels = { online: 'Online', idle: 'Idle', offline: 'Offline' };
@@ -84,6 +147,7 @@ function MemberList(members) {
 
   return `
     <div class="forum-members">
+      ${AvatarStackHtml(memberCount, memberLimit, forumIndex)}
       ${['online', 'idle', 'offline'].filter(g => groups[g].length).map(g => `
         <div class="forum-members__cat">${labels[g]} \u2014 ${groups[g].length}</div>
         ${groups[g].map(m => `
@@ -127,7 +191,7 @@ function MessageArea(channel, dateStr) {
 }
 
 function renderDesktop(el, opts) {
-  let { serverName, channels, members, backLink, forumId, forumType, activeChannel } = opts;
+  let { serverName, channels, members, memberCount, memberLimit, forumIndex, backLink, forumId, forumType, activeChannel } = opts;
 
   function appendMessage(msg) {
     const msgs = el.querySelector('#js-forum-msgs');
@@ -145,7 +209,7 @@ function renderDesktop(el, opts) {
       <div class="forum-layout">
         ${ChannelSidebar(serverName, channels, activeChannel.id, forumId, forumType)}
         ${MessageArea(activeChannel, dateStr)}
-        ${MemberList(members)}
+        ${MemberList(members, memberCount, memberLimit, forumIndex)}
       </div>
     `;
 
@@ -295,9 +359,8 @@ function forumStyles() {
 }
 
 function renderMobile(el, opts) {
-  const { serverName, channels, members, backLink, forumId, forumType } = opts;
-  const textChannels = channels.filter(c => c.type !== 'voice');
-  let activeChannel = textChannels[0] || channels[0];
+  const { serverName, channels, members, memberCount, memberLimit, forumIndex, backLink, forumId, forumType } = opts;
+  let activeChannel = channels[0];
 
   if (!document.querySelector('style[data-forum-mobile]')) {
     const s = document.createElement('style');
@@ -312,15 +375,18 @@ function renderMobile(el, opts) {
     const labels = { online: 'Online', idle: 'Idle', offline: 'Offline' };
     const dots = { online: 'online', idle: 'idle', offline: 'offline' };
 
-    return ['online', 'idle', 'offline'].filter(g => groups[g].length).map(g => `
-      <p class="forum-member-cat">${labels[g]} \u2014 ${groups[g].length}</p>
-      ${groups[g].map(m => `
-        <a class="forum-member-item" href="/profile?user=${encodeURIComponent(m.name)}" data-link>
-          <span class="forum-member-item__dot forum-member-item__dot--${dots[g]}"></span>
-          <span class="forum-member-item__name">${m.name}</span>
-        </a>
+    return `
+      ${AvatarStackHtml(memberCount, memberLimit, forumIndex)}
+      ${['online', 'idle', 'offline'].filter(g => groups[g].length).map(g => `
+        <p class="forum-member-cat">${labels[g]} \u2014 ${groups[g].length}</p>
+        ${groups[g].map(m => `
+          <a class="forum-member-item" href="/profile?user=${encodeURIComponent(m.name)}" data-link>
+            <span class="forum-member-item__dot forum-member-item__dot--${dots[g]}"></span>
+            <span class="forum-member-item__name">${m.name}</span>
+          </a>
+        `).join('')}
       `).join('')}
-    `).join('');
+    `;
   }
 
   function renderChannelList() {
@@ -343,13 +409,22 @@ function renderMobile(el, opts) {
           </div>
         </header>
         <div class="forum-channels">
-          ${textChannels.map(ch => `
+          ${channels.filter(c => c.type !== 'voice').map(ch => `
             <button class="forum-channel-item" data-channel="${ch.id}">
               <i class="bi bi-hash"></i>
               <span class="forum-channel-item__name">${ch.name}</span>
               <span class="forum-channel-item__count">${ch.messages.length}</span>
             </button>
           `).join('')}
+          ${channels.filter(c => c.type === 'voice').length ? `
+            <p style="font-size:0.65rem;font-weight:800;color:var(--muted-alt,#8e8e93);letter-spacing:0.06em;text-transform:uppercase;margin:0.75rem 0 0.25rem 0.25rem">Suara</p>
+            ${channels.filter(c => c.type === 'voice').map(ch => `
+              <button class="forum-channel-item" data-channel="${ch.id}">
+                <i class="bi bi-mic"></i>
+                <span class="forum-channel-item__name">${ch.name}</span>
+              </button>
+            `).join('')}
+          ` : ''}
         </div>
         ${members.length ? `
           <p class="mobile-section-title">Anggota (${members.length})</p>
@@ -370,7 +445,7 @@ function renderMobile(el, opts) {
     el.querySelectorAll('.forum-channel-item').forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.channel;
-        const found = textChannels.find(c => c.id === id) || channels.find(c => c.id === id);
+        const found = channels.find(c => c.id === id);
         if (found) {
           activeChannel = found;
           renderMessages();
@@ -448,10 +523,12 @@ function renderMobile(el, opts) {
         if (showingMembers) {
           msgsContainer.innerHTML = `
             <div class="forum-member-list">
+              ${AvatarStackHtml(memberCount, memberLimit, forumIndex)}
               <p class="forum-member-cat" style="margin-top:0">Anggota (${members.length})</p>
               ${renderMemberList()}
             </div>
           `;
+          populateStacks(msgsContainer);
         } else {
           msgsContainer.innerHTML = activeChannel.messages.length === 0
             ? '<div class="forum-m-empty">Belum ada pesan di sini.</div>'
@@ -495,37 +572,48 @@ function renderMobile(el, opts) {
 }
 
 export async function Forum() {
+  initForumUsers();
+
   const params = getHashParams();
   const courseIdx = parseInt(params.get('index'), 10);
   const groupIdx = parseInt(params.get('group'), 10);
 
   const [forumRes, detailRes, groupsRes] = await Promise.all([
-    fetch(asset('/features/forum/forum.json')).then(r => r.json()),
-    fetch(asset('/features/detail/detail.json')).then(r => r.json()),
-    fetch(asset('/features/groups/groups.json')).then(r => r.json()),
+    fetch(asset('/data/forum.json')).then(r => r.json()),
+    fetch(asset('/data/detail.json')).then(r => r.json()),
+    fetch(asset('/data/groups.json')).then(r => r.json()),
   ]);
 
-  let forumData, serverName, forumId, forumType;
+  let forumData, serverName, forumId, forumType, forumIndex = 0;
   if (!isNaN(courseIdx) && forumRes.courses[courseIdx]) {
     forumData = forumRes.courses[courseIdx];
     serverName = detailRes[courseIdx]?.course?.title || 'Forum';
     forumId = 'course-' + courseIdx;
     forumType = 'course';
+    forumIndex = courseIdx;
   } else if (!isNaN(groupIdx) && forumRes.groups[groupIdx]) {
     forumData = forumRes.groups[groupIdx];
     serverName = groupsRes.groups[groupIdx]?.title || 'Grup';
     forumId = 'group-' + groupIdx;
     forumType = 'group';
+    forumIndex = forumRes.courses.length + groupIdx;
   } else {
     forumData = forumRes.courses[0];
     serverName = 'Forum';
     forumId = 'course-0';
     forumType = 'course';
+    forumIndex = 0;
   }
 
   const backLink = forumType === 'group' ? '/groups' : '/';
   const channels = forumData.channels;
   const members = forumData.members;
+  const memberCount = forumType === 'group'
+    ? (groupsRes.groups[groupIdx]?.members || members.length)
+    : (forumData.memberCount || members.length);
+  const memberLimit = forumType === 'group'
+    ? (groupsRes.groups[groupIdx]?.maxMembers || 100)
+    : (forumData.memberLimit || 100);
   const activeChannel = channels[0];
 
   document.querySelector('#footer').style.display = 'none';
@@ -534,7 +622,9 @@ export async function Forum() {
   if (window.innerWidth <= 900) {
     const el = document.createElement('section');
     el.className = 'mobile-page';
-    renderMobile(el, { serverName, channels, members, activeChannel, backLink, forumId, forumType });
+    renderMobile(el, { serverName, channels, members, memberCount, memberLimit, forumIndex, activeChannel, backLink, forumId, forumType });
+    populateStacks(el);
+    usersPromise.then(() => populateStacks(el));
     return el;
   }
 
@@ -546,6 +636,8 @@ export async function Forum() {
   el.style.flex = '1';
   el.style.padding = '0 1.5rem';
   el.style.margin = '0.75rem 0 0';
-  renderDesktop(el, { serverName, channels, members, activeChannel, backLink, forumId, forumType });
+  renderDesktop(el, { serverName, channels, members, memberCount, memberLimit, forumIndex, activeChannel, backLink, forumId, forumType });
+  populateStacks(el);
+  usersPromise.then(() => populateStacks(el));
   return el;
 }
