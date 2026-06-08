@@ -1,5 +1,6 @@
 import { injectStyle } from '../../../js/utils/styleLoader.js';
 injectStyle('/features/profile/edit-profile/edit-profile.css');
+injectStyle('/features/profile/edit-profile/_edit-profile-form.css');
 
 import { getSession, isAuthenticated, navigateAfterAuth } from '../../../js/services/auth.js';
 import { navigateTo } from '../../../js/utils/url.js';

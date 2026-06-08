@@ -2,6 +2,8 @@ import { injectStyle } from '../../../js/utils/styleLoader.js';
 import { DATA_PATHS, TIMING, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
+injectStyle('/features/auth/login/_auth-form.css');
+injectStyle('/features/auth/login/_auth-visual.css');
 import { fetchData } from '../../../js/utils/api.js';
 import { initUsers, login, navigateAfterAuth } from '../../../js/services/auth.js';
 

@@ -1,10 +1,15 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { getHashParams, asset } from '../../js/utils/url.js';
-import { DATA_PATHS } from '../../js/core/config.js';
+import { DATA_PATHS, LIMITS } from '../../js/core/config.js';
 import { showConfirmModal } from '../../components/ui/confirm-modal/confirm-modal.js';
 import { joinForum, getForumStatus, incrementMemberCount, getLiveMemberCount } from '../../js/services/forum-access.js';
+import { getUsersForContext } from '../../js/data/dummy-users.js';
 import { CourseChatBlock, initCourseChat } from '../../components/ui/course-chat/course-chat.js';
 injectStyle('/features/detail/detail.css');
+injectStyle('/features/detail/_detail-hero.css');
+injectStyle('/features/detail/_detail-creator.css');
+injectStyle('/features/detail/_detail-meeting.css');
+injectStyle('/features/detail/_detail-forum.css');
 
 function iconPeople() {
   return '<i class="bi bi-people"></i>';
@@ -120,12 +125,19 @@ function CreatorBlock(creator) {
   `;
 }
 
-function ParticipantsBlock(participants) {
+function ParticipantsBlock(participants, users) {
   const colors = ['#007aff', '#5856d6', '#34c759', '#ff9f0a', '#ff3b30', '#af52de'];
-  const dummies = participants.dummies || [];
-  const dummyList = dummies.map(name => {
+  const avatarList = (users || []).slice(0, participants.joined).map(u => {
+    const name = u.firstName || 'User';
     const initial = name.charAt(0).toUpperCase();
     const color = colors[name.length % colors.length];
+    const imgSrc = u.image || '';
+    if (imgSrc) {
+      const fallbackSvg = encodeURIComponent(
+        `<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"><rect width="35" height="35" rx="17.5" fill="${color}"/><text x="17.5" y="22" text-anchor="middle" fill="white" font-size="15" font-weight="700">${initial}</text></svg>`
+      );
+      return `<img class="dtl-participant-avatar" src="${imgSrc}" alt="${name}" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml,${fallbackSvg}'" />`;
+    }
     return `<div class="dtl-participant-avatar" style="background:${color}">${initial}</div>`;
   });
   return `
@@ -138,7 +150,7 @@ function ParticipantsBlock(participants) {
         <span class="dtl-participants__count">${participants.joined} bergabung</span>
       </div>
       <div class="dtl-participants__avatars">
-        ${dummyList.join('')}
+        ${avatarList.join('')}
       </div>
     </div>
   `;
@@ -151,6 +163,9 @@ export async function Detail() {
   const res = await fetch(asset(DATA_PATHS.DETAIL));
   const data = await res.json();
   const item = data[index] ?? data[0];
+
+  const participantsCount = Math.min(item.participants?.joined || 0, LIMITS.MAX_ACTIVE_MEMBERS);
+  const users = participantsCount > 0 ? await getUsersForContext(index, participantsCount) : [];
 
   const statusClass = item.course.status === 'Online' ? 'is-online' : 'is-offline';
 
@@ -209,7 +224,7 @@ export async function Detail() {
         <div class="dtl-grid__right">
           <div class="dtl-section">
             <h2 class="dtl-section__title">Partisipan</h2>
-            ${ParticipantsBlock(participantsLive)}
+            ${ParticipantsBlock(participantsLive, users)}
           </div>
 
           <div class="dtl-section">
@@ -264,7 +279,7 @@ export async function Detail() {
           const liveCount = getLiveMemberCount(index, item.participants.joined);
           const participantsSection = el.querySelector('.dtl-participants');
           if (participantsSection) {
-            participantsSection.outerHTML = ParticipantsBlock({ ...item.participants, joined: liveCount });
+            participantsSection.outerHTML = ParticipantsBlock({ ...item.participants, joined: liveCount }, users);
           }
           const memberStat = el.querySelector('.dtl-forum-card__stat:first-child .dtl-forum-card__stat-value');
           if (memberStat) {

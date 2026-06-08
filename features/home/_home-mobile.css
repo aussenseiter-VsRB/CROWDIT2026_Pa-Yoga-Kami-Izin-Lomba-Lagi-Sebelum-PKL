@@ -1,0 +1,146 @@
+/* --- Mobile Forum --- */
+
+.m-home-forum-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-md);
+}
+
+.m-home-forum-card {
+  padding: var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.m-home-forum-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.9rem;
+  margin-bottom: 1.35rem;
+}
+
+.m-home-forum-card h2 {
+  max-width: 14.5rem;
+  margin: 0;
+}
+
+.m-home-forum-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* --- Mobile Status --- */
+
+.m-home-status {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 1.78rem;
+  padding: 0 0.7rem;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.m-home-status span {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 999px;
+}
+
+.m-home-status.is-online {
+  border: 1px solid rgba(52, 199, 89, 0.4);
+  background: rgba(52, 199, 89, 0.12);
+  color: var(--success);
+}
+
+.m-home-status.is-online span {
+  background: var(--success);
+}
+
+.m-home-status.is-offline {
+  border: 1px solid var(--border-color);
+  background: var(--surface-alt);
+  color: var(--muted);
+}
+
+.m-home-status.is-offline span {
+  background: var(--muted);
+}
+
+/* --- Mobile Card Footer --- */
+
+.m-home-forum-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.9rem;
+  padding-top: 1.18rem;
+  border-top: 1px solid var(--border);
+}
+
+.m-home-forum-card .home-participants__label {
+  font-size: 0.78rem;
+}
+
+.m-home-forum-card .home-participants__pct {
+  font-size: 0.72rem;
+}
+
+.m-home-forum-card .home-participants__bar {
+  height: 0.35rem;
+}
+
+/* --- Mobile Joined --- */
+
+.m-home-joined {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 1.9rem;
+  padding: 0 0.8rem;
+  border-radius: 0.45rem;
+  background: var(--surface-alt);
+  color: var(--text);
+  font-size: 0.83rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.m-home-joined svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: currentColor;
+}
+
+/* --- Mobile Actions --- */
+
+.m-home-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.55rem;
+  min-height: 2.25rem;
+  padding: 0 1.05rem;
+  border-radius: 0.45rem;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+}
+
+.m-home-action.is-primary {
+  background: var(--accent-alt);
+  color: #fff;
+}
+
+.m-home-action.is-secondary {
+  background: var(--surface-alt);
+  color: var(--text);
+}

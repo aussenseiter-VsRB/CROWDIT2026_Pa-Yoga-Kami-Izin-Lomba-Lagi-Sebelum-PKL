@@ -1,3 +1,5 @@
+/* --- Header --- */
+
 .d-notif-page {
   padding: 2.5rem 0;
 }
@@ -44,7 +46,9 @@
   font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
 .d-notif-mark-all:hover {
@@ -52,114 +56,11 @@
   border-color: var(--accent);
 }
 
+/* --- List --- */
+
 .d-notif-list {
   display: grid;
   gap: 0.65rem;
-}
-
-.d-notif-card {
-  display: flex;
-  gap: 1rem;
-  padding: 1.1rem 1.25rem;
-  border: 1px solid rgba(26, 26, 26, 0.08);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: var(--shadow-sm);
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.d-notif-card:hover {
-  border-color: rgba(0, 122, 255, 0.16);
-  box-shadow: var(--shadow-md);
-}
-
-.d-notif-card--unread {
-  border-left: 3px solid var(--accent);
-  background: rgba(0, 122, 255, 0.04);
-}
-
-.d-notif-card__icon {
-  flex: 0 0 auto;
-  width: 2.2rem;
-  height: 2.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.55rem;
-  color: #fff;
-  font-size: 0.9rem;
-}
-
-.d-notif-card__body {
-  flex: 1;
-  min-width: 0;
-}
-
-.d-notif-card__header {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  margin-bottom: 0.2rem;
-}
-
-.d-notif-card__title {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.d-notif-card__time {
-  font-size: 0.7rem;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-.d-notif-card__desc {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.85rem;
-  line-height: 1.5;
-}
-
-.d-notif-card__actions {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.35rem;
-  justify-content: center;
-}
-
-.d-notif-card__link {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.d-notif-card__link:hover {
-  text-decoration: underline;
-}
-
-.d-notif-card__mark-read {
-  background: none;
-  border: 1px solid var(--border-color);
-  border-radius: 999px;
-  width: 1.6rem;
-  height: 1.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
-  font-size: 0.7rem;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.d-notif-card__mark-read:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
 }
 
 .d-notif-empty {

@@ -458,7 +458,9 @@ const routes = {
 
 Jika komponen dipakai oleh 2+ fitur, buat di `components/` di bawah kategori yang sesuai (`layout/`, `ui/`, atau `shared/`). Jika hanya dipakai satu fitur, simpan di dalam folder fitur tersebut. Buat subfolder `components/` di dalam fitur hanya jika ada 3+ komponen spesifik fitur tersebut.
 
-### 5. CSS — aturan ukuran file
+### 5. CSS — aturan ukuran file & format
+
+- CSS must use expanded format — one property per line, one blank line between rules
 
 | Tipe file | Batas |
 |---|---|

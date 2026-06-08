@@ -7,6 +7,9 @@ import { API, LCG, LIMITS, DATA_PATHS, MOBILE_BREAKPOINT } from '../../../js/cor
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/forum/landing/forum.css');
+injectStyle('/features/forum/landing/_forum-sidebar.css');
+injectStyle('/features/forum/landing/_forum-messages.css');
+injectStyle('/features/forum/landing/_forum-members.css');
 injectStyle('/features/forum/_members.css');
 injectStyle('/features/forum/interior/forum-interior.css');
 

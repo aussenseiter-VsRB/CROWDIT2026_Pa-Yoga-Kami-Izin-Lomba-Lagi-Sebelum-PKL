@@ -7,6 +7,10 @@ import { getHashParams, navigateTo } from '../../../js/utils/url.js';
 import { MOBILE_BREAKPOINT, LIMITS, TIMING } from '../../../js/core/config.js';
 
 injectStyle('/features/chat/dm/dm.css');
+injectStyle('/features/chat/dm/_dm-bubbles.css');
+injectStyle('/features/chat/dm/_dm-compose.css');
+injectStyle('/features/chat/dm/_dm-desktop.css');
+injectStyle('/features/chat/dm/_dm-modals.css');
 
 function escapeHtml(str) {
   const d = document.createElement('div');

@@ -1,3 +1,4 @@
+/* --- Base --- */
 .navbar {
   position: sticky;
   top: 0;
@@ -16,6 +17,7 @@
   gap: 1rem;
 }
 
+/* --- Logo --- */
 .navbar-logo {
   display: inline-flex;
   align-items: center;
@@ -34,7 +36,7 @@
   justify-content: center;
   border-radius: var(--radius-sm);
   background: var(--accent);
-  color: #ffffff;
+  color: #fff;
   box-shadow: var(--shadow-sm);
 }
 
@@ -44,6 +46,7 @@
   display: block;
 }
 
+/* --- Navigation --- */
 .navbar-nav,
 .navbar-actions {
   display: inline-flex;
@@ -71,6 +74,7 @@
     box-shadow var(--transition);
 }
 
+/* --- States --- */
 .navbar-nav a:hover,
 .navbar-action:hover {
   transform: translateY(-1px);
@@ -86,19 +90,20 @@
 
 .navbar-action--primary {
   background: var(--text);
-  color: #ffffff;
+  color: #fff;
   box-shadow: var(--shadow-sm);
 }
 
 .navbar-action--primary:hover {
   background: #0f172a;
-  color: #ffffff;
+  color: #fff;
 }
 
 .navbar-action--notif {
   position: relative;
 }
 
+/* --- Notifications --- */
 .navbar-notif-badge {
   position: absolute;
   top: 0.15rem;
@@ -117,6 +122,7 @@
   line-height: 1;
 }
 
+/* --- Responsive --- */
 @media (max-width: 900px) {
   .navbar {
     display: none;

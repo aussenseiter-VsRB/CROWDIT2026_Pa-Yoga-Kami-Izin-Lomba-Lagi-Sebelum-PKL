@@ -7,6 +7,8 @@ import { DATA_PATHS, LIMITS, MOBILE_BREAKPOINT } from '../../../js/core/config.j
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/forum/landing/forum.css');
+injectStyle('/features/forum/landing/_forum-landing.css');
+injectStyle('/features/forum/_members.css');
 
 function timeAgo(iso) {
   const diff = Date.now() - new Date(iso).getTime();

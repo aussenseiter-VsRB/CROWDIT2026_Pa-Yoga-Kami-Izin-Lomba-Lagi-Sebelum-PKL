@@ -1,0 +1,85 @@
+/* --- Hero card --- */
+.dtl-hero {
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(249, 250, 251, 0.96));
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  box-shadow: var(--shadow-md);
+}
+
+.dtl-hero__top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.dtl-hero__category {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.85rem;
+  padding: 0 0.75rem;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 122, 255, 0.1);
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* --- Status badges --- */
+.dtl-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 1.85rem;
+  padding: 0 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.dtl-status span {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 999px;
+}
+
+.dtl-status.is-online {
+  border: 1px solid rgba(52, 199, 89, 0.25);
+  background: rgba(52, 199, 89, 0.12);
+  color: #1d4f2a;
+}
+
+.dtl-status.is-online span {
+  background: var(--success);
+}
+
+.dtl-status.is-offline {
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  background: rgba(26, 26, 26, 0.04);
+  color: var(--muted);
+}
+
+.dtl-status.is-offline span {
+  background: #9ca3af;
+}
+
+/* --- Title & description --- */
+.dtl-hero__title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+  line-height: 1.1;
+  max-width: 20ch;
+}
+
+.dtl-hero__desc {
+  margin: 0;
+  max-width: 48rem;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}

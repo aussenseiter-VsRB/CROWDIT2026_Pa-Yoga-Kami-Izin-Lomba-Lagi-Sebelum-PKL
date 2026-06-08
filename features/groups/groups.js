@@ -4,7 +4,10 @@ import { isAuthenticated } from '../../js/services/auth.js';
 import { DATA_PATHS, LIMITS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
+injectStyle('/css/_shared-profile.css');
 injectStyle('/features/groups/groups.css');
+injectStyle('/features/groups/_groups-card.css');
+injectStyle('/features/groups/_groups-hero.css');
 
 function peopleIcon() {
   return '<i class="bi bi-people"></i>';

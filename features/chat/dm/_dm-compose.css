@@ -1,0 +1,136 @@
+/* --- Reply bar --- */
+.dm-reply-bar-container {
+  flex-shrink: 0;
+}
+
+.dm-reply-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+}
+
+.dm-reply-bar__cancel {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--muted-alt);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.dm-reply-bar__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dm-reply-bar__label {
+  font-size: 0.75rem;
+  color: var(--accent);
+  margin-bottom: 0.1rem;
+}
+
+.dm-reply-bar__name {
+  font-weight: 600;
+}
+
+.dm-reply-bar__preview {
+  color: var(--muted-alt);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.78rem;
+}
+
+/* --- Empty state --- */
+.dm-empty {
+  text-align: center;
+  color: var(--muted-alt);
+  font-size: 0.85rem;
+  padding: 2rem 0;
+  margin: auto;
+}
+
+/* --- Compose bar --- */
+.dm-compose {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-elevated);
+  flex-shrink: 0;
+}
+
+.dm-input {
+  flex: 1;
+  border: none;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.9rem;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  outline: none;
+  font-family: inherit;
+}
+
+.dm-input::placeholder {
+  color: var(--muted-alt);
+}
+
+.dm-send {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+
+.dm-send:active {
+  opacity: 0.7;
+}
+
+/* --- Blocked state --- */
+.dm-blocked-banner {
+  padding: 0.75rem 1rem;
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  color: var(--muted-alt);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.dm-blocked-banner strong {
+  color: var(--text);
+}
+
+.dm-blocked-unblock {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0;
+  text-decoration: underline;
+  font-family: inherit;
+}
+
+.dm-blocked-unblock:hover {
+  opacity: 0.8;
+}

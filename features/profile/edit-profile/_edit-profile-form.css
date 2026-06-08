@@ -1,0 +1,88 @@
+/* --- Form Fields & Actions --- */
+
+.m-edit-profile__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.m-edit-profile__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.m-edit-profile__label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--muted-alt);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.m-edit-profile__input {
+  min-height: 2.6rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.65rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.m-edit-profile__input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.12);
+}
+
+.m-edit-profile__textarea {
+  min-height: 5rem;
+  padding: 0.7rem 0.85rem;
+  resize: vertical;
+}
+
+.m-edit-profile__actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.m-edit-profile__save {
+  flex: 1;
+  min-height: 2.6rem;
+  border: 0;
+  border-radius: 0.65rem;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.m-edit-profile__save:active {
+  opacity: 0.8;
+}
+
+.m-edit-profile__cancel {
+  flex: 1;
+  min-height: 2.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.65rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.m-edit-profile__cancel:active {
+  background: var(--surface-alt);
+}

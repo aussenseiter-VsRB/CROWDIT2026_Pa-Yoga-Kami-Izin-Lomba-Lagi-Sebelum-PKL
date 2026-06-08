@@ -1,0 +1,83 @@
+/* --- Desktop Topics --- */
+
+.home-topics {
+  display: flex;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding: 0.1rem 0 0.25rem;
+  scrollbar-width: none;
+}
+
+.home-topics::-webkit-scrollbar {
+  display: none;
+}
+
+.home-topic {
+  flex: 0 0 auto;
+  min-height: 2.4rem;
+  padding: 0 1rem;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition:
+    transform var(--transition),
+    background-color var(--transition),
+    color var(--transition),
+    border-color var(--transition);
+}
+
+.home-topic:hover {
+  transform: translateY(-1px);
+  color: var(--text);
+}
+
+.home-topic.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* --- Mobile Topics --- */
+
+.m-home-topics {
+  display: flex;
+  gap: 0.6rem;
+  margin: 0 0 var(--space-md);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.m-home-topics::-webkit-scrollbar {
+  display: none;
+}
+
+.m-home-topic {
+  flex: 0 0 auto;
+  min-height: 2.2rem;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.m-home-topic.is-active {
+  background: var(--accent-alt);
+  color: #fff;
+}

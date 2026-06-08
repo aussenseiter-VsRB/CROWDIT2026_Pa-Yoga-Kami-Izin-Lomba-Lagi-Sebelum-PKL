@@ -5,6 +5,10 @@ import { DATA_PATHS, LIMITS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 import { getLiveMemberCount } from '../../js/services/forum-access.js';
 
 injectStyle('/features/home/home.css');
+injectStyle('/features/home/_home-hero.css');
+injectStyle('/features/home/_home-topics.css');
+injectStyle('/features/home/_home-forum.css');
+injectStyle('/features/home/_home-mobile.css');
 
 function ParticipantBar(participants) {
   const joined = participants?.joined || 0;

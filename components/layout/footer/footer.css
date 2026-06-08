@@ -1,3 +1,4 @@
+/* --- Base --- */
 .footer {
   border-top: 1px solid rgba(26, 26, 26, 0.08);
   background: rgba(255, 255, 255, 0.94);
@@ -6,6 +7,7 @@
   padding: 2rem 0;
 }
 
+/* --- Inner --- */
 .footer__inner {
   display: flex;
   flex-direction: column;
@@ -14,6 +16,7 @@
   font-size: 0.95rem;
 }
 
+/* --- Grid --- */
 .footer__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -27,6 +30,7 @@
   min-width: 0;
 }
 
+/* --- Brand --- */
 .footer__brand {
   display: block;
   color: var(--text);
@@ -50,6 +54,7 @@
   font-weight: 600;
 }
 
+/* --- Navigation --- */
 .footer__nav-list {
   list-style: none;
   margin: 0;
@@ -70,6 +75,7 @@
   color: var(--text);
 }
 
+/* --- Contact --- */
 .footer__contact-item {
   margin: 0 0 0.5rem;
 }
@@ -80,6 +86,7 @@
   line-height: 1.7;
 }
 
+/* --- Bottom Bar --- */
 .footer__bottom {
   border-top: 1px solid rgba(26, 26, 26, 0.06);
   padding-top: 1rem;
@@ -95,6 +102,7 @@
   font-size: 0.9rem;
 }
 
+/* --- Legal --- */
 .footer__legal {
   display: flex;
   flex-wrap: wrap;
@@ -105,6 +113,7 @@
   font-size: 0.9rem;
 }
 
+/* --- Responsive --- */
 @media (max-width: 1100px) {
   .footer__grid {
     grid-template-columns: 1fr;

@@ -1,3 +1,4 @@
+/* --- Base --- */
 .tm {
   padding: 1.5rem;
   border: 1px solid var(--border);
@@ -7,18 +8,20 @@
 }
 
 .tm:hover {
-  box-shadow: 0 6px 20px rgba(20,25,38,0.06);
+  box-shadow: 0 6px 20px rgba(20, 25, 38, 0.06);
 }
 
+/* --- Section Title --- */
 .tm__section-title {
   margin: 0 0 1rem;
   color: var(--muted-alt);
-  font-size: 0.72rem;
+  font-size: var(--text-xs);
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
+/* --- Tags --- */
 .tm__tags-wrap {
   margin-bottom: 1rem;
 }
@@ -42,12 +45,14 @@
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .tm__tag:hover {
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0,122,255,0.15);
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.15);
 }
 
 .tm__tag-remove {
@@ -63,12 +68,14 @@
   color: var(--accent);
   opacity: 0.5;
   cursor: pointer;
-  transition: opacity 0.15s ease, background 0.15s ease;
+  transition:
+    opacity 0.15s ease,
+    background 0.15s ease;
 }
 
 .tm__tag-remove:hover {
   opacity: 1;
-  background: rgba(0,122,255,0.12);
+  background: rgba(0, 122, 255, 0.12);
 }
 
 .tm__tag-remove i {
@@ -76,6 +83,7 @@
   line-height: 1;
 }
 
+/* --- Add Tag --- */
 .tm__add {
   display: flex;
   gap: 0.5rem;
@@ -94,7 +102,9 @@
   font-size: 0.85rem;
   font-weight: 600;
   outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .tm__input::placeholder {
@@ -117,15 +127,18 @@
   border: 0;
   border-radius: 0.6rem;
   background: var(--accent);
-  color: #ffffff;
+  color: #fff;
   cursor: pointer;
-  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .tm__add-btn:hover {
   transform: scale(1.06);
   background: var(--accent-alt);
-  box-shadow: 0 4px 12px rgba(0,122,255,0.3);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
 }
 
 .tm__add-btn i {

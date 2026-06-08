@@ -8,7 +8,14 @@ import { isFollowing, toggleFollowUser, getFollowingCount, getFollowersCount, ge
 import { STORAGE_KEYS, DEFAULTS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
+injectStyle('/css/_shared-profile.css');
+injectStyle('/css/_shared-edit.css');
+injectStyle('/css/_shared-settings.css');
+injectStyle('/css/_shared-menu.css');
+injectStyle('/css/_shared-activity.css');
 injectStyle('/features/profile/profile/profile.css');
+injectStyle('/features/profile/profile/_profile-header.css');
+injectStyle('/features/profile/profile/_profile-panels.css');
 
 const INTERESTS_KEY = STORAGE_KEYS.INTERESTS;
 const AVATAR_KEY = STORAGE_KEYS.AVATAR;

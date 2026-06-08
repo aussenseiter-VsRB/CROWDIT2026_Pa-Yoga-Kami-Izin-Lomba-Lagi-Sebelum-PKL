@@ -1,3 +1,4 @@
+/* --- Base --- */
 .page-header {
   display: flex;
   align-items: end;
@@ -12,6 +13,7 @@
   -webkit-backdrop-filter: blur(16px);
 }
 
+/* --- Copy --- */
 .page-header__copy {
   max-width: 44rem;
 }
@@ -37,6 +39,7 @@
   line-height: 1.7;
 }
 
+/* --- Actions --- */
 .page-header__actions {
   display: inline-flex;
   flex-wrap: wrap;
@@ -79,6 +82,7 @@
   color: #ffffff;
 }
 
+/* --- Responsive --- */
 @media (max-width: 900px) {
   .page-header {
     flex-direction: column;

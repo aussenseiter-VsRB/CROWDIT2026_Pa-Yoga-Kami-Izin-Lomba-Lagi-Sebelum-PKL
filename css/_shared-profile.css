@@ -1,0 +1,113 @@
+/* --- Profile Strip --- */
+.mobile-profile-strip {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.85rem;
+  background: var(--surface);
+}
+
+.mobile-avatar {
+  display: grid;
+  place-items: center;
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 999px;
+  background: var(--accent-alt);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.mobile-profile-strip strong {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.mobile-profile-strip span {
+  color: var(--muted-alt);
+  font-size: 0.83rem;
+}
+
+/* --- Stats Grid --- */
+.mobile-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+}
+
+.mobile-stat-card {
+  padding: 0.9rem 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.85rem;
+  background: var(--surface);
+  text-align: center;
+  box-shadow: var(--card-shadow);
+}
+
+.mobile-stat-card__value {
+  display: block;
+  color: var(--text);
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.mobile-stat-card__label {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--muted-alt);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+/* --- Progress --- */
+.mobile-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.mobile-progress__label {
+  font-size: 0.78rem;
+  color: var(--muted-alt);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.mobile-progress__bar {
+  flex: 1;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--surface-alt);
+  overflow: hidden;
+}
+
+.mobile-progress__fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.mobile-progress__fill--popular { background: var(--success); }
+
+.mobile-progress__fill--active { background: var(--accent); }
+
+.mobile-progress__fill--inactive { background: var(--muted); }
+
+.mobile-progress__pct {
+  font-size: 0.78rem;
+  color: var(--muted-alt);
+  font-weight: 700;
+  white-space: nowrap;
+}

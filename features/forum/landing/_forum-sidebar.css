@@ -1,0 +1,88 @@
+/* --- Sidebar --- */
+.forum-sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #f8f8fa;
+  border-right: 1px solid var(--surface-hover, #e5e5ea);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.forum-sidebar__server {
+  padding: 0.85rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary, #1a1a1a);
+  border-bottom: 1px solid var(--surface-hover, #e5e5ea);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.forum-sidebar__server i {
+  color: var(--accent, #007aff);
+  font-size: 1rem;
+}
+
+.forum-sidebar__cat {
+  padding: 0.6rem 1rem 0.3rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--muted, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.forum-sidebar__channel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 1rem 0.35rem 1.2rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted, #6b7280);
+  cursor: pointer;
+  border-radius: 0.35rem;
+  margin: 0 0.4rem;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  text-decoration: none;
+  border: none;
+  background: none;
+  width: auto;
+  font-family: inherit;
+}
+
+.forum-sidebar__channel:hover {
+  background: var(--surface-hover, #e5e5ea);
+  color: var(--text-primary, #1a1a1a);
+}
+
+.forum-sidebar__channel--active {
+  background: var(--surface-dim, #dad9df);
+  color: var(--text-primary, #1a1a1a);
+}
+
+.forum-sidebar__channel i {
+  font-size: 0.9rem;
+  width: 1.1rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.forum-sidebar__channel--voice {
+  color: var(--muted-alt, #8e8e93);
+}
+
+.forum-sidebar__channel--voice:hover {
+  color: var(--text-primary, #1a1a1a);
+}
+
+.forum-sidebar__scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 0.5rem;
+  min-height: 0;
+}

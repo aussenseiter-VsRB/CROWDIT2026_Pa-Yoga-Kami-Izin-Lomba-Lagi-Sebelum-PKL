@@ -1,6 +1,7 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { DATA_PATHS } from '../../js/core/config.js';
 injectStyle('/features/help/help.css');
+injectStyle('/features/help/_help-faq.css');
 
 import { asset, navigateTo } from '../../js/utils/url.js';
 import { isAuthenticated, navigateAfterAuth } from '../../js/services/auth.js';

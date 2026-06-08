@@ -1,8 +1,9 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { getHashParams, asset } from '../../js/utils/url.js';
-import { DATA_PATHS } from '../../js/core/config.js';
+import { DATA_PATHS, LIMITS } from '../../js/core/config.js';
 import { showConfirmModal } from '../../components/ui/confirm-modal/confirm-modal.js';
 import { joinForum, getForumStatus, incrementMemberCount, getLiveMemberCount } from '../../js/services/forum-access.js';
+import { getUsersForContext } from '../../js/data/dummy-users.js';
 import { CourseChatBlock, initCourseChat } from '../../components/ui/course-chat/course-chat.js';
 injectStyle('/features/detail/detail.css');
 
@@ -22,6 +23,23 @@ function CreatorBlock(creator) {
   `;
 }
 
+function renderParticipantAvatars(users) {
+  const colors = ['#007aff', '#5856d6', '#34c759', '#ff9f0a', '#ff3b30', '#af52de'];
+  return (users || []).map(u => {
+    const name = u.firstName || 'User';
+    const initial = name.charAt(0).toUpperCase();
+    const color = colors[name.length % colors.length];
+    const imgSrc = u.image || '';
+    if (imgSrc) {
+      const fallbackSvg = encodeURIComponent(
+        `<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"><rect width="35" height="35" rx="17.5" fill="${color}"/><text x="17.5" y="22" text-anchor="middle" fill="white" font-size="15" font-weight="700">${initial}</text></svg>`
+      );
+      return `<img class="dtl-participant-avatar" src="${imgSrc}" alt="${name}" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml,${fallbackSvg}'" />`;
+    }
+    return `<div class="dtl-participant-avatar" style="background:${color}">${initial}</div>`;
+  }).join('');
+}
+
 export async function Open() {
   const params = getHashParams();
   const index = parseInt(params.get('index'), 10) || 0;
@@ -29,6 +47,9 @@ export async function Open() {
   const res = await fetch(asset(DATA_PATHS.DETAIL));
   const data = await res.json();
   const item = data[index] ?? data[0];
+
+  const participantsCount = Math.min(item.participants?.joined || 0, LIMITS.MAX_ACTIVE_MEMBERS);
+  const users = participantsCount > 0 ? await getUsersForContext(index, participantsCount) : [];
 
   const statusClass = item.course.status === 'Online' ? 'is-online' : 'is-offline';
 
@@ -115,11 +136,7 @@ export async function Open() {
                 <span class="dtl-participants__count">${participantsLive.joined} bergabung</span>
               </div>
               <div class="dtl-participants__avatars">
-                ${(participantsLive.dummies || []).map(n => {
-                  const colors = ['#007aff','#5856d6','#34c759','#ff9f0a','#ff3b30','#af52de'];
-                  const c = colors[n.length % colors.length];
-                  return `<div class="dtl-participant-avatar" style="background:${c}">${n.charAt(0).toUpperCase()}</div>`;
-                }).join('')}
+                ${renderParticipantAvatars(users)}
               </div>
             </div>
           </div>
@@ -163,8 +180,6 @@ export async function Open() {
           const liveCount = getLiveMemberCount(index, item.participants.joined);
           const participantsSection = el.querySelector('.dtl-participants');
           if (participantsSection) {
-            const dummies = item.participants.dummies || [];
-            const colors = ['#007aff','#5856d6','#34c759','#ff9f0a','#ff3b30','#af52de'];
             participantsSection.innerHTML = `
               <div class="dtl-participants__header">
                 <div class="dtl-participants__title">
@@ -174,10 +189,7 @@ export async function Open() {
                 <span class="dtl-participants__count">${liveCount} bergabung</span>
               </div>
               <div class="dtl-participants__avatars">
-                ${dummies.map(n => {
-                  const c = colors[n.length % colors.length];
-                  return `<div class="dtl-participant-avatar" style="background:${c}">${n.charAt(0).toUpperCase()}</div>`;
-                }).join('')}
+                ${renderParticipantAvatars(users)}
               </div>
             `;
           }

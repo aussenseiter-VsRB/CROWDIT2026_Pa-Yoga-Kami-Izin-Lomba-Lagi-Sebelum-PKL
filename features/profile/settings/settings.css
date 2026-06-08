@@ -1,3 +1,5 @@
+/* --- Header --- */
+
 .m-settings {
   max-width: 500px;
   margin: 0 auto;
@@ -9,7 +11,10 @@
 }
 
 @media (min-width: 901px) {
-  .m-settings { max-width: 620px; padding: 3rem 2rem 5rem; }
+  .m-settings {
+    max-width: 620px;
+    padding: 3rem 2rem 5rem;
+  }
 }
 
 .m-settings__header {
@@ -47,6 +52,8 @@
   color: var(--text);
   margin: 0;
 }
+
+/* --- Settings Items --- */
 
 .m-settings__section {
   margin-bottom: 1.5rem;
@@ -95,12 +102,29 @@
   font-size: 0.9rem;
 }
 
-.m-settings__item-icon--blue { background: var(--accent-alt); }
-.m-settings__item-icon--green { background: var(--success); }
-.m-settings__item-icon--orange { background: #d97706; }
-.m-settings__item-icon--purple { background: #7c3aed; }
-.m-settings__item-icon--gray { background: var(--muted); }
-.m-settings__item-icon--red { background: var(--accent-2); }
+.m-settings__item-icon--blue {
+  background: var(--accent-alt);
+}
+
+.m-settings__item-icon--green {
+  background: var(--success);
+}
+
+.m-settings__item-icon--orange {
+  background: #d97706;
+}
+
+.m-settings__item-icon--purple {
+  background: #7c3aed;
+}
+
+.m-settings__item-icon--gray {
+  background: var(--muted);
+}
+
+.m-settings__item-icon--red {
+  background: var(--accent-2);
+}
 
 .m-settings__item-body {
   flex: 1;
@@ -120,51 +144,6 @@
   margin-top: 0.05rem;
   color: var(--muted-alt);
   font-size: 0.75rem;
-}
-
-.m-settings__toggle {
-  position: relative;
-  display: inline-flex;
-  width: 2.4rem;
-  height: 1.4rem;
-  flex-shrink: 0;
-}
-
-.m-settings__toggle input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.m-settings__toggle-slider {
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  background: var(--surface-dim);
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.m-settings__toggle-slider::before {
-  content: '';
-  position: absolute;
-  left: 0.12rem;
-  top: 0.12rem;
-  width: 1.16rem;
-  height: 1.16rem;
-  border-radius: 50%;
-  background: #fff;
-  transition: transform 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-}
-
-.m-settings__toggle input:checked + .m-settings__toggle-slider {
-  background: var(--accent);
-}
-
-.m-settings__toggle input:checked + .m-settings__toggle-slider::before {
-  transform: translateX(1rem);
 }
 
 .m-settings__item-chevron {

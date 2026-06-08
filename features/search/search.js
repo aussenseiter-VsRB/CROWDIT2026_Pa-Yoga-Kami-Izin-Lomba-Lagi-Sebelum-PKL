@@ -5,6 +5,8 @@ import { DATA_PATHS, LIMITS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/search/search.css');
+injectStyle('/features/search/_search-bar.css');
+injectStyle('/features/search/_search-card.css');
 
 function escape(str) {
   return String(str).replace(/[&<>"']/g, c =>

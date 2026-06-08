@@ -3,7 +3,9 @@ import { fetchData } from '../../js/utils/api.js';
 import { MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
+injectStyle('/css/_shared-activity.css');
 injectStyle('/features/notifications/notifications.css');
+injectStyle('/features/notifications/_notifications-card.css');
 import { getUnreadNotifications, getAllNotifications, markAsRead, markAllAsRead, getUnreadCount } from '../../js/services/notifications.js';
 
 function timeAgo(dateStr) {

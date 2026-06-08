@@ -1,0 +1,133 @@
+/* --- Activity List --- */
+.mobile-activity {
+  margin-bottom: 1.5rem;
+}
+
+.mobile-activity-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+/* --- Activity Item --- */
+.mobile-activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.85rem;
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
+}
+
+.mobile-activity-icon {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.55rem;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.mobile-activity-icon--blue { background: var(--accent-alt); }
+
+.mobile-activity-icon--green { background: var(--success); }
+
+.mobile-activity-icon--orange { background: #d97706; }
+
+.mobile-activity-icon--purple { background: #7c3aed; }
+
+.mobile-activity-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-activity-title {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.mobile-activity-desc {
+  display: block;
+  margin-top: 0.05rem;
+  color: var(--muted-alt);
+  font-size: 0.75rem;
+}
+
+.mobile-activity-time {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* --- Notifications --- */
+.mobile-notif {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.85rem;
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
+}
+
+.mobile-notif--unread {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+}
+
+.mobile-notif__icon {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.55rem;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.mobile-notif__icon--blue { background: var(--accent-alt); }
+
+.mobile-notif__icon--green { background: var(--success); }
+
+.mobile-notif__icon--orange { background: #d97706; }
+
+.mobile-notif__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-notif__title {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.mobile-notif__desc {
+  display: block;
+  margin-top: 0.1rem;
+  color: var(--muted-alt);
+  font-size: 0.8rem;
+}
+
+.mobile-notif__time {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-top: 0.15rem;
+}

@@ -6,6 +6,7 @@ import { getTheme, toggleTheme } from '../../../js/core/theme.js';
 import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 
 injectStyle('/features/profile/settings/settings.css');
+injectStyle('/features/profile/settings/_settings-toggle.css');
 
 function icon(name) {
   const map = {

@@ -1,0 +1,71 @@
+/* --- Forum card --- */
+.dtl-forum-card {
+  display: grid;
+  grid-template-columns:
+    1fr
+    1fr;
+  gap: 1rem;
+}
+
+.dtl-forum-card__stat {
+  text-align: center;
+  padding: 0.85rem;
+  border-radius: var(--radius-sm);
+  background: rgba(26, 26, 26, 0.03);
+}
+
+.dtl-forum-card__stat-value {
+  display: block;
+  color: var(--text);
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.dtl-forum-card__stat-label {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* --- Join button --- */
+.dtl-join-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-height: 3.2rem;
+  padding: 0 1.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    transform var(--transition),
+    background-color var(--transition);
+}
+
+.dtl-join-btn svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.dtl-join-btn:hover {
+  transform: translateY(-1px);
+  background: #0066d6;
+}
+
+.dtl-join-btn--joined {
+  background: var(--success);
+}
+
+.dtl-join-btn--joined:hover {
+  background: #2db84e;
+}

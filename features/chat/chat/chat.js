@@ -3,6 +3,7 @@ import { fetchData } from '../../../js/utils/api.js';
 import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
+injectStyle('/css/_shared-chat.css');
 injectStyle('/features/chat/chat/chat.css');
 import { PageHeader } from '../../../components/shared/page-header/page-header.js';
 import { Card } from '../../../components/ui/card/card.js';
