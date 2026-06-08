@@ -33,7 +33,7 @@ Aplikasi ini dikembangkan dengan dedikasi penuh oleh:
 | Nama | Peran (Role) | GitHub |
 | --- | --- | --- |
 | **Raissa Adhi Pratama** | Full Stack Developer | [@aussenseiter-VsRB](https://github.com/aussenseiter-VsRB) |
-| **Al Hasby Rafsanjani** | Full Developer | [@al-hasby](https://github.com/al-hasby) |
+| **Al Hasby Rafsanjani** | Full Stack Developer | [@al-hasby](https://github.com/al-hasby) |
 | **Fatan Nur Rizqi** | UI/UX Desainer | [@max-tantan](https://github.com/max-tantan) |
 
 ---
