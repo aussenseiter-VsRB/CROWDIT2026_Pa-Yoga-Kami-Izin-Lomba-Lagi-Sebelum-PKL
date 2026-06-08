@@ -15,6 +15,7 @@ export const STORAGE_KEYS = {
   BIO: 'studnow_bio',
   PRIVACY: 'studnow_privacy',
   ACTIVITIES: 'studnow_activities',
+  BLOCKED_USERS: 'studnow_blocked_users',
 };
 
 export const API = {

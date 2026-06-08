@@ -44,7 +44,7 @@ export async function Footer() {
     </div>
   `;
 
-  const isAuthRoute = () => ['/login', '/signup'].includes(getHashPath());
+  const isAuthRoute = () => ['/login', '/signup', '/dm'].includes(getHashPath());
 
   const syncVisibility = () => {
     el.style.display = isAuthRoute() ? 'none' : '';

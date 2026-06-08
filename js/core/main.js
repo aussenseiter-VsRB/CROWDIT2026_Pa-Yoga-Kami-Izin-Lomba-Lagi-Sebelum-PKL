@@ -30,7 +30,7 @@ async function init() {
 
   function toggleFooter() {
     const path = getHashPath();
-    const hide = ['/login', '/signup'].includes(path);
+    const hide = ['/login', '/signup', '/dm'].includes(path);
     document.querySelector('#footer').classList.toggle('is-hidden', hide);
   }
 

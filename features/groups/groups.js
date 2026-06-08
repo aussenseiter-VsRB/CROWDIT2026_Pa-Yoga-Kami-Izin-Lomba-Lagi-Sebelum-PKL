@@ -1,5 +1,6 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
+import { isAuthenticated } from '../../js/services/auth.js';
 import { DATA_PATHS, LIMITS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
@@ -119,9 +120,10 @@ function renderMobile(data) {
         <h1>${data.hero.title}</h1>
         <p>${data.hero.description}</p>
         <div class="mobile-page__actions">
-          ${data.hero.actions.map((action) => `
-            <a class="mobile-page__action is-${action.variant}" href="${action.href}" data-link>${action.label}</a>
-          `).join('')}
+          ${data.hero.actions.map((action) => {
+            const label = !isAuthenticated() && action.href === '/signup' ? 'Sign up' : action.label;
+            return `<a class="mobile-page__action is-${action.variant}" href="${action.href}" data-link>${label}</a>`;
+          }).join('')}
         </div>
       </header>
       <div class="mobile-list">

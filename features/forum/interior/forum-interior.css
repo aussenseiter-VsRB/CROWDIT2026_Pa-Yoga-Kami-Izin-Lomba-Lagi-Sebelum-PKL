@@ -16,6 +16,7 @@
   border-left: 1px solid var(--surface-hover, #e5e5ea);
   padding: 0.75rem;
   overflow-y: auto;
+  min-height: 0;
 }
 
 .forum-layout .forum-active-members__header {

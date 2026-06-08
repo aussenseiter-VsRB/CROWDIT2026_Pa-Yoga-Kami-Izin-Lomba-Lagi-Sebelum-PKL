@@ -4,7 +4,7 @@ import { getSession, isAuthenticated, logout, navigateAfterAuth, getUsers } from
 import { getHashParams, navigateTo } from '../../../js/utils/url.js';
 import { TambahMinat } from '../../../components/shared/tambah-minat/tambah-minat.js';
 import { showQrModal } from '../../../components/ui/qr-modal/qr-modal.js';
-import { isFollowing, toggleFollowUser, getFollowingCount, getFollowersCount, getFriends } from '../../../js/services/follow.js';
+import { isFollowing, toggleFollowUser, getFollowingCount, getFollowersCount, getFriends, isBlocked, blockUser, unblockUser } from '../../../js/services/follow.js';
 import { STORAGE_KEYS, DEFAULTS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
@@ -23,6 +23,17 @@ function getInterests() {
 
 function saveInterests(interests) {
   localStorage.setItem(INTERESTS_KEY, JSON.stringify(interests));
+  const s = getSession();
+  if (s?.email) localStorage.setItem(INTERESTS_KEY + '_' + s.email, JSON.stringify(interests));
+}
+
+function getOtherUserBio(email) {
+  return localStorage.getItem(BIO_KEY + '_' + email) || '';
+}
+
+function getOtherUserInterests(email) {
+  const stored = localStorage.getItem(INTERESTS_KEY + '_' + email);
+  return stored ? JSON.parse(stored) : [];
 }
 
 function getAvatar() {
@@ -43,6 +54,8 @@ function getBio() {
 
 function saveBio(text) {
   localStorage.setItem(BIO_KEY, text);
+  const s = getSession();
+  if (s?.email) localStorage.setItem(BIO_KEY + '_' + s.email, text);
 }
 
 function getPrivacy() {
@@ -163,8 +176,11 @@ function renderDesktop() {
     const initial = profileUser.name.charAt(0).toUpperCase();
     const storedAvatar = localStorage.getItem(AVATAR_KEY + '_' + profileUser.email);
     const isFollowed = isFollowing(session?.email, profileUser.email);
+    const isUserBlocked = isBlocked(session?.email, profileUser.email);
     const followingCount = getFollowingCount(profileUser.email);
     const followersCount = getFollowersCount(profileUser.email);
+    const otherBio = getOtherUserBio(profileUser.email);
+    const otherInterests = getOtherUserInterests(profileUser.email);
 
     const el = document.createElement('section');
     el.className = 'd-profile';
@@ -183,9 +199,10 @@ function renderDesktop() {
             <div class="d-profile__bar-info">
               <h1 class="d-profile__name">${profileUser.name}</h1>
               <p class="d-profile__email">${profileUser.email}</p>
-            </div>
-            <div style="display:flex;align-items:center;gap:0.75rem">
-              <button class="d-profile__follow-btn" id="js-follow-btn" data-following="${isFollowed}" style="padding:0.5rem 1.25rem;border-radius:999px;border:none;font-weight:700;font-size:0.85rem;cursor:pointer;background:${isFollowed ? 'var(--border-color)' : 'var(--accent)'};color:${isFollowed ? 'var(--text)' : '#fff'};transition:all 0.15s">${isFollowed ? 'Mengikuti' : 'Ikuti'}</button>
+              <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;margin-top:0.5rem">
+                <button class="d-profile__follow-btn" id="js-follow-btn" data-following="${isFollowed}" style="padding:0.5rem 1.25rem;border-radius:999px;border:none;font-weight:700;font-size:0.85rem;cursor:pointer;background:${isFollowed ? 'var(--border-color)' : 'var(--accent)'};color:${isFollowed ? 'var(--text)' : '#fff'};transition:all 0.15s">${isFollowed ? 'Mengikuti' : 'Ikuti'}</button>
+                <button class="d-profile__block-btn" id="js-block-btn" data-blocked="${isUserBlocked}" style="padding:0.5rem 1.25rem;border-radius:999px;border:1px solid var(--border-color);font-weight:600;font-size:0.85rem;cursor:pointer;background:transparent;color:${isUserBlocked ? 'var(--accent)' : '#ff3b30'};transition:all 0.15s">${isUserBlocked ? 'Buka blokir' : 'Blokir'}</button>
+              </div>
             </div>
             <div class="d-profile__bar-stats">
               <div class="d-profile__stat"><span class="d-profile__stat-value">0</span><span class="d-profile__stat-label">Postingan</span></div>
@@ -198,14 +215,23 @@ function renderDesktop() {
             <div class="d-profile__bio-header">
               <span class="d-profile__bio-label">Tentang Saya</span>
             </div>
-            <div class="d-profile__bio-text d-profile__bio-text--empty">Belum ada bio</div>
+            <div class="d-profile__bio-text ${otherBio ? '' : 'd-profile__bio-text--empty'}">${otherBio || 'Belum ada bio'}</div>
           </div>
+          ${otherInterests.length ? `
+          <div class="tm" style="margin-top:1rem">
+            <p class="tm__section-title">Learning Interest</p>
+            <div class="tm__tags">
+              ${otherInterests.map(i => `<span class="tm__tag">${i}</span>`).join('')}
+            </div>
+          </div>
+          ` : ''}
         </div>
       </div>
     `;
 
     if (session) {
       const followBtn = el.querySelector('#js-follow-btn');
+      const blockBtn = el.querySelector('#js-block-btn');
       const statEls = el.querySelectorAll('.d-profile__stat-value');
       const followersStat = statEls[2];
       const followingStat = statEls[1];
@@ -219,6 +245,22 @@ function renderDesktop() {
         followingStat.textContent = getFollowingCount(profileUser.email);
         window.dispatchEvent(new CustomEvent('follow-update'));
       });
+      if (blockBtn) {
+        blockBtn.addEventListener('click', () => {
+          const nowBlocked = blockBtn.dataset.blocked === 'true';
+          if (nowBlocked) {
+            unblockUser(session.email, profileUser.email);
+            blockBtn.textContent = 'Blokir';
+            blockBtn.style.color = '#ff3b30';
+            blockBtn.dataset.blocked = 'false';
+          } else {
+            blockUser(session.email, profileUser.email);
+            blockBtn.textContent = 'Buka blokir';
+            blockBtn.style.color = 'var(--accent)';
+            blockBtn.dataset.blocked = 'true';
+          }
+        });
+      }
     }
 
     return el;
@@ -433,9 +475,11 @@ function renderDesktop() {
       <div class="d-profile__bio-text ${savedText ? '' : 'd-profile__bio-text--empty'}">${savedText || 'Tambahkan bio singkat...'}</div>
     `;
     bioEl.querySelector('.d-profile__bio-edit').addEventListener('click', enterBioEdit);
+    bioEl.querySelector('.d-profile__bio-text').addEventListener('click', enterBioEdit);
   }
 
   bioEditBtn.addEventListener('click', enterBioEdit);
+  bioText.addEventListener('click', enterBioEdit);
 
   const tmContainer = el.querySelector('.d-profile__tambah-minat');
   const tmComponent = TambahMinat({
@@ -542,8 +586,11 @@ function renderMobile() {
     const avatarColors = ['#007aff', '#5856d6', '#34c759', '#ff9f0a', '#ff3b30', '#af52de', '#5ac8fa', '#ff9500'];
     const color = avatarColors[profileUser.name.length % avatarColors.length];
     const isFollowed = isFollowing(session?.email, profileUser.email);
+    const isUserBlocked = isBlocked(session?.email, profileUser.email);
     const followingCount = getFollowingCount(profileUser.email);
     const followersCount = getFollowersCount(profileUser.email);
+    const otherBio = getOtherUserBio(profileUser.email);
+    const otherInterests = getOtherUserInterests(profileUser.email);
 
     const el = document.createElement('section');
     el.className = 'm-profile';
@@ -559,6 +606,7 @@ function renderMobile() {
         </div>
         <div style="display:flex;gap:0.6rem;margin-bottom:1rem">
           <button class="m-profile__follow-btn" id="js-follow-btn" data-following="${isFollowed}" style="flex:1;padding:0.6rem;border-radius:999px;border:none;font-weight:700;font-size:0.85rem;cursor:pointer;background:${isFollowed ? 'var(--border-color)' : 'var(--accent)'};color:${isFollowed ? 'var(--text)' : '#fff'};transition:all 0.15s">${isFollowed ? 'Mengikuti' : 'Ikuti'}</button>
+          <button class="m-profile__block-btn" id="js-mobile-block-btn" data-blocked="${isUserBlocked}" style="padding:0.6rem 1rem;border-radius:999px;border:1px solid var(--border-color);font-weight:600;font-size:0.85rem;cursor:pointer;background:transparent;color:${isUserBlocked ? 'var(--accent)' : '#ff3b30'};transition:all 0.15s;white-space:nowrap">${isUserBlocked ? 'Buka blokir' : 'Blokir'}</button>
         </div>
         <div class="m-profile__stats" style="margin-bottom:1.5rem">
           <div class="m-profile__stat"><span class="m-profile__stat-value">0</span><span class="m-profile__stat-label">Postingan</span></div>
@@ -569,13 +617,22 @@ function renderMobile() {
           <div class="mobile-bio__header">
             <span class="mobile-bio__label">Tentang Saya</span>
           </div>
-          <div class="mobile-bio__text mobile-bio__text--empty">Belum ada bio</div>
+          <div class="mobile-bio__text ${otherBio ? '' : 'mobile-bio__text--empty'}">${otherBio || 'Belum ada bio'}</div>
         </div>
+        ${otherInterests.length ? `
+        <div class="m-profile__interests" style="margin-top:1rem">
+          <p class="m-profile__section-title">Learning Interest</p>
+          <div class="m-profile__tags">
+            ${otherInterests.map(i => `<span class="m-profile__tag">${i}</span>`).join('')}
+          </div>
+        </div>
+        ` : ''}
       </div>
     `;
 
     if (session) {
       const followBtn = el.querySelector('#js-follow-btn');
+      const blockBtn = el.querySelector('#js-mobile-block-btn');
       const statEls = el.querySelectorAll('.m-profile__stat-value');
       const followersStat = statEls[2];
       followBtn.addEventListener('click', () => {
@@ -587,6 +644,22 @@ function renderMobile() {
         followersStat.textContent = getFollowersCount(profileUser.email);
         window.dispatchEvent(new CustomEvent('follow-update'));
       });
+      if (blockBtn) {
+        blockBtn.addEventListener('click', () => {
+          const nowBlocked = blockBtn.dataset.blocked === 'true';
+          if (nowBlocked) {
+            unblockUser(session.email, profileUser.email);
+            blockBtn.textContent = 'Blokir';
+            blockBtn.style.color = '#ff3b30';
+            blockBtn.dataset.blocked = 'false';
+          } else {
+            blockUser(session.email, profileUser.email);
+            blockBtn.textContent = 'Buka blokir';
+            blockBtn.style.color = 'var(--accent)';
+            blockBtn.dataset.blocked = 'true';
+          }
+        });
+      }
     }
 
     return el;
@@ -838,9 +911,12 @@ function renderMobile() {
       <div class="mobile-bio__text ${savedText ? '' : 'mobile-bio__text--empty'}">${savedText || 'Tambahkan bio singkat...'}</div>
     `;
     bioSection.querySelector('#js-bio-edit').addEventListener('click', enterBioEdit);
+    bioSection.querySelector('.mobile-bio__text').addEventListener('click', enterBioEdit);
   }
 
   bioEditBtn.addEventListener('click', enterBioEdit);
+  const bioTextEl = bioSection.querySelector('.mobile-bio__text');
+  if (bioTextEl) bioTextEl.addEventListener('click', enterBioEdit);
 
   const privacyToggle = el.querySelector('#js-privacy-toggle');
   const privacyLabel = el.querySelector('#js-privacy-label');

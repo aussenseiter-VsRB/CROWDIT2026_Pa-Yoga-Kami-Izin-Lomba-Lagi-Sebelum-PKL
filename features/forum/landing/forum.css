@@ -93,6 +93,7 @@
   flex: 1;
   overflow-y: auto;
   padding-bottom: 0.5rem;
+  min-height: 0;
 }
 
 /* ── Main Content ── */

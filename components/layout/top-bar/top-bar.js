@@ -32,7 +32,7 @@ export function TopBar() {
             ${unread > 0 ? `<span class="top-bar__notif-dot"></span>` : ''}
           </a>
           <a class="top-bar__create" href="/signup" data-link>
-            <span id="js-topbar-label">Create</span>
+            <span id="js-topbar-label">Log-in</span>
           </a>
         </div>
       </div>
@@ -61,3 +61,4 @@ export function TopBar() {
 
   return el;
 }
+

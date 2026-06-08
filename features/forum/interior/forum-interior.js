@@ -502,10 +502,6 @@ function renderMobile(el, opts) {
             `).join('')}
           ` : ''}
         </div>
-        ${members.length ? `
-          <p class="mobile-section-title">Anggota (${members.length})</p>
-          <div class="forum-member-list">${renderMemberList()}</div>
-        ` : ''}
         <div class="forum-active-panel">
           ${renderActiveMembers()}
         </div>
@@ -755,11 +751,10 @@ export async function ForumInterior() {
   }
 
   const el = document.createElement('section');
-  el.className = 'container';
   el.style.display = 'flex';
   el.style.flexDirection = 'column';
-  el.style.minHeight = '0';
-  el.style.flex = '1';
+  el.style.height = 'calc(100vh - 4.75rem)';
+  el.style.overflow = 'hidden';
   el.style.padding = '0 1.5rem';
   el.style.margin = '0.75rem 0 0';
   renderDesktop(el, { serverName, channels, members, memberCount, memberLimit, forumIndex, activeChannel, backLink, forumId, forumType, activeUsers });

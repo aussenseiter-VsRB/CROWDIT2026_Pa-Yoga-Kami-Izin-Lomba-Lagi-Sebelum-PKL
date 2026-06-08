@@ -2,6 +2,7 @@ import { isAuthenticated, getSession } from '../../../js/services/auth.js';
 import { getUnreadCount } from '../../../js/services/notifications.js';
 import { injectStyle } from '../../../js/utils/styleLoader.js';
 import { getHashPath } from '../../../js/utils/url.js';
+import { STORAGE_KEYS } from '../../../js/core/config.js';
 
 function getBadgeCount() {
   try { return getUnreadCount(); } catch { return 0; }
@@ -53,7 +54,11 @@ export function Navbar() {
 
     if (isAuthenticated()) {
       const session = getSession();
-      authEl.textContent = session.name;
+      const avatarSrc = localStorage.getItem(STORAGE_KEYS.AVATAR);
+      const initial = session.name.charAt(0).toUpperCase();
+      authEl.innerHTML = avatarSrc
+        ? `<img src="${avatarSrc}" alt="" style="width:1.6rem;height:1.6rem;border-radius:50%;object-fit:cover;flex-shrink:0"> ${session.name}`
+        : `<span style="display:inline-flex;align-items:center;justify-content:center;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--accent);color:#fff;font-size:0.7rem;font-weight:700;flex-shrink:0">${initial}</span> ${session.name}`;
       authEl.href = '/profile';
       authEl.classList.remove('navbar-action--primary');
     } else {

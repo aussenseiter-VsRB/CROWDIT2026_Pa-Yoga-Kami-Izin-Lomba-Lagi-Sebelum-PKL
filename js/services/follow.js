@@ -84,3 +84,42 @@ export function getFollowersCount(email) {
 export function getAllUserFollows() {
   return getFollows();
 }
+
+// Block/unblock
+const BLOCK_KEY = STORAGE_KEYS.BLOCKED_USERS;
+
+function getBlocks() {
+  const stored = localStorage.getItem(BLOCK_KEY);
+  return stored ? JSON.parse(stored) : [];
+}
+
+function saveBlocks(blocks) {
+  localStorage.setItem(BLOCK_KEY, JSON.stringify(blocks));
+}
+
+export function blockUser(blockerEmail, blockedEmail) {
+  if (blockerEmail === blockedEmail) return false;
+  if (isBlocked(blockerEmail, blockedEmail)) return false;
+  const blocks = getBlocks();
+  blocks.push({ blocker: blockerEmail, blocked: blockedEmail, blockedAt: new Date().toISOString() });
+  saveBlocks(blocks);
+  return true;
+}
+
+export function unblockUser(blockerEmail, blockedEmail) {
+  const blocks = getBlocks().filter(b => !(b.blocker === blockerEmail && b.blocked === blockedEmail));
+  saveBlocks(blocks);
+  return true;
+}
+
+export function isBlocked(blockerEmail, blockedEmail) {
+  return getBlocks().some(b => b.blocker === blockerEmail && b.blocked === blockedEmail);
+}
+
+export function getBlockedEmails(email) {
+  return getBlocks().filter(b => b.blocker === email).map(b => b.blocked);
+}
+
+export function getBlockerEmails(email) {
+  return getBlocks().filter(b => b.blocked === email).map(b => b.blocker);
+}
