@@ -139,6 +139,52 @@
   color: var(--text);
 }
 
+.dtl-creator {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.dtl-creator__avatar {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.dtl-creator__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.dtl-creator__name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.dtl-creator__username {
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-top: 0.05rem;
+}
+
+.dtl-creator__bio {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.3rem;
+  line-height: 1.45;
+}
+
 .dtl-schedule {
   display: grid;
   gap: 1rem;

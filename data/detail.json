@@ -49,7 +49,12 @@
         "text": "Nanti kita bahas bareng aja pas sesi",
         "time": "2025-06-07T09:22:00.000Z"
       }
-    ]
+    ],
+    "creator": {
+      "name": "Dr. Ahmad Fauzi",
+      "username": "@ahmadfauzi",
+      "bio": "Dosen Matematika UI, spesialisasi kalkulus lanjut dan analisis vektor."
+    }
   },
   {
     "course": {
@@ -110,7 +115,12 @@
         "text": "Wawancara kerja pasti sering nanya ini",
         "time": "2025-06-06T14:10:00.000Z"
       }
-    ]
+    ],
+    "creator": {
+      "name": "Raka Pratama",
+      "username": "@rakaprtm",
+      "bio": "Mahasiswa Ilmu Komputer UI angkatan 2022."
+    }
   },
   {
     "course": {
@@ -168,7 +178,12 @@
         "text": "Siap, nanti saya baca dulu",
         "time": "2025-06-05T19:30:00.000Z"
       }
-    ]
+    ],
+    "creator": {
+      "name": "Dr. Budi Santoso",
+      "username": "@budisantoso",
+      "bio": "Dosen Filsafat UI, peneliti pemikiran Kant."
+    }
   },
   {
     "course": {
@@ -214,7 +229,12 @@
         "text": "Siap, catatan juga udah siap",
         "time": "2025-06-08T07:10:00.000Z"
       }
-    ]
+    ],
+    "creator": {
+      "name": "Sari Dewi",
+      "username": "@saridewi",
+      "bio": "Guru Kimia SMA Negeri 8 Jakarta."
+    }
   },
   {
     "course": {
@@ -290,7 +310,12 @@
         "text": "Aku bawa latihan soal tambahan",
         "time": "2025-06-04T20:30:00.000Z"
       }
-    ]
+    ],
+    "creator": {
+      "name": "Dimas Aulia",
+      "username": "@dimasaulia",
+      "bio": "Siswa SMA Labschool, juara olimpiade matematika."
+    }
   },
   {
     "course": {
@@ -364,7 +389,12 @@
         "text": "Ada proyek mini juga katanya, seru!",
         "time": "2025-06-03T10:15:00.000Z"
       }
-    ]
+    ],
+    "creator": {
+      "name": "Maya Putri",
+      "username": "@mayaputri",
+      "bio": "Data Analyst, belajar ML untuk pengembangan karir."
+    }
   },
   {
     "course": {
@@ -428,7 +458,12 @@
         "text": "Saya bawa camilan!",
         "time": "2025-06-02T18:25:00.000Z"
       }
-    ]
+    ],
+    "creator": {
+      "name": "William Kusuma",
+      "username": "@williamk",
+      "bio": "Mahasiswa Sastra Inggris UI, pegiat teater."
+    }
   },
   {
     "course": {
@@ -516,7 +551,12 @@
         "text": "Siap boss!",
         "time": "2025-06-01T15:40:00.000Z"
       }
-    ]
+    ],
+    "creator": {
+      "name": "Prof. Albert Gunawan",
+      "username": "@albertgun",
+      "bio": "Guru besar Fisika ITB, spesialis mekanika klasik."
+    }
   },
   {
     "course": {
@@ -586,7 +626,12 @@
         "text": "Makasih!",
         "time": "2025-05-31T13:25:00.000Z"
       }
-    ]
+    ],
+    "creator": {
+      "name": "Nia Rahmawati",
+      "username": "@niarahma",
+      "bio": "Guru Sosiologi SMA Negeri 3 Bandung."
+    }
   },
   {
     "course": {
@@ -686,6 +731,11 @@
         "text": "Gas kita belajar bareng!",
         "time": "2025-05-30T20:50:00.000Z"
       }
-    ]
+    ],
+    "creator": {
+      "name": "Rina Amalia",
+      "username": "@rinaamalia",
+      "bio": "Penulis lepas dan content creator."
+    }
   }
 ]

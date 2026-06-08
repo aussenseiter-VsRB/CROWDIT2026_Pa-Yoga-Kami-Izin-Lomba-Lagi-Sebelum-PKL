@@ -104,6 +104,22 @@ function MeetingBlock(meeting, status) {
   `;
 }
 
+function CreatorBlock(creator) {
+  const colors = ['#007aff', '#5856d6', '#34c759', '#ff9f0a', '#ff3b30', '#af52de'];
+  const initial = creator.name.charAt(0).toUpperCase();
+  const color = colors[creator.name.length % colors.length];
+  return `
+    <div class="dtl-creator">
+      <div class="dtl-creator__avatar" style="background:${color}">${initial}</div>
+      <div class="dtl-creator__info">
+        <div class="dtl-creator__name">${creator.name}</div>
+        <div class="dtl-creator__username">${creator.username}</div>
+        <div class="dtl-creator__bio">${creator.bio}</div>
+      </div>
+    </div>
+  `;
+}
+
 function ParticipantsBlock(participants) {
   const colors = ['#007aff', '#5856d6', '#34c759', '#ff9f0a', '#ff3b30', '#af52de'];
   const dummies = participants.dummies || [];
@@ -172,6 +188,13 @@ export async function Detail() {
 
       <div class="dtl-grid">
         <div class="dtl-grid__left">
+          <div class="dtl-section">
+            <h2 class="dtl-section__title">
+              <i class="bi bi-person-badge"></i> Dibuat oleh
+            </h2>
+            ${CreatorBlock(item.creator)}
+          </div>
+
           <div class="dtl-section">
             <h2 class="dtl-section__title">Jadwal Pertemuan</h2>
             ${ScheduleBlock(item.schedule)}
