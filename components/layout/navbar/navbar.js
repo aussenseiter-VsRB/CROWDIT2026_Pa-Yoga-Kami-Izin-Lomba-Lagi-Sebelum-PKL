@@ -70,8 +70,11 @@ export function Navbar() {
 
   function setActive() {
     const path = getHashPath();
+    const profileSubPages = ['/settings', '/edit-profile'];
     el.querySelectorAll('.navbar-nav a, .navbar-actions a').forEach((a) => {
-      a.classList.toggle('active', a.getAttribute('href') === path);
+      const href = a.getAttribute('href');
+      const isMatch = href === path || (href === '/profile' && profileSubPages.includes(path));
+      a.classList.toggle('active', isMatch);
     });
     el.style.display = isAuthRoute() ? 'none' : '';
     syncAuth();

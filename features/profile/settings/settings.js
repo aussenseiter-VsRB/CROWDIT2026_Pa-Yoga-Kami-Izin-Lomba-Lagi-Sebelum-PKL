@@ -2,24 +2,12 @@ import { injectStyle } from '../../../js/utils/styleLoader.js';
 import { fetchData } from '../../../js/utils/api.js';
 import { isAuthenticated, navigateAfterAuth } from '../../../js/services/auth.js';
 import { navigateTo } from '../../../js/utils/url.js';
-import { getTheme, toggleTheme } from '../../../js/core/theme.js';
-import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
+import { DATA_PATHS } from '../../../js/core/config.js';
+import { sectionKey } from './settings-shared.js';
+import { Sidebar } from './sidebar/sidebar.js';
+import { ContentPanel } from './content-area/content.js';
 
 injectStyle('/features/profile/settings/settings.css');
-
-function icon(name) {
-  const map = {
-    'arrow-left': 'bi-arrow-left', 'bell': 'bi-bell', 'lock': 'bi-lock',
-    'moon': 'bi-moon', 'globe2': 'bi-globe2', 'trash': 'bi-trash',
-    'chevron-right': 'bi-chevron-right', 'shield-check': 'bi-shield-check',
-  };
-  return `<i class="bi ${map[name] || 'bi-' + name}"></i>`;
-}
-
-function iconColor(style) {
-  const map = { blue: '#007aff', orange: '#ff9f0a', purple: '#5856d6', green: '#34c759', gray: '#8e8e93', red: '#ff3b30' };
-  return map[style] || '#8e8e93';
-}
 
 export async function Settings() {
   if (!isAuthenticated()) {
@@ -31,96 +19,45 @@ export async function Settings() {
   const el = document.createElement('section');
   el.className = 'm-settings';
 
+  const versionHtml = `<p class="m-settings__version">${data.version}</p>`;
+
   el.innerHTML = `
     <div class="m-settings__header">
-      <button class="m-settings__back" type="button" aria-label="Kembali">${icon('arrow-left')}</button>
+      <button class="m-settings__back" type="button" aria-label="Kembali"><i class="bi bi-arrow-left"></i></button>
       <h1 class="m-settings__title">${data.header.title}</h1>
     </div>
-
-    ${data.sections.map(section => `
-      <div class="m-settings__section">
-        <p class="m-settings__section-title">${section.title}</p>
-        <div class="m-settings__card">
-          ${section.items.map(item => {
-            const bg = iconColor(item.iconStyle);
-            if (item.type === 'toggle') {
-              return `
-                <label class="m-settings__item">
-                  <span class="m-settings__item-icon" style="background:${bg}">${icon(item.icon)}</span>
-                  <span class="m-settings__item-body">
-                    <span class="m-settings__item-label">${item.label}</span>
-                    <span class="m-settings__item-desc">${item.desc}</span>
-                  </span>
-                  <span class="m-settings__toggle">
-                    <input type="checkbox" ${item.defaultChecked ? 'checked' : ''} />
-                    <span class="m-settings__toggle-slider"></span>
-                  </span>
-                </label>
-              `;
-            }
-            if (item.type === 'toggle-theme') {
-              return `
-                <label class="m-settings__item">
-                  <span class="m-settings__item-icon" style="background:${bg}">${icon(item.icon)}</span>
-                  <span class="m-settings__item-body">
-                    <span class="m-settings__item-label">${item.label}</span>
-                    <span class="m-settings__item-desc">${item.desc}</span>
-                  </span>
-                  <span class="m-settings__toggle">
-                    <input type="checkbox" id="settings-dark-mode" />
-                    <span class="m-settings__toggle-slider"></span>
-                  </span>
-                </label>
-              `;
-            }
-            if (item.type === 'delete') {
-              return `
-                <button class="m-settings__item" type="button" id="js-delete-account">
-                  <span class="m-settings__item-icon" style="background:${bg}">${icon(item.icon)}</span>
-                  <span class="m-settings__item-body">
-                    <span class="m-settings__item-label">${item.label}</span>
-                    <span class="m-settings__item-desc">${item.desc}</span>
-                  </span>
-                  <span class="m-settings__item-chevron">${icon('chevron-right')}</span>
-                </button>
-              `;
-            }
-            return `
-              <button class="m-settings__item" type="button">
-                <span class="m-settings__item-icon" style="background:${bg}">${icon(item.icon)}</span>
-                <span class="m-settings__item-body">
-                  <span class="m-settings__item-label">${item.label}</span>
-                  <span class="m-settings__item-desc">${item.desc}</span>
-                </span>
-                <span class="m-settings__item-chevron">${icon('chevron-right')}</span>
-              </button>
-            `;
-          }).join('')}
-        </div>
-      </div>
-    `).join('')}
-
-    <p style="text-align:center;font-size:0.75rem;color:var(--muted-alt);margin-top:2rem">${data.version}</p>
+    <div class="m-settings__layout" id="settings-layout"></div>
   `;
 
   el.querySelector('.m-settings__back').addEventListener('click', () => navigateTo('/profile'));
 
-  const darkToggle = el.querySelector('#settings-dark-mode');
-  if (darkToggle) {
-    darkToggle.checked = getTheme() === 'dark';
-    darkToggle.addEventListener('change', toggleTheme);
+  const layout = el.querySelector('#settings-layout');
+
+  const firstKey = sectionKey(data.sections[0].title);
+
+  const sidebar = Sidebar({ sections: data.sections, activeKey: firstKey, onSwitch });
+  layout.appendChild(sidebar.element);
+
+  const panel = document.createElement('div');
+  panel.className = 'm-settings__panel';
+  const contentPanel = ContentPanel();
+  panel.appendChild(contentPanel.element);
+  panel.insertAdjacentHTML('beforeend', versionHtml);
+  layout.appendChild(panel);
+
+  window.addEventListener('theme-change', (e) => {
+    const cb = el.querySelector('#settings-dark-mode');
+    if (cb) cb.checked = e.detail === 'dark';
+  });
+
+  function onSwitch(key) {
+    const section = data.sections.find(s => sectionKey(s.title) === key);
+    if (!section) return;
+    sidebar.setActive(key);
+    contentPanel.render(section);
   }
 
-  const deleteBtn = el.querySelector('#js-delete-account');
-  if (deleteBtn) {
-    deleteBtn.addEventListener('click', () => {
-      if (confirm(data.confirmDelete)) {
-        localStorage.clear();
-        sessionStorage.clear();
-        navigateTo('/');
-      }
-    });
-  }
+  contentPanel.render(data.sections[0]);
 
   return el;
 }
