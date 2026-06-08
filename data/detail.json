@@ -21,7 +21,12 @@
     },
     "participants": {
       "joined": 3,
-      "capacity": 6
+      "capacity": 6,
+      "dummies": [
+        "Alex",
+        "Bella",
+        "Charlie"
+      ]
     },
     "forum": {
       "joinLink": "/groups",
@@ -51,7 +56,21 @@
     },
     "participants": {
       "joined": 12,
-      "capacity": 15
+      "capacity": 15,
+      "dummies": [
+        "Diana",
+        "Evan",
+        "Fiona",
+        "George",
+        "Hannah",
+        "Ivan",
+        "Julia",
+        "Kevin",
+        "Luna",
+        "Miles",
+        "Nina",
+        "Oscar"
+      ]
     },
     "forum": {
       "joinLink": "/groups",
@@ -81,7 +100,13 @@
     },
     "participants": {
       "joined": 4,
-      "capacity": 8
+      "capacity": 8,
+      "dummies": [
+        "Paul",
+        "Quinn",
+        "Rina",
+        "Sam"
+      ]
     },
     "forum": {
       "joinLink": "/groups",
@@ -111,7 +136,11 @@
     },
     "participants": {
       "joined": 2,
-      "capacity": 4
+      "capacity": 4,
+      "dummies": [
+        "Tara",
+        "Uma"
+      ]
     },
     "forum": {
       "joinLink": "/groups",
@@ -141,7 +170,16 @@
     },
     "participants": {
       "joined": 7,
-      "capacity": 10
+      "capacity": 10,
+      "dummies": [
+        "Vince",
+        "Wina",
+        "Xander",
+        "Yara",
+        "Zoe",
+        "Amir",
+        "Bina"
+      ]
     },
     "forum": {
       "joinLink": "/groups",
@@ -171,7 +209,29 @@
     },
     "participants": {
       "joined": 20,
-      "capacity": 30
+      "capacity": 30,
+      "dummies": [
+        "Ciro",
+        "Dina",
+        "Elio",
+        "Fina",
+        "Gito",
+        "Hana",
+        "Ical",
+        "Jina",
+        "Kito",
+        "Lina",
+        "Mito",
+        "Nina",
+        "Oka",
+        "Pina",
+        "Qito",
+        "Rina",
+        "Sita",
+        "Tito",
+        "Uli",
+        "Vito"
+      ]
     },
     "forum": {
       "joinLink": "/groups",
@@ -201,7 +261,14 @@
     },
     "participants": {
       "joined": 5,
-      "capacity": 12
+      "capacity": 12,
+      "dummies": [
+        "Wira",
+        "Xita",
+        "Yuni",
+        "Zaki",
+        "Alin"
+      ]
     },
     "forum": {
       "joinLink": "/groups",
@@ -231,7 +298,18 @@
     },
     "participants": {
       "joined": 9,
-      "capacity": 14
+      "capacity": 14,
+      "dummies": [
+        "Bani",
+        "Cita",
+        "Dodi",
+        "Eka",
+        "Fani",
+        "Gina",
+        "Hadi",
+        "Ira",
+        "Joni"
+      ]
     },
     "forum": {
       "joinLink": "/groups",
@@ -261,7 +339,15 @@
     },
     "participants": {
       "joined": 6,
-      "capacity": 8
+      "capacity": 8,
+      "dummies": [
+        "Kira",
+        "Lani",
+        "Mira",
+        "Nadi",
+        "Oni",
+        "Pani"
+      ]
     },
     "forum": {
       "joinLink": "/groups",
@@ -291,7 +377,20 @@
     },
     "participants": {
       "joined": 11,
-      "capacity": 11
+      "capacity": 11,
+      "dummies": [
+        "Qila",
+        "Rani",
+        "Soni",
+        "Tia",
+        "Uki",
+        "Vani",
+        "Wani",
+        "Xena",
+        "Yani",
+        "Zian",
+        "Boni"
+      ]
     },
     "forum": {
       "joinLink": "/groups",

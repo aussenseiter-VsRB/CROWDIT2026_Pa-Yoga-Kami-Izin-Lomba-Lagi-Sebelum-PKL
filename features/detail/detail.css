@@ -180,6 +180,25 @@
   font-weight: 600;
 }
 
+.dtl-participants__avatars {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.dtl-participant-avatar {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
 .dtl-schedule__badge {
   display: inline-flex;
   align-items: center;
@@ -315,30 +334,25 @@
   font-weight: 600;
 }
 
-.dtl-participants__bar {
-  width: 100%;
-  height: 0.5rem;
-  border-radius: 999px;
-  background: rgba(26, 26, 26, 0.08);
-  overflow: hidden;
+.dtl-participants__avatars {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-.dtl-participants__bar-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: var(--accent);
-  transition: width 0.4s ease;
+.dtl-participant-avatar {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
-.dtl-participants__avail {
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 600;
-}
-
-.dtl-participants__avail.is-full {
-  color: var(--accent-2);
-}
 
 .dtl-forum-card {
   display: grid;

@@ -82,16 +82,20 @@ export async function Open() {
         <div class="dtl-grid__right">
           <div class="dtl-section">
             <h2 class="dtl-section__title">Partisipan</h2>
-            <div class="dtl-participants">
+            <div class="dtl-participants" id="open-participants-${index}">
               <div class="dtl-participants__header">
                 <div class="dtl-participants__title">
                   <i class="bi bi-people"></i>
                   <span>Partisipan</span>
                 </div>
-                <span class="dtl-participants__count">${participantsLive.joined}/${participantsLive.capacity} bergabung</span>
+                <span class="dtl-participants__count">${participantsLive.joined} bergabung</span>
               </div>
-              <div class="dtl-participants__bar">
-                <div class="dtl-participants__bar-fill" style="width:${Math.round((participantsLive.joined / participantsLive.capacity) * 100)}%"></div>
+              <div class="dtl-participants__avatars">
+                ${(participantsLive.dummies || []).map(n => {
+                  const colors = ['#007aff','#5856d6','#34c759','#ff9f0a','#ff3b30','#af52de'];
+                  const c = colors[n.length % colors.length];
+                  return `<div class="dtl-participant-avatar" style="background:${c}">${n.charAt(0).toUpperCase()}</div>`;
+                }).join('')}
               </div>
             </div>
           </div>
@@ -125,17 +129,21 @@ export async function Open() {
           const liveCount = getLiveMemberCount(index, item.participants.joined);
           const participantsSection = el.querySelector('.dtl-participants');
           if (participantsSection) {
-            const pct = Math.round((liveCount / item.participants.capacity) * 100);
+            const dummies = item.participants.dummies || [];
+            const colors = ['#007aff','#5856d6','#34c759','#ff9f0a','#ff3b30','#af52de'];
             participantsSection.innerHTML = `
               <div class="dtl-participants__header">
                 <div class="dtl-participants__title">
                   <i class="bi bi-people"></i>
                   <span>Partisipan</span>
                 </div>
-                <span class="dtl-participants__count">${liveCount}/${item.participants.capacity} bergabung</span>
+                <span class="dtl-participants__count">${liveCount} bergabung</span>
               </div>
-              <div class="dtl-participants__bar">
-                <div class="dtl-participants__bar-fill" style="width:${pct}%"></div>
+              <div class="dtl-participants__avatars">
+                ${dummies.map(n => {
+                  const c = colors[n.length % colors.length];
+                  return `<div class="dtl-participant-avatar" style="background:${c}">${n.charAt(0).toUpperCase()}</div>`;
+                }).join('')}
               </div>
             `;
           }

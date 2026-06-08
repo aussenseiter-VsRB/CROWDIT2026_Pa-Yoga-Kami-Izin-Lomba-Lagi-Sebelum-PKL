@@ -33,6 +33,7 @@ function iconExternal() {
   return '<i class="bi bi-box-arrow-up-right"></i>';
 }
 
+
 function ScheduleBlock(schedule) {
   return `
     <div class="dtl-schedule">
@@ -103,7 +104,13 @@ function MeetingBlock(meeting, status) {
 }
 
 function ParticipantsBlock(participants) {
-  const pct = Math.round((participants.joined / participants.capacity) * 100);
+  const colors = ['#007aff', '#5856d6', '#34c759', '#ff9f0a', '#ff3b30', '#af52de'];
+  const dummies = participants.dummies || [];
+  const dummyList = dummies.map(name => {
+    const initial = name.charAt(0).toUpperCase();
+    const color = colors[name.length % colors.length];
+    return `<div class="dtl-participant-avatar" style="background:${color}">${initial}</div>`;
+  });
   return `
     <div class="dtl-participants">
       <div class="dtl-participants__header">
@@ -111,16 +118,10 @@ function ParticipantsBlock(participants) {
           ${iconPeople()}
           <span>Partisipan</span>
         </div>
-        <span class="dtl-participants__count">${participants.joined}/${participants.capacity} bergabung</span>
+        <span class="dtl-participants__count">${participants.joined} bergabung</span>
       </div>
-      <div class="dtl-participants__bar">
-        <div class="dtl-participants__bar-fill" style="width:${pct}%"></div>
-      </div>
-      <div class="dtl-participants__avail ${participants.joined >= participants.capacity ? 'is-full' : ''}">
-        ${participants.joined >= participants.capacity
-          ? 'Kelas penuh'
-          : `${participants.capacity - participants.joined} kursi tersedia`
-        }
+      <div class="dtl-participants__avatars">
+        ${dummyList.join('')}
       </div>
     </div>
   `;

@@ -1,11 +1,30 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
 import { asset } from '../../js/utils/url.js';
-import { initForumUsers, AvatarStackHtml, populateStacks } from '../forum/interior/forum-interior.js';
 import { DATA_PATHS, LIMITS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
+import { getLiveMemberCount } from '../../js/services/forum-access.js';
 
 injectStyle('/features/home/home.css');
-injectStyle('/features/forum/_members.css');
+
+function ParticipantBar(participants) {
+  const joined = participants?.joined || 0;
+  const capacity = participants?.capacity || LIMITS.DEFAULT_MEMBER_LIMIT;
+  const pct = capacity > 0 ? Math.round((joined / capacity) * 100) : 0;
+  return `
+    <div class="home-participants">
+      <div class="home-participants__header">
+        <span class="home-participants__label">
+          <i class="bi bi-people"></i>
+          ${joined} peserta
+        </span>
+        <span class="home-participants__pct">${pct}%</span>
+      </div>
+      <div class="home-participants__bar">
+        <div class="home-participants__bar-fill" style="width:${pct}%"></div>
+      </div>
+    </div>
+  `;
+}
 
 function ForumCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
@@ -27,7 +46,7 @@ function ForumCard(forum, index) {
       <p>${forum.description}</p>
 
       <div class="home-forum-card__footer">
-        ${AvatarStackHtml(forum.memberCount || 0, forum.memberLimit || LIMITS.DEFAULT_MEMBER_LIMIT, index)}
+        ${ParticipantBar(forum.participants)}
         <a class="home-action is-primary" href="${actionHref}" data-link>
           ${forum.action}
         </a>
@@ -53,7 +72,7 @@ function mForumCard(forum, index) {
       <p>${forum.description}</p>
 
       <div class="m-home-forum-card__footer">
-        ${AvatarStackHtml(forum.memberCount || 0, forum.memberLimit || LIMITS.DEFAULT_MEMBER_LIMIT, index)}
+        ${ParticipantBar(forum.participants)}
         <a class="m-home-action is-primary" href="${actionHref}" data-link>
           ${forum.action}
         </a>
@@ -161,42 +180,42 @@ function renderMobile(data) {
   return el;
 }
 
-function mergeCourseData(forum, course, forumCourse) {
+function mergeCourseData(forum, course, participants, index) {
+  const liveJoined = getLiveMemberCount(index, participants?.joined || 0);
   return {
     ...forum,
     title: course?.title || forum.title || 'Forum',
     description: course?.description || forum.description || '',
     status: course?.status || forum.status || 'Online',
-    memberCount: forumCourse?.memberCount || forum.memberCount || 0,
-    memberLimit: forumCourse?.memberLimit || forum.memberLimit || LIMITS.DEFAULT_MEMBER_LIMIT,
+    participants: {
+      joined: liveJoined,
+      capacity: participants?.capacity || LIMITS.DEFAULT_MEMBER_LIMIT,
+    },
   };
 }
 
 export async function Home() {
-  const usersPromise = initForumUsers();
   try {
-    const [homeData, detailData, forumData] = await Promise.all([
+    const [homeData, detailData] = await Promise.all([
       fetchData(DATA_PATHS.HOME),
       fetch(asset(DATA_PATHS.DETAIL)).then(r => r.json()),
-      fetch(asset(DATA_PATHS.FORUM)).then(r => r.json()),
     ]);
 
     const data = {
       ...homeData,
       forums: homeData.forums.map((f, i) =>
-        mergeCourseData(f, detailData[i]?.course, forumData.courses[i])
+        mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i)
       ),
       mobile: {
         ...homeData.mobile,
         forums: homeData.mobile.forums.map((f, i) =>
-          mergeCourseData(f, detailData[i]?.course, forumData.courses[i])
+          mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i)
         ),
       },
     };
 
     const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const el = isMobile ? renderMobile(data) : renderDesktop(data);
-    usersPromise.then(() => populateStacks(el));
     return el;
   } catch (err) {
     const el = document.createElement('section');
