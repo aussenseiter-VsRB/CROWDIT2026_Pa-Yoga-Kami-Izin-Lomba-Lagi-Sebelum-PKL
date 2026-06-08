@@ -1,0 +1,119 @@
+.course-chat-messages {
+  max-height: 260px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.25rem 0;
+  scroll-behavior: smooth;
+  margin-bottom: 0.75rem;
+}
+
+.course-chat-messages:empty {
+  display: none;
+}
+
+.course-chat-bubble {
+  max-width: 90%;
+  padding: 0.45rem 0.7rem;
+  border-radius: 12px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  position: relative;
+}
+
+.course-chat-bubble--them {
+  align-self: flex-start;
+  background: var(--surface-alt);
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+}
+
+.course-chat-bubble--me {
+  align-self: flex-end;
+  background: var(--accent);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.course-chat-bubble__name {
+  font-size: 0.68rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+  opacity: 0.8;
+}
+
+.course-chat-bubble--me .course-chat-bubble__name {
+  color: rgba(255,255,255,0.85);
+}
+
+.course-chat-bubble--them .course-chat-bubble__name {
+  color: var(--accent);
+}
+
+.course-chat-bubble__text {
+  font-size: 0.85rem;
+}
+
+.course-chat-bubble__time {
+  font-size: 0.58rem;
+  opacity: 0.55;
+  margin-top: 0.15rem;
+  text-align: right;
+}
+
+.course-chat-compose {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.course-chat-input {
+  flex: 1;
+  border: 1px solid var(--border-color);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-size: 0.85rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+  outline: none;
+  font-family: inherit;
+}
+
+.course-chat-input::placeholder {
+  color: var(--muted-alt);
+}
+
+.course-chat-send {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+
+.course-chat-send:active {
+  opacity: 0.7;
+}
+
+.course-chat-empty {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.82rem;
+  padding: 1.25rem 0;
+}
+
+.course-chat-loading {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.82rem;
+  padding: 1rem 0;
+}

@@ -32,7 +32,24 @@
       "joinLink": "/groups",
       "memberCount": 3,
       "postCount": 24
-    }
+    },
+    "chats": [
+      {
+        "name": "Alex",
+        "text": "Halo teman-teman, ada yang butuh bantuan soal integral lipat dua?",
+        "time": "2025-06-07T09:15:00.000Z"
+      },
+      {
+        "name": "Bella",
+        "text": "Saya! Masih bingung sama medan vektor nih",
+        "time": "2025-06-07T09:20:00.000Z"
+      },
+      {
+        "name": "Alex",
+        "text": "Nanti kita bahas bareng aja pas sesi",
+        "time": "2025-06-07T09:22:00.000Z"
+      }
+    ]
   },
   {
     "course": {
@@ -76,7 +93,24 @@
       "joinLink": "/groups",
       "memberCount": 12,
       "postCount": 56
-    }
+    },
+    "chats": [
+      {
+        "name": "Diana",
+        "text": "Ada yang udah coba soal pohon biner?",
+        "time": "2025-06-06T14:00:00.000Z"
+      },
+      {
+        "name": "Evan",
+        "text": "Belum, tapi penasaran sama dynamic programming",
+        "time": "2025-06-06T14:05:00.000Z"
+      },
+      {
+        "name": "Fiona",
+        "text": "Wawancara kerja pasti sering nanya ini",
+        "time": "2025-06-06T14:10:00.000Z"
+      }
+    ]
   },
   {
     "course": {
@@ -112,7 +146,29 @@
       "joinLink": "/groups",
       "memberCount": 4,
       "postCount": 18
-    }
+    },
+    "chats": [
+      {
+        "name": "Paul",
+        "text": "Selamat datang di grup diskusi Kant!",
+        "time": "2025-06-05T19:00:00.000Z"
+      },
+      {
+        "name": "Quinn",
+        "text": "Apakah kita perlu baca bab 2 dulu?",
+        "time": "2025-06-05T19:15:00.000Z"
+      },
+      {
+        "name": "Rina",
+        "text": "Iya, biar diskusinya lebih nyambung",
+        "time": "2025-06-05T19:20:00.000Z"
+      },
+      {
+        "name": "Sam",
+        "text": "Siap, nanti saya baca dulu",
+        "time": "2025-06-05T19:30:00.000Z"
+      }
+    ]
   },
   {
     "course": {
@@ -146,7 +202,19 @@
       "joinLink": "/groups",
       "memberCount": 2,
       "postCount": 9
-    }
+    },
+    "chats": [
+      {
+        "name": "Tara",
+        "text": "Jangan lupa bawa jas lab ya!",
+        "time": "2025-06-08T07:00:00.000Z"
+      },
+      {
+        "name": "Uma",
+        "text": "Siap, catatan juga udah siap",
+        "time": "2025-06-08T07:10:00.000Z"
+      }
+    ]
   },
   {
     "course": {
@@ -185,7 +253,44 @@
       "joinLink": "/groups",
       "memberCount": 7,
       "postCount": 32
-    }
+    },
+    "chats": [
+      {
+        "name": "Vince",
+        "text": "Siapa yang udah selesai soal eigenvalue?",
+        "time": "2025-06-04T20:00:00.000Z"
+      },
+      {
+        "name": "Wina",
+        "text": "Saya masih setengah jalan",
+        "time": "2025-06-04T20:05:00.000Z"
+      },
+      {
+        "name": "Xander",
+        "text": "Mari kita bahas besok sebelum sesi",
+        "time": "2025-06-04T20:10:00.000Z"
+      },
+      {
+        "name": "Yara",
+        "text": "Setuju! Butuh banget refresh",
+        "time": "2025-06-04T20:15:00.000Z"
+      },
+      {
+        "name": "Zoe",
+        "text": "Saya baru mulai, tolong sabar ya \ud83d\ude05",
+        "time": "2025-06-04T20:20:00.000Z"
+      },
+      {
+        "name": "Amir",
+        "text": "Gas kita belajar bareng!",
+        "time": "2025-06-04T20:25:00.000Z"
+      },
+      {
+        "name": "Bina",
+        "text": "Aku bawa latihan soal tambahan",
+        "time": "2025-06-04T20:30:00.000Z"
+      }
+    ]
   },
   {
     "course": {
@@ -237,7 +342,29 @@
       "joinLink": "/groups",
       "memberCount": 20,
       "postCount": 87
-    }
+    },
+    "chats": [
+      {
+        "name": "Ciro",
+        "text": "Hallo semua! Ada yang baru pertama kali belajar ML?",
+        "time": "2025-06-03T10:00:00.000Z"
+      },
+      {
+        "name": "Dina",
+        "text": "Saya! Masih awam banget",
+        "time": "2025-06-03T10:05:00.000Z"
+      },
+      {
+        "name": "Elio",
+        "text": "Santai aja, kita belajar dari dasar",
+        "time": "2025-06-03T10:10:00.000Z"
+      },
+      {
+        "name": "Fina",
+        "text": "Ada proyek mini juga katanya, seru!",
+        "time": "2025-06-03T10:15:00.000Z"
+      }
+    ]
   },
   {
     "course": {
@@ -274,7 +401,34 @@
       "joinLink": "/groups",
       "memberCount": 5,
       "postCount": 14
-    }
+    },
+    "chats": [
+      {
+        "name": "Wira",
+        "text": "Siap-siap diskusi drama minggu ini!",
+        "time": "2025-06-02T18:00:00.000Z"
+      },
+      {
+        "name": "Xita",
+        "text": "Saya sudah baca, keren banget",
+        "time": "2025-06-02T18:10:00.000Z"
+      },
+      {
+        "name": "Yuni",
+        "text": "Ada yang bisa jelasin akt 3?",
+        "time": "2025-06-02T18:15:00.000Z"
+      },
+      {
+        "name": "Zaki",
+        "text": "Nanti kita bahas bareng aja",
+        "time": "2025-06-02T18:20:00.000Z"
+      },
+      {
+        "name": "Alin",
+        "text": "Saya bawa camilan!",
+        "time": "2025-06-02T18:25:00.000Z"
+      }
+    ]
   },
   {
     "course": {
@@ -315,7 +469,54 @@
       "joinLink": "/groups",
       "memberCount": 9,
       "postCount": 41
-    }
+    },
+    "chats": [
+      {
+        "name": "Bani",
+        "text": "Latihan soal mekanika Newton siapa yang mau?",
+        "time": "2025-06-01T15:00:00.000Z"
+      },
+      {
+        "name": "Cita",
+        "text": "Saya, butuh banget drill soal",
+        "time": "2025-06-01T15:05:00.000Z"
+      },
+      {
+        "name": "Dodi",
+        "text": "Dinamika rotasi agak bikin pusing",
+        "time": "2025-06-01T15:10:00.000Z"
+      },
+      {
+        "name": "Eka",
+        "text": "Kita pecah per bagian aja belajarnya",
+        "time": "2025-06-01T15:15:00.000Z"
+      },
+      {
+        "name": "Fani",
+        "text": "Siap! Saya catat poin-poin penting",
+        "time": "2025-06-01T15:20:00.000Z"
+      },
+      {
+        "name": "Gina",
+        "text": "Semangat ujiannya!",
+        "time": "2025-06-01T15:25:00.000Z"
+      },
+      {
+        "name": "Hadi",
+        "text": "Gas!",
+        "time": "2025-06-01T15:30:00.000Z"
+      },
+      {
+        "name": "Ira",
+        "text": "Jangan lupa bawa kalkulator",
+        "time": "2025-06-01T15:35:00.000Z"
+      },
+      {
+        "name": "Joni",
+        "text": "Siap boss!",
+        "time": "2025-06-01T15:40:00.000Z"
+      }
+    ]
   },
   {
     "course": {
@@ -353,7 +554,39 @@
       "joinLink": "/groups",
       "memberCount": 6,
       "postCount": 22
-    }
+    },
+    "chats": [
+      {
+        "name": "Kira",
+        "text": "Ada yang udah paham regresi?",
+        "time": "2025-05-31T13:00:00.000Z"
+      },
+      {
+        "name": "Lani",
+        "text": "Masih belajar, agak rumit",
+        "time": "2025-05-31T13:05:00.000Z"
+      },
+      {
+        "name": "Mira",
+        "text": "Contoh pakai data survei bikin lebih mudah",
+        "time": "2025-05-31T13:10:00.000Z"
+      },
+      {
+        "name": "Nadi",
+        "text": "Bisa share dataset-nya?",
+        "time": "2025-05-31T13:15:00.000Z"
+      },
+      {
+        "name": "Oni",
+        "text": "Nanti saya share linknya",
+        "time": "2025-05-31T13:20:00.000Z"
+      },
+      {
+        "name": "Pani",
+        "text": "Makasih!",
+        "time": "2025-05-31T13:25:00.000Z"
+      }
+    ]
   },
   {
     "course": {
@@ -396,6 +629,63 @@
       "joinLink": "/groups",
       "memberCount": 11,
       "postCount": 63
-    }
+    },
+    "chats": [
+      {
+        "name": "Qila",
+        "text": "Selamat datang di lokakarya penulisan!",
+        "time": "2025-05-30T20:00:00.000Z"
+      },
+      {
+        "name": "Rani",
+        "text": "Ada yang bawa cerita pendek?",
+        "time": "2025-05-30T20:05:00.000Z"
+      },
+      {
+        "name": "Soni",
+        "text": "Saya bawa puisi, boleh dikritik",
+        "time": "2025-05-30T20:10:00.000Z"
+      },
+      {
+        "name": "Tia",
+        "text": "Seru! Saya juga bawa cerita",
+        "time": "2025-05-30T20:15:00.000Z"
+      },
+      {
+        "name": "Uki",
+        "text": "Mari kita saling memberi masukan",
+        "time": "2025-05-30T20:20:00.000Z"
+      },
+      {
+        "name": "Vani",
+        "text": "Siap! Saya sudah siapin draft",
+        "time": "2025-05-30T20:25:00.000Z"
+      },
+      {
+        "name": "Wani",
+        "text": "Aku juga pengen baca karya kalian",
+        "time": "2025-05-30T20:30:00.000Z"
+      },
+      {
+        "name": "Xena",
+        "text": "Makasih semuanya!",
+        "time": "2025-05-30T20:35:00.000Z"
+      },
+      {
+        "name": "Yani",
+        "text": "Semoga dapet feedback yang membangun",
+        "time": "2025-05-30T20:40:00.000Z"
+      },
+      {
+        "name": "Zian",
+        "text": "Aamiin!",
+        "time": "2025-05-30T20:45:00.000Z"
+      },
+      {
+        "name": "Boni",
+        "text": "Gas kita belajar bareng!",
+        "time": "2025-05-30T20:50:00.000Z"
+      }
+    ]
   }
 ]

@@ -3,6 +3,7 @@ import { getHashParams, asset } from '../../js/utils/url.js';
 import { DATA_PATHS } from '../../js/core/config.js';
 import { showConfirmModal } from '../../components/ui/confirm-modal/confirm-modal.js';
 import { joinForum, getForumStatus, incrementMemberCount, getLiveMemberCount } from '../../js/services/forum-access.js';
+import { CourseChatBlock, initCourseChat } from '../../components/ui/course-chat/course-chat.js';
 injectStyle('/features/detail/detail.css');
 
 export async function Open() {
@@ -100,6 +101,13 @@ export async function Open() {
             </div>
           </div>
 
+          <div class="dtl-section">
+            <h2 class="dtl-section__title">
+              <i class="bi bi-chat-dots"></i> Live Chat
+            </h2>
+            ${CourseChatBlock(index, item.chats)}
+          </div>
+
           ${isJoined
             ? `<a class="dtl-join-btn dtl-join-btn--joined" href="/forum?index=${index}" data-link>
                 <i class="bi bi-check-circle"></i>
@@ -114,6 +122,9 @@ export async function Open() {
       </div>
     </div>
   `;
+
+  // Init course chat
+  initCourseChat(el, index, item.chats);
 
   if (!isJoined) {
     const joinBtn = el.querySelector('.dtl-join-btn');
