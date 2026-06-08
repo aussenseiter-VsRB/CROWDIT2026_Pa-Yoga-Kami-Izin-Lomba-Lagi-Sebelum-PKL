@@ -254,3 +254,73 @@
 .forum-cta--open:hover {
   opacity: 0.9;
 }
+
+/* --- Mobile Landing --- */
+
+.forum-landing-mobile__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.forum-landing-mobile__avatar {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 0.75rem;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.forum-landing-mobile__privacy {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+}
+
+.forum-landing-mobile__desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+
+.forum-landing-mobile__stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  color: var(--muted-alt);
+}
+
+.forum-landing-mobile__stats .forum-member-stack {
+  padding: 0;
+  border-bottom: none;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.forum-landing-mobile__stats .forum-member-avatars {
+  display: flex;
+  align-items: center;
+}
+
+.forum-landing-mobile__stats .forum-member-count {
+  margin-top: 0;
+  font-size: 0.82rem;
+}
+
+.mobile-page__hero .forum-back {
+  margin-bottom: 0.75rem;
+}

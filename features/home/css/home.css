@@ -126,6 +126,12 @@
 
 /* --- Responsive ≤360px --- */
 
+.home-error {
+  color: var(--muted);
+  padding: 2rem;
+  text-align: center;
+}
+
 @media (max-width: 360px) {
   .m-home-page__inner {
     padding-inline: 1rem;

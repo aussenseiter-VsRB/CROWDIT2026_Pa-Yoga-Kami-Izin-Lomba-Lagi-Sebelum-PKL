@@ -5,8 +5,8 @@ import { navigateTo } from '../../../js/utils/url.js';
 import { getTheme, toggleTheme } from '../../../js/core/theme.js';
 import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 
-injectStyle('/features/profile/settings/settings.css');
-injectStyle('/features/profile/settings/_settings-toggle.css');
+injectStyle('/features/profile/settings/css/settings.css');
+injectStyle('/features/profile/settings/css/_settings-toggle.css');
 
 function icon(name) {
   const map = {

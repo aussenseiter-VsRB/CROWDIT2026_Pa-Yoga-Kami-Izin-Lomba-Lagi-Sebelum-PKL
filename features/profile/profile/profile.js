@@ -13,9 +13,9 @@ injectStyle('/css/_shared-edit.css');
 injectStyle('/css/_shared-settings.css');
 injectStyle('/css/_shared-menu.css');
 injectStyle('/css/_shared-activity.css');
-injectStyle('/features/profile/profile/profile.css');
-injectStyle('/features/profile/profile/_profile-header.css');
-injectStyle('/features/profile/profile/_profile-panels.css');
+injectStyle('/features/profile/profile/css/profile.css');
+injectStyle('/features/profile/profile/css/_profile-header.css');
+injectStyle('/features/profile/profile/css/_profile-panels.css');
 
 const INTERESTS_KEY = STORAGE_KEYS.INTERESTS;
 const AVATAR_KEY = STORAGE_KEYS.AVATAR;

@@ -3,7 +3,7 @@ import { fetchData } from '../../js/utils/api.js';
 import { DATA_PATHS, TIMING, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
-injectStyle('/features/contact/contact.css');
+injectStyle('/features/contact/css/contact.css');
 import { PageHeader } from '../../components/shared/page-header/page-header.js';
 import { FormField } from '../../components/ui/form-field/form-field.js';
 import { Card } from '../../components/ui/card/card.js';
