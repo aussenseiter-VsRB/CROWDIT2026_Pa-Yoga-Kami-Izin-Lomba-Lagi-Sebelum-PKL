@@ -1,0 +1,31 @@
+{
+  "header": {
+    "eyebrow": "Help",
+    "title": "Bantuan",
+    "description": "Temukan jawaban untuk pertanyaan yang sering diajukan."
+  },
+  "searchPlaceholder": "Cari pertanyaan...",
+  "faqSectionTitle": "Pertanyaan Umum",
+  "contactSectionTitle": "Hubungi Kami",
+  "contacts": [
+    {
+      "label": "Email Support",
+      "description": "support@studnow.com",
+      "href": "mailto:support@studnow.com"
+    },
+    {
+      "label": "Form Kontak",
+      "description": "Kirim pesan langsung",
+      "href": "/contact",
+      "isRoute": true
+    }
+  ],
+  "faqs": [
+    { "q": "Bagaimana cara mendaftar?", "a": "Klik \"Daftar\" di halaman login, isi nama, email, dan password, lalu klik \"Daftar\". Akun Anda akan langsung aktif." },
+    { "q": "Bagaimana cara bergabung ke grup?", "a": "Buka halaman Grup, cari grup yang diinginkan, lalu klik \"Gabung\". Anda akan langsung menjadi anggota grup tersebut." },
+    { "q": "Bagaimana cara mengedit profil?", "a": "Buka halaman Profil, klik \"Edit Profil\" untuk mengubah nama, email, dan bio. Jangan lupa klik \"Simpan\" setelah selesai." },
+    { "q": "Apakah data saya aman?", "a": "Data Anda disimpan secara lokal di perangkat Anda. Kami tidak membagikan data Anda kepada pihak ketiga manapun." },
+    { "q": "Bagaimana cara menghubungi support?", "a": "Gunakan form \"Hubungi Kami\" di halaman Contact, atau kirim email ke support@studnow.com." },
+    { "q": "Bagaimana cara mengganti foto profil?", "a": "Buka halaman Profil, klik ikon kamera pada avatar, pilih foto dari galeri. Klik \"Simpan\" untuk menyimpan perubahan." }
+  ]
+}

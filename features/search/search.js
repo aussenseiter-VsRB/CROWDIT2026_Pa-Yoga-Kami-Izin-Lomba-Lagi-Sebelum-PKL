@@ -1,6 +1,7 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
-import { searchEngine } from '../../js/search.js';
+import { searchEngine } from '../../js/services/search.js';
+import { DATA_PATHS, LIMITS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/search/search.css');
@@ -32,13 +33,13 @@ function buildDiscoveryData(index) {
 
   const trendingTags = Object.entries(tagCounts)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 5)
+    .slice(0, LIMITS.MAX_TRENDING_TAGS)
     .map(([label, count]) => ({ label, count, icon: tagIcons[label] || 'fire' }));
 
   const seen = new Set();
   const suggested = [];
   for (const doc of index) {
-    if (suggested.length >= 6) break;
+    if (suggested.length >= LIMITS.MAX_SUGGESTED_ITEMS) break;
     if (seen.has(doc.title)) continue;
     seen.add(doc.title);
     suggested.push({
@@ -71,12 +72,12 @@ function TrendingCard(item, isMobile) {
     `;
   }
   return `
-    <article class="result-card" data-search="${escape(item.label)}" role="button" tabindex="0">
-      <div class="result-card__body" style="display:flex;align-items:center;gap:0.6rem;padding:0.7rem 1rem">
-        <div class="result-card__avatar result-card__avatar--blue" style="border-radius:0.5rem;width:1.7rem;height:1.7rem;font-size:0.8rem"><i class="bi bi-${item.icon}"></i></div>
+    <article class="mobile-card search-card" data-search="${escape(item.label)}" role="button" tabindex="0" style="cursor:pointer;padding:0.6rem 0.8rem">
+      <div style="display:flex;align-items:center;gap:0.55rem">
+        <div style="width:1.6rem;height:1.6rem;border-radius:0.45rem;display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0;background:var(--surface-alt)"><i class="bi bi-${item.icon}"></i></div>
         <div style="flex:1;min-width:0">
-          <p class="result-card__title" style="font-size:0.82rem;margin-bottom:0.05rem">${escape(item.label)}</p>
-          <p class="result-card__subtitle" style="font-size:0.7rem">${item.count} konten</p>
+          <p style="margin:0;font-size:0.82rem;font-weight:700;line-height:1.3">${escape(item.label)}</p>
+          <p style="margin:0;color:var(--muted-alt);font-size:0.68rem">${item.count} konten</p>
         </div>
       </div>
     </article>
@@ -107,22 +108,22 @@ function SuggestedCard(item, isMobile) {
     `;
   }
   return `
-    <a class="result-card" href="${item.url}" data-link>
-      <div class="result-card__body">
-        <div class="result-card__header">
-          <div class="result-card__avatar result-card__avatar--${item.color}"><i class="bi bi-${item.icon}"></i></div>
-          <div class="result-card__meta">
-            <p class="result-card__title">${escape(item.title)}</p>
-            <p class="result-card__subtitle">${escape(item.sub)}</p>
-          </div>
+    <a class="mobile-card search-card" href="${item.url}" data-link style="display:block;text-decoration:none;color:inherit">
+      <div style="display:flex;align-items:flex-start;gap:0.7rem;margin-bottom:0.5rem">
+        <div style="width:2.4rem;height:2.4rem;border-radius:0.7rem;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:var(--surface-alt)">
+          <i class="bi bi-${item.icon}"></i>
         </div>
-        <p class="result-card__desc">${escape(item.description)}</p>
-        <div class="result-card__footer">
-          <div class="result-card__tags">
-            ${item.tags.map(t => `<span class="badge">${escape(t)}</span>`).join('')}
-          </div>
-          <div class="result-card__stat">${escape(item.stat)}</div>
+        <div style="flex:1;min-width:0">
+          <p style="margin:0;font-size:0.95rem;font-weight:700;line-height:1.3">${escape(item.title)}</p>
+          <p style="margin:0;color:var(--muted-alt);font-size:0.78rem;font-weight:500">${escape(item.sub)}</p>
         </div>
+      </div>
+      <p style="margin:0 0 0.5rem;color:var(--muted-alt);font-size:0.88rem;line-height:1.5">${escape(item.description)}</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding-top:0.5rem;border-top:0.5px solid var(--surface-hover)">
+        <div style="display:flex;gap:0.35rem;flex-wrap:wrap">
+          ${item.tags.map(t => `<span style="padding:0.1rem 0.5rem;border-radius:6px;background:var(--surface-alt);color:var(--muted);font-size:0.68rem;font-weight:700">${escape(t)}</span>`).join('')}
+        </div>
+        <span style="color:var(--muted-alt);font-size:0.72rem;font-weight:600;flex-shrink:0">${escape(item.stat)}</span>
       </div>
     </a>
   `;
@@ -149,26 +150,21 @@ function ResultCard(item, query, isMobile) {
       </a>
     `;
   }
-  const tagClass = item.type === 'Forum' ? '' : item.type === 'Grup' ? 'result-card__tag--group' : 'result-card__tag--course';
   const isOnline = item.stat && item.stat.toLowerCase().includes('online');
   return `
-    <a class="result-card" href="${item.url}" data-link>
-      <div class="result-card__body">
-        <div class="result-card__top">
-          <span class="result-card__tag ${tagClass}">${item.type}</span>
-          ${item.meta ? `<span class="result-card__meta">${escape(item.meta)}</span>` : ''}
+    <a class="mobile-card search-card" href="${item.url}" data-link style="display:block;text-decoration:none;color:inherit">
+      <span class="mobile-card__tag">${item.type}</span>
+      ${item.meta ? `<p style="color:var(--muted-alt);font-size:0.78rem;margin:0.3rem 0 0.5rem">${escape(item.meta)}</p>` : ''}
+      <h2 style="margin:0 0 0.45rem;color:var(--text-secondary);font-size:1.12rem;font-weight:800;line-height:1.2;letter-spacing:0">${highlight(item.title, query)}</h2>
+      <p style="margin:0;color:var(--muted-alt);font-size:0.94rem;line-height:1.42">${highlight(item.description, query)}</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:0.5rem;padding-top:0.5rem;border-top:0.5px solid var(--surface-hover)">
+        <div style="display:flex;gap:0.35rem;flex-wrap:wrap">
+          ${(item.tags || []).map(t => {
+            const isMatch = query && t.toLowerCase().includes(query.toLowerCase());
+            return `<span style="padding:0.1rem 0.5rem;border-radius:6px;background:var(--surface-alt);color:${isMatch ? 'var(--accent)' : 'var(--muted)'};font-size:0.68rem;font-weight:700">${escape(t)}</span>`;
+          }).join('')}
         </div>
-        <p class="result-card__title">${highlight(item.title, query)}</p>
-        <p class="result-card__desc">${highlight(item.description, query)}</p>
-        <div class="result-card__footer">
-          <div class="result-card__tags">
-            ${(item.tags || []).map(t => {
-              const isMatch = query && t.toLowerCase().includes(query.toLowerCase());
-              return `<span class="badge${isMatch ? ' badge--match' : ''}">${escape(t)}</span>`;
-            }).join('')}
-          </div>
-          ${item.stat ? `<div class="result-card__stat">${isOnline ? '<span class="status-dot"></span>' : ''}${escape(item.stat)}</div>` : ''}
-        </div>
+        ${item.stat ? `<span style="display:flex;align-items:center;gap:0.25rem;color:var(--muted-alt);font-size:0.72rem;font-weight:600;flex-shrink:0">${isOnline ? '<span style="width:6px;height:6px;border-radius:50%;background:#34c759;display:inline-block"></span>' : ''}${escape(item.stat)}</span>` : ''}
       </div>
     </a>
   `;
@@ -452,9 +448,9 @@ export async function Search() {
 
   try {
     await searchEngine.init();
-    const data = await fetchData('/features/search/search.json');
+    const data = await fetchData(DATA_PATHS.SEARCH);
 
-    const isMobile = window.innerWidth <= 900;
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const pageEl = isMobile ? renderMobile(data) : renderDesktop(data);
     el.replaceWith(pageEl);
     return pageEl;

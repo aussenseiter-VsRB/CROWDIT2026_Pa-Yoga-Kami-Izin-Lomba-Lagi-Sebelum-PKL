@@ -1,11 +1,12 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
+import { DATA_PATHS, TIMING, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/contact/contact.css');
-import { PageHeader } from '../../components/page-header/page-header.js';
-import { FormField } from '../../components/form-field/form-field.js';
-import { Card } from '../../components/card/card.js';
+import { PageHeader } from '../../components/shared/page-header/page-header.js';
+import { FormField } from '../../components/ui/form-field/form-field.js';
+import { Card } from '../../components/ui/card/card.js';
 
 function renderDesktop(data) {
   const el = document.createElement('section');
@@ -40,6 +41,37 @@ function renderDesktop(data) {
   button.type = 'submit';
   button.textContent = data.submitText;
   form.appendChild(button);
+
+  const errorEl = document.createElement('p');
+  errorEl.className = 'contact-error';
+  errorEl.setAttribute('aria-live', 'polite');
+  errorEl.hidden = true;
+  form.prepend(errorEl);
+
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const inputs = form.querySelectorAll('input, textarea');
+    let valid = true;
+    inputs.forEach(inp => { if (!inp.value.trim()) valid = false; });
+    if (!valid) {
+      errorEl.textContent = 'Semua field harus diisi';
+      errorEl.hidden = false;
+      return;
+    }
+    errorEl.hidden = true;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Mengirim...';
+    setTimeout(() => {
+      submitBtn.textContent = 'Terkirim!';
+      form.reset();
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = data.submitText;
+      }, TIMING.CONTACT_SUCCESS_DURATION);
+    }, TIMING.CONTACT_SEND_DELAY);
+  });
 
   return el;
 }
@@ -101,8 +133,8 @@ function renderMobile(data) {
       setTimeout(() => {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Kirim Pesan';
-      }, 2000);
-    }, 500);
+      }, TIMING.CONTACT_SUCCESS_DURATION);
+    }, TIMING.CONTACT_SEND_DELAY);
   });
 
   return el;
@@ -115,9 +147,9 @@ export async function Contact() {
   el.innerHTML = `<p style="color:var(--muted)"><i class="bi bi-arrow-repeat"></i> Memuat...</p>`;
 
   try {
-    const data = await fetchData('/features/contact/contact.json');
+    const data = await fetchData(DATA_PATHS.CONTACT);
 
-    const isMobile = window.innerWidth <= 900;
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const pageEl = isMobile ? renderMobile(data) : renderDesktop(data);
     el.replaceWith(pageEl);
     return pageEl;

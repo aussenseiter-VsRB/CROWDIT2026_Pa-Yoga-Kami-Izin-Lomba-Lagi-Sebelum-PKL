@@ -1,0 +1,69 @@
+.forum-member-stack {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--surface-hover, #e5e5ea);
+  margin-bottom: 0.5rem;
+}
+
+.forum-member-avatars {
+  display: flex;
+  align-items: center;
+}
+
+.forum-member-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  flex-shrink: 0;
+}
+
+.forum-member-avatar + .forum-member-avatar {
+  margin-left: -8px;
+}
+
+.forum-member-count {
+  font-size: 0.78rem;
+  color: var(--muted, #6b7280);
+  font-weight: 600;
+  margin-top: 0.3rem;
+  display: block;
+}
+
+.home-forum-card .forum-member-stack {
+  padding: 0;
+  border-bottom: none;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.home-forum-card .forum-member-avatars {
+  display: flex;
+  align-items: center;
+}
+
+.home-forum-card .forum-member-count {
+  margin-top: 0;
+  font-size: 0.82rem;
+}
+
+.m-home-forum-card .forum-member-stack {
+  padding: 0;
+  border-bottom: none;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.m-home-forum-card .forum-member-avatars {
+  display: flex;
+  align-items: center;
+}
+
+.m-home-forum-card .forum-member-count {
+  margin-top: 0;
+  font-size: 0.82rem;
+}

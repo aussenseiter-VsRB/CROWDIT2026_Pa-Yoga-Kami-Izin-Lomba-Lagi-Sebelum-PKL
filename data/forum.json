@@ -1,0 +1,430 @@
+{
+  "courses": [
+    {
+      "memberCount": 90,
+      "memberLimit": 100,
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum",
+          "name": "umum",
+          "topic": "Diskusi umum kalkulus, perkenalan, dan obrolan ringan",
+          "messages": [
+            { "user": "Fatan", "text": "Halo semua! Selamat datang di forum Kalkulus. Kita fokus ke bab 4 dulu ya — integral lipat dua dan medan vektor.", "time": "2025-06-01T09:00:00Z" },
+            { "user": "All", "text": "Siap! Saya baru mulai baca bab 4, ada beberapa notasi yang agak asing.", "time": "2025-06-01T09:15:00Z" },
+            { "user": "Manca", "text": "Aku juga. Integral lipat dua sih masih oke, tapi medan vektor mulai bikin pusing.", "time": "2025-06-01T09:30:00Z" },
+            { "user": "Fatan", "text": "Tenang, nanti kita bahas bertahap. Coba kerjakan dulu soal nomor 1-5 di buku latihan.", "time": "2025-06-01T10:00:00Z" },
+            { "user": "All", "text": "Nomor 3 udah selesai, tapi hasilnya beda sama temen. Ada yang bisa cek?", "time": "2025-06-02T14:00:00Z" }
+          ]
+        },
+        {
+          "id": "tugas",
+          "name": "tugas",
+          "topic": "Diskusi dan pengumpulan tugas",
+          "messages": [
+            { "user": "All", "text": "PR bab 4 nomor 7 — integral lipat dua dengan batas fungsi trigonometri. Ada yang udah nemu caranya?", "time": "2025-06-02T14:00:00Z" },
+            { "user": "Fatan", "text": "Coba ubah ke koordinat polar dulu, batasnya jadi lebih sederhana.", "time": "2025-06-02T14:30:00Z" },
+            { "user": "Manca", "text": "Ohh pake Jacobian juga? Nanti hasilnya tinggal integral sin cos?", "time": "2025-06-02T15:00:00Z" }
+          ]
+        },
+        {
+          "id": "materi",
+          "name": "materi",
+          "topic": "Referensi dan catatan belajar",
+          "messages": [
+            { "user": "Fatan", "text": "https://khanacademy.org/math/multivariable-calculus — Playlist lengkap kalkulus multivariabel", "time": "2025-06-01T08:00:00Z" },
+            { "user": "Manca", "text": "Ada juga buku Stewart edisi 9 bab 14-16 yang cocok banget buat UTS.", "time": "2025-06-01T11:00:00Z" }
+          ]
+        },
+        {
+          "id": "voice",
+          "name": "Voice Chat",
+          "type": "voice",
+          "topic": "Belajar bareng sambil voice",
+          "messages": []
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "online" },
+        { "name": "Manca", "status": "idle" }
+      ]
+    },
+    {
+      "memberCount": 45,
+      "memberLimit": 50,
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Obrolan umum struktur data dan algoritma",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang! Forum ini buat diskusi tree, graph, dan dynamic programming.", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Aku lagi review binary search tree. Ada yang bisa jelasin balancing?", "time": "2025-06-01T09:00:00Z" },
+            { "user": "Manca", "text": "AVL tree rotation ada 4 kasus. Coba gambar dulu biar kebayang.", "time": "2025-06-01T09:30:00Z" }
+          ]
+        },
+        {
+          "id": "tugas", "name": "tugas", "topic": "Tugas dan latihan",
+          "messages": [
+            { "user": "All", "text": "Soal graph traversal pake DFS vs BFS — kapan pake yang mana?", "time": "2025-06-02T10:00:00Z" }
+          ]
+        },
+        {
+          "id": "voice", "name": "Voice", "type": "voice", "topic": "Pair programming", "messages": []
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "online" },
+        { "name": "Manca", "status": "offline" }
+      ]
+    },
+    {
+      "memberCount": 30,
+      "memberLimit": 50,
+      "privacy": "private",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Diskusi Critique of Pure Reason dan pemikiran Kant",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang! Kita bahas Critique of Pure Reason bab 2 minggu ini.", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Apakah ada yang bisa jelasin perbedaan a priori dan a posteriori?", "time": "2025-06-01T09:00:00Z" },
+            { "user": "Manca", "text": "A priori itu pengetahuan yang independen dari pengalaman. Contoh: matematika.", "time": "2025-06-01T09:15:00Z" },
+            { "user": "Fatan", "text": "Betul. A posteriori tergantung pengalaman inderawi. Nanti kita bedah lebih lanjut.", "time": "2025-06-01T10:00:00Z" }
+          ]
+        },
+        {
+          "id": "voice", "name": "Voice Diskusi", "type": "voice", "topic": "Diskusi mingguan", "messages": []
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "idle" },
+        { "name": "Manca", "status": "idle" }
+      ]
+    },
+    {
+      "memberCount": 87,
+      "memberLimit": 100,
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Persiapan dan diskusi lab kimia organik",
+          "messages": [
+            { "user": "Fatan", "text": "Halo! Besok lab sintesis aspirin. Udah baca modul?", "time": "2025-06-01T08:00:00Z" },
+            { "user": "Manca", "text": "Udah. Kita perlu siapin asam salisilat dan anhidrida asetat.", "time": "2025-06-01T08:30:00Z" },
+            { "user": "All", "text": "Protokol safety-nya jangan lupa. Sarung tangan dan kacamata wajib.", "time": "2025-06-01T09:00:00Z" },
+            { "user": "Fatan", "text": "Betul. Nanti aku share link video demonstrasi biar lebih jelas.", "time": "2025-06-01T09:15:00Z" }
+          ]
+        },
+        {
+          "id": "voice", "name": "Voice Lab", "type": "voice", "topic": "Diskusi praktikum", "messages": []
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "offline" },
+        { "name": "Manca", "status": "online" }
+      ]
+    },
+    {
+      "memberCount": 56,
+      "memberLimit": 75,
+      "privacy": "private",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Latihan soal aljabar linear — eigenvalue dan diagonalisasi",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang di forum Aljabar Linear! Minggu ini kita fokus ke diagonalisasi.", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Eigenvalue udah lumayan paham, tapi diagonalisasi masih suka tertukar langkahnya.", "time": "2025-06-01T09:00:00Z" },
+            { "user": "Manca", "text": "1. Cari eigenvalue, 2. Cari eigenvector, 3. Bentuk matriks P dan D.", "time": "2025-06-01T09:20:00Z" },
+            { "user": "Fatan", "text": "Tepat. Pastikan P^-1 A P = D. Kita latihan soal besok.", "time": "2025-06-01T10:00:00Z" }
+          ]
+        },
+        {
+          "id": "voice", "name": "Voice Session", "type": "voice", "topic": "Sesi latihan bersama", "messages": []
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "online" },
+        { "name": "Manca", "status": "offline" }
+      ]
+    },
+    {
+      "memberCount": 90,
+      "memberLimit": 100,
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Machine learning untuk pemula — supervised learning",
+          "messages": [
+            { "user": "Fatan", "text": "Halo! Forum ini buat temen-temen yang baru mulai belajar ML.", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Aku baru selesai baca bab linear regression. Kapan pake polynomial regression?", "time": "2025-06-01T09:00:00Z" },
+            { "user": "Manca", "text": "Kalau data nonlinear, polynomial degree > 1 bisa lebih cocok.", "time": "2025-06-01T09:30:00Z" },
+            { "user": "Fatan", "text": "Tapi hati-hati overfitting! Validation set penting banget.", "time": "2025-06-01T10:00:00Z" },
+            { "user": "All", "text": "Oh iya, tes pake cross-validation ya?", "time": "2025-06-01T10:15:00Z" }
+          ]
+        },
+        {
+          "id": "voice", "name": "ML Chat", "type": "voice", "topic": "Diskusi ML", "messages": []
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "online" },
+        { "name": "Manca", "status": "idle" }
+      ]
+    },
+    {
+      "memberCount": 34,
+      "memberLimit": 50,
+      "privacy": "private",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Membaca dan mendiskusikan naskah drama Shakespeare",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang! Minggu ini kita baca Hamlet Act I — II.", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "To be or not to be... itu dari Act III ya? Kita belum sampai.", "time": "2025-06-01T08:30:00Z" },
+            { "user": "Manca", "text": "Iya, nanti Act III. Sekarang kita bahas karakterisasi Hamlet dulu.", "time": "2025-06-01T09:00:00Z" },
+            { "user": "Fatan", "text": "Betul. Perhatikan soliloquy pertama Hamlet — itu kunci karakternya.", "time": "2025-06-01T09:30:00Z" }
+          ]
+        },
+        {
+          "id": "voice", "name": "Voice Reading", "type": "voice", "topic": "Baca bareng", "messages": []
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "idle" },
+        { "name": "Manca", "status": "online" }
+      ]
+    },
+    {
+      "memberCount": 78,
+      "memberLimit": 100,
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Mekanika Newton dan dinamika rotasi",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang! Kita review mekanika Newton dan mulai dinamika rotasi.", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Hukum Newton masih oke, tapi momen inersia mulai bingung.", "time": "2025-06-01T09:00:00Z" },
+            { "user": "Manca", "text": "Momen inersia tergantung distribusi massa. Silinder beda sama bola.", "time": "2025-06-01T09:20:00Z" },
+            { "user": "Fatan", "text": "Tepat. Coba hafalkan bentuk-bentuk umum momen inersia benda tegar.", "time": "2025-06-01T10:00:00Z" }
+          ]
+        },
+        {
+          "id": "voice", "name": "Voice Study", "type": "voice", "topic": "Belajar fisika bareng", "messages": []
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "online" },
+        { "name": "Manca", "status": "offline" }
+      ]
+    },
+    {
+      "memberCount": 42,
+      "memberLimit": 60,
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Pengujian hipotesis, regresi, dan analisis data survei",
+          "messages": [
+            { "user": "Fatan", "text": "Halo! Forum statistik untuk ilmu sosial. Kita bahas regresi linear dan uji hipotesis.", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Aku lagi olah data survei pake SPSS. P-value 0.05 itu signifikan?", "time": "2025-06-01T09:00:00Z" },
+            { "user": "Manca", "text": "Iya, kalau p < 0.05, tolak H0. Tapi ukuran sampel juga penting.", "time": "2025-06-01T09:30:00Z" },
+            { "user": "Fatan", "text": "Betul. Jangan lupa cek asumsi normalitas dan homogenitas dulu.", "time": "2025-06-01T10:00:00Z" }
+          ]
+        },
+        {
+          "id": "voice", "name": "Voice Bimbingan", "type": "voice", "topic": "Konsultasi statistik", "messages": []
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "online" },
+        { "name": "Manca", "status": "idle" }
+      ]
+    },
+    {
+      "memberCount": 65,
+      "memberLimit": 80,
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Umpan balik dan diskusi karya tulis",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang! Silakan bagikan cerpen atau puisi kalian di sini.", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Aku bawa cerpen tentang seorang pelukis di kota tua. Butuh masukan.", "time": "2025-06-01T09:00:00Z" },
+            { "user": "Manca", "text": "Bacakan dulu, nanti kita kasih feedback dari segi alur dan diksi.", "time": "2025-06-01T09:30:00Z" },
+            { "user": "Fatan", "text": "Siap. Sesi workshop minggu ini bahas building tension dalam cerita.", "time": "2025-06-01T10:00:00Z" },
+            { "user": "All", "text": "Makasih! Nanti aku post di #karya.", "time": "2025-06-01T10:15:00Z" }
+          ]
+        },
+        {
+          "id": "karya", "name": "karya", "topic": "Kumpulan karya anggota",
+          "messages": [
+            { "user": "All", "text": "Judul: Pelukis di Senja. Cerpen 1500 kata tentang seorang pelukis tua di kota tua Jakarta.", "time": "2025-06-01T10:30:00Z" }
+          ]
+        },
+        {
+          "id": "voice", "name": "Voice Kritik Sastra", "type": "voice", "topic": "Diskusi sastra", "messages": []
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "online" },
+        { "name": "Manca", "status": "idle" }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Diskusi algoritma, sorting, graph, dan DP",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang di grup Algoritma & Struktur Data!", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Ada yang bisa jelasin perbedaan Quick Sort dan Merge Sort?", "time": "2025-06-02T09:00:00Z" },
+            { "user": "Manca", "text": "Quick Sort in-place, pilih pivot. Merge Sort stable, O(n log n) guaranteed.", "time": "2025-06-02T09:30:00Z" }
+          ]
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "online" },
+        { "name": "Manca", "status": "idle" }
+      ]
+    },
+    {
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Kalkulus multivariabel dan aljabar linear",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang! Grup ini buat diskusi kalkulus dan aljabar.", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Ada soal turunan parsial yang bikin pusing. Partial derivative chain rule gimana?", "time": "2025-06-02T10:00:00Z" },
+            { "user": "Manca", "text": "Kalau z = f(x,y), x = g(t), y = h(t), pake rumus dz/dt = (∂f/∂x)(dx/dt) + (∂f/∂y)(dy/dt).", "time": "2025-06-02T10:30:00Z" }
+          ]
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "online" },
+        { "name": "Manca", "status": "offline" }
+      ]
+    },
+    {
+      "privacy": "private",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Fisika klasik dan modern",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang di grup Fisika!", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Ada yang ngerti beda fisika klasik sama kuantum?", "time": "2025-06-02T11:00:00Z" },
+            { "user": "Fatan", "text": "Klasik deterministic, kuantum probabilistic. Suhu rendah partikel kecil pake kuantum.", "time": "2025-06-02T11:30:00Z" }
+          ]
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "idle" },
+        { "name": "Manca", "status": "offline" }
+      ]
+    },
+    {
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Kimia dasar, stoikiometri, dan reaksi organik",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang di grup Kimia!", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Stoikiometri reaksi redoks — gimana cara nyetarain pake biloks?", "time": "2025-06-02T13:00:00Z" },
+            { "user": "Manca", "text": "Tentukan biloks tiap atom, samain perubahan, kalikan koefisien.", "time": "2025-06-02T13:30:00Z" }
+          ]
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "online" },
+        { "name": "Manca", "status": "online" }
+      ]
+    },
+    {
+      "privacy": "private",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Analisis teks, teori sastra, dan morfologi bahasa",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang di grup Linguistik & Sastra!", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Ada yang bisa jelasin strukturalisme Saussure?", "time": "2025-06-02T14:00:00Z" },
+            { "user": "Fatan", "text": "Signifier (bentuk) + signified (konsep) = sign. Bahasa itu sistem tanda.", "time": "2025-06-02T14:30:00Z" }
+          ]
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "idle" },
+        { "name": "Manca", "status": "offline" }
+      ]
+    },
+    {
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Teori sosial dan metode penelitian kualitatif",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang di grup Sosiologi!", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Metode grounded theory itu gimana penerapannya?", "time": "2025-06-02T15:00:00Z" },
+            { "user": "Manca", "text": "Data dikumpulin dulu, baru teori muncul dari data — induktif banget.", "time": "2025-06-02T15:30:00Z" }
+          ]
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "offline" },
+        { "name": "Manca", "status": "online" }
+      ]
+    },
+    {
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Desain grafis, UI/UX, dan visual",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang di grup Desain Grafis!", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Figma vs Adobe XD — mana yang lebih bagus buat UI design?", "time": "2025-06-02T16:00:00Z" },
+            { "user": "Manca", "text": "Figma lebih ringan dan kolaborasi real-time. XD integrasi sama Adobe suite.", "time": "2025-06-02T16:30:00Z" }
+          ]
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "idle" },
+        { "name": "Manca", "status": "online" }
+      ]
+    },
+    {
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Filsafat barat, etika terapan, dan logika",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang di grup Filsafat!", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Etika deontologi vs utilitarianisme — bedanya apa?", "time": "2025-06-02T17:00:00Z" },
+            { "user": "Fatan", "text": "Deontologi: aturan itu mutlak. Utilitarianisme: konsekuensi yang terbaik buat banyak orang.", "time": "2025-06-02T17:30:00Z" },
+            { "user": "Manca", "text": "Kant vs Mill. Seru nih debatnya!", "time": "2025-06-02T18:00:00Z" }
+          ]
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "online" },
+        { "name": "Manca", "status": "online" }
+      ]
+    }
+  ]
+}

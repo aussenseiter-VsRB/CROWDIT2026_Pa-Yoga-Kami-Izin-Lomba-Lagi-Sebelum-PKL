@@ -1,10 +1,11 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
+import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/about/about.css');
-import { PageHeader } from '../../components/page-header/page-header.js';
-import { Card } from '../../components/card/card.js';
+import { PageHeader } from '../../components/shared/page-header/page-header.js';
+import { Card } from '../../components/ui/card/card.js';
 
 function renderDesktop(data) {
   const el = document.createElement('section');
@@ -22,8 +23,6 @@ function renderDesktop(data) {
 }
 
 function renderMobile(data) {
-  const icons = ['bi bi-star', 'bi bi-people', 'bi bi-shield-check', 'bi bi-gem'];
-
   const el = document.createElement('section');
   el.className = 'mobile-page';
   el.innerHTML = `
@@ -39,11 +38,9 @@ function renderMobile(data) {
         </div>
       </header>
       <div class="mobile-list">
-        ${data.cards.map((card, i) => `
+        ${data.cards.map((card) => `
           <article class="mobile-card" style="display:flex;align-items:flex-start;gap:0.75rem">
-            <span style="flex:0 0 auto;width:2.2rem;height:2.2rem;border-radius:0.55rem;background:var(--surface-alt);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.05rem">
-              <i class="${icons[i % icons.length]}"></i>
-            </span>
+            <span style="flex:0 0 auto;width:2.2rem;height:2.2rem;border-radius:0.55rem;background:var(--surface-alt);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.05rem">${card.title.charAt(0)}</span>
             <div style="flex:1;min-width:0">
               <span class="mobile-card__tag" style="margin-bottom:0.4rem">${card.tag}</span>
               <h2 style="font-size:1rem">${card.title}</h2>
@@ -58,7 +55,7 @@ function renderMobile(data) {
 }
 
 export async function About() {
-  const isMobile = window.innerWidth <= 900;
-  const data = await fetchData('/features/about/about.json');
+  const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
+  const data = await fetchData(DATA_PATHS.ABOUT);
   return isMobile ? renderMobile(data) : renderDesktop(data);
 }

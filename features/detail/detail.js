@@ -1,5 +1,8 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { getHashParams, asset } from '../../js/utils/url.js';
+import { DATA_PATHS } from '../../js/core/config.js';
+import { showConfirmModal } from '../../components/ui/confirm-modal/confirm-modal.js';
+import { joinForum, getForumStatus, incrementMemberCount, getLiveMemberCount } from '../../js/services/forum-access.js';
 injectStyle('/features/detail/detail.css');
 
 function iconPeople() {
@@ -127,14 +130,22 @@ export async function Detail() {
   const params = getHashParams();
   const index = parseInt(params.get('index'), 10) || 0;
 
-  const res = await fetch(asset('/features/detail/detail.json'));
+  const res = await fetch(asset(DATA_PATHS.DETAIL));
   const data = await res.json();
   const item = data[index] ?? data[0];
 
   const statusClass = item.course.status === 'Online' ? 'is-online' : 'is-offline';
 
+  const status = getForumStatus('course', index);
+  const liveParticipants = getLiveMemberCount(index, item.participants.joined);
+  const liveMemberCount = getLiveMemberCount(index, item.forum.memberCount);
+  const participantsLive = { ...item.participants, joined: liveParticipants };
+  const forumLive = { ...item.forum, memberCount: liveMemberCount };
+
   const el = document.createElement('section');
   el.className = 'dtl-page container section';
+
+  const isJoined = status === 'joined' || status === 'pending';
 
   el.innerHTML = `
     <div class="dtl-page__inner">
@@ -173,13 +184,13 @@ export async function Detail() {
         <div class="dtl-grid__right">
           <div class="dtl-section">
             <h2 class="dtl-section__title">Partisipan</h2>
-            ${ParticipantsBlock(item.participants)}
+            ${ParticipantsBlock(participantsLive)}
           </div>
 
           <div class="dtl-section">
             <div class="dtl-forum-card">
               <div class="dtl-forum-card__stat">
-                <span class="dtl-forum-card__stat-value">${item.forum.memberCount}</span>
+                <span class="dtl-forum-card__stat-value">${forumLive.memberCount}</span>
                 <span class="dtl-forum-card__stat-label">Anggota forum</span>
               </div>
               <div class="dtl-forum-card__stat">
@@ -189,14 +200,49 @@ export async function Detail() {
             </div>
           </div>
 
-          <a class="dtl-join-btn" href="/forum?index=${index}" data-link>
-            Gabung ke Forum
-            <i class="bi bi-arrow-right"></i>
-          </a>
+          ${isJoined
+            ? `<a class="dtl-join-btn dtl-join-btn--joined" href="/forum?index=${index}" data-link>
+                <i class="bi bi-check-circle"></i>
+                ${status === 'pending' ? 'Menunggu Persetujuan' : 'Sudah Bergabung'}
+              </a>`
+            : `<button class="dtl-join-btn" type="button">
+                Gabung ke Forum
+                <i class="bi bi-arrow-right"></i>
+              </button>`
+          }
         </div>
       </div>
     </div>
   `;
+
+  if (!isJoined) {
+    const joinBtn = el.querySelector('.dtl-join-btn');
+    joinBtn.addEventListener('click', () => {
+      showConfirmModal({
+        title: 'Bergabung ke Forum',
+        message: `Apakah Anda yakin ingin bergabung ke forum "${item.course.title}"?`,
+        confirmText: 'Ya, Bergabung',
+        cancelText: 'Batal',
+        onConfirm: () => {
+          joinForum('course', index);
+          incrementMemberCount(index, item.participants.joined);
+          const liveCount = getLiveMemberCount(index, item.participants.joined);
+          const participantsSection = el.querySelector('.dtl-participants');
+          if (participantsSection) {
+            participantsSection.outerHTML = ParticipantsBlock({ ...item.participants, joined: liveCount });
+          }
+          const memberStat = el.querySelector('.dtl-forum-card__stat:first-child .dtl-forum-card__stat-value');
+          if (memberStat) {
+            memberStat.textContent = liveCount;
+          }
+          joinBtn.outerHTML = `<a class="dtl-join-btn dtl-join-btn--joined" href="/forum?index=${index}" data-link>
+            <i class="bi bi-check-circle"></i>
+            Sudah Bergabung
+          </a>`;
+        },
+      });
+    });
+  }
 
   return el;
 }

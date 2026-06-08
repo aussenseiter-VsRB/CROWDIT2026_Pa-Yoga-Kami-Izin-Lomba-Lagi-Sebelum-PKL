@@ -1,8 +1,9 @@
 import { injectStyle } from '../../../js/utils/styleLoader.js';
+import { DATA_PATHS, TIMING, LIMITS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 import { fetchData } from '../../../js/utils/api.js';
-import { initUsers, register, navigateAfterAuth } from '../../../js/auth.js';
+import { initUsers, register, navigateAfterAuth } from '../../../js/services/auth.js';
 
 function field({ type, name, placeholder, icon }) {
   return `
@@ -125,7 +126,7 @@ function renderDesktop(data) {
       return;
     }
 
-    if (passwordInput.value.length < 8) {
+    if (passwordInput.value.length < LIMITS.MIN_PASSWORD_LENGTH) {
       errorEl.textContent = 'Password minimal 8 karakter';
       errorEl.hidden = false;
       return;
@@ -145,7 +146,7 @@ function renderDesktop(data) {
 
     window.setTimeout(() => {
       navigateAfterAuth('/profile');
-    }, 180);
+    }, TIMING.AUTH_NAV_DELAY);
   });
 
   return el;
@@ -176,7 +177,23 @@ function renderMobile(data) {
           }
           return `<input class="mobile-input" type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" autocomplete="${field.name}" />`;
         }).join('')}
+        <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;color:var(--text);cursor:pointer;margin:0.5rem 0">
+          <input type="checkbox" checked style="accent-color:var(--accent)" />
+          <span>${data.termsLabel}</span>
+        </label>
         <button class="mobile-submit" type="submit">${data.submitText}</button>
+        <div style="display:flex;align-items:center;gap:0.75rem;margin:1rem 0;color:var(--muted-alt);font-size:0.82rem">
+          <span style="flex:1;height:1px;background:var(--border-color)"></span>
+          <span>or</span>
+          <span style="flex:1;height:1px;background:var(--border-color)"></span>
+        </div>
+        <div style="display:flex;justify-content:center;gap:0.75rem">
+          ${data.socialButtons.map(type => `
+            <button type="button" style="width:2.8rem;height:2.8rem;border-radius:50%;border:1px solid var(--border-color);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:1.1rem" aria-label="Continue with ${type.charAt(0).toUpperCase() + type.slice(1)}">
+              ${socialIcon(type)}
+            </button>
+          `).join('')}
+        </div>
       </form>
       <p class="mobile-card" style="font-size:0.9rem;text-align:center;color:var(--text)">
         ${data.footer.text} <a href="${data.footer.linkHref}" data-link style="color:var(--accent);font-weight:800;">${data.footer.linkLabel}</a>
@@ -218,7 +235,7 @@ function renderMobile(data) {
       return;
     }
 
-    if (passwordInput.value.length < 8) {
+    if (passwordInput.value.length < LIMITS.MIN_PASSWORD_LENGTH) {
       errorEl.textContent = 'Password minimal 8 karakter';
       errorEl.hidden = false;
       return;
@@ -238,18 +255,18 @@ function renderMobile(data) {
 
     window.setTimeout(() => {
       navigateAfterAuth('/profile');
-    }, 180);
+    }, TIMING.AUTH_NAV_DELAY);
   });
 
   return el;
 }
 
 export async function Signup() {
-  injectStyle('/features/signup/signup.css');
+  injectStyle('/features/auth/signup/signup.css');
 
   let data;
   try {
-    data = await fetchData('/features/auth/signup/signup.json');
+    data = (await fetchData(DATA_PATHS.AUTH)).signup;
   } catch {
     const el = document.createElement('section');
     el.className = 'signup-page';
@@ -259,7 +276,7 @@ export async function Signup() {
 
   await initUsers();
 
-  const isMobile = window.innerWidth <= 900;
+  const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
 
   if (isMobile) {
     return renderMobile(data);

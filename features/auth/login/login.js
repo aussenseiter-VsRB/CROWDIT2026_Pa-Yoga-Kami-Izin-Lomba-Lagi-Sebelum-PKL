@@ -1,8 +1,9 @@
 import { injectStyle } from '../../../js/utils/styleLoader.js';
+import { DATA_PATHS, TIMING, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 import { fetchData } from '../../../js/utils/api.js';
-import { initUsers, login, navigateAfterAuth } from '../../../js/auth.js';
+import { initUsers, login, navigateAfterAuth } from '../../../js/services/auth.js';
 
 function field({ type, name, placeholder, icon, autocomplete, inputMode, autocapitalize, spellcheck, hint, toggleable = false, minLength }) {
   const inputId = `login-${name}`;
@@ -166,7 +167,7 @@ function renderDesktop(data) {
 
     window.setTimeout(() => {
       navigateAfterAuth('/profile');
-    }, 180);
+    }, TIMING.AUTH_NAV_DELAY);
   });
 
   syncSubmitState();
@@ -195,7 +196,26 @@ function renderMobile(data) {
             ${iconEye()}
           </button>
         </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:0.75rem 0">
+          <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;color:var(--text);cursor:pointer">
+            <input type="checkbox" checked style="accent-color:var(--accent)" />
+            <span>${data.meta.rememberLabel}</span>
+          </label>
+          <a href="${data.meta.forgotHref}" data-link style="font-size:0.82rem;color:var(--accent);font-weight:600;text-decoration:none">${data.meta.forgotLabel}</a>
+        </div>
         <button class="mobile-submit" type="submit">${data.submitText}</button>
+        <div style="display:flex;align-items:center;gap:0.75rem;margin:1rem 0;color:var(--muted-alt);font-size:0.82rem">
+          <span style="flex:1;height:1px;background:var(--border-color)"></span>
+          <span>or</span>
+          <span style="flex:1;height:1px;background:var(--border-color)"></span>
+        </div>
+        <div style="display:flex;justify-content:center;gap:0.75rem">
+          ${data.socialButtons.map(type => `
+            <button type="button" style="width:2.8rem;height:2.8rem;border-radius:50%;border:1px solid var(--border-color);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:1.1rem" aria-label="Continue with ${type.charAt(0).toUpperCase() + type.slice(1)}">
+              ${socialIcon(type)}
+            </button>
+          `).join('')}
+        </div>
       </form>
       <p class="mobile-card" style="font-size:0.9rem;text-align:center;color:var(--text)">
         ${data.footer.text} <a href="${data.footer.linkHref}" data-link style="color:var(--accent);font-weight:800;">${data.footer.linkLabel}</a>
@@ -241,18 +261,18 @@ function renderMobile(data) {
 
     window.setTimeout(() => {
       navigateAfterAuth('/profile');
-    }, 180);
+    }, TIMING.AUTH_NAV_DELAY);
   });
 
   return el;
 }
 
 export async function Login() {
-  injectStyle('/features/login/login.css');
+  injectStyle('/features/auth/login/login.css');
 
   let data;
   try {
-    data = await fetchData('/features/auth/login/login.json');
+    data = (await fetchData(DATA_PATHS.AUTH)).login;
   } catch {
     const el = document.createElement('section');
     el.className = 'login-page';
@@ -262,7 +282,7 @@ export async function Login() {
 
   await initUsers();
 
-  const isMobile = window.innerWidth <= 900;
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
 
   if (isMobile) {
     return renderMobile(data);

@@ -1,1 +1,11 @@
 /* Contact feature — styles from css/_shared.css */
+
+.contact-error {
+  margin: 0 0 1rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.55rem;
+  background: var(--danger-bg, #fef2f2);
+  color: var(--danger, #dc2626);
+  font-size: 0.85rem;
+  font-weight: 600;
+}

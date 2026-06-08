@@ -6,7 +6,9 @@
   <meta name="description" content="StudNow is a minimalist study forum for sharing, learning, and collaborating." />
   <title>StudNow</title>
   <script>
-    window.BASE = '/CROWDIT2026_Pa-Yoga-Kami-Izin-Lomba-Lagi-Sebelum-PKL';
+    window.BASE = window.location.hostname === 'aussenseiter-vsrb.github.io'
+      ? '/CROWDIT2026_Pa-Yoga-Kami-Izin-Lomba-Lagi-Sebelum-PKL'
+      : '';
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,6 +33,6 @@
   <div id="bottom-bar"></div>
   <div id="footer"></div>
 
-  <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/core/main.js"></script>
 </body>
 </html>

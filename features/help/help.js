@@ -1,22 +1,14 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
+import { DATA_PATHS } from '../../js/core/config.js';
 injectStyle('/features/help/help.css');
 
-import { isAuthenticated, navigateAfterAuth } from '../../js/auth.js';
-import { navigateTo } from '../../js/utils/url.js';
+import { asset, navigateTo } from '../../js/utils/url.js';
+import { isAuthenticated, navigateAfterAuth } from '../../js/services/auth.js';
 
 function iconArrowLeft() { return '<i class="bi bi-arrow-left"></i>'; }
 function iconSearch() { return '<i class="bi bi-search"></i>'; }
 function iconChat() { return '<i class="bi bi-chat-dots"></i>'; }
 function iconChevron() { return '<i class="bi bi-chevron-right"></i>'; }
-
-const faqs = [
-  { q: 'Bagaimana cara mendaftar?', a: 'Klik "Daftar" di halaman login, isi nama, email, dan password, lalu klik "Daftar". Akun Anda akan langsung aktif.' },
-  { q: 'Bagaimana cara bergabung ke grup?', a: 'Buka halaman Grup, cari grup yang diinginkan, lalu klik "Gabung". Anda akan langsung menjadi anggota grup tersebut.' },
-  { q: 'Bagaimana cara mengedit profil?', a: 'Buka halaman Profil, klik "Edit Profil" untuk mengubah nama, email, dan bio. Jangan lupa klik "Simpan" setelah selesai.' },
-  { q: 'Apakah data saya aman?', a: 'Data Anda disimpan secara lokal di perangkat Anda. Kami tidak membagikan data Anda kepada pihak ketiga manapun.' },
-  { q: 'Bagaimana cara menghubungi support?', a: 'Gunakan form "Hubungi Kami" di halaman Contact, atau kirim email ke support@studnow.com.' },
-  { q: 'Bagaimana cara mengganti foto profil?', a: 'Buka halaman Profil, klik ikon kamera pada avatar, pilih foto dari galeri. Klik "Simpan" untuk menyimpan perubahan.' },
-];
 
 export async function Help() {
   if (!isAuthenticated()) {
@@ -24,47 +16,47 @@ export async function Help() {
     return document.createElement('section');
   }
 
+  const data = await (await fetch(asset(DATA_PATHS.HELP))).json();
+
   const el = document.createElement('section');
   el.className = 'm-help';
 
   el.innerHTML = `
     <div class="m-help__header">
       <button class="m-help__back" type="button" aria-label="Kembali">${iconArrowLeft()}</button>
-      <h1 class="m-help__title">Bantuan</h1>
+      <h1 class="m-help__title">${data.header.title}</h1>
     </div>
 
     <div class="m-help__search">
       <span class="m-help__search-icon">${iconSearch()}</span>
-      <input class="m-help__search-input" type="text" placeholder="Cari pertanyaan..." />
+      <input class="m-help__search-input" type="text" placeholder="${data.searchPlaceholder}" />
     </div>
 
     <div class="m-help__section">
-      <p class="m-help__section-title">Pertanyaan Umum</p>
+      <p class="m-help__section-title">${data.faqSectionTitle}</p>
       <div class="m-help__card" id="help-faqs"></div>
     </div>
 
     <div class="m-help__section">
-      <p class="m-help__section-title">Hubungi Kami</p>
+      <p class="m-help__section-title">${data.contactSectionTitle}</p>
       <div class="m-help__card">
-        <a class="m-help__contact" href="mailto:support@studnow.com">
-          <span class="m-help__contact-icon">${iconChat()}</span>
-          <span class="m-help__contact-body">
-            <span class="m-help__contact-label">Email Support</span>
-            <span class="m-help__contact-desc">support@studnow.com</span>
-          </span>
-          <span class="m-help__contact-chevron">${iconChevron()}</span>
-        </a>
-        <a class="m-help__contact" href="/contact" data-link style="border-top:1px solid var(--border-color);padding-top:0.75rem;margin-top:0.5rem">
-          <span class="m-help__contact-icon" style="background:var(--accent-alt)">${iconChat()}</span>
-          <span class="m-help__contact-body">
-            <span class="m-help__contact-label">Form Kontak</span>
-            <span class="m-help__contact-desc">Kirim pesan langsung</span>
-          </span>
-          <span class="m-help__contact-chevron">${iconChevron()}</span>
-        </a>
+        ${data.contacts.map((c, i) => {
+          const tag = c.isRoute ? ' data-link' : '';
+          const style = i > 0 ? ' style="border-top:1px solid var(--border-color);padding-top:0.75rem;margin-top:0.5rem"' : '';
+          return `<a class="m-help__contact" href="${c.href}"${tag}${style}>
+            <span class="m-help__contact-icon${i > 0 ? ' style="background:var(--accent-alt)"' : ''}">${iconChat()}</span>
+            <span class="m-help__contact-body">
+              <span class="m-help__contact-label">${c.label}</span>
+              <span class="m-help__contact-desc">${c.description}</span>
+            </span>
+            <span class="m-help__contact-chevron">${iconChevron()}</span>
+          </a>`;
+        }).join('')}
       </div>
     </div>
   `;
+
+  const faqs = data.faqs;
 
   function renderFaqs(filter = '') {
     const container = el.querySelector('#help-faqs');
