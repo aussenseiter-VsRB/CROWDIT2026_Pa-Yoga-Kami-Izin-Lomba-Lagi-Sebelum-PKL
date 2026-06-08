@@ -8,6 +8,8 @@
 '    \       /   |  |   \  '-'(_ .'|  '-'  /|  | \   |   '  '-'  '|   ,'.   |
 '     `-----'    `--'    `-----'   `------' `--'  `--'    `-----' `--'   '--'
 
+---
+
 # StudNow
 
 StudNow adalah platform web inovatif yang dirancang untuk mempermudah pelajar dan mahasiswa dalam menemukan teman belajar, membentuk kelompok studi (study groups), dan berkolaborasi secara produktif. 
