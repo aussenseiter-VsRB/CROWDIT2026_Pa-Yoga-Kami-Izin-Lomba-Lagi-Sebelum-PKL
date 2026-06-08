@@ -83,3 +83,33 @@ export function getJoinedForums() {
   const forums = getForums();
   return Object.values(forums).filter(f => f.status === 'joined');
 }
+
+const MEMBER_COUNTS_KEY = 'studnow_member_counts';
+
+function getMemberCounts() {
+  try {
+    return JSON.parse(localStorage.getItem(MEMBER_COUNTS_KEY) || '{}');
+  } catch {
+    return {};
+  }
+}
+
+function saveMemberCounts(counts) {
+  localStorage.setItem(MEMBER_COUNTS_KEY, JSON.stringify(counts));
+}
+
+export function getLiveMemberCount(index, fallback) {
+  const counts = getMemberCounts();
+  return typeof counts[index] === 'number' ? counts[index] : fallback;
+}
+
+export function incrementMemberCount(index, initialCount) {
+  const counts = getMemberCounts();
+  if (typeof counts[index] === 'number') {
+    counts[index] += 1;
+  } else {
+    counts[index] = (initialCount || 0) + 1;
+  }
+  saveMemberCounts(counts);
+  window.dispatchEvent(new CustomEvent('member-count-update'));
+}

@@ -1,6 +1,8 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { getHashParams, asset } from '../../js/utils/url.js';
 import { DATA_PATHS } from '../../js/core/config.js';
+import { showConfirmModal } from '../../components/ui/confirm-modal/confirm-modal.js';
+import { joinForum, getForumStatus, incrementMemberCount, getLiveMemberCount } from '../../js/services/forum-access.js';
 injectStyle('/features/detail/detail.css');
 
 export async function Open() {
@@ -12,6 +14,11 @@ export async function Open() {
   const item = data[index] ?? data[0];
 
   const statusClass = item.course.status === 'Online' ? 'is-online' : 'is-offline';
+
+  const status = getForumStatus('course', index);
+  const liveParticipants = getLiveMemberCount(index, item.participants.joined);
+  const participantsLive = { ...item.participants, joined: liveParticipants };
+  const isJoined = status === 'joined' || status === 'pending';
 
   const el = document.createElement('section');
   el.className = 'dtl-page container section';
@@ -81,22 +88,65 @@ export async function Open() {
                   <i class="bi bi-people"></i>
                   <span>Partisipan</span>
                 </div>
-                <span class="dtl-participants__count">${item.participants.joined}/${item.participants.capacity} bergabung</span>
+                <span class="dtl-participants__count">${participantsLive.joined}/${participantsLive.capacity} bergabung</span>
               </div>
               <div class="dtl-participants__bar">
-                <div class="dtl-participants__bar-fill" style="width:${Math.round((item.participants.joined / item.participants.capacity) * 100)}%"></div>
+                <div class="dtl-participants__bar-fill" style="width:${Math.round((participantsLive.joined / participantsLive.capacity) * 100)}%"></div>
               </div>
             </div>
           </div>
 
-          <a class="dtl-join-btn" href="/forum?index=${index}" data-link>
-            Gabung ke Forum
-            <i class="bi bi-arrow-right"></i>
-          </a>
+          ${isJoined
+            ? `<a class="dtl-join-btn dtl-join-btn--joined" href="/forum?index=${index}" data-link>
+                <i class="bi bi-check-circle"></i>
+                ${status === 'pending' ? 'Menunggu Persetujuan' : 'Sudah Bergabung'}
+              </a>`
+            : `<button class="dtl-join-btn" type="button">
+                Gabung ke Forum
+                <i class="bi bi-arrow-right"></i>
+              </button>`
+          }
         </div>
       </div>
     </div>
   `;
+
+  if (!isJoined) {
+    const joinBtn = el.querySelector('.dtl-join-btn');
+    joinBtn.addEventListener('click', () => {
+      showConfirmModal({
+        title: 'Bergabung ke Forum',
+        message: `Apakah Anda yakin ingin bergabung ke forum "${item.course.title}"?`,
+        confirmText: 'Ya, Bergabung',
+        cancelText: 'Batal',
+        onConfirm: () => {
+          joinForum('course', index);
+          incrementMemberCount(index, item.participants.joined);
+          const liveCount = getLiveMemberCount(index, item.participants.joined);
+          const participantsSection = el.querySelector('.dtl-participants');
+          if (participantsSection) {
+            const pct = Math.round((liveCount / item.participants.capacity) * 100);
+            participantsSection.innerHTML = `
+              <div class="dtl-participants__header">
+                <div class="dtl-participants__title">
+                  <i class="bi bi-people"></i>
+                  <span>Partisipan</span>
+                </div>
+                <span class="dtl-participants__count">${liveCount}/${item.participants.capacity} bergabung</span>
+              </div>
+              <div class="dtl-participants__bar">
+                <div class="dtl-participants__bar-fill" style="width:${pct}%"></div>
+              </div>
+            `;
+          }
+          joinBtn.outerHTML = `<a class="dtl-join-btn dtl-join-btn--joined" href="/forum?index=${index}" data-link>
+            <i class="bi bi-check-circle"></i>
+            Sudah Bergabung
+          </a>`;
+        },
+      });
+    });
+  }
 
   return el;
 }
