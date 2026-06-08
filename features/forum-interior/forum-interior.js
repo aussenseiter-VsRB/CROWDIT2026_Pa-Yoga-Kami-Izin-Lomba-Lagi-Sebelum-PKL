@@ -1,6 +1,6 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { getHashParams, asset, navigateTo } from '../../js/utils/url.js';
-import { getForumStatus } from '../../js/forum-access.js';
+import { getForumStatus, leaveForum } from '../../js/forum-access.js';
 import { getUsersForContext } from '../../js/dummy-users.js';
 import { isFollowing, toggleFollow, notifyNewMessage } from '../../js/notifications.js';
 
@@ -108,7 +108,7 @@ function createMsgEl(msg) {
   return el;
 }
 
-function ChannelSidebar(serverName, channels, activeId, forumId, forumType) {
+function ChannelSidebar(serverName, channels, activeId, forumId, forumType, forumIdx) {
   const textCh = channels.filter(c => c.type !== 'voice');
   const voiceCh = channels.filter(c => c.type === 'voice');
   const following = isFollowing(forumId, forumType);
@@ -137,6 +137,9 @@ function ChannelSidebar(serverName, channels, activeId, forumId, forumType) {
           </button>
         `).join('')}
       </div>
+      <button class="forum-leave-btn" id="js-leave-forum" type="button" data-forum-type="${forumType}" data-forum-idx="${forumIdx}">
+        <i class="bi bi-box-arrow-left"></i> Tinggalkan Forum
+      </button>
     </div>
   `;
 }
@@ -218,7 +221,7 @@ function renderDesktop(el, opts) {
     el.innerHTML = `
       <a class="forum-back" href="${backLink}" data-link><i class="bi bi-arrow-left"></i> Kembali</a>
       <div class="forum-layout">
-        ${ChannelSidebar(serverName, channels, activeChannel.id, forumId, forumType)}
+        ${ChannelSidebar(serverName, channels, activeChannel.id, forumId, forumType, forumIndex)}
         ${MessageArea(activeChannel, dateStr)}
         ${ActiveMembersPanel(activeUsers, serverName)}
       </div>
@@ -242,6 +245,16 @@ function renderDesktop(el, opts) {
         followBtn.classList.toggle('forum-follow-btn--active', nowFollowing);
         followBtn.querySelector('i').className = `bi ${nowFollowing ? 'bi-bell-fill' : 'bi-bell'}`;
         followBtn.title = nowFollowing ? 'Berhenti mengikuti' : 'Ikuti forum ini';
+      });
+    }
+
+    const leaveBtn = el.querySelector('#js-leave-forum');
+    if (leaveBtn) {
+      leaveBtn.addEventListener('click', () => {
+        leaveBtn.disabled = true;
+        leaveBtn.innerHTML = '<i class="bi bi-hourglass"></i> Meninggalkan...';
+        leaveForum(forumType, forumIndex);
+        navigateTo(`/forum?${forumType === 'course' ? 'index' : 'group'}=${forumIndex}`);
       });
     }
 
@@ -364,6 +377,31 @@ function forumStyles() {
       align-items: center;
       gap: 0.35rem;
     }
+
+    .forum-leave-btn {
+      margin: 0.5rem 0;
+      padding: 0.55rem 0.85rem;
+      border: 1.5px solid var(--border-color, #e5e5ea);
+      border-radius: 0.6rem;
+      background: var(--surface, #fff);
+      color: var(--muted, #6b7280);
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      justify-content: center;
+      transition: all 0.15s;
+      font-weight: 600;
+    }
+    .forum-leave-btn:hover {
+      border-color: #ff3b30;
+      color: #ff3b30;
+      background: rgba(255, 59, 48, 0.05);
+    }
+    .forum-leave-btn:active {
+      transform: scale(0.97);
+    }
   `;
 }
 
@@ -472,6 +510,9 @@ function renderMobile(el, opts) {
         <div class="forum-active-panel">
           ${renderActiveMembers()}
         </div>
+        <button class="forum-leave-btn" id="js-leave-forum-mobile" type="button" data-forum-type="${forumType}" data-forum-idx="${forumIndex}" style="margin-top:1rem;width:100%">
+          <i class="bi bi-box-arrow-left"></i> Tinggalkan Forum
+        </button>
       </div>
     `;
 
@@ -481,6 +522,16 @@ function renderMobile(el, opts) {
         const nowFollowing = toggleFollow(forumId, forumType, serverName);
         followBtn.classList.toggle('forum-follow-btn--active', nowFollowing);
         followBtn.innerHTML = `<i class="bi ${nowFollowing ? 'bi-bell-fill' : 'bi-bell'}"></i> ${nowFollowing ? 'Mengikuti' : 'Ikuti'}`;
+      });
+    }
+
+    const leaveBtnMobile = el.querySelector('#js-leave-forum-mobile');
+    if (leaveBtnMobile) {
+      leaveBtnMobile.addEventListener('click', () => {
+        leaveBtnMobile.disabled = true;
+        leaveBtnMobile.innerHTML = '<i class="bi bi-hourglass"></i> Meninggalkan...';
+        leaveForum(forumType, forumIndex);
+        navigateTo(`/forum?${forumType === 'course' ? 'index' : 'group'}=${forumIndex}`);
       });
     }
 

@@ -34,7 +34,7 @@ export function Navbar() {
         </nav>
 
         <div class="navbar-actions">
-          <a class="navbar-action" href="/search" data-link>Search</a>
+          <a class="navbar-action" href="/search" data-link><i class="bi bi-search"></i> Search</a>
           <a class="navbar-action navbar-action--notif" href="/notifications" data-link aria-label="Notifications">
             <i class="bi bi-bell"></i>
             ${unread > 0 ? `<span class="navbar-notif-badge">${unread > 99 ? '99+' : unread}</span>` : ''}

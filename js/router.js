@@ -51,7 +51,7 @@ const routes = {
 };
 
 let previousPath = getHashPath();
-let isRouting = false; // 🛡️ Guard variable to prevent concurrent renders
+let isRouting = false; // Guard variable to prevent concurrent renders
 
 export async function router() {
   // If the router is already actively processing a page change, ignore duplicate calls
@@ -112,6 +112,6 @@ export async function router() {
     previousPath = path;
     window.dispatchEvent(new CustomEvent('route-change'));
   } finally {
-    isRouting = false; // 🔓 Release guard when completely finished
+    isRouting = false; // Release guard when completely finished
   }
 }
