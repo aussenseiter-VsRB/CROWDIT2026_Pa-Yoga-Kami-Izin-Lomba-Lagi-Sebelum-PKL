@@ -12,7 +12,6 @@ import { Signup } from '../../features/auth/signup/signup.js';
 import { Search } from '../../features/search/search.js';
 import { Notifications } from '../../features/notifications/notifications.js';
 import { Detail } from '../../features/detail/detail.js';
-import { Open } from '../../features/open/open.js';
 import { Forum } from '../../features/forum/landing/forum.js';
 import { ForumInterior } from '../../features/forum/interior/forum-interior.js';
 import { DM } from '../../features/chat/dm/dm.js';
@@ -41,7 +40,6 @@ const routes = {
   '/search':        Search,
   '/notifications': Notifications,
   '/detail':        Detail,
-  '/open':          Open,
   '/forum':         Forum,
   '/forum-interior': ForumInterior,
   '/dm':            DM,

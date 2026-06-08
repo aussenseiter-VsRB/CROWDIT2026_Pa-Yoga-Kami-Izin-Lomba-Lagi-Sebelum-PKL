@@ -1,16 +1,20 @@
 import { CourseChatBlock } from '../../../components/ui/course-chat/course-chat.js';
 import { ScheduleBlock, MeetingBlock, CreatorBlock, ParticipantsBlock } from './_cards.js';
 
-const backIcon = '<i class="bi bi-arrow-left"></i>';
-
-export function renderDetail(item, { participantsLive, forumLive, users, index, isJoined, status, statusClass }) {
+export function renderDetail(item, { participantsLive, forumLive, users, index, isJoined, status, statusClass, simple }) {
   const el = document.createElement('section');
   el.className = 'dtl-page container section';
+
+  const joinedLink = status === 'pending'
+    ? `<span class="dtl-join-btn dtl-join-btn--joined"><i class="bi bi-clock"></i> Menunggu Persetujuan</span>`
+    : `<a class="dtl-join-btn dtl-join-btn--joined" href="/forum-interior?index=${index}" data-link>
+        <i class="bi bi-check-circle"></i> Sudah Bergabung
+      </a>`;
 
   el.innerHTML = `
     <div class="dtl-page__inner">
       <a class="dtl-back" href="/" data-link>
-        ${backIcon}
+        <i class="bi bi-arrow-left"></i>
         Kembali ke Home
       </a>
 
@@ -37,10 +41,12 @@ export function renderDetail(item, { participantsLive, forumLive, users, index, 
             ${CreatorBlock(item.creator)}
           </div>
 
+          ${!simple ? `
           <div class="dtl-section">
             <h2 class="dtl-section__title">Jadwal Pertemuan</h2>
             ${ScheduleBlock(item.schedule)}
           </div>
+          ` : ''}
 
           <div class="dtl-section">
             <h2 class="dtl-section__title">Informasi Pertemuan</h2>
@@ -61,6 +67,7 @@ export function renderDetail(item, { participantsLive, forumLive, users, index, 
             ${CourseChatBlock(index, item.chats)}
           </div>
 
+          ${!simple ? `
           <div class="dtl-section">
             <div class="dtl-forum-card">
               <div class="dtl-forum-card__stat">
@@ -73,16 +80,12 @@ export function renderDetail(item, { participantsLive, forumLive, users, index, 
               </div>
             </div>
           </div>
+          ` : ''}
 
-          ${isJoined
-            ? `<a class="dtl-join-btn dtl-join-btn--joined" href="/forum?index=${index}" data-link>
-                <i class="bi bi-check-circle"></i>
-                ${status === 'pending' ? 'Menunggu Persetujuan' : 'Sudah Bergabung'}
-              </a>`
-            : `<button class="dtl-join-btn" type="button">
-                Gabung ke Forum
-                <i class="bi bi-arrow-right"></i>
-              </button>`
+          ${isJoined ? joinedLink : `<button class="dtl-join-btn" type="button">
+              Gabung ke Forum
+              <i class="bi bi-arrow-right"></i>
+            </button>`
           }
         </div>
       </div>

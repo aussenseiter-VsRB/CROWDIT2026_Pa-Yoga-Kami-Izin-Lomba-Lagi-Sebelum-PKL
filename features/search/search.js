@@ -8,6 +8,7 @@ injectStyle('/css/_shared.css');
 injectStyle('/features/search/css/search.css');
 injectStyle('/features/search/css/_search-bar.css');
 injectStyle('/features/search/css/_search-card.css');
+injectStyle('/features/search/css/_search-card-extra.css');
 
 export async function Search() {
   try {

@@ -43,9 +43,9 @@ export function updateCTA(el, newStatus) {
 export function bindForumUpdates(el, forumType, index) {
   const onUpdate = () => {
     const current = getForumStatus(forumType, index);
-    if (current === 'joined' && el.__forumData.status !== 'joined') {
+    if (current === 'joined' && el.__forumData.status === 'pending') {
       el.__forumData.status = 'joined';
-      updateCTA(el, 'joined');
+      navigateTo(`/forum-interior?${forumType === 'course' ? 'index' : 'group'}=${index}`);
     }
   };
   window.addEventListener('forum-join-update', onUpdate, { once: false });

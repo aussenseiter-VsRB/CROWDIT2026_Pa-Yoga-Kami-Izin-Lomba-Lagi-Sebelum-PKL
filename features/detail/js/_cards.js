@@ -1,30 +1,12 @@
-function iconPeople() {
-  return '<i class="bi bi-people"></i>';
-}
+import { renderAvatarList } from '../../../components/ui/avatar/avatar.js';
 
-function iconCalendar() {
-  return '<i class="bi bi-calendar"></i>';
-}
-
-function iconClock() {
-  return '<i class="bi bi-clock"></i>';
-}
-
-function iconLocation() {
-  return '<i class="bi bi-geo-alt"></i>';
-}
-
-function iconVideo() {
-  return '<i class="bi bi-camera-video"></i>';
-}
-
-function iconArrowLeft() {
-  return '<i class="bi bi-arrow-left"></i>';
-}
-
-function iconExternal() {
-  return '<i class="bi bi-box-arrow-up-right"></i>';
-}
+function iconPeople() { return '<i class="bi bi-people"></i>'; }
+function iconCalendar() { return '<i class="bi bi-calendar"></i>'; }
+function iconClock() { return '<i class="bi bi-clock"></i>'; }
+function iconLocation() { return '<i class="bi bi-geo-alt"></i>'; }
+function iconVideo() { return '<i class="bi bi-camera-video"></i>'; }
+function iconArrowLeft() { return '<i class="bi bi-arrow-left"></i>'; }
+function iconExternal() { return '<i class="bi bi-box-arrow-up-right"></i>'; }
 
 export function ScheduleBlock(schedule) {
   return `
@@ -112,20 +94,6 @@ export function CreatorBlock(creator) {
 }
 
 export function ParticipantsBlock(participants, users) {
-  const colors = ['#007aff', '#5856d6', '#34c759', '#ff9f0a', '#ff3b30', '#af52de'];
-  const avatarList = (users || []).slice(0, participants.joined).map(u => {
-    const name = u.firstName || 'User';
-    const initial = name.charAt(0).toUpperCase();
-    const color = colors[name.length % colors.length];
-    const imgSrc = u.image || '';
-    if (imgSrc) {
-      const fallbackSvg = encodeURIComponent(
-        `<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"><rect width="35" height="35" rx="17.5" fill="${color}"/><text x="17.5" y="22" text-anchor="middle" fill="white" font-size="15" font-weight="700">${initial}</text></svg>`
-      );
-      return `<img class="dtl-participant-avatar" src="${imgSrc}" alt="${name}" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml,${fallbackSvg}'" />`;
-    }
-    return `<div class="dtl-participant-avatar" style="background:${color}">${initial}</div>`;
-  });
   return `
     <div class="dtl-participants">
       <div class="dtl-participants__header">
@@ -136,7 +104,7 @@ export function ParticipantsBlock(participants, users) {
         <span class="dtl-participants__count">${participants.joined} bergabung</span>
       </div>
       <div class="dtl-participants__avatars">
-        ${avatarList.join('')}
+        ${renderAvatarList(users, participants.joined)}
       </div>
     </div>
   `;

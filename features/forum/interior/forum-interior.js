@@ -23,8 +23,8 @@ function errEl(msg) {
   return el;
 }
 
-export async function ForumInterior() {
-  const params = getHashParams();
+export async function ForumInterior(externalParams) {
+  const params = externalParams || getHashParams();
   const courseIdx = parseInt(params.get('index'), 10);
   const groupIdx = parseInt(params.get('group'), 10);
   if (isNaN(courseIdx) && isNaN(groupIdx)) {
@@ -48,13 +48,14 @@ export async function ForumInterior() {
 
   const { channels, memberCount, memberLimit, forumIndex, backLink, forumId, forumType, serverName, members } = resolved;
   const activeUsers = await getUsersForContext(forumIndex, LIMITS.MAX_ACTIVE_MEMBERS);
+  const activeChannel = channels[0];
 
   const footer = document.querySelector('#footer');
   if (footer) footer.style.display = 'none';
   const main = document.querySelector('#main');
   if (main) main.style.paddingBottom = '0';
 
-  const opts = { serverName, channels, members, memberCount, memberLimit, forumIndex, backLink, forumId, forumType, activeUsers };
+  const opts = { serverName, channels, members, memberCount, memberLimit, forumIndex, backLink, forumId, forumType, activeChannel, activeUsers };
   const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
 
   if (isMobile) {

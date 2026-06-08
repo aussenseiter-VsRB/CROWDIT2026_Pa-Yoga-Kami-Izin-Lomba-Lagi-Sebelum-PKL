@@ -62,7 +62,7 @@ class SearchEngine {
           type: 'Kursus',
           title: d.course.title,
           description: d.course.description,
-          url: `/forum?index=${i}`,
+          url: `/detail?index=${i}`,
           tags: [d.course.category, d.course.status].filter(Boolean),
           category: d.course.category,
           meta: `${d.participants?.joined || 0}/${d.participants?.capacity || 0} peserta`,

@@ -78,74 +78,163 @@ studNow/
 │   ├── notifications.json        # Data notifikasi — dibaca oleh notifications, js/services/notifications.js
 │   └── search.json               # UI copy halaman search (hero, placeholder, label) — bukan hasil pencarian
 ├── features/                     # Satu folder per fitur — JS, CSS, dan JSON spesifik fitur
+│   │                             # Entry point (.js) di root, helper (_*.js) di js/, CSS di css/
 │   ├── about/
+│   │   ├── js/
+│   │   ├── css/
+│   │   │   └── about.css
 │   │   ├── about.js
-│   │   ├── about.css
 │   │   └── about.json            # Spesifik: hanya dipakai about
 │   ├── auth/                     # Fitur terkait autentikasi — dikelompokkan bersama
 │   │   ├── login/
-│   │   │   ├── login.js          # Membaca dari /data/auth.json
-│   │   │   └── login.css
+│   │   │   ├── js/
+│   │   │   ├── css/
+│   │   │   │   ├── login.css
+│   │   │   │   ├── _auth-form.css
+│   │   │   │   └── _auth-visual.css
+│   │   │   └── login.js          # Membaca dari /data/auth.json
 │   │   └── signup/
-│   │       ├── signup.js         # Membaca dari /data/auth.json
-│   │       └── signup.css
+│   │       ├── js/
+│   │       ├── css/
+│   │       │   ├── signup.css
+│   │       │   ├── _auth-form.css
+│   │       │   └── _auth-visual.css
+│   │       └── signup.js         # Membaca dari /data/auth.json
 │   ├── chat/                     # Fitur terkait pesan — dikelompokkan bersama
 │   │   ├── chat/
-│   │   │   ├── chat.js           # Membaca dari /data/chat.json
-│   │   │   └── chat.css
+│   │   │   ├── js/
+│   │   │   │   ├── _cards.js
+│   │   │   │   ├── _render.js
+│   │   │   │   └── _utils.js
+│   │   │   ├── css/
+│   │   │   │   └── chat.css
+│   │   │   └── chat.js           # Membaca dari /data/chat.json
 │   │   └── dm/
-│   │       ├── dm.js             # Membaca dari /data/chat.json
-│   │       └── dm.css
+│   │       ├── js/
+│   │       ├── css/
+│   │       │   ├── dm.css
+│   │       │   ├── _dm-bubbles.css
+│   │       │   ├── _dm-compose.css
+│   │       │   ├── _dm-desktop.css
+│   │       │   └── _dm-modals.css
+│   │       └── dm.js             # Membaca dari /data/chat.json
 │   ├── contact/
+│   │   ├── js/
+│   │   ├── css/
+│   │   │   └── contact.css
 │   │   ├── contact.js
-│   │   ├── contact.css
 │   │   └── contact.json          # Spesifik: hanya dipakai contact
 │   ├── detail/
-│   │   ├── detail.js             # Membaca dari /data/detail.json
-│   │   └── detail.css
+│   │   ├── js/
+│   │   │   ├── _cards.js
+│   │   │   ├── _handlers.js
+│   │   │   ├── _render.js
+│   │   │   └── _utils.js
+│   │   ├── css/
+│   │   │   ├── detail.css
+│   │   │   ├── _detail-creator.css
+│   │   │   ├── _detail-forum.css
+│   │   │   ├── _detail-hero.css
+│   │   │   └── _detail-meeting.css
+│   │   └── detail.js             # Membaca dari /data/detail.json
 │   ├── forum/                    # Fitur terkait forum — dikelompokkan bersama
+│   │   ├── css/
+│   │   │   └── _members.css      # Partial shared: avatar stack + member list
 │   │   ├── landing/              # Forum landing: join gate, privacy badge, CTA
-│   │   │   ├── forum.js
-│   │   │   └── forum.css
-│   │   ├── interior/             # Forum interior: channels, messages, members
-│   │   │   ├── forum-interior.js
-│   │   │   └── forum-interior.css
-│   │   └── _members.css          # Partial shared: avatar stack + member list (dipakai landing & interior)
+│   │   │   ├── js/
+│   │   │   │   ├── _cards.js
+│   │   │   │   ├── _handlers.js
+│   │   │   │   ├── _render.js
+│   │   │   │   └── _utils.js
+│   │   │   ├── css/
+│   │   │   │   ├── forum.css
+│   │   │   │   ├── _forum-landing.css
+│   │   │   │   ├── _forum-members.css
+│   │   │   │   ├── _forum-messages.css
+│   │   │   │   └── _forum-sidebar.css
+│   │   │   └── forum.js
+│   │   └── interior/             # Forum interior: channels, messages, members
+│   │       ├── js/
+│   │       │   ├── _cards.js
+│   │       │   ├── _handlers.js
+│   │       │   ├── _render.js
+│   │       │   └── _utils.js
+│   │       ├── css/
+│   │       │   └── forum-interior.css
+│   │       └── forum-interior.js
 │   ├── groups/
-│   │   ├── groups.js             # Membaca dari /data/groups.json
-│   │   └── groups.css
+│   │   ├── js/
+│   │   │   ├── _cards.js
+│   │   │   ├── _render.js
+│   │   │   └── _utils.js
+│   │   ├── css/
+│   │   │   ├── groups.css
+│   │   │   ├── _groups-card.css
+│   │   │   └── _groups-hero.css
+│   │   └── groups.js             # Membaca dari /data/groups.json
 │   ├── help/
+│   │   ├── js/
+│   │   ├── css/
+│   │   │   ├── help.css
+│   │   │   └── _help-faq.css
 │   │   ├── help.js
-│   │   ├── help.css
 │   │   └── help.json             # Spesifik: hanya dipakai help
 │   ├── home/
+│   │   ├── js/
+│   │   │   ├── _cards.js
+│   │   │   ├── _handlers.js
+│   │   │   ├── _render.js
+│   │   │   └── _utils.js
+│   │   ├── css/
+│   │   │   ├── home.css
+│   │   │   ├── _home-forum.css
+│   │   │   ├── _home-hero.css
+│   │   │   ├── _home-mobile.css
+│   │   │   └── _home-topics.css
 │   │   ├── home.js               # Membaca dari /features/home/home.json + /data/detail.json + /data/forum.json
-│   │   ├── home.css
 │   │   └── home.json             # Spesifik: hero, stats, topics, action — hanya dipakai home
 │   ├── notifications/
-│   │   ├── notifications.js      # Membaca dari /data/notifications.json
-│   │   └── notifications.css
-│   ├── open/
-│   │   ├── open.js               # Membaca dari /data/detail.json
-│   │   └── open.css
+│   │   ├── js/
+│   │   │   ├── _cards.js
+│   │   │   ├── _handlers.js
+│   │   │   ├── _render.js
+│   │   │   └── _utils.js
+│   │   ├── css/
+│   │   │   ├── notifications.css
+│   │   │   └── _notifications-card.css
+│   │   └── notifications.js      # Membaca dari /data/notifications.json
 │   ├── profile/                  # Fitur terkait profil — dikelompokkan bersama
 │   │   ├── profile/
-│   │   │   ├── profile.js        # Membaca dari /data/profile.json
-│   │   │   └── profile.css
+│   │   │   ├── js/
+│   │   │   ├── css/
+│   │   │   │   ├── profile.css
+│   │   │   │   ├── _profile-header.css
+│   │   │   │   └── _profile-panels.css
+│   │   │   └── profile.js        # Membaca dari /data/profile.json
 │   │   ├── edit-profile/
-│   │   │   ├── edit-profile.js   # Membaca dari /data/profile.json
-│   │   │   └── edit-profile.css
+│   │   │   ├── js/
+│   │   │   ├── css/
+│   │   │   │   ├── edit-profile.css
+│   │   │   │   └── _edit-profile-form.css
+│   │   │   └── edit-profile.js   # Membaca dari /data/profile.json
 │   │   └── settings/
+│   │       ├── js/
+│   │       ├── css/
+│   │       │   ├── settings.css
+│   │       │   └── _settings-toggle.css
 │   │       ├── settings.js
-│   │       ├── settings.css
 │   │       └── settings.json     # Spesifik: hanya dipakai settings
 │   ├── search/
-│   │   ├── search.js             # Membaca dari /data/search.json (UI copy)
-│   │   └── search.css
-│   └── settings/
-│       ├── settings.js
-│       ├── settings.css
-│       └── settings.json         # Spesifik: hanya dipakai settings
+│   │   ├── js/
+│   │   │   ├── _utils.js
+│   │   │   ├── _cards.js
+│   │   │   ├── _handlers.js
+│   │   │   └── _render.js
+│   │   ├── css/
+│   │   │   ├── search.css
+│   │   │   ├── _search-bar.css
+│   │   │   └── _search-card.css
+│   │   └── search.js             # Membaca dari /data/search.json (UI copy)
 └── components/                   # Komponen yang dipakai oleh 2+ fitur
     ├── layout/                   # Komponen struktur halaman (di-mount sekali, tidak di-render ulang)
     │   ├── navbar/navbar.js + .css
@@ -180,23 +269,48 @@ Fitur yang **erat secara domain** (berbagi data, flow, atau UX) dikelompokkan da
 ```txt
 # BENAR — forum landing dan interior dikelompokkan karena satu domain
 features/forum/
-├── landing/forum.js + .css
-├── interior/forum-interior.js + .css
-└── _members.css   ← partial shared antar keduanya
+├── css/_members.css   ← partial shared antar keduanya
+├── landing/
+│   ├── js/_cards.js + _handlers.js + _render.js + _utils.js
+│   ├── css/forum.css + _forum-landing.css + _forum-members.css + _forum-messages.css + _forum-sidebar.css
+│   └── forum.js
+└── interior/
+    ├── js/_cards.js + _handlers.js + _render.js + _utils.js
+    ├── css/forum-interior.css
+    └── forum-interior.js
 
 # BENAR — chat dan dm dikelompokkan karena berbagi data/chat.json dan domain pesan
 features/chat/
-├── chat/chat.js + .css
-└── dm/dm.js + .css
+├── chat/
+│   ├── js/_cards.js + _render.js + _utils.js
+│   ├── css/chat.css
+│   └── chat.js
+└── dm/
+    ├── js/
+    ├── css/dm.css + _dm-bubbles.css + _dm-compose.css + _dm-desktop.css + _dm-modals.css
+    └── dm.js
 
 # BENAR — profile, edit-profile, dan settings dikelompokkan karena domain profil
 features/profile/
-├── profile/profile.js + .css
-├── edit-profile/edit-profile.js + .css
-└── settings/settings.js + .css + .json
+├── profile/
+│   ├── js/
+│   ├── css/profile.css + _profile-header.css + _profile-panels.css
+│   └── profile.js
+├── edit-profile/
+│   ├── js/
+│   ├── css/edit-profile.css + _edit-profile-form.css
+│   └── edit-profile.js
+└── settings/
+    ├── js/
+    ├── css/settings.css + _settings-toggle.css
+    └── settings.js + .json
 
 # BENAR — fitur standalone tetap flat
-features/about/about.js + .css + .json
+features/about/
+├── js/
+├── css/about.css
+├── about.js
+└── about.json
 ```
 
 ### Contoh yang Salah
@@ -258,7 +372,7 @@ import { getSession } from '../../js/services/auth.js';
 | Folder | Isi | Ciri khas |
 |---|---|---|
 | `components/layout/` | navbar, top-bar, bottom-bar, footer | Di-mount sekali di `main.js`, tidak pernah di-render ulang |
-| `components/ui/` | card, form-field, qr-modal | Stateless, menerima data sebagai parameter |
+| `components/ui/` | card, form-field, qr-modal, avatar | Stateless, menerima data sebagai parameter |
 | `components/shared/` | page-header, tambah-minat | Boleh punya state ringan, dipakai 2+ fitur |
 
 ### Kapan Membuat Komponen Baru
@@ -283,7 +397,7 @@ import { getSession } from '../../js/services/auth.js';
 
 | File JSON | Scope | Dibaca oleh |
 |---|---|---|
-| `data/detail.json` | shared | `features/detail/`, `features/open/`, `features/home/`, `features/forum/`, `js/services/search.js` |
+| `data/detail.json` | shared | `features/detail/`, `features/home/`, `features/forum/`, `js/services/search.js` |
 | `data/groups.json` | shared | `features/groups/`, `features/forum/`, `js/services/search.js` |
 | `data/forum.json` | shared | `features/forum/`, `features/home/`, `features/chat/` |
 | `data/chat.json` | shared | `features/chat/chat/`, `features/chat/dm/` |
@@ -330,10 +444,6 @@ Sebelum membuat file JSON baru, tanya dua pertanyaan:
 ### Contoh Benar
 
 ```js
-// features/open/open.js — butuh data kursus, shared dengan detail
-const courses = await fetchData('/data/detail.json');
-const course = courses[getHashParams().get('index')];
-
 // features/help/help.js — data spesifik help saja
 const data = await fetchData('/features/help/help.json');
 
@@ -349,7 +459,7 @@ const [homeData, courses, forums] = await Promise.all([
 
 ```js
 // SALAH — data kursus sudah ada di data/detail.json
-const data = await fetchData('/features/open/open.json');
+const data = await fetchData('/features/help/help.json');
 
 // SALAH — duplikasi field dari detail.json ke home.json
 // home.json: { "forums": [{ "title": "...", "description": "..." }] }
@@ -399,21 +509,26 @@ Buat folder di `features/nama-halaman/`. Jika halaman ini erat dengan fitur yang
 ```txt
 # Jika fitur standalone dengan data spesifik:
 features/blog/
+├── js/
+├── css/blog.css
 ├── blog.js
-├── blog.css
 └── blog.json   ← boleh, karena hanya dipakai blog
 
 # Jika fitur standalone yang fetch data shared:
 features/blog/
-├── blog.js     ← fetch dari /data/detail.json atau file shared lainnya
-└── blog.css
+├── js/_cards.js + _handlers.js + _render.js + _utils.js
+├── css/blog.css + _blog-card.css + _blog-hero.css
+└── blog.js     ← fetch dari /data/detail.json atau file shared lainnya
 
 # Jika sub-halaman dari fitur yang sudah ada:
 features/forum/
-├── landing/forum.js + .css     ← sudah ada
-└── moderation/                 ← sub-halaman baru
-    ├── moderation.js
-    └── moderation.css
+├── landing/
+│   ├── js/ + css/
+│   └── forum.js                 ← sudah ada
+└── moderation/                  ← sub-halaman baru
+    ├── js/
+    ├── css/moderation.css
+    └── moderation.js
 ```
 
 Fungsi utama harus `export async function NamaHalaman()` yang mengembalikan DOM element:
@@ -423,7 +538,7 @@ import { fetchData } from '../../js/utils/api.js';
 import { injectStyle } from '../../js/utils/styleLoader.js';
 
 export async function Blog() {
-  injectStyle('/features/blog/blog.css');
+  injectStyle('/features/blog/css/blog.css');
   const container = document.createElement('div');
   container.innerHTML = '<div class="loading">Memuat...</div>';
   try {
@@ -473,9 +588,9 @@ Jika komponen dipakai oleh 2+ fitur, buat di `components/` di bawah kategori yan
 Jika file melebihi batasnya, ekstrak ke partial dengan prefix `_`:
 
 ```js
-injectStyle('/features/home/home.css');
-injectStyle('/features/home/_feed.css');
-injectStyle('/features/home/_hero.css');
+injectStyle('/features/home/css/home.css');
+injectStyle('/features/home/css/_feed.css');
+injectStyle('/features/home/css/_hero.css');
 ```
 
 ### 6. MD Update Rule
@@ -502,7 +617,7 @@ Setiap response yang membuat fitur baru, halaman, komponen, utility, atau peruba
 - Fuzzy search dengan character n-grams (2–4), field-weighted scoring (title > tags/category > description), dan coverage-ratio multiplier.
 - Threshold minimum skor `MIN_SCORE = 30` untuk mencegah false positive.
 - Halaman search harus await `searchEngine.init()` sebelum mengakses indeks.
-- Hasil pencarian: forum → `/detail?index=N` atau `/open?index=N`, grup → `/groups`, kursus → `/detail`.
+- Hasil pencarian: forum/kursus → `/detail?index=N`, grup → `/groups`.
 
 ---
 

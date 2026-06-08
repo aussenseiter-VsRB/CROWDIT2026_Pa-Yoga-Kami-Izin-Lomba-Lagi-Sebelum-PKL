@@ -18,16 +18,16 @@
   },
   "topics": ["Semua Topik", "Ilmu Komputer", "Matematika", "Filsafat"],
   "forums": [
-    { "action": "Buka" },
-    { "action": "Buka" },
-    { "action": "Detail" },
-    { "action": "Detail" },
-    { "action": "Buka" },
-    { "action": "Buka" },
-    { "action": "Detail" },
-    { "action": "Buka" },
-    { "action": "Detail" },
-    { "action": "Buka" }
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
   ],
   "stats": [
     { "value": "24", "label": "Grup aktif" },

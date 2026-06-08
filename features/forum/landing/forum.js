@@ -1,8 +1,8 @@
 import { injectStyle } from '../../../js/utils/styleLoader.js';
-import { navigateTo } from '../../../js/utils/url.js';
 import { MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 import { getForumStatus } from '../../../js/services/forum-access.js';
 import { initForumUsers, getUsers } from '../interior/forum-interior.js';
+import { ForumInterior } from '../interior/forum-interior.js';
 import { populateStacks } from '../interior/js/_render.js';
 import { resolveLandingData } from './js/_utils.js';
 import { renderLandingDesktop, renderLandingMobile } from './js/_render.js';
@@ -18,11 +18,8 @@ export async function Forum() {
   const status = getForumStatus(resolved.forumType, resolved.index);
 
   if (status === 'joined') {
-    navigateTo(`/forum-interior?${resolved.forumType === 'course' ? 'index' : 'group'}=${resolved.index}`);
-    const el = document.createElement('section');
-    el.className = 'container section';
-    el.innerHTML = '<p style="text-align:center;padding:2rem;color:var(--muted)"><i class="bi bi-arrow-repeat"></i> Mengalihkan ke forum...</p>';
-    return el;
+    const type = resolved.forumType === 'course' ? 'index' : 'group';
+    return ForumInterior(new URLSearchParams(`${type}=${resolved.index}`));
   }
 
   initForumUsers();

@@ -10,6 +10,8 @@ injectStyle('/features/home/css/home.css');
 injectStyle('/features/home/css/_home-hero.css');
 injectStyle('/features/home/css/_home-topics.css');
 injectStyle('/features/home/css/_home-forum.css');
+injectStyle('/features/home/css/_home-forum-status.css');
+injectStyle('/features/home/css/_home-forum-actions.css');
 injectStyle('/features/home/css/_home-mobile.css');
 
 export async function Home() {

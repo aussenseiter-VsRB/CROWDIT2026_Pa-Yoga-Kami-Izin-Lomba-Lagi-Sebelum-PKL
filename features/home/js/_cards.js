@@ -22,7 +22,6 @@ function ParticipantBar(participants) {
 
 export function ForumCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
-  const actionHref = forum.action === 'Detail' ? `/detail?index=${index}` : `/open?index=${index}`;
 
   return `
     <article class="home-forum-card">
@@ -41,8 +40,8 @@ export function ForumCard(forum, index) {
 
       <div class="home-forum-card__footer">
         ${ParticipantBar(forum.participants)}
-        <a class="home-action is-primary" href="${actionHref}" data-link>
-          ${forum.action}
+        <a class="home-action is-primary" href="/detail?index=${index}" data-link>
+          Detail
         </a>
       </div>
     </article>
@@ -51,7 +50,6 @@ export function ForumCard(forum, index) {
 
 export function mForumCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
-  const actionHref = forum.action === 'Detail' ? `/detail?index=${index}` : `/open?index=${index}`;
 
   return `
     <article class="m-home-forum-card">
@@ -67,8 +65,8 @@ export function mForumCard(forum, index) {
 
       <div class="m-home-forum-card__footer">
         ${ParticipantBar(forum.participants)}
-        <a class="m-home-action is-primary" href="${actionHref}" data-link>
-          ${forum.action}
+        <a class="m-home-action is-primary" href="/detail?index=${index}" data-link>
+          Detail
         </a>
       </div>
     </article>
