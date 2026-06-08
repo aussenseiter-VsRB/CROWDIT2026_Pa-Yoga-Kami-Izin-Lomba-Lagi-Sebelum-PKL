@@ -1,8 +1,9 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
+import { DATA_PATHS } from '../../js/core/config.js';
 injectStyle('/features/help/help.css');
 
 import { asset, navigateTo } from '../../js/utils/url.js';
-import { isAuthenticated, navigateAfterAuth } from '../../js/auth.js';
+import { isAuthenticated, navigateAfterAuth } from '../../js/services/auth.js';
 
 function iconArrowLeft() { return '<i class="bi bi-arrow-left"></i>'; }
 function iconSearch() { return '<i class="bi bi-search"></i>'; }
@@ -15,7 +16,7 @@ export async function Help() {
     return document.createElement('section');
   }
 
-  const data = await (await fetch(asset('/features/help/help.json'))).json();
+  const data = await (await fetch(asset(DATA_PATHS.HELP))).json();
 
   const el = document.createElement('section');
   el.className = 'm-help';

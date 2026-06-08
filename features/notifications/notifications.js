@@ -1,9 +1,10 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
+import { MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/notifications/notifications.css');
-import { getUnreadNotifications, getAllNotifications, markAsRead, markAllAsRead, getUnreadCount } from '../../js/notifications.js';
+import { getUnreadNotifications, getAllNotifications, markAsRead, markAllAsRead, getUnreadCount } from '../../js/services/notifications.js';
 
 function timeAgo(dateStr) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -192,7 +193,7 @@ export async function Notifications() {
   el.innerHTML = '<p style="color:var(--muted)"><i class="bi bi-arrow-repeat"></i> Memuat...</p>';
 
   try {
-    const isMobile = window.innerWidth <= 900;
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const pageEl = isMobile ? renderMobile() : renderDesktop();
     el.replaceWith(pageEl);
     return pageEl;

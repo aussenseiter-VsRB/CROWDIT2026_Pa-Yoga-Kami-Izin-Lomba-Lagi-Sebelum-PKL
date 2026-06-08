@@ -1,6 +1,7 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
-import { searchEngine } from '../../js/search.js';
+import { searchEngine } from '../../js/services/search.js';
+import { DATA_PATHS, LIMITS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/search/search.css');
@@ -32,13 +33,13 @@ function buildDiscoveryData(index) {
 
   const trendingTags = Object.entries(tagCounts)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 5)
+    .slice(0, LIMITS.MAX_TRENDING_TAGS)
     .map(([label, count]) => ({ label, count, icon: tagIcons[label] || 'fire' }));
 
   const seen = new Set();
   const suggested = [];
   for (const doc of index) {
-    if (suggested.length >= 6) break;
+    if (suggested.length >= LIMITS.MAX_SUGGESTED_ITEMS) break;
     if (seen.has(doc.title)) continue;
     seen.add(doc.title);
     suggested.push({
@@ -447,9 +448,9 @@ export async function Search() {
 
   try {
     await searchEngine.init();
-    const data = await fetchData('/data/search.json');
+    const data = await fetchData(DATA_PATHS.SEARCH);
 
-    const isMobile = window.innerWidth <= 900;
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const pageEl = isMobile ? renderMobile(data) : renderDesktop(data);
     el.replaceWith(pageEl);
     return pageEl;

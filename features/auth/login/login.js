@@ -1,8 +1,9 @@
 import { injectStyle } from '../../../js/utils/styleLoader.js';
+import { DATA_PATHS, TIMING, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 import { fetchData } from '../../../js/utils/api.js';
-import { initUsers, login, navigateAfterAuth } from '../../../js/auth.js';
+import { initUsers, login, navigateAfterAuth } from '../../../js/services/auth.js';
 
 function field({ type, name, placeholder, icon, autocomplete, inputMode, autocapitalize, spellcheck, hint, toggleable = false, minLength }) {
   const inputId = `login-${name}`;
@@ -166,7 +167,7 @@ function renderDesktop(data) {
 
     window.setTimeout(() => {
       navigateAfterAuth('/profile');
-    }, 180);
+    }, TIMING.AUTH_NAV_DELAY);
   });
 
   syncSubmitState();
@@ -260,7 +261,7 @@ function renderMobile(data) {
 
     window.setTimeout(() => {
       navigateAfterAuth('/profile');
-    }, 180);
+    }, TIMING.AUTH_NAV_DELAY);
   });
 
   return el;
@@ -271,7 +272,7 @@ export async function Login() {
 
   let data;
   try {
-    data = (await fetchData('/data/auth.json')).login;
+    data = (await fetchData(DATA_PATHS.AUTH)).login;
   } catch {
     const el = document.createElement('section');
     el.className = 'login-page';
@@ -281,7 +282,7 @@ export async function Login() {
 
   await initUsers();
 
-  const isMobile = window.innerWidth <= 900;
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
 
   if (isMobile) {
     return renderMobile(data);

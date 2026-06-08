@@ -1,5 +1,6 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
+import { DATA_PATHS, LIMITS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/groups/groups.css');
@@ -9,8 +10,8 @@ function peopleIcon() {
 }
 
 function getStatus(members) {
-  if (members >= 50) return 'popular';
-  if (members >= 10) return 'active';
+  if (members >= LIMITS.POPULAR_THRESHOLD) return 'popular';
+  if (members >= LIMITS.ACTIVE_THRESHOLD) return 'active';
   return 'inactive';
 }
 
@@ -155,8 +156,8 @@ function renderMobile(data) {
 }
 
 export async function Groups() {
-  const data = await fetchData('/data/groups.json');
+  const data = await fetchData(DATA_PATHS.GROUPS);
 
-  const isMobile = window.innerWidth <= 900;
+  const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
   return isMobile ? renderMobile(data) : renderDesktop(data);
 }

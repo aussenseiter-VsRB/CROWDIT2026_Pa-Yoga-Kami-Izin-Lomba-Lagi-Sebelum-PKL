@@ -1,10 +1,11 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
+import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/about/about.css');
-import { PageHeader } from '../../components/page-header/page-header.js';
-import { Card } from '../../components/card/card.js';
+import { PageHeader } from '../../components/shared/page-header/page-header.js';
+import { Card } from '../../components/ui/card/card.js';
 
 function renderDesktop(data) {
   const el = document.createElement('section');
@@ -54,7 +55,7 @@ function renderMobile(data) {
 }
 
 export async function About() {
-  const isMobile = window.innerWidth <= 900;
-  const data = await fetchData('/features/about/about.json');
+  const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
+  const data = await fetchData(DATA_PATHS.ABOUT);
   return isMobile ? renderMobile(data) : renderDesktop(data);
 }

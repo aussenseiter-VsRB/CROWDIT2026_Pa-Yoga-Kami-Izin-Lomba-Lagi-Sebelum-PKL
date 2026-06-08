@@ -1,8 +1,9 @@
 import { injectStyle } from '../../../js/utils/styleLoader.js';
+import { DATA_PATHS, TIMING, LIMITS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 import { fetchData } from '../../../js/utils/api.js';
-import { initUsers, register, navigateAfterAuth } from '../../../js/auth.js';
+import { initUsers, register, navigateAfterAuth } from '../../../js/services/auth.js';
 
 function field({ type, name, placeholder, icon }) {
   return `
@@ -125,7 +126,7 @@ function renderDesktop(data) {
       return;
     }
 
-    if (passwordInput.value.length < 8) {
+    if (passwordInput.value.length < LIMITS.MIN_PASSWORD_LENGTH) {
       errorEl.textContent = 'Password minimal 8 karakter';
       errorEl.hidden = false;
       return;
@@ -145,7 +146,7 @@ function renderDesktop(data) {
 
     window.setTimeout(() => {
       navigateAfterAuth('/profile');
-    }, 180);
+    }, TIMING.AUTH_NAV_DELAY);
   });
 
   return el;
@@ -234,7 +235,7 @@ function renderMobile(data) {
       return;
     }
 
-    if (passwordInput.value.length < 8) {
+    if (passwordInput.value.length < LIMITS.MIN_PASSWORD_LENGTH) {
       errorEl.textContent = 'Password minimal 8 karakter';
       errorEl.hidden = false;
       return;
@@ -254,7 +255,7 @@ function renderMobile(data) {
 
     window.setTimeout(() => {
       navigateAfterAuth('/profile');
-    }, 180);
+    }, TIMING.AUTH_NAV_DELAY);
   });
 
   return el;
@@ -265,7 +266,7 @@ export async function Signup() {
 
   let data;
   try {
-    data = (await fetchData('/data/auth.json')).signup;
+    data = (await fetchData(DATA_PATHS.AUTH)).signup;
   } catch {
     const el = document.createElement('section');
     el.className = 'signup-page';
@@ -275,7 +276,7 @@ export async function Signup() {
 
   await initUsers();
 
-  const isMobile = window.innerWidth <= 900;
+  const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
 
   if (isMobile) {
     return renderMobile(data);

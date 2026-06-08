@@ -1,7 +1,8 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
 import { asset } from '../../js/utils/url.js';
-import { initForumUsers, AvatarStackHtml, populateStacks } from '../forum-interior/forum-interior.js';
+import { initForumUsers, AvatarStackHtml, populateStacks } from '../forum/interior/forum-interior.js';
+import { DATA_PATHS, LIMITS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 
 injectStyle('/features/home/home.css');
 injectStyle('/features/forum/_members.css');
@@ -26,7 +27,7 @@ function ForumCard(forum, index) {
       <p>${forum.description}</p>
 
       <div class="home-forum-card__footer">
-        ${AvatarStackHtml(forum.memberCount || 0, forum.memberLimit || 100, index)}
+        ${AvatarStackHtml(forum.memberCount || 0, forum.memberLimit || LIMITS.DEFAULT_MEMBER_LIMIT, index)}
         <a class="home-action is-primary" href="${actionHref}" data-link>
           ${forum.action}
         </a>
@@ -48,9 +49,11 @@ function mForumCard(forum, index) {
           ${forum.status}
         </span>
       </div>
+
       <p>${forum.description}</p>
+
       <div class="m-home-forum-card__footer">
-        ${AvatarStackHtml(forum.memberCount || 0, forum.memberLimit || 100, index)}
+        ${AvatarStackHtml(forum.memberCount || 0, forum.memberLimit || LIMITS.DEFAULT_MEMBER_LIMIT, index)}
         <a class="m-home-action is-primary" href="${actionHref}" data-link>
           ${forum.action}
         </a>
@@ -165,7 +168,7 @@ function mergeCourseData(forum, course, forumCourse) {
     description: course?.description || forum.description || '',
     status: course?.status || forum.status || 'Online',
     memberCount: forumCourse?.memberCount || forum.memberCount || 0,
-    memberLimit: forumCourse?.memberLimit || forum.memberLimit || 100,
+    memberLimit: forumCourse?.memberLimit || forum.memberLimit || LIMITS.DEFAULT_MEMBER_LIMIT,
   };
 }
 
@@ -173,9 +176,9 @@ export async function Home() {
   const usersPromise = initForumUsers();
   try {
     const [homeData, detailData, forumData] = await Promise.all([
-      fetchData('/features/home/home.json'),
-      fetch(asset('/data/detail.json')).then(r => r.json()),
-      fetch(asset('/data/forum.json')).then(r => r.json()),
+      fetchData(DATA_PATHS.HOME),
+      fetch(asset(DATA_PATHS.DETAIL)).then(r => r.json()),
+      fetch(asset(DATA_PATHS.FORUM)).then(r => r.json()),
     ]);
 
     const data = {
@@ -191,7 +194,7 @@ export async function Home() {
       },
     };
 
-    const isMobile = window.innerWidth <= 900;
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const el = isMobile ? renderMobile(data) : renderDesktop(data);
     usersPromise.then(() => populateStacks(el));
     return el;

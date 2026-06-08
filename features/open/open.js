@@ -1,12 +1,13 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { getHashParams, asset } from '../../js/utils/url.js';
+import { DATA_PATHS } from '../../js/core/config.js';
 injectStyle('/features/detail/detail.css');
 
 export async function Open() {
   const params = getHashParams();
   const index = parseInt(params.get('index'), 10) || 0;
 
-  const res = await fetch(asset('/data/detail.json'));
+  const res = await fetch(asset(DATA_PATHS.DETAIL));
   const data = await res.json();
   const item = data[index] ?? data[0];
 

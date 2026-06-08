@@ -50,45 +50,52 @@ studNow/
 ├── dist/
 │   └── output.css                # Hasil build Tailwind (jangan diedit manual)
 ├── js/
-│   ├── main.js                   # Bootstrap: mount komponen tetap, intercept navigasi
-│   ├── router.js                 # Route table tunggal, render halaman ke #main
-│   ├── auth.js                   # Login, register, logout, session (localStorage)
-│   ├── search.js                 # Fuzzy search engine (n-gram, field-weighted)
-│   ├── theme.js                  # Inisialisasi tema
-│   ├── notifications.js          # Manajemen notifikasi
-│   ├── forum-access.js           # Join/request/approve forum — localStorage state
-│   ├── dummy-users.js            # DummyJSON cache (24h TTL), seeded shuffle, getUsersForContext
-│   └── utils/
+│   ├── core/                     # Bootstrap & infrastruktur inti aplikasi
+│   │   ├── main.js               # Bootstrap: mount komponen tetap, intercept navigasi
+│   │   ├── router.js             # Route table tunggal, render halaman ke #main
+│   │   └── theme.js              # Inisialisasi tema
+│   ├── services/                 # Singleton stateful — mengelola state & business logic
+│   │   ├── auth.js               # Login, register, logout, session (localStorage)
+│   │   ├── search.js             # Fuzzy search engine (n-gram, field-weighted)
+│   │   ├── notifications.js      # Manajemen notifikasi
+│   │   └── forum-access.js       # Join/request/approve forum — localStorage state
+│   ├── data/                     # Data-access layer — fetch & cache eksternal
+│   │   └── dummy-users.js        # DummyJSON cache (24h TTL), seeded shuffle, getUsersForContext
+│   └── utils/                    # Pure functions — tidak ada state, tidak ada side effect
 │       ├── dom.js                # Helper DOM (createElement, query shortcuts)
 │       ├── format.js             # Format tanggal, angka, string
 │       ├── api.js                # Fetch wrapper — prepend window.BASE otomatis
 │       ├── styleLoader.js        # Inject CSS tanpa duplikasi — prepend window.BASE otomatis
 │       └── url.js                # Hash routing utilities (getHashPath, getHashParams, navigateTo, asset)
 ├── data/                         # Shared data — dipakai oleh 2+ fitur
-│   ├── users.json                # Seed users (version-gated) — dibaca oleh js/auth.js
+│   ├── users.json                # Seed users (version-gated) — dibaca oleh js/services/auth.js
 │   ├── detail.json               # Canonical source data kursus — dibaca oleh detail, open, home, forum, search.js
 │   ├── groups.json               # Canonical source data grup — dibaca oleh groups, forum, search.js
 │   ├── forum.json                # Canonical source data forum kursus — dibaca oleh forum, home
 │   ├── chat.json                 # Data chat & DM — dibaca oleh chat, dm
 │   ├── profile.json              # Data profil user — dibaca oleh profile, edit-profile
 │   ├── auth.json                 # UI copy login & signup — dibaca oleh login, signup
-│   ├── notifications.json        # Data notifikasi — dibaca oleh notifications, js/notifications.js
+│   ├── notifications.json        # Data notifikasi — dibaca oleh notifications, js/services/notifications.js
 │   └── search.json               # UI copy halaman search (hero, placeholder, label) — bukan hasil pencarian
 ├── features/                     # Satu folder per fitur — JS, CSS, dan JSON spesifik fitur
 │   ├── about/
 │   │   ├── about.js
 │   │   ├── about.css
 │   │   └── about.json            # Spesifik: hanya dipakai about
-│   ├── auth/
+│   ├── auth/                     # Fitur terkait autentikasi — dikelompokkan bersama
 │   │   ├── login/
 │   │   │   ├── login.js          # Membaca dari /data/auth.json
 │   │   │   └── login.css
 │   │   └── signup/
 │   │       ├── signup.js         # Membaca dari /data/auth.json
 │   │       └── signup.css
-│   ├── chat/
-│   │   ├── chat.js               # Membaca dari /data/chat.json
-│   │   └── chat.css
+│   ├── chat/                     # Fitur terkait pesan — dikelompokkan bersama
+│   │   ├── chat/
+│   │   │   ├── chat.js           # Membaca dari /data/chat.json
+│   │   │   └── chat.css
+│   │   └── dm/
+│   │       ├── dm.js             # Membaca dari /data/chat.json
+│   │       └── dm.css
 │   ├── contact/
 │   │   ├── contact.js
 │   │   ├── contact.css
@@ -96,19 +103,14 @@ studNow/
 │   ├── detail/
 │   │   ├── detail.js             # Membaca dari /data/detail.json
 │   │   └── detail.css
-│   ├── dm/
-│   │   ├── dm.js                 # Membaca dari /data/chat.json
-│   │   └── dm.css
-│   ├── edit-profile/
-│   │   ├── edit-profile.js       # Membaca dari /data/profile.json
-│   │   └── edit-profile.css
-│   ├── forum/
-│   │   ├── forum.js              # Landing page — join gate, privacy badge, CTA
-│   │   ├── forum.css             # Landing styles + interior styles (sidebar, messages, members)
-│   │   └── _members.css          # Partial: avatar stack + member list
-│   ├── forum-interior/
-│   │   ├── forum-interior.js     # Interior page — channels, messages, members (only when joined)
-│   │   └── forum-interior.css
+│   ├── forum/                    # Fitur terkait forum — dikelompokkan bersama
+│   │   ├── landing/              # Forum landing: join gate, privacy badge, CTA
+│   │   │   ├── forum.js
+│   │   │   └── forum.css
+│   │   ├── interior/             # Forum interior: channels, messages, members
+│   │   │   ├── forum-interior.js
+│   │   │   └── forum-interior.css
+│   │   └── _members.css          # Partial shared: avatar stack + member list (dipakai landing & interior)
 │   ├── groups/
 │   │   ├── groups.js             # Membaca dari /data/groups.json
 │   │   └── groups.css
@@ -126,9 +128,17 @@ studNow/
 │   ├── open/
 │   │   ├── open.js               # Membaca dari /data/detail.json
 │   │   └── open.css
-│   ├── profile/
-│   │   ├── profile.js            # Membaca dari /data/profile.json
-│   │   └── profile.css
+│   ├── profile/                  # Fitur terkait profil — dikelompokkan bersama
+│   │   ├── profile/
+│   │   │   ├── profile.js        # Membaca dari /data/profile.json
+│   │   │   └── profile.css
+│   │   ├── edit-profile/
+│   │   │   ├── edit-profile.js   # Membaca dari /data/profile.json
+│   │   │   └── edit-profile.css
+│   │   └── settings/
+│   │       ├── settings.js
+│   │       ├── settings.css
+│   │       └── settings.json     # Spesifik: hanya dipakai settings
 │   ├── search/
 │   │   ├── search.js             # Membaca dari /data/search.json (UI copy)
 │   │   └── search.css
@@ -137,16 +147,125 @@ studNow/
 │       ├── settings.css
 │       └── settings.json         # Spesifik: hanya dipakai settings
 └── components/                   # Komponen yang dipakai oleh 2+ fitur
-    ├── navbar/navbar.js + .css
-    ├── top-bar/top-bar.js + .css
-    ├── bottom-bar/bottom-bar.js + .css
-    ├── footer/footer.js + .css
-    ├── card/card.js + .css
-    ├── form-field/form-field.js + .css
-    ├── page-header/page-header.js + .css
-    ├── tambah-minat/tambah-minat.js + .css
-    └── qr-modal/qr-modal.js + .css
+    ├── layout/                   # Komponen struktur halaman (di-mount sekali, tidak di-render ulang)
+    │   ├── navbar/navbar.js + .css
+    │   ├── top-bar/top-bar.js + .css
+    │   ├── bottom-bar/bottom-bar.js + .css
+    │   └── footer/footer.js + .css
+    ├── ui/                       # Komponen UI reusable (stateless, data-driven)
+    │   ├── card/card.js + .css
+    │   ├── form-field/form-field.js + .css
+    │   └── qr-modal/qr-modal.js + .css
+    └── shared/                   # Komponen shared dengan logic ringan
+        ├── page-header/page-header.js + .css
+        └── tambah-minat/tambah-minat.js + .css
 ```
+
+---
+
+## Konvensi Pengelompokan Fitur
+
+### Prinsip Pengelompokan
+
+Fitur yang **erat secara domain** (berbagi data, flow, atau UX) dikelompokkan dalam satu parent folder. Fitur yang **berdiri sendiri** tetap flat di `features/`.
+
+| Kondisi | Pola |
+|---|---|
+| Fitur memiliki sub-halaman (e.g. landing + interior) | Buat subfolder di dalam folder fitur |
+| Dua fitur berbagi canonical data yang sama dan UX-nya terkait | Kelompokkan dalam parent folder |
+| Fitur berdiri sendiri tanpa relasi erat ke fitur lain | Tetap flat di `features/` |
+
+### Contoh Pengelompokan yang Benar
+
+```txt
+# BENAR — forum landing dan interior dikelompokkan karena satu domain
+features/forum/
+├── landing/forum.js + .css
+├── interior/forum-interior.js + .css
+└── _members.css   ← partial shared antar keduanya
+
+# BENAR — chat dan dm dikelompokkan karena berbagi data/chat.json dan domain pesan
+features/chat/
+├── chat/chat.js + .css
+└── dm/dm.js + .css
+
+# BENAR — profile, edit-profile, dan settings dikelompokkan karena domain profil
+features/profile/
+├── profile/profile.js + .css
+├── edit-profile/edit-profile.js + .css
+└── settings/settings.js + .css + .json
+
+# BENAR — fitur standalone tetap flat
+features/about/about.js + .css + .json
+```
+
+### Contoh yang Salah
+
+```txt
+# SALAH — sub-halaman forum tidak dikelompokkan, jadi polusi di root features/
+features/forum/forum.js
+features/forum-interior/forum-interior.js   ← seharusnya di dalam features/forum/interior/
+
+# SALAH — chat dan dm terpisah padahal berbagi domain dan data
+features/chat/chat.js
+features/dm/dm.js   ← seharusnya di dalam features/chat/dm/
+
+# SALAH — profile, edit-profile, settings terpisah padahal domain profil
+features/profile/profile.js
+features/edit-profile/edit-profile.js
+features/settings/settings.js   ← seharusnya di dalam features/profile/
+```
+
+---
+
+## Organisasi `js/`
+
+### Empat Lapisan
+
+| Folder | Isi | Boleh import dari |
+|---|---|---|
+| `js/core/` | Bootstrap & infrastruktur (main, router, theme) | utils, services |
+| `js/services/` | Singleton stateful — auth, search, notifications, forum-access | utils, data |
+| `js/data/` | Data-access layer — fetch & cache ke sumber eksternal | utils |
+| `js/utils/` | Pure functions — tidak ada state, tidak ada side effect | — (tidak boleh import dari layer lain) |
+
+### Aturan Dependency
+
+- `utils/` tidak boleh mengimport dari `services/`, `data/`, atau `core/`
+- `data/` hanya boleh mengimport dari `utils/`
+- `services/` boleh mengimport dari `utils/` dan `data/`
+- `core/` boleh mengimport dari semua layer
+- `features/` boleh mengimport dari semua layer di `js/`
+
+### Cara Referensi Setelah Refactor
+
+```js
+// Sebelum (flat)
+import { searchEngine } from '../../js/search.js';
+import { getSession } from '../../js/auth.js';
+
+// Sesudah (terorganisir)
+import { searchEngine } from '../../js/services/search.js';
+import { getSession } from '../../js/services/auth.js';
+```
+
+---
+
+## Organisasi `components/`
+
+### Tiga Kategori
+
+| Folder | Isi | Ciri khas |
+|---|---|---|
+| `components/layout/` | navbar, top-bar, bottom-bar, footer | Di-mount sekali di `main.js`, tidak pernah di-render ulang |
+| `components/ui/` | card, form-field, qr-modal | Stateless, menerima data sebagai parameter |
+| `components/shared/` | page-header, tambah-minat | Boleh punya state ringan, dipakai 2+ fitur |
+
+### Kapan Membuat Komponen Baru
+
+- Dipakai oleh **2+ fitur yang berbeda** → buat di `components/` (kategori yang sesuai)
+- Hanya dipakai **1 fitur** → simpan di dalam folder fitur tersebut
+- Ada **3+ komponen spesifik fitur** → buat subfolder `components/` di dalam folder fitur
 
 ---
 
@@ -164,25 +283,25 @@ studNow/
 
 | File JSON | Scope | Dibaca oleh |
 |---|---|---|
-| `data/detail.json` | shared | `features/detail/`, `features/open/`, `features/home/`, `features/forum/`, `js/search.js` |
-| `data/groups.json` | shared | `features/groups/`, `features/forum/`, `js/search.js` |
-| `data/forum.json` | shared | `features/forum/`, `features/forum-interior/`, `features/home/`, `features/chat/` |
-| `data/chat.json` | shared | `features/chat/`, `features/dm/` |
+| `data/detail.json` | shared | `features/detail/`, `features/open/`, `features/home/`, `features/forum/`, `js/services/search.js` |
+| `data/groups.json` | shared | `features/groups/`, `features/forum/`, `js/services/search.js` |
+| `data/forum.json` | shared | `features/forum/`, `features/home/`, `features/chat/` |
+| `data/chat.json` | shared | `features/chat/chat/`, `features/chat/dm/` |
 | `data/profile.json` | shared | `features/profile/`, `features/edit-profile/` |
 | `data/auth.json` | shared | `features/auth/login/`, `features/auth/signup/` |
-| `data/notifications.json` | shared | `features/notifications/`, `js/notifications.js` |
+| `data/notifications.json` | shared | `features/notifications/`, `js/services/notifications.js` |
 | `data/search.json` | shared | `features/search/` (UI copy saja — bukan hasil pencarian) |
-| `data/users.json` | shared | `js/auth.js` |
-| `js/dummy-users.js` | utility | `features/forum/`, `features/forum-interior/`, `features/home/` |
+| `data/users.json` | shared | `js/services/auth.js` |
+| `js/data/dummy-users.js` | utility | `features/forum/landing/`, `features/forum/interior/`, `features/home/` |
 | `features/home/home.json` | spesifik | `features/home/` saja (hero, stats, topics, action) |
 | `features/about/about.json` | spesifik | `features/about/` saja |
 | `features/contact/contact.json` | spesifik | `features/contact/` saja |
 | `features/help/help.json` | spesifik | `features/help/` saja |
-| `features/settings/settings.json` | spesifik | `features/settings/` saja |
+| `features/profile/settings/settings.json` | spesifik | `features/profile/settings/` saja |
 
 ### Data Tambahan — Forum Join Flow
 
-Data join forum disimpan di `localStorage` dengan key `studnow_forums`:
+Data join forum disimpan di `localStorage` (key: `STORAGE_KEYS.FORUMS` dari `js/core/config.js`):
 
 ```json
 {
@@ -260,14 +379,14 @@ const data = await fetchData('/features/open/open.json');
 ## Alur Kerja Aplikasi
 
 1. `index.html` memuat layout utama (navbar, top-bar, bottom-bar, footer, `#main`).
-2. `js/main.js` menyimpan hash awal, mount semua komponen tetap secara sequential, lalu restore hash dan panggil `router()`.
-3. `js/router.js` menggunakan satu route table — setiap halaman mengecek viewport (`isMobile`) untuk menampilkan versi yang sesuai.
+2. `js/core/main.js` menyimpan hash awal, mount semua komponen tetap secara sequential, lalu restore hash dan panggil `router()`.
+3. `js/core/router.js` menggunakan satu route table — setiap halaman mengecek viewport (`isMobile`) untuk menampilkan versi yang sesuai.
 4. Navigasi menggunakan **hash routing** (`/#/route`) — `hashchange` event memanggil `router()`.
 5. Tombol back/forward browser berfungsi berkat `hashchange` event.
 6. Router melepas `route-change` custom event; navbar, top-bar, bottom-bar, dan footer mendengarnya untuk update state.
 7. Halaman shared membaca dari `data/`, halaman spesifik membaca dari `features/nama/nama.json`.
-8. **Forum Join Flow** — `/#/forum` menampilkan card-list forum (daftar semua course + group forum). Join public langsung masuk ke interior (`/#/forum-interior`). Private forum butuh approval (auto-approve simulasi 5-15 detik). `js/forum-access.js` mengelola semua state join.
-9. **DummyJSON Integrasi** — `js/dummy-users.js` menyediakan `getUsersForContext(forumIndex, count)` yang mengembalikan array user dengan logged-in user di posisi 0. Cache 24 jam dengan `seededShuffle()` untuk konsistensi avatar per forum index. Fetch eksternal via raw `fetch()` (bukan `fetchData()`). `Promise.allSettled` dipakai di forum page untuk paralel fetch lokal + DummyJSON tanpa crash saat DummyJSON unreachable. Graceful fallback: user tanpa gambar ditampilkan sebagai inisial SVG.
+8. **Forum Join Flow** — `/#/forum` menampilkan card-list forum (daftar semua course + group forum). Join public langsung masuk ke interior (`/#/forum-interior`). Private forum butuh approval (auto-approve simulasi 5-15 detik). `js/services/forum-access.js` mengelola semua state join.
+9. **DummyJSON Integrasi** — `js/data/dummy-users.js` menyediakan `getUsersForContext(forumIndex, count)` yang mengembalikan array user dengan logged-in user di posisi 0. Cache 24 jam dengan `seededShuffle()` untuk konsistensi avatar per forum index. Fetch eksternal via raw `fetch()` (bukan `fetchData()`). `Promise.allSettled` dipakai di forum page untuk paralel fetch lokal + DummyJSON tanpa crash saat DummyJSON unreachable. Graceful fallback: user tanpa gambar ditampilkan sebagai inisial SVG.
 
 ---
 
@@ -275,22 +394,29 @@ const data = await fetchData('/features/open/open.json');
 
 ### 1. Tambah halaman baru
 
-Buat folder di `features/nama-halaman/`. Tentukan dulu apakah butuh JSON baru atau bisa pakai yang sudah ada:
+Buat folder di `features/nama-halaman/`. Jika halaman ini erat dengan fitur yang sudah ada, kelompokkan di bawah parent folder fitur tersebut. Tentukan dulu apakah butuh JSON baru atau bisa pakai yang sudah ada:
 
 ```txt
-# Jika data spesifik halaman ini saja:
+# Jika fitur standalone dengan data spesifik:
 features/blog/
 ├── blog.js
 ├── blog.css
 └── blog.json   ← boleh, karena hanya dipakai blog
 
-# Jika data shared dengan halaman lain:
+# Jika fitur standalone yang fetch data shared:
 features/blog/
 ├── blog.js     ← fetch dari /data/detail.json atau file shared lainnya
 └── blog.css
+
+# Jika sub-halaman dari fitur yang sudah ada:
+features/forum/
+├── landing/forum.js + .css     ← sudah ada
+└── moderation/                 ← sub-halaman baru
+    ├── moderation.js
+    └── moderation.css
 ```
 
-Fungsi utama harus `export async function Blog()` yang mengembalikan DOM element:
+Fungsi utama harus `export async function NamaHalaman()` yang mengembalikan DOM element:
 
 ```js
 import { fetchData } from '../../js/utils/api.js';
@@ -314,7 +440,7 @@ export async function Blog() {
 ### 2. Daftarkan ke router
 
 ```js
-// js/router.js
+// js/core/router.js
 import { Blog } from '../features/blog/blog.js';
 
 const routes = {
@@ -330,7 +456,7 @@ const routes = {
 
 ### 4. Tambah komponen reusable
 
-Jika komponen dipakai oleh 2+ fitur, buat di `components/nama-komponen/`. Jika hanya dipakai satu fitur, simpan di dalam folder fitur tersebut. Buat subfolder `components/` di dalam fitur hanya jika ada 3+ komponen spesifik fitur tersebut.
+Jika komponen dipakai oleh 2+ fitur, buat di `components/` di bawah kategori yang sesuai (`layout/`, `ui/`, atau `shared/`). Jika hanya dipakai satu fitur, simpan di dalam folder fitur tersebut. Buat subfolder `components/` di dalam fitur hanya jika ada 3+ komponen spesifik fitur tersebut.
 
 ### 5. CSS — aturan ukuran file
 
@@ -358,9 +484,9 @@ Setiap response yang membuat fitur baru, halaman, komponen, utility, atau peruba
 
 ## Autentikasi
 
-- State disimpan di `localStorage` (`studnow_users` + `studnow_session`).
+- State disimpan di `localStorage` — semua key didefinisikan di `js/core/config.js` (`STORAGE_KEYS.USERS`, `STORAGE_KEYS.SESSION`, dll).
 - `data/users.json` berisi 3 seed users (Fatan, All, Manca) — di-seed ulang otomatis saat versi berubah.
-- `js/auth.js` menyediakan: `initUsers()`, `login()`, `register()`, `logout()`, `getSession()`, `isAuthenticated()`, `navigateAfterAuth()`.
+- `js/services/auth.js` menyediakan: `initUsers()`, `login()`, `register()`, `logout()`, `getSession()`, `isAuthenticated()`, `navigateAfterAuth()`.
 - Halaman yang membutuhkan login harus redirect ke `/login` jika tidak ada session.
 - Navbar dan top-bar menukar tombol "Login"/"Create" dengan nama user saat terautentikasi.
 - Bottom-bar dan navbar otomatis sembunyi di halaman auth (`/login`, `/signup`).
@@ -369,7 +495,7 @@ Setiap response yang membuat fitur baru, halaman, komponen, utility, atau peruba
 
 ## Search Engine
 
-- `js/search.js` mengekspor singleton `searchEngine`.
+- `js/services/search.js` mengekspor singleton `searchEngine`.
 - Async init via `searchEngine.init()` — mem-fetch `data/detail.json`, `data/groups.json`, dan `data/forum.json`, lalu membangun indeks.
 - Fuzzy search dengan character n-grams (2–4), field-weighted scoring (title > tags/category > description), dan coverage-ratio multiplier.
 - Threshold minimum skor `MIN_SCORE = 30` untuk mencegah false positive.
@@ -398,8 +524,14 @@ Setiap response yang membuat fitur baru, halaman, komponen, utility, atau peruba
 - Komponen di `components/` tidak boleh mengandung logic spesifik halaman.
 - CSS partial (prefix `_`) hanya di-inject dari file JS fiturnya — tidak standalone.
 - File `.nojekyll` diperlukan di root agar GitHub Pages tidak mengabaikan file dengan prefix `_`.
+- `js/utils/` adalah pure functions — tidak boleh mengimport dari `js/services/`, `js/data/`, atau `js/core/`.
+- Fitur yang erat secara domain (berbagi data & flow) dikelompokkan dalam satu parent folder di `features/`.
 
 ---
+
+## Centralized Configuration
+
+Semua konstanta environment (storage keys, API URLs, data paths, limits, timing, search scores, dll) didefinisikan di `js/core/config.js`. Import dari config untuk mengakses nilai-nilai tersebut — jangan hardcode.
 
 ## Base Path (GitHub Pages)
 
@@ -415,12 +547,3 @@ Setiap response yang membuat fitur baru, halaman, komponen, utility, atau peruba
 - GitHub Pages: `window.BASE = '/CROWDIT...'` — path di-prefix otomatis
 - **Static imports** — menggunakan relative path (e.g. `../../js/utils/url.js`)
 - **`injectStyle()`** — BASE ditambahkan di `js/utils/styleLoader.js`
-- **`fetchData()`** — BASE ditambahkan di `js/utils/api.js`
-- **Raw `fetch()` ke URL eksternal** — jangan gunakan `fetchData()`, panggil `fetch()` langsung
-- Jangan hardcode nama subfolder di luar `index.html`
-
----
-
-## Catatan Server
-
-Aplikasi menggunakan **Hash Routing** (`/#/route`) — tidak perlu konfigurasi server SPA khusus. Kompatibel langsung dengan GitHub Pages static hosting. Server lokal (`npm run dev` / `npm run serve`) tetap bisa digunakan untuk development tanpa konfigurasi tambahan.
