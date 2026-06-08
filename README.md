@@ -26,6 +26,18 @@ StudNow hadir untuk mengatasi masalah belajar mandiri yang terkadang terasa sepi
 4. **Jejaring Sosial Akademis:** Membangun koneksi dan relasi yang positif dengan sesama pelajar dari berbagai latar belakang.
 5. **Akses Kapan Saja & Di Mana Saja:** Antarmuka (UI) yang modern dan mudah digunakan memungkinkan pengalaman belajar yang lancar dan interaktif.
 
+## Preseeded Users (Login Demo)
+
+Aplikasi sudah dilengkapi 3 akun demo yang bisa langsung dipakai untuk login:
+
+| Nama | Email | Password |
+| --- | --- | --- |
+| **User** | user@example.com | password123 |
+| **User2** | user2@example.com | password123 |
+| **User3** | user3@example.com | password123 |
+
+> Data user disimpan di `data/users.json` dan di-seed otomatis saat pertama kali aplikasi dijalankan.
+
 ## Tim Pengembang (Developers)
 
 Aplikasi ini dikembangkan dengan dedikasi penuh oleh:

@@ -43,7 +43,7 @@ export const CSS_PATHS = {
   SHARED: '/css/_shared.css',
 };
 
-export const USERS_VERSION = 2;
+export const USERS_VERSION = 200;
 
 export const LIMITS = {
   MAX_NOTIFICATIONS: 100,
