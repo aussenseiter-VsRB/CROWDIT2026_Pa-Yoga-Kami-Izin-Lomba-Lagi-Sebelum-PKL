@@ -64,8 +64,6 @@
 
 .dtl-join-btn--joined {
   background: var(--success);
-}
-
-.dtl-join-btn--joined:hover {
-  background: #2db84e;
+  cursor: default;
+  pointer-events: none;
 }

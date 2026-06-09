@@ -1,9 +1,5 @@
-import { LIMITS } from '../../../js/core/config.js';
-
 function ParticipantBar(participants) {
   const joined = participants?.joined || 0;
-  const capacity = participants?.capacity || LIMITS.DEFAULT_MEMBER_LIMIT;
-  const pct = capacity > 0 ? Math.round((joined / capacity) * 100) : 0;
   return `
     <div class="home-participants">
       <div class="home-participants__header">
@@ -11,10 +7,6 @@ function ParticipantBar(participants) {
           <i class="bi bi-people"></i>
           ${joined} peserta
         </span>
-        <span class="home-participants__pct">${pct}%</span>
-      </div>
-      <div class="home-participants__bar">
-        <div class="home-participants__bar-fill" style="width:${pct}%"></div>
       </div>
     </div>
   `;
@@ -41,10 +33,7 @@ export function ForumCard(forum, index) {
 
       <div class="home-forum-card__footer">
         ${ParticipantBar(forum.participants)}
-        ${isJoined
-          ? `<a class="home-action is-secondary" href="/forum-interior?index=${index}" data-link>Buka Forum</a>`
-          : `<a class="home-action is-primary" href="/detail?index=${index}" data-link>Detail</a>`
-        }
+        <a class="home-action ${isJoined ? 'is-secondary' : 'is-primary'}" href="/detail?index=${index}" data-link>${isJoined ? 'Buka Forum' : 'Detail'}</a>
       </div>
     </article>
   `;
@@ -70,10 +59,7 @@ export function mForumCard(forum, index) {
 
       <div class="m-home-forum-card__footer">
         ${ParticipantBar(forum.participants)}
-        ${isJoined
-          ? `<a class="m-home-action is-secondary" href="/forum-interior?index=${index}" data-link>Buka Forum</a>`
-          : `<a class="m-home-action is-primary" href="/detail?index=${index}" data-link>Detail</a>`
-        }
+        <a class="m-home-action ${isJoined ? 'is-secondary' : 'is-primary'}" href="/detail?index=${index}" data-link>${isJoined ? 'Buka Forum' : 'Detail'}</a>
       </div>
     </article>
   `;

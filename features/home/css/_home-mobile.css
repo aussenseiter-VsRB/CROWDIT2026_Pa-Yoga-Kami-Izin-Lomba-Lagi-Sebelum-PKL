@@ -97,14 +97,6 @@
   font-size: 0.78rem;
 }
 
-.m-home-forum-card .home-participants__pct {
-  font-size: 0.72rem;
-}
-
-.m-home-forum-card .home-participants__bar {
-  height: 0.35rem;
-}
-
 /* --- Mobile Joined State --- */
 
 .m-home-forum-card--joined {

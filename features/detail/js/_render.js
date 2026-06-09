@@ -7,9 +7,9 @@ export function renderDetail(item, { participantsLive, forumLive, users, index, 
 
   const joinedLink = status === 'pending'
     ? `<span class="dtl-join-btn dtl-join-btn--joined"><i class="bi bi-clock"></i> Menunggu Persetujuan</span>`
-    : `<a class="dtl-join-btn dtl-join-btn--joined" href="/forum-interior?index=${index}" data-link>
+    : `<span class="dtl-join-btn dtl-join-btn--joined">
         <i class="bi bi-check-circle"></i> Sudah Bergabung
-      </a>`;
+      </span>`;
 
   el.innerHTML = `
     <div class="dtl-page__inner">
