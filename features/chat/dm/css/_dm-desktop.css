@@ -60,6 +60,17 @@
   flex-shrink: 0;
 }
 
+.dm-sb-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  border: 2px solid var(--bg-elevated);
+  z-index: 1;
+}
+
 .dm-sb-item__avatar {
   width: 2.4rem;
   height: 2.4rem;

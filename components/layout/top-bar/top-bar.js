@@ -16,7 +16,7 @@ export function TopBar() {
     const unread = getBadgeCount();
     el.innerHTML = `
       <div class="top-bar__inner">
-        <a class="top-bar__brand" href="/" data-link aria-label="StudNow home">
+        <a class="top-bar__brand" href="/" data-link aria-label="Beranda StudNow">
           <svg viewBox="0 0 32 32" aria-hidden="true">
             <path d="M16 5 2.5 12.1 16 19.2l13.5-7.1L16 5z"></path>
             <path d="M8.2 15.2v5.1c0 2 3.5 4.2 7.8 4.2s7.8-2.2 7.8-4.2v-5.1L16 19.2l-7.8-4z"></path>
@@ -24,15 +24,15 @@ export function TopBar() {
           <span>StudNow</span>
         </a>
         <div style="display:flex;align-items:center;gap:0.5rem">
-          <a class="top-bar__icon-btn" href="/search" data-link aria-label="Search">
+          <a class="top-bar__icon-btn" href="/search" data-link aria-label="Cari">
             <i class="bi bi-search" style="font-size:1.1rem;color:var(--text)"></i>
           </a>
-          <a class="top-bar__icon-btn" id="js-topbar-notif" href="/notifications" data-link aria-label="Notifications" style="position:relative">
+          <a class="top-bar__icon-btn" id="js-topbar-notif" href="/notifications" data-link aria-label="Notifikasi" style="position:relative">
             <i class="bi bi-bell" style="font-size:1.1rem;color:var(--text)"></i>
             ${unread > 0 ? `<span class="top-bar__notif-dot"></span>` : ''}
           </a>
           <a class="top-bar__create" href="/signup" data-link>
-            <span id="js-topbar-label">Log-in</span>
+            <span id="js-topbar-label">Masuk</span>
           </a>
         </div>
       </div>
@@ -48,7 +48,7 @@ export function TopBar() {
       label.textContent = session.name;
       el.querySelector('.top-bar__create:last-child').href = '/profile';
     } else {
-      label.textContent = 'Create';
+      label.textContent = 'Daftar';
       el.querySelector('.top-bar__create:last-child').href = '/signup';
     }
   }

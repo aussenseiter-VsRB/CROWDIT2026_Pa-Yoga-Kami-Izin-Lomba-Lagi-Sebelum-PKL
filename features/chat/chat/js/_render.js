@@ -36,7 +36,7 @@ function buildDesktopSections() {
     }
   }
 
-  const joinedForums = getJoinedForums();
+  const joinedForums = getJoinedForums().filter(f => f.type === 'group');
   let forumsHtml = '';
   if (joinedForums.length > 0) {
     forumsHtml = `
@@ -79,7 +79,7 @@ function buildMobileSections() {
     }
   }
 
-  const joinedForums = getJoinedForums();
+  const joinedForums = getJoinedForums().filter(f => f.type === 'group');
   let forumsHtml = '';
   if (joinedForums.length > 0) {
     forumsHtml = `

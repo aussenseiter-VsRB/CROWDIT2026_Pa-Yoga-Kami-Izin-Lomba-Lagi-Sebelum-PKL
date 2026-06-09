@@ -4,14 +4,13 @@
     "title": "Forum studi modern untuk diskusi, tugas, dan kolaborasi.",
     "text": "Gabung dengan pelajar lain untuk memecahkan soal, bertukar ide, dan menyelesaikan proyek dalam ruang yang rapi, profesional, dan mudah dinavigasi.",
     "actions": [
-      { "label": "Jelajahi grup", "href": "/groups", "variant": "primary" },
-      { "label": "Buat akun gratis", "href": "/signup", "variant": "secondary" }
+      { "label": "Jelajahi grup", "href": "/groups", "variant": "primary" }
     ]
   },
   "aside": {
     "title": "Ringkasan komunitas",
     "stats": [
-      { "value": "24", "label": "Grup aktif" },
+      { "value": "24", "label": "Forum aktif" },
       { "value": "48", "label": "Postingan baru hari ini" },
       { "value": "16", "label": "Mentor online" }
     ]
@@ -26,11 +25,10 @@
     {},
     {},
     {},
-    {},
     {}
   ],
   "stats": [
-    { "value": "24", "label": "Grup aktif" },
+    { "value": "24", "label": "Forum aktif" },
     { "value": "48", "label": "Postingan baru hari ini" },
     { "value": "16", "label": "Mentor online" }
   ],

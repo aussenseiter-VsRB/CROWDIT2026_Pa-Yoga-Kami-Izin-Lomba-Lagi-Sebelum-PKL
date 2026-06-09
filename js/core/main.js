@@ -32,6 +32,13 @@ async function init() {
     const path = getHashPath();
     const hide = ['/login', '/signup', '/dm'].includes(path);
     document.querySelector('#footer').classList.toggle('is-hidden', hide);
+    // Reset inline styles that forum-interior.js leaves behind
+    if (path !== '/forum-interior') {
+      const f = document.querySelector('#footer');
+      const m = document.querySelector('#main');
+      if (f) f.style.display = '';
+      if (m) m.style.paddingBottom = '';
+    }
   }
 
   // 3. Listeners for subsequent navigation

@@ -113,3 +113,14 @@ export function incrementMemberCount(index, initialCount) {
   saveMemberCounts(counts);
   window.dispatchEvent(new CustomEvent('member-count-update'));
 }
+
+export function decrementMemberCount(index, initialCount) {
+  const counts = getMemberCounts();
+  if (typeof counts[index] === 'number') {
+    counts[index] = Math.max(0, counts[index] - 1);
+  } else {
+    counts[index] = Math.max(0, (initialCount || 0) - 1);
+  }
+  saveMemberCounts(counts);
+  window.dispatchEvent(new CustomEvent('member-count-update'));
+}

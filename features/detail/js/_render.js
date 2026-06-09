@@ -7,9 +7,9 @@ export function renderDetail(item, { participantsLive, forumLive, users, index, 
 
   const joinedLink = status === 'pending'
     ? `<span class="dtl-join-btn dtl-join-btn--joined"><i class="bi bi-clock"></i> Menunggu Persetujuan</span>`
-    : `<a class="dtl-join-btn dtl-join-btn--joined" href="/forum-interior?index=${index}" data-link>
+    : `<span class="dtl-join-btn dtl-join-btn--joined">
         <i class="bi bi-check-circle"></i> Sudah Bergabung
-      </a>`;
+      </span>`;
 
   el.innerHTML = `
     <div class="dtl-page__inner">
@@ -52,6 +52,21 @@ export function renderDetail(item, { participantsLive, forumLive, users, index, 
             <h2 class="dtl-section__title">Informasi Pertemuan</h2>
             ${MeetingBlock(item.meeting, item.course.status)}
           </div>
+
+          <div class="dtl-section dtl-reminder">
+            <label class="dtl-reminder__label">
+              <input type="checkbox" class="dtl-reminder__checkbox">
+              <span>Ingatkan saya</span>
+            </label>
+          </div>
+
+          ${isJoined ? `
+          <div class="dtl-section dtl-leave-section">
+            <button class="dtl-leave-btn" type="button">
+              <i class="bi bi-box-arrow-left"></i> Keluar dari Forum
+            </button>
+          </div>
+          ` : ''}
         </div>
 
         <div class="dtl-grid__right">
@@ -82,11 +97,13 @@ export function renderDetail(item, { participantsLive, forumLive, users, index, 
           </div>
           ` : ''}
 
-          ${isJoined ? joinedLink : `<button class="dtl-join-btn" type="button">
-              Gabung ke Forum
-              <i class="bi bi-arrow-right"></i>
-            </button>`
-          }
+          <div class="dtl-join-section">
+            ${isJoined ? joinedLink : `<button class="dtl-join-btn" type="button">
+                Gabung ke Forum
+                <i class="bi bi-arrow-right"></i>
+              </button>`
+            }
+          </div>
         </div>
       </div>
     </div>

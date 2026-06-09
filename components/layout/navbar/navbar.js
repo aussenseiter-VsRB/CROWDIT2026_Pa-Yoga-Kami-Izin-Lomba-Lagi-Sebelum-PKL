@@ -18,7 +18,7 @@ export function Navbar() {
     const unread = getBadgeCount();
     el.innerHTML = `
       <div class="container navbar__inner">
-        <a class="navbar-logo" href="/" data-link aria-label="StudNow home">
+        <a class="navbar-logo" href="/" data-link aria-label="Beranda StudNow">
           <span class="navbar-logo__mark">
             <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" width="18" height="18">
               <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917zM8 8.46 1.758 5.965 8 3.052l6.242 2.913z"/>
@@ -28,19 +28,19 @@ export function Navbar() {
           <span class="navbar-logo__text">StudNow</span>
         </a>
 
-        <nav class="navbar-nav" aria-label="Desktop navigation">
-          <a href="/" data-link>Explore</a>
-          <a href="/groups" data-link>Groups</a>
-          ${isAuthenticated() ? '<a href="/chat" data-link>Chat</a><a href="/profile" data-link>Profile</a>' : ''}
+        <nav class="navbar-nav" aria-label="Navigasi desktop">
+          <a href="/" data-link>Jelajahi</a>
+          <a href="/groups" data-link>Grup</a>
+          ${isAuthenticated() ? '<a href="/chat" data-link>Pesan</a><a href="/profile" data-link>Profil</a>' : ''}
         </nav>
 
         <div class="navbar-actions">
-          <a class="navbar-action" href="/search" data-link><i class="bi bi-search"></i> Search</a>
-          <a class="navbar-action navbar-action--notif" href="/notifications" data-link aria-label="Notifications">
+          <a class="navbar-action" href="/search" data-link><i class="bi bi-search"></i> Cari</a>
+          <a class="navbar-action navbar-action--notif" href="/notifications" data-link aria-label="Notifikasi">
             <i class="bi bi-bell"></i>
             ${unread > 0 ? `<span class="navbar-notif-badge">${unread > 99 ? '99+' : unread}</span>` : ''}
           </a>
-          <a class="navbar-action navbar-action--primary navbar-action--auth" href="/login" data-link>Login</a>
+          <a class="navbar-action navbar-action--primary navbar-action--auth" href="/login" data-link>Masuk</a>
         </div>
       </div>
     `;
@@ -62,7 +62,7 @@ export function Navbar() {
       authEl.href = '/profile';
       authEl.classList.remove('navbar-action--primary');
     } else {
-      authEl.textContent = 'Login';
+      authEl.textContent = 'Masuk';
       authEl.href = '/login';
       authEl.classList.add('navbar-action--primary');
     }

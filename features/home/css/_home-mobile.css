@@ -11,6 +11,15 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--surface);
+  transition: opacity 0.2s;
+}
+
+.m-home-forum-list .home-forum-empty {
+  grid-column: 1 / -1;
+  margin: 2rem 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 .m-home-forum-card__header {
@@ -88,12 +97,30 @@
   font-size: 0.78rem;
 }
 
-.m-home-forum-card .home-participants__pct {
-  font-size: 0.72rem;
+/* --- Mobile Joined State --- */
+
+.m-home-forum-card--joined {
+  border-color: rgba(52, 199, 89, 0.35);
 }
 
-.m-home-forum-card .home-participants__bar {
-  height: 0.35rem;
+.m-home-status--joined {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 1.78rem;
+  padding: 0 0.7rem;
+  border-radius: 999px;
+  background: rgba(52, 199, 89, 0.12);
+  color: #1d4f2a;
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.m-home-status--joined i {
+  font-size: 0.7rem;
+  color: #34c759;
 }
 
 /* --- Mobile Joined --- */
