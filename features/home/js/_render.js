@@ -14,7 +14,6 @@ function renderDesktop(data) {
 
           <div class="home-hero__actions">
             <a class="home-button home-button--primary" href="${data.hero.actions[0].href}" data-link>${data.hero.actions[0].label}</a>
-            <a class="home-button home-button--secondary" href="${data.hero.actions[1].href}" data-link>${data.hero.actions[1].label}</a>
           </div>
         </div>
 

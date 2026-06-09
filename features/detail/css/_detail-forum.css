@@ -67,3 +67,35 @@
   cursor: default;
   pointer-events: none;
 }
+
+/* --- Leave button --- */
+.dtl-leave-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 2.8rem;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: #ff3b30;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: 1.5px solid #ff3b30;
+  cursor: pointer;
+  transition:
+    transform var(--transition),
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.dtl-leave-btn:hover {
+  transform: translateY(-1px);
+  background: #ff3b30;
+  color: #fff;
+}
+
+.dtl-leave-section {
+  padding: 1rem 1.5rem;
+}

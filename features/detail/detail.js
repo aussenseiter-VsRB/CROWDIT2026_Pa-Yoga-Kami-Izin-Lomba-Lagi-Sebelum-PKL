@@ -3,7 +3,7 @@ import { getHashParams } from '../../js/utils/url.js';
 import { initCourseChat } from '../../components/ui/course-chat/course-chat.js';
 import { fetchDetailData, computeLiveData } from './js/_utils.js';
 import { renderDetail } from './js/_render.js';
-import { attachJoinHandler } from './js/_handlers.js';
+import { attachJoinHandler, attachLeaveHandler } from './js/_handlers.js';
 import { getLiveMemberCount } from '../../js/services/forum-access.js';
 
 injectStyle('/components/ui/avatar/avatar.css');
@@ -27,6 +27,7 @@ export async function Detail() {
 
   initCourseChat(el, index, item.chats);
   attachJoinHandler(el, item, index);
+  attachLeaveHandler(el, item, index);
 
   window.addEventListener('member-count-update', () => {
     const participantsCount = el.querySelector('.dtl-participants__count');

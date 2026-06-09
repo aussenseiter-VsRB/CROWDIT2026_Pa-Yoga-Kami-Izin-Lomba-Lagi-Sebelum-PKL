@@ -12,33 +12,33 @@ export async function Footer() {
       <div class="footer__grid">
         <div class="footer__brand-col">
           <span class="footer__brand">StudNow</span>
-          <p class="footer__description">Empowering students to learn together with fast, easy collaboration and trusted discussion forums.</p>
+          <p class="footer__description">Wadah bagi mahasiswa untuk belajar bersama secara cepat, mudah, dan terpercaya melalui forum diskusi.</p>
         </div>
 
         <div class="footer__links-col">
-          <h3 class="footer__heading">Quick links</h3>
+          <h3 class="footer__heading">Tautan Cepat</h3>
           <ul class="footer__nav-list">
-            <li><a data-link href="/" class="footer__nav-link">Home</a></li>
-            <li><a data-link href="/about" class="footer__nav-link">About</a></li>
-            <li><a data-link href="/groups" class="footer__nav-link">Groups</a></li>
-            <li><a data-link href="/search" class="footer__nav-link">Search</a></li>
+            <li><a data-link href="/" class="footer__nav-link">Beranda</a></li>
+            <li><a data-link href="/about" class="footer__nav-link">Tentang</a></li>
+            <li><a data-link href="/groups" class="footer__nav-link">Grup</a></li>
+            <li><a data-link href="/search" class="footer__nav-link">Cari</a></li>
           </ul>
         </div>
 
         <div class="footer__contact-col">
-          <h3 class="footer__heading">Contact</h3>
+          <h3 class="footer__heading">Kontak</h3>
           <p class="footer__contact-item">${CONTACT.EMAIL}</p>
           <p class="footer__contact-item">${CONTACT.PHONE}</p>
-          <p class="footer__contact-note">Need help? Our support team is available for academic guidance and technical assistance.</p>
+          <p class="footer__contact-note">Butuh bantuan? Tim dukungan kami tersedia untuk bimbingan akademis dan bantuan teknis.</p>
         </div>
       </div>
 
       <div class="footer__bottom">
-        <p class="footer__copy">&copy; ${new Date().getFullYear()} StudNow. All rights reserved.</p>
+        <p class="footer__copy">&copy; ${new Date().getFullYear()} StudNow. Hak cipta dilindungi.</p>
         <div class="footer__legal">
-          <a data-link href="/contact" class="footer__legal-link">Contact</a>
-          <a href="#" class="footer__legal-link">Privacy</a>
-          <a href="#" class="footer__legal-link">Terms</a>
+          <a data-link href="/contact" class="footer__legal-link">Kontak</a>
+          <a href="#" class="footer__legal-link">Privasi</a>
+          <a href="#" class="footer__legal-link">Ketentuan</a>
         </div>
       </div>
     </div>

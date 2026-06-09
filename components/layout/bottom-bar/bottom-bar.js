@@ -6,9 +6,9 @@ injectStyle('/components/layout/bottom-bar/bottom-bar.css');
 function getItems() {
   const authed = isAuthenticated();
   return [
-    { label: 'Explore', href: '/', icon: 'bi bi-compass' },
-    { label: 'Groups', href: '/groups', icon: 'bi bi-people' },
-    ...(authed ? [{ label: 'Chat', href: '/chat', icon: 'bi bi-chat-dots' }] : []),
+    { label: 'Jelajahi', href: '/', icon: 'bi bi-compass' },
+    { label: 'Grup', href: '/groups', icon: 'bi bi-people' },
+    ...(authed ? [{ label: 'Pesan', href: '/chat', icon: 'bi bi-chat-dots' }] : []),
     ...(authed ? [{ label: 'Profil', href: '/profile', icon: 'bi bi-person' }] : []),
   ];
 }

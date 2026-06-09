@@ -59,6 +59,14 @@ export function renderDetail(item, { participantsLive, forumLive, users, index, 
               <span>Ingatkan saya</span>
             </label>
           </div>
+
+          ${isJoined ? `
+          <div class="dtl-section dtl-leave-section">
+            <button class="dtl-leave-btn" type="button">
+              <i class="bi bi-box-arrow-left"></i> Keluar dari Forum
+            </button>
+          </div>
+          ` : ''}
         </div>
 
         <div class="dtl-grid__right">
@@ -89,11 +97,13 @@ export function renderDetail(item, { participantsLive, forumLive, users, index, 
           </div>
           ` : ''}
 
-          ${isJoined ? joinedLink : `<button class="dtl-join-btn" type="button">
-              Gabung ke Forum
-              <i class="bi bi-arrow-right"></i>
-            </button>`
-          }
+          <div class="dtl-join-section">
+            ${isJoined ? joinedLink : `<button class="dtl-join-btn" type="button">
+                Gabung ke Forum
+                <i class="bi bi-arrow-right"></i>
+              </button>`
+            }
+          </div>
         </div>
       </div>
     </div>
