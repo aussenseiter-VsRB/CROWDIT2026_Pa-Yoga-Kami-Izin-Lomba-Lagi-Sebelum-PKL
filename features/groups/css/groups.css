@@ -28,6 +28,29 @@
   margin-bottom: 0.6rem;
 }
 
+/* --- Mobile Joined State --- */
+.mobile-card--joined {
+  border-color: rgba(52, 199, 89, 0.35);
+}
+
+.mobile-status--joined {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(52, 199, 89, 0.12);
+  color: #1d4f2a;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.mobile-status--joined i {
+  font-size: 0.65rem;
+  color: #34c759;
+}
+
 /* --- Mobile Status Badge --- */
 .mobile-status-badge {
   display: inline-flex;

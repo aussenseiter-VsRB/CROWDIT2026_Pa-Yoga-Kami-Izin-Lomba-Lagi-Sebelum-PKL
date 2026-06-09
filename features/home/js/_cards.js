@@ -22,27 +22,29 @@ function ParticipantBar(participants) {
 
 export function ForumCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
+  const isJoined = forum.joined === 'joined';
 
   return `
-    <article class="home-forum-card">
+    <article class="home-forum-card${isJoined ? ' home-forum-card--joined' : ''}" data-topic="${forum.topic}">
       <div class="home-forum-card__header">
         <div>
           <span class="home-forum-card__eyebrow">${forum.status}</span>
           <h2>${forum.title}</h2>
         </div>
-        <span class="home-status ${statusClass}">
-          <span aria-hidden="true"></span>
-          ${forum.status}
-        </span>
+        ${isJoined
+          ? `<span class="home-status--joined"><i class="bi bi-check-circle-fill"></i> Sudah Bergabung</span>`
+          : `<span class="home-status ${statusClass}"><span aria-hidden="true"></span>${forum.status}</span>`
+        }
       </div>
 
       <p>${forum.description}</p>
 
       <div class="home-forum-card__footer">
         ${ParticipantBar(forum.participants)}
-        <a class="home-action is-primary" href="/detail?index=${index}" data-link>
-          Detail
-        </a>
+        ${isJoined
+          ? `<a class="home-action is-secondary" href="/forum-interior?index=${index}" data-link>Buka Forum</a>`
+          : `<a class="home-action is-primary" href="/detail?index=${index}" data-link>Detail</a>`
+        }
       </div>
     </article>
   `;
@@ -50,24 +52,28 @@ export function ForumCard(forum, index) {
 
 export function mForumCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
+  const isJoined = forum.joined === 'joined';
 
   return `
-    <article class="m-home-forum-card">
+    <article class="m-home-forum-card${isJoined ? ' m-home-forum-card--joined' : ''}" data-topic="${forum.topic}">
       <div class="m-home-forum-card__header">
-        <h2>${forum.title}</h2>
-        <span class="m-home-status ${statusClass}">
-          <span aria-hidden="true"></span>
-          ${forum.status}
-        </span>
+        <div>
+          <h2>${forum.title}</h2>
+        </div>
+        ${isJoined
+          ? `<span class="m-home-status--joined"><i class="bi bi-check-circle-fill"></i> Joined</span>`
+          : `<span class="m-home-status ${statusClass}"><span aria-hidden="true"></span>${forum.status}</span>`
+        }
       </div>
 
       <p>${forum.description}</p>
 
       <div class="m-home-forum-card__footer">
         ${ParticipantBar(forum.participants)}
-        <a class="m-home-action is-primary" href="/detail?index=${index}" data-link>
-          Detail
-        </a>
+        ${isJoined
+          ? `<a class="m-home-action is-secondary" href="/forum-interior?index=${index}" data-link>Buka Forum</a>`
+          : `<a class="m-home-action is-primary" href="/detail?index=${index}" data-link>Detail</a>`
+        }
       </div>
     </article>
   `;

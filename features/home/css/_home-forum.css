@@ -17,7 +17,16 @@
   transition:
     transform var(--transition),
     box-shadow var(--transition),
-    border-color var(--transition);
+    border-color var(--transition),
+    opacity 0.2s;
+}
+
+.home-forum-empty {
+  grid-column: 1 / -1;
+  margin: 2rem 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-align: center;
 }
 
 .home-forum-card:hover {
@@ -57,6 +66,30 @@
 }
 
 /* --- Card Footer --- */
+
+.home-forum-card--joined {
+  border-color: rgba(52, 199, 89, 0.35);
+}
+
+.home-forum-card--joined:hover {
+  border-color: rgba(52, 199, 89, 0.55);
+}
+
+.home-status--joined {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.35rem;
+  color: #1d4f2a;
+  font-size: 0.76rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.home-status--joined i {
+  font-size: 0.7rem;
+  color: #34c759;
+}
 
 .home-forum-card__footer {
   display: flex;

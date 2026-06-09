@@ -1,18 +1,20 @@
 import { getStatus, statusLabel, statusPct, memberLabel, peopleIcon } from './_utils.js';
+import { getForumStatus } from '../../../js/services/forum-access.js';
 
 export function GroupCard(group, index) {
   const status = getStatus(group.members);
   const pct = statusPct(group.members, group.maxMembers);
   const joinedText = memberLabel(group.members, group.maxMembers);
+  const isJoined = getForumStatus('group', index) === 'joined';
 
   return `
-    <a class="grp-card" href="/forum?group=${index}" data-link>
+    <a class="grp-card${isJoined ? ' grp-card--joined' : ''}" href="${isJoined ? `/forum-interior?group=${index}` : `/forum?group=${index}`}" data-link>
       <div class="grp-card__top">
         <span class="grp-card__dept">${group.department}</span>
-        <span class="grp-status grp-status--${status}">
-          <span aria-hidden="true"></span>
-          ${statusLabel(status)}
-        </span>
+        ${isJoined
+          ? `<span class="grp-status--joined"><i class="bi bi-check-circle-fill"></i> Sudah Bergabung</span>`
+          : `<span class="grp-status grp-status--${status}"><span aria-hidden="true"></span>${statusLabel(status)}</span>`
+        }
       </div>
 
       <h2 class="grp-card__title">${group.title}</h2>
@@ -37,15 +39,16 @@ export function GroupCard(group, index) {
 export function mGroupCard(group, index) {
   const status = getStatus(group.members);
   const pct = statusPct(group.members, group.maxMembers);
+  const isJoined = getForumStatus('group', index) === 'joined';
 
   return `
-    <a class="mobile-card mobile-card--block" href="/forum?group=${index}" data-link>
+    <a class="mobile-card mobile-card--block${isJoined ? ' mobile-card--joined' : ''}" href="${isJoined ? `/forum-interior?group=${index}` : `/forum?group=${index}`}" data-link>
       <div class="mobile-card__header">
         <span class="mobile-card__tag">${group.department}</span>
-        <span class="mobile-status-badge mobile-status-badge--${status}">
-          <span class="mobile-status-badge__dot"></span>
-          ${statusLabel(status)}
-        </span>
+        ${isJoined
+          ? `<span class="mobile-status--joined"><i class="bi bi-check-circle-fill"></i> Joined</span>`
+          : `<span class="mobile-status-badge mobile-status-badge--${status}"><span class="mobile-status-badge__dot"></span>${statusLabel(status)}</span>`
+        }
       </div>
       <h2>${group.title}</h2>
       <p>${group.description}</p>

@@ -166,6 +166,35 @@
   background: #9ca3af;
 }
 
+/* --- Joined state --- */
+.grp-card--joined {
+  border-color: rgba(52, 199, 89, 0.35);
+}
+
+.grp-card--joined:hover {
+  border-color: rgba(52, 199, 89, 0.55);
+}
+
+.grp-status--joined {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 1.6rem;
+  padding: 0 0.65rem;
+  border-radius: var(--radius-pill);
+  background: rgba(52, 199, 89, 0.12);
+  color: #1d4f2a;
+  font-size: 0.76rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.grp-status--joined i {
+  font-size: 0.7rem;
+  color: #34c759;
+}
+
 /* --- Join button --- */
 .grp-join-btn {
   display: inline-flex;

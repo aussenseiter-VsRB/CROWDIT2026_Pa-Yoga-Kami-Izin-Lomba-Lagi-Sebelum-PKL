@@ -36,6 +36,25 @@ function friendColor(name) {
   return colors[name.length % colors.length];
 }
 
+function getOnlineStatus(lastMsgTime) {
+  if (!lastMsgTime) return { text: 'Offline', color: 'gray' };
+  const diff = Date.now() - new Date(lastMsgTime).getTime();
+  const minutes = Math.floor(diff / 60000);
+  if (minutes < 5) return { text: 'Online', color: 'green' };
+  if (minutes < 60) return { text: `Aktif ${minutes} menit lalu`, color: 'yellow' };
+  if (minutes < 1440) return { text: 'Aktif hari ini', color: 'yellow' };
+  return { text: 'Offline', color: 'gray' };
+}
+
+function lastMsgTime(email, otherEmail) {
+  const msgs = getDMMessages(email, otherEmail);
+  return msgs.length ? msgs[msgs.length - 1].time : null;
+}
+
+function statusColor(status) {
+  return status === 'green' ? '#34c759' : status === 'yellow' ? '#ff9f0a' : '#9ca3af';
+}
+
 function renderReplyBlock(replyTo, allMessages) {
   if (!replyTo) return '';
   const isDeleted = allMessages && !allMessages.some(m => m.time === replyTo.time);
@@ -372,6 +391,7 @@ function createMobileUI(session, otherEmail, otherName) {
   }
 
   const profileUri = '/profile?user=' + encodeURIComponent(otherName);
+  const status = getOnlineStatus(lastMsgTime(session.email, otherEmail));
 
   const el = document.createElement('section');
   el.className = 'dm-page';
@@ -382,7 +402,7 @@ function createMobileUI(session, otherEmail, otherName) {
       <div class="dm-header__avatar" style="cursor:pointer" data-link="${profileUri}">${otherName.charAt(0).toUpperCase()}</div>
       <div class="dm-header__info" style="cursor:pointer" data-link="${profileUri}">
         <span class="dm-header__name">${escapeHtml(otherName)}</span>
-        <span class="dm-header__status">Online</span>
+        <span class="dm-header__status" style="color:${statusColor(status.color)}">${status.text}</span>
       </div>
     </div>
     <div class="dm-messages">
@@ -454,10 +474,12 @@ function renderSidebar(session, otherEmail) {
     const color = friendColor(name);
     const isActive = c.with === otherEmail;
     const preview = c.fromMe ? 'Kamu: ' : '';
+    const st = getOnlineStatus(c.lastTime);
     return `
       <a href="/dm?user=${encodeURIComponent(name)}" data-link class="dm-sb-item ${isActive ? 'is-active' : ''}">
         <div class="dm-sb-item__avatar-wrap">
           <div class="dm-sb-item__avatar" style="background:${color}">${initial}</div>
+          <span class="dm-sb-dot" style="background:${statusColor(st.color)}"></span>
           ${c.unread > 0 ? `<div class="dm-sb-item__badge">${c.unread > 99 ? '99+' : c.unread}</div>` : ''}
         </div>
         <div class="dm-sb-item__info">
@@ -711,6 +733,7 @@ function createDesktopUI(session, otherEmail, otherName) {
   }
 
   const profileUri = '/profile?user=' + encodeURIComponent(otherName);
+  const status = getOnlineStatus(lastMsgTime(session.email, otherEmail));
 
   const el = document.createElement('section');
   el.className = 'dm-desktop';
@@ -729,7 +752,7 @@ function createDesktopUI(session, otherEmail, otherName) {
           <div class="dm-dt-main-header__avatar" style="background:${friendColor(otherName)};cursor:pointer" data-link="${profileUri}">${otherName.charAt(0).toUpperCase()}</div>
           <div class="dm-dt-main-header__info" style="cursor:pointer" data-link="${profileUri}">
             <div class="dm-dt-main-header__name">${escapeHtml(otherName)}</div>
-            <div class="dm-dt-main-header__status">Online</div>
+            <div class="dm-dt-main-header__status" style="color:${statusColor(status.color)}">${status.text}</div>
           </div>
         </div>
         <div class="dm-messages">
