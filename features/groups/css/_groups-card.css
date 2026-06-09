@@ -5,8 +5,6 @@
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow-sm);
-  display: grid;
-  gap: 0.85rem;
   transition:
     transform var(--transition),
     box-shadow var(--transition),
@@ -20,44 +18,53 @@
 }
 
 /* --- Card header --- */
-.grp-card__top {
+.grp-card__header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.grp-card__dept {
+.grp-card__eyebrow {
   display: inline-flex;
-  align-items: center;
-  min-height: 1.6rem;
-  padding: 0 0.7rem;
-  border-radius: var(--radius-pill);
-  background: rgba(0, 122, 255, 0.09);
+  margin-bottom: 0.35rem;
   color: var(--accent);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.grp-card h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.grp-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.7;
 }
 
 .grp-status {
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;
-  gap: 0.4rem;
-  min-height: 1.6rem;
-  padding: 0 0.65rem;
+  gap: 0.45rem;
+  min-height: 1.85rem;
+  padding: 0 0.75rem;
   border-radius: var(--radius-pill);
-  font-size: 0.76rem;
+  font-size: 0.82rem;
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
 }
 
 .grp-status span {
-  width: 0.42rem;
-  height: 0.42rem;
+  width: 0.48rem;
+  height: 0.48rem;
   border-radius: 999px;
 }
 
@@ -91,79 +98,59 @@
   background: #9ca3af;
 }
 
-/* --- Card body --- */
-.grp-card__title {
-  margin: 0;
-  font-size: 1.15rem;
-}
-
-.grp-card__desc {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.92rem;
-  line-height: 1.65;
-}
-
-/* --- Members bar --- */
-.grp-card__members {
-  display: grid;
-  gap: 0.45rem;
-  padding-top: 0.5rem;
-}
-
-.grp-card__members-header {
+/* --- Card footer --- */
+.grp-card__footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 1rem;
+  margin-top: 1.35rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(26, 26, 26, 0.08);
 }
 
-.grp-card__members-label {
+.grp-members {
+  flex: 1;
+  min-width: 0;
+}
+
+.grp-members__label {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.35rem;
   color: var(--text);
   font-size: 0.82rem;
   font-weight: 700;
   white-space: nowrap;
 }
 
-.grp-card__members-label svg {
-  width: 0.9rem;
-  height: 0.9rem;
-  color: var(--muted);
-}
-
-.grp-card__members-pct {
-  color: var(--muted);
+.grp-members__label i {
   font-size: 0.78rem;
-  font-weight: 600;
+  color: var(--muted);
 }
 
-.grp-card__bar {
-  width: 100%;
-  height: 0.4rem;
-  border-radius: 999px;
-  background: rgba(26, 26, 26, 0.08);
-  overflow: hidden;
+.grp-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.8rem;
+  min-height: 2.55rem;
+  padding: 0 1rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  font-size: 0.86rem;
+  font-weight: 700;
+  pointer-events: none;
 }
 
-.grp-card__bar-fill {
-  height: 100%;
-  border-radius: 999px;
-  transition: width 0.4s ease;
-}
-
-.grp-card__bar-fill--popular {
-  background: #ff9500;
-}
-
-.grp-card__bar-fill--active {
+.grp-action.is-primary {
   background: var(--accent);
+  color: #fff;
 }
 
-.grp-card__bar-fill--inactive {
-  background: #9ca3af;
+.grp-action.is-secondary {
+  background: rgba(26, 26, 26, 0.05);
+  color: var(--text);
 }
 
 /* --- Joined state --- */
@@ -180,10 +167,6 @@
   flex: 0 0 auto;
   align-items: center;
   gap: 0.35rem;
-  min-height: 1.6rem;
-  padding: 0 0.65rem;
-  border-radius: var(--radius-pill);
-  background: rgba(52, 199, 89, 0.12);
   color: #1d4f2a;
   font-size: 0.76rem;
   font-weight: 700;
@@ -193,6 +176,21 @@
 .grp-status--joined i {
   font-size: 0.7rem;
   color: #34c759;
+}
+
+/* --- Mobile footer sizing --- */
+.mobile-card .grp-card__footer {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+}
+
+.mobile-card .grp-members__label {
+  font-size: 0.78rem;
+}
+
+.mobile-card .grp-action {
+  min-height: 2.35rem;
+  font-size: 0.82rem;
 }
 
 /* --- Join button --- */

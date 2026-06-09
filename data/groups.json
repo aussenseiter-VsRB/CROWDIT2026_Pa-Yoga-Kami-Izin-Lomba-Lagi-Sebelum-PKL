@@ -4,7 +4,7 @@
     "title": "Belajar bareng teman <span class=\"grp-hero__highlight\">sejurusan</span> jadi lebih seru",
     "description": "Gabung grup belajar sesuai minat dan jurusanmu. Dapatkan teman baru, temukan referensi, dan selesaikan tugas bersama-sama.",
     "stats": [
-      { "value": "12", "label": "Total Grup" },
+      { "value": "9", "label": "Total Grup" },
       { "value": "288", "label": "Anggota Aktif" },
       { "value": "156", "label": "Diskusi Hari Ini" }
     ],
@@ -69,6 +69,13 @@
       "description": "Grup diskusi pemikiran filsafat barat dan timur, etika terapan, dan logika dasar untuk mahasiswa filsafat.",
       "members": 5,
       "maxMembers": 100
+    },
+    {
+      "department": "Philosophy",
+      "title": "Eksistensialisme & Fenomenologi",
+      "description": "Komunitas belajar untuk mendalami pemikiran Sartre, Camus, Heidegger, dan Husserl melalui diskusi teks dan refleksi kritis.",
+      "members": 22,
+      "maxMembers": 50
     }
   ]
 }

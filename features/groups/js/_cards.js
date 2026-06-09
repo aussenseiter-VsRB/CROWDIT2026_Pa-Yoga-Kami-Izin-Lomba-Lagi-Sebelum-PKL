@@ -1,36 +1,34 @@
-import { getStatus, statusLabel, statusPct, memberLabel, peopleIcon } from './_utils.js';
+import { getStatus, statusLabel, memberLabel, peopleIcon } from './_utils.js';
 import { getForumStatus } from '../../../js/services/forum-access.js';
 
 export function GroupCard(group, index) {
   const status = getStatus(group.members);
-  const pct = statusPct(group.members, group.maxMembers);
   const joinedText = memberLabel(group.members, group.maxMembers);
   const isJoined = getForumStatus('group', index) === 'joined';
 
   return `
     <a class="grp-card${isJoined ? ' grp-card--joined' : ''}" href="${isJoined ? `/forum-interior?group=${index}` : `/forum?group=${index}`}" data-link>
-      <div class="grp-card__top">
-        <span class="grp-card__dept">${group.department}</span>
+      <div class="grp-card__header">
+        <div>
+          <span class="grp-card__eyebrow">${group.department}</span>
+          <h2>${group.title}</h2>
+        </div>
         ${isJoined
           ? `<span class="grp-status--joined"><i class="bi bi-check-circle-fill"></i> Sudah Bergabung</span>`
           : `<span class="grp-status grp-status--${status}"><span aria-hidden="true"></span>${statusLabel(status)}</span>`
         }
       </div>
 
-      <h2 class="grp-card__title">${group.title}</h2>
-      <p class="grp-card__desc">${group.description}</p>
+      <p>${group.description}</p>
 
-      <div class="grp-card__members">
-        <div class="grp-card__members-header">
-          <span class="grp-card__members-label">
+      <div class="grp-card__footer">
+        <div class="grp-members">
+          <span class="grp-members__label">
             ${peopleIcon()}
             ${joinedText}
           </span>
-          <span class="grp-card__members-pct">${pct}%</span>
         </div>
-        <div class="grp-card__bar">
-          <div class="grp-card__bar-fill grp-card__bar-fill--${status}" style="width:${pct}%"></div>
-        </div>
+        <span class="grp-action ${isJoined ? 'is-secondary' : 'is-primary'}">${isJoined ? 'Buka Forum' : 'Detail'}</span>
       </div>
     </a>
   `;
@@ -38,26 +36,28 @@ export function GroupCard(group, index) {
 
 export function mGroupCard(group, index) {
   const status = getStatus(group.members);
-  const pct = statusPct(group.members, group.maxMembers);
   const isJoined = getForumStatus('group', index) === 'joined';
 
   return `
     <a class="mobile-card mobile-card--block${isJoined ? ' mobile-card--joined' : ''}" href="${isJoined ? `/forum-interior?group=${index}` : `/forum?group=${index}`}" data-link>
       <div class="mobile-card__header">
-        <span class="mobile-card__tag">${group.department}</span>
+        <div>
+          <h2>${group.title}</h2>
+        </div>
         ${isJoined
           ? `<span class="mobile-status--joined"><i class="bi bi-check-circle-fill"></i> Joined</span>`
           : `<span class="mobile-status-badge mobile-status-badge--${status}"><span class="mobile-status-badge__dot"></span>${statusLabel(status)}</span>`
         }
       </div>
-      <h2>${group.title}</h2>
       <p>${group.description}</p>
-      <div class="mobile-progress">
-        <span class="mobile-progress__label">${memberLabel(group.members, group.maxMembers)}</span>
-        <div class="mobile-progress__bar">
-          <div class="mobile-progress__fill mobile-progress__fill--${status}" style="width:${pct}%"></div>
+      <div class="grp-card__footer">
+        <div class="grp-members">
+          <span class="grp-members__label">
+            ${peopleIcon()}
+            ${memberLabel(group.members, group.maxMembers)}
+          </span>
         </div>
-        <span class="mobile-progress__pct">${pct}%</span>
+        <span class="grp-action ${isJoined ? 'is-secondary' : 'is-primary'}">${isJoined ? 'Buka Forum' : 'Detail'}</span>
       </div>
     </a>
   `;

@@ -16,10 +16,6 @@ export function statusLabel(status) {
   return 'Kurang Aktif';
 }
 
-export function statusPct(members, maxMembers) {
-  return Math.round((members / maxMembers) * 100);
-}
-
 export function memberLabel(members, maxMembers) {
   return members === 0
     ? 'Belum ada anggota'

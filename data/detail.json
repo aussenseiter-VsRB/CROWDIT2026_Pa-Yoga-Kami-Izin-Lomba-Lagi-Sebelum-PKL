@@ -560,182 +560,73 @@
   },
   {
     "course": {
-      "title": "Statistika untuk Ilmu Sosial",
-      "description": "Membahas pengujian hipotesis, regresi, dan menafsirkan kumpulan data survei nyata.",
-      "status": "Offline",
-      "category": "Ilmu Sosial"
+      "title": "Diskusi Eksistensialisme: Kebebasan & Absurditas",
+      "description": "Forum belajar untuk membahas pemikiran Sartre, Camus, dan Heidegger. Fokus minggu ini: kebebasan manusia dan makna hidup di dunia yang absurd.",
+      "status": "Online",
+      "category": "Filsafat"
     },
     "schedule": {
       "day": "Kamis",
-      "time": "15:00 - 16:30 WIB",
+      "time": "19:00 - 20:30 WIB",
       "startDate": "8 Mei 2025",
-      "endDate": "26 Juni 2025",
+      "endDate": "TBA",
       "meetingCount": "Pertemuan ke-3 dari 8"
     },
     "meeting": {
-      "type": "Offline",
-      "platform": "",
-      "link": "",
-      "location": "Gedung FISIP, Ruang 305, Kampus Universitas Indonesia"
-    },
-    "participants": {
-      "joined": 6,
-      "capacity": 8,
-      "dummies": [
-        "Kira",
-        "Lani",
-        "Mira",
-        "Nadi",
-        "Oni",
-        "Pani"
-      ]
-    },
-    "forum": {
-      "joinLink": "/groups",
-      "memberCount": 6,
-      "postCount": 22
-    },
-    "chats": [
-      {
-        "name": "Kira",
-        "text": "Ada yang udah paham regresi?",
-        "time": "2025-05-31T13:00:00.000Z"
-      },
-      {
-        "name": "Lani",
-        "text": "Masih belajar, agak rumit",
-        "time": "2025-05-31T13:05:00.000Z"
-      },
-      {
-        "name": "Mira",
-        "text": "Contoh pakai data survei bikin lebih mudah",
-        "time": "2025-05-31T13:10:00.000Z"
-      },
-      {
-        "name": "Nadi",
-        "text": "Bisa share dataset-nya?",
-        "time": "2025-05-31T13:15:00.000Z"
-      },
-      {
-        "name": "Oni",
-        "text": "Nanti saya share linknya",
-        "time": "2025-05-31T13:20:00.000Z"
-      },
-      {
-        "name": "Pani",
-        "text": "Makasih!",
-        "time": "2025-05-31T13:25:00.000Z"
-      }
-    ],
-    "creator": {
-      "name": "Nia Rahmawati",
-      "username": "@niarahma",
-      "bio": "Guru Sosiologi SMA Negeri 3 Bandung."
-    }
-  },
-  {
-    "course": {
-      "title": "Lokakarya Penulisan Kreatif",
-      "description": "Umpan balik dari rekan sejawat tentang cerita pendek dan puisi. Bagikan karya Anda dan dapatkan masukan yang membangun.",
-      "status": "Online",
-      "category": "Sastra"
-    },
-    "schedule": {
-      "day": "Jumat",
-      "time": "20:00 - 21:30 WIB",
-      "startDate": "2 Mei 2025",
-      "endDate": "TBA",
-      "meetingCount": "Pertemuan ke-6 dari 10"
-    },
-    "meeting": {
       "type": "Online",
-      "platform": "Zoom",
-      "link": "https://zoom.us/j/5555555555",
+      "platform": "Google Meet",
+      "link": "https://meet.google.com/xyz-abcd-efg",
       "location": ""
     },
     "participants": {
-      "joined": 11,
-      "capacity": 11,
+      "joined": 7,
+      "capacity": 12,
       "dummies": [
-        "Qila",
-        "Rani",
-        "Soni",
-        "Tia",
-        "Uki",
-        "Vani",
-        "Wani",
-        "Xena",
-        "Yani",
-        "Zian",
-        "Boni"
+        "Adit",
+        "Bima",
+        "Citra",
+        "Dewi",
+        "Eka",
+        "Fajar",
+        "Gita"
       ]
     },
     "forum": {
       "joinLink": "/groups",
-      "memberCount": 11,
-      "postCount": 63
+      "memberCount": 7,
+      "postCount": 31
     },
     "chats": [
       {
-        "name": "Qila",
-        "text": "Selamat datang di lokakarya penulisan!",
-        "time": "2025-05-30T20:00:00.000Z"
+        "name": "Adit",
+        "text": "Selamat datang! Siapa yang sudah baca esai Sartre tentang kebebasan?",
+        "time": "2025-06-04T11:00:00.000Z"
       },
       {
-        "name": "Rani",
-        "text": "Ada yang bawa cerita pendek?",
-        "time": "2025-05-30T20:05:00.000Z"
+        "name": "Bima",
+        "text": "Baru bab awal, tapi konsep existence precedes essence menarik banget.",
+        "time": "2025-06-04T11:08:00.000Z"
       },
       {
-        "name": "Soni",
-        "text": "Saya bawa puisi, boleh dikritik",
-        "time": "2025-05-30T20:10:00.000Z"
+        "name": "Citra",
+        "text": "Camus bilang hidup absurd, tapi kita tetap harus revolt. Itu maksudnya apa ya?",
+        "time": "2025-06-04T11:15:00.000Z"
       },
       {
-        "name": "Tia",
-        "text": "Seru! Saya juga bawa cerita",
-        "time": "2025-05-30T20:15:00.000Z"
+        "name": "Dewi",
+        "text": "Kayak tetap hidup penuh meski dunia nggak kasih jawaban pasti.",
+        "time": "2025-06-04T11:22:00.000Z"
       },
       {
-        "name": "Uki",
-        "text": "Mari kita saling memberi masukan",
-        "time": "2025-05-30T20:20:00.000Z"
-      },
-      {
-        "name": "Vani",
-        "text": "Siap! Saya sudah siapin draft",
-        "time": "2025-05-30T20:25:00.000Z"
-      },
-      {
-        "name": "Wani",
-        "text": "Aku juga pengen baca karya kalian",
-        "time": "2025-05-30T20:30:00.000Z"
-      },
-      {
-        "name": "Xena",
-        "text": "Makasih semuanya!",
-        "time": "2025-05-30T20:35:00.000Z"
-      },
-      {
-        "name": "Yani",
-        "text": "Semoga dapet feedback yang membangun",
-        "time": "2025-05-30T20:40:00.000Z"
-      },
-      {
-        "name": "Zian",
-        "text": "Aamiin!",
-        "time": "2025-05-30T20:45:00.000Z"
-      },
-      {
-        "name": "Boni",
-        "text": "Gas kita belajar bareng!",
-        "time": "2025-05-30T20:50:00.000Z"
+        "name": "Eka",
+        "text": "Nanti kita bahas bareng di sesi Kamis malam ya.",
+        "time": "2025-06-04T11:30:00.000Z"
       }
     ],
     "creator": {
-      "name": "Rina Amalia",
-      "username": "@rinaamalia",
-      "bio": "Penulis lepas dan content creator."
+      "name": "Dr. Maya Suryani",
+      "username": "@mayasuryani",
+      "bio": "Dosen Filsafat UI, peneliti eksistensialisme kontemporer."
     }
   }
 ]

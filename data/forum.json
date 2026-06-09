@@ -230,47 +230,22 @@
       "privacy": "public",
       "channels": [
         {
-          "id": "umum", "name": "umum", "topic": "Pengujian hipotesis, regresi, dan analisis data survei",
+          "id": "umum", "name": "umum", "topic": "Eksistensialisme, kebebasan, dan absurditas dalam pemikiran Sartre & Camus",
           "messages": [
-            { "user": "Fatan", "text": "Halo! Forum statistik untuk ilmu sosial. Kita bahas regresi linear dan uji hipotesis.", "time": "2025-06-01T08:00:00Z" },
-            { "user": "All", "text": "Aku lagi olah data survei pake SPSS. P-value 0.05 itu signifikan?", "time": "2025-06-01T09:00:00Z" },
-            { "user": "Manca", "text": "Iya, kalau p < 0.05, tolak H0. Tapi ukuran sampel juga penting.", "time": "2025-06-01T09:30:00Z" },
-            { "user": "Fatan", "text": "Betul. Jangan lupa cek asumsi normalitas dan homogenitas dulu.", "time": "2025-06-01T10:00:00Z" }
+            { "user": "Fatan", "text": "Selamat datang di forum Eksistensialisme! Minggu ini kita bahas kebebasan dan tanggung jawab.", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Existence precedes essence — artinya manusia dulu ada, baru bikin makna sendiri?", "time": "2025-06-01T09:00:00Z" },
+            { "user": "Manca", "text": "Betul. Beda sama pandangan bahwa esensi manusia sudah ditentukan sejak awal.", "time": "2025-06-01T09:30:00Z" },
+            { "user": "Fatan", "text": "Camus menambah sudut absurd — hidup tanpa jaminan makna, tapi tetap harus bertindak.", "time": "2025-06-01T10:00:00Z" }
           ]
         },
         {
-          "id": "voice", "name": "Voice Bimbingan", "type": "voice", "topic": "Konsultasi statistik", "messages": []
-        }
-      ],
-      "members": [
-        { "name": "Fatan", "status": "online" },
-        { "name": "All", "status": "online" },
-        { "name": "Manca", "status": "idle" }
-      ]
-    },
-    {
-      "memberCount": 65,
-      "memberLimit": 80,
-      "privacy": "public",
-      "channels": [
-        {
-          "id": "umum", "name": "umum", "topic": "Umpan balik dan diskusi karya tulis",
+          "id": "teks", "name": "teks", "topic": "Rekomendasi bacaan filsafat",
           "messages": [
-            { "user": "Fatan", "text": "Selamat datang! Silakan bagikan cerpen atau puisi kalian di sini.", "time": "2025-06-01T08:00:00Z" },
-            { "user": "All", "text": "Aku bawa cerpen tentang seorang pelukis di kota tua. Butuh masukan.", "time": "2025-06-01T09:00:00Z" },
-            { "user": "Manca", "text": "Bacakan dulu, nanti kita kasih feedback dari segi alur dan diksi.", "time": "2025-06-01T09:30:00Z" },
-            { "user": "Fatan", "text": "Siap. Sesi workshop minggu ini bahas building tension dalam cerita.", "time": "2025-06-01T10:00:00Z" },
-            { "user": "All", "text": "Makasih! Nanti aku post di #karya.", "time": "2025-06-01T10:15:00Z" }
+            { "user": "Manca", "text": "The Myth of Sisyphus — bagus buat memahami konsep absurd Camus.", "time": "2025-06-01T10:30:00Z" }
           ]
         },
         {
-          "id": "karya", "name": "karya", "topic": "Kumpulan karya anggota",
-          "messages": [
-            { "user": "All", "text": "Judul: Pelukis di Senja. Cerpen 1500 kata tentang seorang pelukis tua di kota tua Jakarta.", "time": "2025-06-01T10:30:00Z" }
-          ]
-        },
-        {
-          "id": "voice", "name": "Voice Kritik Sastra", "type": "voice", "topic": "Diskusi sastra", "messages": []
+          "id": "voice", "name": "Voice Diskusi", "type": "voice", "topic": "Diskusi filsafat", "messages": []
         }
       ],
       "members": [
@@ -423,6 +398,31 @@
       "members": [
         { "name": "Fatan", "status": "online" },
         { "name": "All", "status": "online" },
+        { "name": "Manca", "status": "online" }
+      ]
+    },
+    {
+      "privacy": "public",
+      "channels": [
+        {
+          "id": "umum", "name": "umum", "topic": "Eksistensialisme, absurditas, dan fenomenologi pengalaman",
+          "messages": [
+            { "user": "Fatan", "text": "Selamat datang! Minggu ini kita bahas esai Sartre tentang kebebasan dan tanggung jawab.", "time": "2025-06-01T08:00:00Z" },
+            { "user": "All", "text": "Existence precedes essence itu maksudnya manusia dulu ada baru menentukan maknanya?", "time": "2025-06-02T18:00:00Z" },
+            { "user": "Manca", "text": "Iya, beda sama essentialism yang anggap esensi manusia sudah ditentukan sejak awal.", "time": "2025-06-02T18:20:00Z" },
+            { "user": "Fatan", "text": "Camus menambahkan perspektif absurd — hidup tanpa jaminan makna, tapi tetap harus bertindak.", "time": "2025-06-02T18:45:00Z" }
+          ]
+        },
+        {
+          "id": "teks", "name": "teks", "topic": "Rekomendasi bacaan dan catatan",
+          "messages": [
+            { "user": "Manca", "text": "Being and Nothingness bab 1 — bagus buat memahami konsep for-itself dan in-itself.", "time": "2025-06-03T09:00:00Z" }
+          ]
+        }
+      ],
+      "members": [
+        { "name": "Fatan", "status": "online" },
+        { "name": "All", "status": "idle" },
         { "name": "Manca", "status": "online" }
       ]
     }
