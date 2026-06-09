@@ -52,6 +52,13 @@ export function renderDetail(item, { participantsLive, forumLive, users, index, 
             <h2 class="dtl-section__title">Informasi Pertemuan</h2>
             ${MeetingBlock(item.meeting, item.course.status)}
           </div>
+
+          <div class="dtl-section dtl-reminder">
+            <label class="dtl-reminder__label">
+              <input type="checkbox" class="dtl-reminder__checkbox">
+              <span>Ingatkan saya</span>
+            </label>
+          </div>
         </div>
 
         <div class="dtl-grid__right">

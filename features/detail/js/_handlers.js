@@ -1,6 +1,5 @@
 import { showConfirmModal } from '../../../components/ui/confirm-modal/confirm-modal.js';
 import { joinForum, incrementMemberCount, getLiveMemberCount } from '../../../js/services/forum-access.js';
-import { navigateTo } from '../../../js/utils/url.js';
 
 export function attachJoinHandler(el, item, index) {
   const joinBtn = el.querySelector('.dtl-join-btn');
@@ -15,7 +14,16 @@ export function attachJoinHandler(el, item, index) {
       onConfirm: () => {
         joinForum('course', index);
         incrementMemberCount(index, item.participants.joined);
-        navigateTo(`/forum-interior?index=${index}`);
+
+        joinBtn.outerHTML = `<span class="dtl-join-btn dtl-join-btn--joined">
+          <i class="bi bi-check-circle"></i> Anda telah bergabung
+        </span>`;
+
+        const participantsCount = el.querySelector('.dtl-participants__count');
+        if (participantsCount) {
+          const newCount = getLiveMemberCount(index, item.participants.joined);
+          participantsCount.textContent = `${newCount} bergabung`;
+        }
       },
     });
   });
