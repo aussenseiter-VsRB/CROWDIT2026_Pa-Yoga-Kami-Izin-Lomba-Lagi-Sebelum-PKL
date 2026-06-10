@@ -19,7 +19,7 @@ export function Navbar() {
     el.innerHTML = `
       <div class="container navbar__inner">
         <a class="navbar-logo" href="/" data-link aria-label="Beranda StudNow">
-          <img class="navbar-logo__img" src="/assets/StudNowLogo.png" alt="StudNow" />
+          <img class="navbar-logo__img" src="/components/assets/StudNowLogo.png" alt="StudNow" />
         </a>
 
         <nav class="navbar-nav" aria-label="Navigasi desktop">
