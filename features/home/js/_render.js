@@ -1,4 +1,4 @@
-import { isAuthenticated } from '../../js/services/auth.js';
+import { isAuthenticated } from '../../../js/services/auth.js';
 import { renderFab } from '../../../components/ui/fab/fab.js';
 import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard, InterestCard, mInterestCard } from './_cards.js';
 
