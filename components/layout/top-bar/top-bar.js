@@ -1,5 +1,6 @@
 import { isAuthenticated, getSession } from '../../../js/services/auth.js';
 import { getUnreadCount } from '../../../js/services/notifications.js';
+import { asset } from '../../../js/utils/url.js';
 
 import { injectStyle } from '../../../js/utils/styleLoader.js';
 injectStyle('/components/layout/top-bar/top-bar.css');
@@ -17,7 +18,7 @@ export function TopBar() {
     el.innerHTML = `
       <div class="top-bar__inner">
         <a class="top-bar__brand" href="/" data-link aria-label="Beranda StudNow">
-          <img class="top-bar__logo-img" src="/assets/StudNowLogo.png" alt="StudNow" />
+          <img class="top-bar__logo-img" src="${asset('/assets/StudNowLogo.png')}" alt="StudNow" />
         </a>
         <div style="display:flex;align-items:center;gap:0.5rem">
           <a class="top-bar__icon-btn" href="/search" data-link aria-label="Cari">

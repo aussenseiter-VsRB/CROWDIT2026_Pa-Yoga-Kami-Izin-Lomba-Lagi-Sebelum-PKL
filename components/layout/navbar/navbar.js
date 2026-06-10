@@ -1,7 +1,7 @@
 import { isAuthenticated, getSession } from '../../../js/services/auth.js';
 import { getUnreadCount } from '../../../js/services/notifications.js';
 import { injectStyle } from '../../../js/utils/styleLoader.js';
-import { getHashPath } from '../../../js/utils/url.js';
+import { getHashPath, asset } from '../../../js/utils/url.js';
 import { STORAGE_KEYS } from '../../../js/core/config.js';
 
 function getBadgeCount() {
@@ -19,7 +19,7 @@ export function Navbar() {
     el.innerHTML = `
       <div class="container navbar__inner">
         <a class="navbar-logo" href="/" data-link aria-label="Beranda StudNow">
-          <img class="navbar-logo__img" src="assets/StudNowLogo.png" alt="StudNow" />
+          <img class="navbar-logo__img" src="${asset('/assets/StudNowLogo.png')}" alt="StudNow" />
         </a>
 
         <nav class="navbar-nav" aria-label="Navigasi desktop">
