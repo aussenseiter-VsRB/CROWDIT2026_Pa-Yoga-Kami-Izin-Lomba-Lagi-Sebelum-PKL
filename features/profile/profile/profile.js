@@ -2,7 +2,7 @@ import { injectStyle } from '../../../js/utils/styleLoader.js';
 import { fetchData } from '../../../js/utils/api.js';
 import { getSession, isAuthenticated, logout, navigateAfterAuth, getUsers } from '../../../js/services/auth.js';
 import { getHashParams, navigateTo } from '../../../js/utils/url.js';
-import { TambahMinat } from '../../../components/shared/tambah-minat/tambah-minat.js';
+import { InterestChips, getAvailableInterests } from '../js/_interest-chips.js';
 import { showQrModal } from '../../../components/ui/qr-modal/qr-modal.js';
 import { isFollowing, toggleFollowUser, getFollowingCount, getFollowersCount, getFriends, isBlocked, blockUser, unblockUser } from '../../../js/services/follow.js';
 import { STORAGE_KEYS, DEFAULTS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
@@ -16,6 +16,7 @@ injectStyle('/css/_shared-activity.css');
 injectStyle('/features/profile/profile/css/profile.css');
 injectStyle('/features/profile/profile/css/_profile-header.css');
 injectStyle('/features/profile/profile/css/_profile-panels.css');
+injectStyle('/features/auth/signup/css/_interest-chips.css');
 
 const INTERESTS_KEY = STORAGE_KEYS.INTERESTS;
 const AVATAR_KEY = STORAGE_KEYS.AVATAR;
@@ -113,35 +114,14 @@ function iconQr() { return '<i class="bi bi-qr-code"></i>'; }
 function iconSettings() { return '<i class="bi bi-gear"></i>'; }
 function iconHelp() { return '<i class="bi bi-question-circle"></i>'; }
 function iconChevron() { return '<i class="bi bi-chevron-right"></i>'; }
-function iconPlus() { return '<i class="bi bi-plus"></i>'; }
-function iconX() { return '<i class="bi bi-x"></i>'; }
 function iconCamera() { return '<i class="bi bi-camera"></i>'; }
+function iconX() { return '<i class="bi bi-x"></i>'; }
 function iconGlobe() { return '<i class="bi bi-globe2"></i>'; }
 function iconLock() { return '<i class="bi bi-lock"></i>'; }
 
 function mapIcon(name) {
   const map = { book: 'bi bi-book', chat: 'bi bi-chat-dots', check: 'bi bi-check-circle', star: 'bi bi-star' };
   return map[name] || 'bi bi-circle';
-}
-
-function renderInterestTags(interests, onRemove) {
-  const container = document.createElement('div');
-  container.className = 'm-profile__tags';
-  interests.forEach((interest, index) => {
-    const tag = document.createElement('span');
-    tag.className = 'm-profile__tag';
-    tag.innerHTML = `
-      ${interest}
-      <button class="m-profile__tag-remove" type="button" data-index="${index}" aria-label="Hapus ${interest}">${iconX()}</button>
-    `;
-    const btn = tag.querySelector('.m-profile__tag-remove');
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      onRemove(index);
-    });
-    container.appendChild(tag);
-  });
-  return container;
 }
 
 function renderMobileAvatarContent(initial) {
@@ -225,10 +205,10 @@ function renderDesktop() {
             <div class="d-profile__bio-text ${otherBio ? '' : 'd-profile__bio-text--empty'}">${otherBio || 'Belum ada bio'}</div>
           </div>
           ${otherInterests.length ? `
-          <div class="tm" style="margin-top:1rem">
-            <p class="tm__section-title">Learning Interest</p>
-            <div class="tm__tags">
-              ${otherInterests.map(i => `<span class="tm__tag">${i}</span>`).join('')}
+          <div class="profile-interests" style="margin-top:1rem">
+            <p style="font-size:0.85rem;font-weight:600;color:var(--muted-alt);margin:0 0 0.5rem">Learning Interest</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem">
+              ${otherInterests.map(i => `<span class="interest-chip is-selected" style="cursor:default">${i}</span>`).join('')}
             </div>
           </div>
           ` : ''}
@@ -336,7 +316,7 @@ function renderDesktop() {
         </div>
 
         <div class="d-profile__grid">
-          <div class="d-profile__tambah-minat"></div>
+          <div class="profile-interests" data-interest-section></div>
 
           <div>
             <p class="d-profile__section-title">Pengaturan</p>
@@ -488,15 +468,13 @@ function renderDesktop() {
   bioEditBtn.addEventListener('click', enterBioEdit);
   bioText.addEventListener('click', enterBioEdit);
 
-  const tmContainer = el.querySelector('.d-profile__tambah-minat');
-  const tmComponent = TambahMinat({
-    interests,
-    onChange: (newInterests) => {
-      interests = newInterests;
+  const interestSection = el.querySelector('[data-interest-section]');
+  getAvailableInterests().then(available => {
+    interestSection.appendChild(InterestChips(available, interests, (vals) => {
+      interests = vals;
       saveInterests(interests);
-    },
+    }));
   });
-  tmContainer.appendChild(tmComponent);
 
   const activities = getActivities();
   const activityList = el.querySelector('.d-profile__activity-list');
@@ -627,10 +605,10 @@ function renderMobile() {
           <div class="mobile-bio__text ${otherBio ? '' : 'mobile-bio__text--empty'}">${otherBio || 'Belum ada bio'}</div>
         </div>
         ${otherInterests.length ? `
-        <div class="m-profile__interests" style="margin-top:1rem">
-          <p class="m-profile__section-title">Learning Interest</p>
-          <div class="m-profile__tags">
-            ${otherInterests.map(i => `<span class="m-profile__tag">${i}</span>`).join('')}
+        <div class="profile-interests" style="margin-top:1rem">
+          <p style="font-size:0.85rem;font-weight:600;color:var(--muted-alt);margin:0 0 0.5rem">Learning Interest</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem">
+            ${otherInterests.map(i => `<span class="interest-chip is-selected" style="cursor:default">${i}</span>`).join('')}
           </div>
         </div>
         ` : ''}
@@ -733,14 +711,7 @@ function renderMobile() {
         <div class="mobile-bio__text ${bio ? '' : 'mobile-bio__text--empty'}">${bio || 'Tambahkan bio singkat...'}</div>
       </div>
 
-      <div class="m-profile__interests">
-        <p class="m-profile__section-title">Learning Interest</p>
-        <div class="m-profile__tags-wrap"></div>
-        <div class="m-profile__add-interest">
-          <input class="m-profile__interest-input" type="text" placeholder="Tambah minat..." maxlength="30" />
-          <button class="m-profile__interest-add" type="button" aria-label="Tambah minat">${iconPlus()}</button>
-        </div>
-      </div>
+      <div class="profile-interests" data-interest-section></div>
 
       <div class="mobile-privacy">
         <span class="mobile-privacy__icon">${isPublic ? iconGlobe() : iconLock()}</span>
@@ -814,39 +785,12 @@ function renderMobile() {
     </div>
   `;
 
-  function renderInterests() {
-    const wrap = el.querySelector('.m-profile__tags-wrap');
-    wrap.innerHTML = '';
-    const tags = renderInterestTags(interests, (index) => {
-      interests.splice(index, 1);
+  const interestSection = el.querySelector('[data-interest-section]');
+  getAvailableInterests().then(available => {
+    interestSection.appendChild(InterestChips(available, interests, (vals) => {
+      interests = vals;
       saveInterests(interests);
-      renderInterests();
-    });
-    wrap.appendChild(tags);
-  }
-
-  renderInterests();
-
-  const input = el.querySelector('.m-profile__interest-input');
-  const addBtn = el.querySelector('.m-profile__interest-add');
-
-  function addInterest() {
-    const val = input.value.trim();
-    if (!val) return;
-    if (interests.includes(val)) {
-      input.value = '';
-      return;
-    }
-    interests.push(val);
-    saveInterests(interests);
-    renderInterests();
-    input.value = '';
-    input.focus();
-  }
-
-  addBtn.addEventListener('click', addInterest);
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') addInterest();
+    }));
   });
 
   const avatarEl = el.querySelector('#js-profile-avatar');
