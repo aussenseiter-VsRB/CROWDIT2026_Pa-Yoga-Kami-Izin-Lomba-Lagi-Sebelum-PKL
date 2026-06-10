@@ -1,0 +1,25 @@
+.fab {
+  position: fixed;
+  bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  right: 1.25rem;
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1.35rem;
+  box-shadow: 0 4px 14px rgba(0, 122, 255, 0.4);
+  cursor: pointer;
+  transition:
+    transform var(--transition),
+    background-color var(--transition);
+}
+
+.fab:active {
+  transform: scale(0.9);
+}

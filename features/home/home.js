@@ -1,11 +1,12 @@
 import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
-import { asset } from '../../js/utils/url.js';
+import { asset, navigateTo } from '../../js/utils/url.js';
 import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
-import { getSession } from '../../js/services/auth.js';
+import { getSession, isAuthenticated } from '../../js/services/auth.js';
 import { mergeCourseData } from './js/_utils.js';
 import { renderDesktop, renderMobile } from './js/_render.js';
 import { bindTopicTabs } from './js/_handlers.js';
+import { showCreateForumModal } from '../forums/create-forum/create-forum.js';
 
 injectStyle('/features/home/css/home.css');
 injectStyle('/features/home/css/_home-hero.css');
@@ -63,6 +64,28 @@ export async function Home() {
     const el = isMobile ? renderMobile(data) : renderDesktop(data);
 
     bindTopicTabs(el);
+
+    function refresh() {
+      Home().then(newEl => {
+        el.replaceWith(newEl);
+      });
+    }
+
+    el.addEventListener('click', (e) => {
+      const createBtn = e.target.closest('[data-create-forum]');
+      if (createBtn) {
+        e.preventDefault();
+        if (!isAuthenticated()) {
+          navigateTo('/signup');
+          return;
+        }
+        showCreateForumModal({
+          topics: topics.filter(t => t !== 'Semua Topik'),
+          onCreated: refresh,
+        });
+        return;
+      }
+    });
 
     return el;
   } catch (err) {

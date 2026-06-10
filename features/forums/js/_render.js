@@ -1,4 +1,5 @@
 import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../../home/js/_cards.js';
+import { renderFab } from '../../../components/ui/fab/fab.js';
 
 export function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
   if (suggestions.length === 0) return cards;
@@ -60,7 +61,7 @@ export function renderMobile(data) {
         <p>Temukan forum sesuai mata kuliah dan minat belajarmu</p>
       </header>
 
-      <button class="forums-fab" data-create-forum type="button" aria-label="Buat Forum"><i class="bi bi-plus-lg"></i></button>
+      ${renderFab()}
 
       <nav class="m-home-topics" aria-label="Forum topics">
         ${data.topics.map((topic, index) => `

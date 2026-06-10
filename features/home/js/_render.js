@@ -1,3 +1,5 @@
+import { isAuthenticated } from '../../js/services/auth.js';
+import { renderFab } from '../../../components/ui/fab/fab.js';
 import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard, InterestCard, mInterestCard } from './_cards.js';
 
 function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
@@ -103,6 +105,8 @@ function renderMobile(data) {
         <h1>${data.mobile.title}</h1>
         <p>${data.mobile.description}</p>
       </header>
+
+      ${isAuthenticated() ? renderFab() : ''}
 
       ${data.interestForums && data.interestForums.length ? `
         <section class="m-home-interest-section">
