@@ -2,7 +2,8 @@ import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
 import { asset, navigateTo } from '../../js/utils/url.js';
 import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
-import { getSession, isAuthenticated } from '../../js/services/auth.js';
+import { getSession } from '../../js/services/auth.js';
+import { InterestRecommendations } from '../../components/shared/interest-recommendations/interest-recommendations.js';
 import { mergeCourseData } from './js/_utils.js';
 import { renderDesktop, renderMobile } from './js/_render.js';
 import { bindTopicTabs } from './js/_handlers.js';
@@ -68,6 +69,14 @@ export async function Home() {
 
     const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const el = isMobile ? renderMobile(data) : renderDesktop(data);
+
+    const session = getSession();
+    if (session?.interests?.length) {
+      const recs = InterestRecommendations(session.interests);
+      if (recs) {
+        el.insertBefore(recs, el.firstChild);
+      }
+    }
 
     bindTopicTabs(el);
 
