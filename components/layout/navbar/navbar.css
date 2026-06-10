@@ -28,22 +28,11 @@
   color: var(--text);
 }
 
-.navbar-logo__mark {
-  width: 2rem;
-  height: 2rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  background: var(--accent);
-  color: #fff;
-  box-shadow: var(--shadow-sm);
-}
-
-.navbar-logo__mark svg {
-  width: 1.15rem;
-  height: 1.15rem;
+.navbar-logo__img {
+  width: 6rem;
+  height: 6rem;
   display: block;
+  object-fit: contain;
 }
 
 /* --- Navigation --- */

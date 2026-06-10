@@ -35,10 +35,11 @@
   text-decoration: none;
 }
 
-.top-bar__brand svg {
-  width: 1.55rem;
-  height: 1.55rem;
-  fill: var(--accent);
+.top-bar__logo-img {
+  width: 4rem;
+  height: 4rem;
+  display: block;
+  object-fit: contain;
 }
 
 /* --- Actions --- */
