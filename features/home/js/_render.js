@@ -1,4 +1,4 @@
-import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from './_cards.js';
+import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard, InterestCard, mInterestCard } from './_cards.js';
 
 function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
   if (suggestions.length === 0) return cards;
@@ -17,6 +17,15 @@ function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
 function renderDesktop(data) {
   const el = document.createElement('section');
   el.className = 'home-page container section';
+
+  const allCards = injectSuggestions(
+    data.forums.map((forum, index) => ForumCard(forum, index)),
+    data.suggestions || [],
+    SuggestionCard
+  );
+  const visibleCards = allCards.slice(0, 9);
+  const hiddenCards = allCards.slice(9);
+  const hasMore = hiddenCards.length > 0;
 
   el.innerHTML = `
     <div class="home-page__inner">
@@ -39,6 +48,16 @@ function renderDesktop(data) {
         </div>
       </section>
 
+      ${data.interestForums && data.interestForums.length ? `
+        <section class="home-interest-section">
+          <h2 class="home-interest-title">Mungkin Anda Tertarik</h2>
+          <p class="home-interest-desc">Berdasarkan minat belajar Anda</p>
+          <div class="home-interest-grid">
+            ${data.interestForums.map((f, i) => InterestCard(f, f._originalIndex)).join('')}
+          </div>
+        </section>
+      ` : ''}
+
       <nav class="home-topics" aria-label="Forum topics">
         ${data.topics.map((topic, index) => `
           <button class="home-topic ${index === 0 ? 'is-active' : ''}" type="button">
@@ -47,15 +66,29 @@ function renderDesktop(data) {
         `).join('')}
       </nav>
 
-      <div class="home-forum-list">
-        ${injectSuggestions(
-          data.forums.map((forum, index) => ForumCard(forum, index)),
-          data.suggestions || [],
-          SuggestionCard
-        ).join('')}
+      <div class="home-status-chips">
+        <button class="home-status-chip is-active" type="button" data-status="">Semua</button>
+        <button class="home-status-chip" type="button" data-status="Online">Online</button>
+        <button class="home-status-chip" type="button" data-status="Offline">Offline</button>
       </div>
+
+      <div class="home-forum-list">
+        ${visibleCards.join('')}
+        ${hiddenCards.map(h => h.replace('<article', '<article data-hidden="true"')).join('')}
+      </div>
+
+      ${hasMore ? '<button class="home-show-more" type="button">Lihat Selengkapnya</button>' : ''}
     </div>
   `;
+
+  const showMore = el.querySelector('.home-show-more');
+  if (showMore) {
+    showMore.addEventListener('click', () => {
+      el.querySelectorAll('[data-hidden="true"]').forEach(c => c.removeAttribute('data-hidden'));
+      el.querySelector('.home-forum-empty')?.remove();
+      showMore.remove();
+    });
+  }
 
   return el;
 }
@@ -71,6 +104,16 @@ function renderMobile(data) {
         <p>${data.mobile.description}</p>
       </header>
 
+      ${data.interestForums && data.interestForums.length ? `
+        <section class="m-home-interest-section">
+          <h2 class="m-home-interest-title">Mungkin Anda Tertarik</h2>
+          <p class="m-home-interest-desc">Berdasarkan minat belajar Anda</p>
+          <div class="m-home-interest-grid">
+            ${data.interestForums.map((f, i) => mInterestCard(f, f._originalIndex)).join('')}
+          </div>
+        </section>
+      ` : ''}
+
       <nav class="m-home-topics" aria-label="Forum topics">
         ${data.topics.map((topic, index) => `
           <button class="m-home-topic ${index === 0 ? 'is-active' : ''}" type="button">
@@ -78,6 +121,12 @@ function renderMobile(data) {
           </button>
         `).join('')}
       </nav>
+
+      <div class="m-home-status-chips">
+        <button class="m-home-status-chip is-active" type="button" data-status="">Semua</button>
+        <button class="m-home-status-chip" type="button" data-status="Online">Online</button>
+        <button class="m-home-status-chip" type="button" data-status="Offline">Offline</button>
+      </div>
 
       ${data.stats ? `
         <div class="mobile-stats-grid">

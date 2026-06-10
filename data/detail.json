@@ -297,7 +297,7 @@
       },
       {
         "name": "Zoe",
-        "text": "Saya baru mulai, tolong sabar ya \ud83d\ude05",
+        "text": "Saya baru mulai, tolong sabar ya 😅",
         "time": "2025-06-04T20:20:00.000Z"
       },
       {
@@ -627,6 +627,976 @@
       "name": "Dr. Maya Suryani",
       "username": "@mayasuryani",
       "bio": "Dosen Filsafat UI, peneliti eksistensialisme kontemporer."
+    }
+  },
+  {
+    "course": {
+      "title": "Kalkulus Dasar: Limit dan Kontinuitas",
+      "description": "Grup belajar kalkulus dasar: limit dan kontinuitas untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Online",
+      "category": "Matematika"
+    },
+    "schedule": {
+      "day": "Sabtu, Kamis",
+      "time": "7:00 - 8:30 WIB",
+      "startDate": "5 Mei 2025",
+      "endDate": "15 Juni 2025",
+      "meetingCount": "Pertemuan ke-1 dari 12"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Google Meet",
+      "link": "https://meet.google.com/abc-def",
+      "location": ""
+    },
+    "participants": {
+      "joined": 14,
+      "capacity": 18,
+      "dummies": [
+        "Quinn",
+        "Uma",
+        "Wira",
+        "Wina",
+        "Oka",
+        "Sari",
+        "Gita",
+        "Nina",
+        "Oscar",
+        "Fiona"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 14,
+      "postCount": 17
+    },
+    "chats": [
+      {
+        "name": "Quinn",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Uma",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Wira",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      },
+      {
+        "name": "Wina",
+        "text": "Bagian ini agak rumit ya",
+        "time": "2025-06-13T11:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Nina Fitriani",
+      "username": "@user100",
+      "bio": "Pengajar dan pegiat edukasi Matematika."
+    }
+  },
+  {
+    "course": {
+      "title": "Dasar Pemrograman Python",
+      "description": "Grup belajar dasar pemrograman python untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Offline",
+      "category": "Ilmu Komputer"
+    },
+    "schedule": {
+      "day": "Rabu, Minggu",
+      "time": "8:00 - 9:30 WIB",
+      "startDate": "6 Mei 2025",
+      "endDate": "16 Juni 2025",
+      "meetingCount": "Pertemuan ke-2 dari 12"
+    },
+    "meeting": {
+      "type": "Offline",
+      "platform": "",
+      "link": "",
+      "location": "Ruang 101, Gedung Fakultas, Kampus Universitas Indonesia"
+    },
+    "participants": {
+      "joined": 3,
+      "capacity": 6,
+      "dummies": [
+        "Oka",
+        "Qito",
+        "Yoga"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 3,
+      "postCount": 22
+    },
+    "chats": [
+      {
+        "name": "Oka",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Qito",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Yoga",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Hana Gunawan",
+      "username": "@user101",
+      "bio": "Pengajar dan pegiat edukasi Ilmu Komputer."
+    }
+  },
+  {
+    "course": {
+      "title": "Etika & Moral dalam Filsafat",
+      "description": "Grup belajar etika & moral dalam filsafat untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Online",
+      "category": "Filsafat"
+    },
+    "schedule": {
+      "day": "Minggu, Selasa",
+      "time": "9:00 - 10:30 WIB",
+      "startDate": "7 Mei 2025",
+      "endDate": "17 Juni 2025",
+      "meetingCount": "Pertemuan ke-3 dari 12"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Google Meet",
+      "link": "https://meet.google.com/cde-fgh",
+      "location": ""
+    },
+    "participants": {
+      "joined": 2,
+      "capacity": 13,
+      "dummies": [
+        "Lulu",
+        "Uma"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 2,
+      "postCount": 42
+    },
+    "chats": [
+      {
+        "name": "Lulu",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Uma",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Ivan Putri",
+      "username": "@user102",
+      "bio": "Pengajar dan pegiat edukasi Filsafat."
+    }
+  },
+  {
+    "course": {
+      "title": "Biologi Sel & Molekuler",
+      "description": "Grup belajar biologi sel & molekuler untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Offline",
+      "category": "Sains"
+    },
+    "schedule": {
+      "day": "Rabu, Senin",
+      "time": "10:00 - 11:30 WIB",
+      "startDate": "8 Mei 2025",
+      "endDate": "18 Juni 2025",
+      "meetingCount": "Pertemuan ke-4 dari 12"
+    },
+    "meeting": {
+      "type": "Offline",
+      "platform": "",
+      "link": "",
+      "location": "Ruang 103, Gedung Fakultas, Kampus Universitas Indonesia"
+    },
+    "participants": {
+      "joined": 2,
+      "capacity": 11,
+      "dummies": [
+        "Pina",
+        "Miles"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 2,
+      "postCount": 61
+    },
+    "chats": [
+      {
+        "name": "Pina",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Miles",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Zaki Hidayat",
+      "username": "@user103",
+      "bio": "Pengajar dan pegiat edukasi Sains."
+    }
+  },
+  {
+    "course": {
+      "title": "Prosa & Puisi Indonesia Modern",
+      "description": "Grup belajar prosa & puisi indonesia modern untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Online",
+      "category": "Sastra"
+    },
+    "schedule": {
+      "day": "Rabu, Sabtu",
+      "time": "11:00 - 12:30 WIB",
+      "startDate": "9 Mei 2025",
+      "endDate": "19 Juni 2025",
+      "meetingCount": "Pertemuan ke-5 dari 12"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Google Meet",
+      "link": "https://meet.google.com/efg-hij",
+      "location": ""
+    },
+    "participants": {
+      "joined": 13,
+      "capacity": 24,
+      "dummies": [
+        "Gito",
+        "Elio",
+        "Ical",
+        "Vina",
+        "Bani",
+        "Zara",
+        "Uli",
+        "Tono",
+        "Kito",
+        "Vito"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 13,
+      "postCount": 28
+    },
+    "chats": [
+      {
+        "name": "Gito",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Elio",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Ical",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      },
+      {
+        "name": "Vina",
+        "text": "Bagian ini agak rumit ya",
+        "time": "2025-06-13T11:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Ical Permadi",
+      "username": "@user104",
+      "bio": "Pengajar dan pegiat edukasi Sastra."
+    }
+  },
+  {
+    "course": {
+      "title": "Aljabar Linear: Ruang Vektor",
+      "description": "Grup belajar aljabar linear: ruang vektor untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Offline",
+      "category": "Matematika"
+    },
+    "schedule": {
+      "day": "Minggu, Selasa",
+      "time": "12:00 - 13:30 WIB",
+      "startDate": "10 Mei 2025",
+      "endDate": "20 Juni 2025",
+      "meetingCount": "Pertemuan ke-6 dari 12"
+    },
+    "meeting": {
+      "type": "Offline",
+      "platform": "",
+      "link": "",
+      "location": "Ruang 105, Gedung Fakultas, Kampus Universitas Indonesia"
+    },
+    "participants": {
+      "joined": 12,
+      "capacity": 20,
+      "dummies": [
+        "Hadi",
+        "Alex",
+        "Miles",
+        "Wina",
+        "Riko",
+        "Paul",
+        "Kevin",
+        "Intan",
+        "Fiona",
+        "Diana"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 12,
+      "postCount": 68
+    },
+    "chats": [
+      {
+        "name": "Hadi",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Alex",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Miles",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      },
+      {
+        "name": "Wina",
+        "text": "Bagian ini agak rumit ya",
+        "time": "2025-06-13T11:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Pia Setiawan",
+      "username": "@user105",
+      "bio": "Pengajar dan pegiat edukasi Matematika."
+    }
+  },
+  {
+    "course": {
+      "title": "Basis Data: SQL & NoSQL",
+      "description": "Grup belajar basis data: sql & nosql untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Online",
+      "category": "Ilmu Komputer"
+    },
+    "schedule": {
+      "day": "Jumat, Selasa",
+      "time": "13:00 - 14:30 WIB",
+      "startDate": "11 Mei 2025",
+      "endDate": "21 Juni 2025",
+      "meetingCount": "Pertemuan ke-7 dari 12"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Google Meet",
+      "link": "https://meet.google.com/ghi-jkl",
+      "location": ""
+    },
+    "participants": {
+      "joined": 12,
+      "capacity": 20,
+      "dummies": [
+        "Evan",
+        "Dewi",
+        "Ojan",
+        "Ivan",
+        "Jiji",
+        "Ujang",
+        "Ici",
+        "Yuni",
+        "Lina",
+        "Fani"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 12,
+      "postCount": 16
+    },
+    "chats": [
+      {
+        "name": "Evan",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Dewi",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Ojan",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      },
+      {
+        "name": "Ivan",
+        "text": "Bagian ini agak rumit ya",
+        "time": "2025-06-13T11:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Hari Kusuma",
+      "username": "@user106",
+      "bio": "Pengajar dan pegiat edukasi Ilmu Komputer."
+    }
+  },
+  {
+    "course": {
+      "title": "Logika & Penalaran Kritis",
+      "description": "Grup belajar logika & penalaran kritis untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Offline",
+      "category": "Filsafat"
+    },
+    "schedule": {
+      "day": "Selasa, Jumat",
+      "time": "14:00 - 15:30 WIB",
+      "startDate": "12 Mei 2025",
+      "endDate": "22 Juni 2025",
+      "meetingCount": "Pertemuan ke-8 dari 12"
+    },
+    "meeting": {
+      "type": "Offline",
+      "platform": "",
+      "link": "",
+      "location": "Ruang 107, Gedung Fakultas, Kampus Universitas Indonesia"
+    },
+    "participants": {
+      "joined": 9,
+      "capacity": 18,
+      "dummies": [
+        "Yoga",
+        "Sari",
+        "Hadi",
+        "Uma",
+        "Mito",
+        "Pia",
+        "Diana",
+        "Ojan",
+        "Rina"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 9,
+      "postCount": 42
+    },
+    "chats": [
+      {
+        "name": "Yoga",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Sari",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Hadi",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      },
+      {
+        "name": "Uma",
+        "text": "Bagian ini agak rumit ya",
+        "time": "2025-06-13T11:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Ira Gunawan",
+      "username": "@user107",
+      "bio": "Pengajar dan pegiat edukasi Filsafat."
+    }
+  },
+  {
+    "course": {
+      "title": "Kimia Dasar: Stoikiometri",
+      "description": "Grup belajar kimia dasar: stoikiometri untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Online",
+      "category": "Sains"
+    },
+    "schedule": {
+      "day": "Sabtu, Kamis",
+      "time": "15:00 - 16:30 WIB",
+      "startDate": "13 Mei 2025",
+      "endDate": "23 Juni 2025",
+      "meetingCount": "Pertemuan ke-1 dari 12"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Google Meet",
+      "link": "https://meet.google.com/ijk-lmn",
+      "location": ""
+    },
+    "participants": {
+      "joined": 5,
+      "capacity": 10,
+      "dummies": [
+        "Ujang",
+        "Ical",
+        "Sita",
+        "Bella",
+        "Citra"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 5,
+      "postCount": 69
+    },
+    "chats": [
+      {
+        "name": "Ujang",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Ical",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Sita",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      },
+      {
+        "name": "Bella",
+        "text": "Bagian ini agak rumit ya",
+        "time": "2025-06-13T11:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Fina Susanti",
+      "username": "@user108",
+      "bio": "Pengajar dan pegiat edukasi Sains."
+    }
+  },
+  {
+    "course": {
+      "title": "Kritik Sastra: Teori & Praktik",
+      "description": "Grup belajar kritik sastra: teori & praktik untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Offline",
+      "category": "Sastra"
+    },
+    "schedule": {
+      "day": "Minggu",
+      "time": "16:00 - 17:30 WIB",
+      "startDate": "14 Mei 2025",
+      "endDate": "24 Juni 2025",
+      "meetingCount": "Pertemuan ke-2 dari 12"
+    },
+    "meeting": {
+      "type": "Offline",
+      "platform": "",
+      "link": "",
+      "location": "Ruang 109, Gedung Fakultas, Kampus Universitas Indonesia"
+    },
+    "participants": {
+      "joined": 4,
+      "capacity": 7,
+      "dummies": [
+        "Evan",
+        "Gaga",
+        "Adit",
+        "Ici"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 4,
+      "postCount": 68
+    },
+    "chats": [
+      {
+        "name": "Evan",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Gaga",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Adit",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      },
+      {
+        "name": "Ici",
+        "text": "Bagian ini agak rumit ya",
+        "time": "2025-06-13T11:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Yoga Wijaya",
+      "username": "@user109",
+      "bio": "Pengajar dan pegiat edukasi Sastra."
+    }
+  },
+  {
+    "course": {
+      "title": "Statistika Inferensial Lengkap",
+      "description": "Grup belajar statistika inferensial lengkap untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Online",
+      "category": "Matematika"
+    },
+    "schedule": {
+      "day": "Kamis, Selasa",
+      "time": "17:00 - 18:30 WIB",
+      "startDate": "5 Mei 2025",
+      "endDate": "15 Juni 2025",
+      "meetingCount": "Pertemuan ke-3 dari 12"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Google Meet",
+      "link": "https://meet.google.com/klm-nop",
+      "location": ""
+    },
+    "participants": {
+      "joined": 10,
+      "capacity": 20,
+      "dummies": [
+        "Xander",
+        "Haha",
+        "Kevin",
+        "Riko",
+        "Bani",
+        "Pina",
+        "Ical",
+        "Bella",
+        "Bina",
+        "Lina"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 10,
+      "postCount": 47
+    },
+    "chats": [
+      {
+        "name": "Xander",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Haha",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Kevin",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      },
+      {
+        "name": "Riko",
+        "text": "Bagian ini agak rumit ya",
+        "time": "2025-06-13T11:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Gina Santoso",
+      "username": "@user110",
+      "bio": "Pengajar dan pegiat edukasi Matematika."
+    }
+  },
+  {
+    "course": {
+      "title": "Jaringan Komputer untuk Pemula",
+      "description": "Grup belajar jaringan komputer untuk pemula untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Offline",
+      "category": "Ilmu Komputer"
+    },
+    "schedule": {
+      "day": "Jumat, Rabu",
+      "time": "18:00 - 19:30 WIB",
+      "startDate": "6 Mei 2025",
+      "endDate": "16 Juni 2025",
+      "meetingCount": "Pertemuan ke-4 dari 12"
+    },
+    "meeting": {
+      "type": "Offline",
+      "platform": "",
+      "link": "",
+      "location": "Ruang 111, Gedung Fakultas, Kampus Universitas Indonesia"
+    },
+    "participants": {
+      "joined": 11,
+      "capacity": 19,
+      "dummies": [
+        "Ici",
+        "Jina",
+        "Cici",
+        "Kiki",
+        "Lili",
+        "Wawan",
+        "Diana",
+        "Pia",
+        "Momo",
+        "Wina"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 11,
+      "postCount": 51
+    },
+    "chats": [
+      {
+        "name": "Ici",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Jina",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Cici",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      },
+      {
+        "name": "Kiki",
+        "text": "Bagian ini agak rumit ya",
+        "time": "2025-06-13T11:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Gito Lestari",
+      "username": "@user111",
+      "bio": "Pengajar dan pegiat edukasi Ilmu Komputer."
+    }
+  },
+  {
+    "course": {
+      "title": "Filsafat Timur: Zen & Taoisme",
+      "description": "Grup belajar filsafat timur: zen & taoisme untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Online",
+      "category": "Filsafat"
+    },
+    "schedule": {
+      "day": "Kamis, Jumat",
+      "time": "7:00 - 8:30 WIB",
+      "startDate": "7 Mei 2025",
+      "endDate": "17 Juni 2025",
+      "meetingCount": "Pertemuan ke-5 dari 12"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Google Meet",
+      "link": "https://meet.google.com/mno-pqr",
+      "location": ""
+    },
+    "participants": {
+      "joined": 14,
+      "capacity": 24,
+      "dummies": [
+        "Xita",
+        "Gito",
+        "Gita",
+        "Yara",
+        "Kuku",
+        "Hannah",
+        "Riko",
+        "Charlie",
+        "Citra",
+        "Alex"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 14,
+      "postCount": 35
+    },
+    "chats": [
+      {
+        "name": "Xita",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Gito",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Gita",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      },
+      {
+        "name": "Yara",
+        "text": "Bagian ini agak rumit ya",
+        "time": "2025-06-13T11:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Momo Setiawan",
+      "username": "@user112",
+      "bio": "Pengajar dan pegiat edukasi Filsafat."
+    }
+  },
+  {
+    "course": {
+      "title": "Fisika Kuantum untuk Pemula",
+      "description": "Grup belajar fisika kuantum untuk pemula untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Offline",
+      "category": "Sains"
+    },
+    "schedule": {
+      "day": "Rabu, Minggu",
+      "time": "8:00 - 9:30 WIB",
+      "startDate": "8 Mei 2025",
+      "endDate": "18 Juni 2025",
+      "meetingCount": "Pertemuan ke-6 dari 12"
+    },
+    "meeting": {
+      "type": "Offline",
+      "platform": "",
+      "link": "",
+      "location": "Ruang 113, Gedung Fakultas, Kampus Universitas Indonesia"
+    },
+    "participants": {
+      "joined": 5,
+      "capacity": 15,
+      "dummies": [
+        "Hana",
+        "Elio",
+        "Momo",
+        "Xita",
+        "Jiji"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 5,
+      "postCount": 58
+    },
+    "chats": [
+      {
+        "name": "Hana",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Elio",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Momo",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      },
+      {
+        "name": "Xita",
+        "text": "Bagian ini agak rumit ya",
+        "time": "2025-06-13T11:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Dede Utami",
+      "username": "@user113",
+      "bio": "Pengajar dan pegiat edukasi Sains."
+    }
+  },
+  {
+    "course": {
+      "title": "Sastra Bandingan Timur-Barat",
+      "description": "Grup belajar sastra bandingan timur-barat untuk mahasiswa dan umum. Diskusi interaktif, latihan soal, dan persiapan ujian.",
+      "status": "Online",
+      "category": "Sastra"
+    },
+    "schedule": {
+      "day": "Rabu, Senin",
+      "time": "9:00 - 10:30 WIB",
+      "startDate": "9 Mei 2025",
+      "endDate": "19 Juni 2025",
+      "meetingCount": "Pertemuan ke-7 dari 12"
+    },
+    "meeting": {
+      "type": "Online",
+      "platform": "Google Meet",
+      "link": "https://meet.google.com/opq-rst",
+      "location": ""
+    },
+    "participants": {
+      "joined": 11,
+      "capacity": 21,
+      "dummies": [
+        "Hannah",
+        "Citra",
+        "Kito",
+        "Zoe",
+        "Diana",
+        "Charlie",
+        "Joni",
+        "Rina",
+        "Vito",
+        "Jina"
+      ]
+    },
+    "forum": {
+      "joinLink": "/groups",
+      "memberCount": 11,
+      "postCount": 26
+    },
+    "chats": [
+      {
+        "name": "Hannah",
+        "text": "Ada yang sudah belajar materi hari ini?",
+        "time": "2025-06-10T8:00:00.000Z"
+      },
+      {
+        "name": "Citra",
+        "text": "Saya baru mulai, ada tips?",
+        "time": "2025-06-11T9:00:00.000Z"
+      },
+      {
+        "name": "Kito",
+        "text": "Mari kita diskusikan bersama",
+        "time": "2025-06-12T10:00:00.000Z"
+      },
+      {
+        "name": "Zoe",
+        "text": "Bagian ini agak rumit ya",
+        "time": "2025-06-13T11:00:00.000Z"
+      }
+    ],
+    "creator": {
+      "name": "Xita Fitriani",
+      "username": "@user114",
+      "bio": "Pengajar dan pegiat edukasi Sastra."
     }
   }
 ]

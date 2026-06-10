@@ -1,3 +1,33 @@
+/* --- Mobile Status Chips --- */
+
+.m-home-status-chips {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: var(--space-sm);
+}
+
+.m-home-status-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.85rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.m-home-status-chip.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
 /* --- Mobile Forum --- */
 
 .m-home-forum-list {
@@ -100,6 +130,33 @@
 
 .m-home-forum-card .home-participants__label {
   font-size: 0.78rem;
+}
+
+/* --- Mobile Interest Section --- */
+
+.m-home-interest-section {
+  margin-bottom: var(--space-md);
+}
+
+.m-home-interest-title {
+  margin: 0 0 0.15rem;
+  font-size: 1.05rem;
+}
+
+.m-home-interest-desc {
+  margin: 0 0 var(--space-sm);
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.m-home-interest-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+}
+
+.m-home-forum-card--interest {
+  border: 1.5px solid #f59e0b;
 }
 
 /* --- Mobile Suggestion Card --- */
