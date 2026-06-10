@@ -16,7 +16,7 @@ injectStyle('/css/_shared-activity.css');
 injectStyle('/features/profile/profile/css/profile.css');
 injectStyle('/features/profile/profile/css/_profile-header.css');
 injectStyle('/features/profile/profile/css/_profile-panels.css');
-injectStyle('/features/auth/signup/css/_interest-chips.css');
+injectStyle('/features/profile/css/_interest-chips.css');
 
 const INTERESTS_KEY = STORAGE_KEYS.INTERESTS;
 const AVATAR_KEY = STORAGE_KEYS.AVATAR;

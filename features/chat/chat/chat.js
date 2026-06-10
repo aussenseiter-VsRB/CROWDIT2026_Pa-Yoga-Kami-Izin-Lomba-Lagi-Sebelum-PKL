@@ -8,6 +8,8 @@ import { renderDesktop, renderMobile } from './js/_render.js';
 injectStyle('/css/_shared.css');
 injectStyle('/css/_shared-chat.css');
 injectStyle('/features/chat/chat/css/chat.css');
+injectStyle('/features/chat/chat/css/_chat-desktop.css');
+injectStyle('/features/chat/chat/css/_chat-mobile.css');
 
 export async function Chat() {
   try {

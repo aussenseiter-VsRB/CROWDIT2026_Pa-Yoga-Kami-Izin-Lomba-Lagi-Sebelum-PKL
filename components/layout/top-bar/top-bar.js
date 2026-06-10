@@ -17,7 +17,7 @@ export function TopBar() {
     el.innerHTML = `
       <div class="top-bar__inner">
         <a class="top-bar__brand" href="/" data-link aria-label="Beranda StudNow">
-          <img class="top-bar__logo-img" src="/components/assets/StudNowLogo.png" alt="StudNow" />
+          <img class="top-bar__logo-img" src="/assets/StudNowLogo.png" alt="StudNow" />
         </a>
         <div style="display:flex;align-items:center;gap:0.5rem">
           <a class="top-bar__icon-btn" href="/search" data-link aria-label="Cari">

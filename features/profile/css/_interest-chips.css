@@ -1,0 +1,61 @@
+.interest-chips {
+  margin: 0.5rem 0 1rem;
+}
+
+.interest-chips__title {
+  margin: 0 0 0.15rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.interest-chips__desc {
+  margin: 0 0 0.75rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.interest-chips__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.interest-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.85rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.interest-chip:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.interest-chip.is-selected {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.interest-chip--more {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: transparent;
+}
+
+.interest-chip--more:hover {
+  background: var(--accent-soft);
+}

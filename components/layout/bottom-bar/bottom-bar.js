@@ -7,7 +7,7 @@ function getItems() {
   const authed = isAuthenticated();
   return [
     { label: 'Jelajahi', href: '/', icon: 'bi bi-compass' },
-    { label: 'Forum', href: '/forums', icon: 'bi bi-chat-square-text' },
+    { label: 'Forum', href: '/forum', icon: 'bi bi-chat-square-text' },
     { label: 'Grup', href: '/groups', icon: 'bi bi-people' },
     ...(authed ? [{ label: 'Pesan', href: '/chat', icon: 'bi bi-chat-dots' }] : []),
   ];
@@ -39,7 +39,7 @@ export function BottomBar() {
     const path = getHashPath();
     el.querySelectorAll('.bottom-bar__item').forEach((item) => {
       const href = item.getAttribute('href');
-      const isGroupsRoute = href === '/groups' && (path === '/groups' || path === '/groups-interior');
+      const isGroupsRoute = href === '/groups' && (path === '/groups' || path === '/forum-interior');
       item.classList.toggle('is-active', href === path || isGroupsRoute);
     });
     el.style.display = isAuthRoute() ? 'none' : '';

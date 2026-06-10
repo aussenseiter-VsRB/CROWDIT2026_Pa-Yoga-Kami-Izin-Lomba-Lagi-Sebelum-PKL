@@ -80,7 +80,7 @@ export function ForumCard(forum) {
 
 
   return `
-    <a class="chat-card" href="/groups-interior?${forum.type === 'course' ? 'index' : 'group'}=${forum.index}" data-link>
+    <a class="chat-card" href="/forum-interior?${forum.type === 'course' ? 'index' : 'group'}=${forum.index}" data-link>
       ${avatarHtml(name, color, true)}
       <div class="chat-card-body">
         <div class="chat-card-row">
@@ -145,7 +145,7 @@ export function mForumCard(forum) {
 
 
   return `
-    <a class="chatm-card" href="/groups-interior?${forum.type === 'course' ? 'index' : 'group'}=${forum.index}" data-link>
+    <a class="chatm-card" href="/forum-interior?${forum.type === 'course' ? 'index' : 'group'}=${forum.index}" data-link>
       ${mAvatarHtml(name, color, true)}
       <div class="chat-card-body">
         <div class="chat-card-row">

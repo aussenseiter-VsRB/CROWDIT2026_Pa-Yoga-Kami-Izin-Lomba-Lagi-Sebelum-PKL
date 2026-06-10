@@ -2,7 +2,7 @@
 import { getHashPath, getHashParams, navigateTo } from '../utils/url.js';
 import { isAuthenticated } from '../services/auth.js';
 import { Home } from '../../features/home/home.js';
-import { Forums } from '../../features/forums/forums.js';
+import { Forums } from '../../features/forum/explore/explore.js';
 import { About } from '../../features/about/about.js';
 import { Contact } from '../../features/contact/contact.js';
 import { Groups } from '../../features/groups/groups.js';
@@ -26,12 +26,12 @@ const protectedRoutes = new Set([
   '/profile',
   '/edit-profile',
   '/notifications',
-  '/groups-interior',
+  '/forum-interior',
 ]);
 
 const routes = {
   '/':              Home,
-  '/forums':        Forums,
+  '/forum':         Forums,
   '/about':         About,
   '/contact':       Contact,
   '/groups':        Groups,
@@ -42,7 +42,7 @@ const routes = {
   '/search':        Search,
   '/notifications': Notifications,
   '/detail':        Detail,
-  '/groups-interior': ForumInterior,
+  '/forum-interior': ForumInterior,
   '/dm':            DM,
   '/edit-profile':  EditProfile,
   '/settings':      Settings,
@@ -58,12 +58,15 @@ function resolvePage(path) {
 }
 
 function redirectLegacyForumPaths(path) {
-  if (path !== '/forum' && path !== '/forum-interior') return false;
+  const legacyMap = {
+    '/forums': '/forum',
+    '/groups-interior': '/forum-interior',
+  };
+  if (!legacyMap[path]) return false;
 
   const params = getHashParams();
-  const target = path === '/forum' ? '/groups' : '/groups-interior';
   const qs = params.toString();
-  navigateTo(`${target}${qs ? `?${qs}` : ''}`);
+  navigateTo(`${legacyMap[path]}${qs ? `?${qs}` : ''}`);
   return true;
 }
 

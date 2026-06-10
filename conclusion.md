@@ -44,13 +44,24 @@ Ground rules hanya bisa diubah oleh manusia secara eksplisit dengan menyebut atu
 ```txt
 studNow/
 ├── index.html                    # Entry point — memuat layout utama + Bootstrap Icons CDN
+├── assets/                       # Static assets (favicon, logo)
+│   ├── favicon.svg
+│   ├── StudNowLogo.png
+│   └── StudNow.png
 ├── css/
 │   ├── global.css                # Sumber Tailwind + custom properties (maks ~200 baris)
-│   └── _shared.css               # Shared mobile layout (mobile-page, mobile-card, dll)
+│   ├── _shared.css               # Shared mobile layout (mobile-page, mobile-card, dll)
+│   ├── _shared-activity.css      # Activity list styles — dipakai profile, notifications
+│   ├── _shared-chat.css          # Chat message styles — dipakai chat, dm
+│   ├── _shared-edit.css          # Edit profile styles — dipakai profile
+│   ├── _shared-menu.css          # Menu items styles — dipakai profile
+│   ├── _shared-profile.css       # Profile strip styles — dipakai groups, profile
+│   └── _shared-settings.css      # Settings toggle styles — dipakai profile, settings
 ├── dist/
 │   └── output.css                # Hasil build Tailwind (jangan diedit manual)
 ├── js/
 │   ├── core/                     # Bootstrap & infrastruktur inti aplikasi
+│   │   ├── config.js             # Centralized configuration (storage keys, API, paths, limits)
 │   │   ├── main.js               # Bootstrap: mount komponen tetap, intercept navigasi
 │   │   ├── router.js             # Route table tunggal, render halaman ke #main
 │   │   └── theme.js              # Inisialisasi tema
@@ -58,7 +69,12 @@ studNow/
 │   │   ├── auth.js               # Login, register, logout, session (localStorage)
 │   │   ├── search.js             # Fuzzy search engine (n-gram, field-weighted)
 │   │   ├── notifications.js      # Manajemen notifikasi
-│   │   └── forum-access.js       # Join/request/approve forum — localStorage state
+│   │   ├── forum-access.js       # Join/request/approve forum — localStorage state
+│   │   ├── course-chat.js        # Course chat message persistence
+│   │   ├── dm.js                 # Direct message CRUD persistence
+│   │   ├── follow.js             # User follow/unfollow/block service
+│   │   ├── custom-forums.js      # Custom forums CRUD persistence
+│   │   └── custom-groups.js      # Custom groups CRUD persistence
 │   ├── data/                     # Data-access layer — fetch & cache eksternal
 │   │   └── dummy-users.js        # DummyJSON cache (24h TTL), seeded shuffle, getUsersForContext
 │   └── utils/                    # Pure functions — tidak ada state, tidak ada side effect
@@ -141,6 +157,14 @@ studNow/
 │   ├── forum/                    # Fitur terkait forum — dikelompokkan bersama
 │   │   ├── css/
 │   │   │   └── _members.css      # Partial shared: avatar stack + member list
+│   │   ├── create-forum/         # Create/edit forum modal (custom forums)
+│   │   │   └── create-forum.js
+│   │   ├── explore/              # Forum listing/explore (route: /forum)
+│   │   │   ├── js/
+│   │   │   │   └── _render.js
+│   │   │   ├── css/
+│   │   │   │   └── explore.css
+│   │   │   └── explore.js
 │   │   ├── landing/              # Forum landing: join gate, privacy badge, CTA
 │   │   │   ├── js/
 │   │   │   │   ├── _cards.js
@@ -247,7 +271,11 @@ studNow/
     ├── ui/                       # Komponen UI reusable (stateless, data-driven)
     │   ├── card/card.js + .css
     │   ├── form-field/form-field.js + .css
-    │   └── qr-modal/qr-modal.js + .css
+    │   ├── qr-modal/qr-modal.js + .css
+    │   ├── avatar/avatar.js + .css
+    │   ├── confirm-modal/confirm-modal.js + .css
+    │   ├── course-chat/course-chat.js + .css
+    │   └── fab/fab.js + .css
     └── shared/                   # Komponen shared dengan logic ringan
         ├── page-header/page-header.js + .css
         ├── tambah-minat/tambah-minat.js + .css

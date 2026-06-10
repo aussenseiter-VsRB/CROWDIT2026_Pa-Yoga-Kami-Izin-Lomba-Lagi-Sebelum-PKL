@@ -6,7 +6,7 @@ import { getSession, isAuthenticated } from '../../js/services/auth.js';
 import { mergeCourseData } from './js/_utils.js';
 import { renderDesktop, renderMobile } from './js/_render.js';
 import { bindTopicTabs } from './js/_handlers.js';
-import { showCreateForumModal } from '../forums/create-forum/create-forum.js';
+import { showCreateForumModal } from '../forum/create-forum/create-forum.js';
 
 injectStyle('/features/home/css/home.css');
 injectStyle('/features/home/css/_home-hero.css');
@@ -15,6 +15,7 @@ injectStyle('/features/home/css/_home-forum.css');
 injectStyle('/features/home/css/_home-forum-status.css');
 injectStyle('/features/home/css/_home-forum-actions.css');
 injectStyle('/features/home/css/_home-mobile.css');
+injectStyle('/features/home/css/_home-top-group.css');
 injectStyle('/features/groups/css/_groups-card.css');
 
 export async function Home() {

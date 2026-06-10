@@ -68,7 +68,7 @@ export function approveForum(type, index, forumName) {
     type: 'forum_approved',
     title: 'Permintaan disetujui',
     description: `Permintaan bergabung ke "${forumName}" disetujui`,
-    link: `/groups-interior?${type}=${index}`,
+    link: `/forum-interior?${type}=${index}`,
     time: new Date().toISOString(),
     read: false,
   };
