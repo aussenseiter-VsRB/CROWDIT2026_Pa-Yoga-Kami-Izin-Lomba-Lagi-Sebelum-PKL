@@ -81,6 +81,8 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   padding: 1.35rem;
   border: 1px solid rgba(26, 26, 26, 0.08);
   border-radius: var(--radius-lg);
@@ -127,14 +129,23 @@
 
 .home-forum-card h2 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .home-forum-card p {
+  flex: 1;
   margin: 0;
   color: var(--muted);
-  font-size: 0.98rem;
-  line-height: 1.7;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .home-forum-card__creator {
@@ -208,6 +219,7 @@
 }
 
 .home-suggestion-badge {
+  align-self: flex-start;
   display: inline-block;
   margin-bottom: 0.5rem;
   padding: 0.2rem 0.6rem;
@@ -228,4 +240,62 @@
   margin-top: 1.35rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(26, 26, 26, 0.08);
+}
+
+/* --- Type Badge --- */
+.home-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.home-type-badge i {
+  font-size: 0.6rem;
+}
+
+.home-type-badge--forum {
+  background: var(--accent);
+}
+
+.home-type-badge--group {
+  background: #8b5cf6;
+}
+
+/* --- Group status variants --- */
+.home-status--group-popular {
+  border: 1px solid rgba(255, 149, 0, 0.3);
+  background: rgba(255, 149, 0, 0.12);
+  color: #8a5a00;
+}
+
+.home-status--group-popular span {
+  background: #ff9500;
+}
+
+.home-status--group-active {
+  border: 1px solid rgba(52, 199, 89, 0.25);
+  background: rgba(52, 199, 89, 0.12);
+  color: #1d4f2a;
+}
+
+.home-status--group-active span {
+  background: var(--success);
+}
+
+.home-status--group-inactive {
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  background: rgba(26, 26, 26, 0.04);
+  color: var(--muted);
+}
+
+.home-status--group-inactive span {
+  background: #9ca3af;
 }

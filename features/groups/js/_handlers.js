@@ -1,26 +1,48 @@
 import { isAuthenticated } from '../../../js/services/auth.js';
 import { navigateTo } from '../../../js/utils/url.js';
 import { mergeWithBaseGroups, getCustomGroups, deleteCustomGroup } from '../../../js/services/custom-groups.js';
+import { getForumStatus } from '../../../js/services/forum-access.js';
+import { getStatus } from './_utils.js';
+import { ForumCard, mForumCard } from '../../../components/shared/forum-card/forum-card.js';
 
 function getCategoriesFromGroups(groups = []) {
   return [...new Set(groups.map((group) => group.department).filter(Boolean))].sort();
 }
 import { MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 import { showCreateGroupModal } from '../create-group/create-group.js';
-import { GroupCard, mGroupCard } from './_cards.js';
+
+function mapGroup(g, i) {
+  return {
+    _type: 'group',
+    _realIndex: i,
+    title: g.title,
+    description: g.description,
+    department: g.department,
+    topic: g.department,
+    status: getStatus(g.members),
+    joined: getForumStatus('group', i) === 'joined',
+    id: g.id,
+    creator: null,
+    participants: {
+      joined: g.members,
+      capacity: g.maxMembers,
+    },
+  };
+}
 
 function refreshGroups(root, baseGroups) {
   const merged = mergeWithBaseGroups(baseGroups);
+  const mapped = merged.map(mapGroup);
   const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
 
   const grid = root.querySelector('.grp-grid');
   const list = root.querySelector('.mobile-list');
 
   if (grid) {
-    grid.innerHTML = merged.map((group, index) => GroupCard(group, index)).join('');
+    grid.innerHTML = mapped.map((g, i) => ForumCard(g, i)).join('');
   }
   if (list) {
-    list.innerHTML = merged.map((group, index) => mGroupCard(group, index)).join('');
+    list.innerHTML = mapped.map((g, i) => mForumCard(g, i)).join('');
   }
 
   if (!isMobile && merged.length) {

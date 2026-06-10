@@ -1,4 +1,4 @@
-import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../../../home/js/_cards.js';
+import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../../../../components/shared/forum-card/forum-card.js';
 import { renderFab } from '../../../../components/ui/fab/fab.js';
 
 export function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {

@@ -5,7 +5,7 @@ import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 import { getSession, isAuthenticated } from '../../../js/services/auth.js';
 import { navigateTo } from '../../../js/utils/url.js';
 import { mergeCourseData } from '../../home/js/_utils.js';
-import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../../home/js/_cards.js';
+import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../../../components/shared/forum-card/forum-card.js';
 import { renderDesktop, renderMobile, injectSuggestions } from './js/_render.js';
 import { bindTopicTabs } from '../../home/js/_handlers.js';
 import { getCustomForums, deleteCustomForum } from '../../../js/services/custom-forums.js';

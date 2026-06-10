@@ -1,5 +1,6 @@
 import { isAuthenticated } from '../../../js/services/auth.js';
-import { GroupCard, mGroupCard, Hero } from './_cards.js';
+import { ForumCard, mForumCard } from '../../../components/shared/forum-card/forum-card.js';
+import { Hero } from './_cards.js';
 
 export function renderDesktop(data) {
   const el = document.createElement('section');
@@ -13,7 +14,7 @@ export function renderDesktop(data) {
   `;
 
   const grid = el.querySelector('.grp-grid');
-  grid.innerHTML = data.groups.map((g, i) => GroupCard(g, i)).join('');
+  grid.innerHTML = data.groups.map((g, i) => ForumCard(g, i)).join('');
 
   return el;
 }
@@ -39,7 +40,7 @@ export function renderMobile(data) {
         </div>
       </header>
       <div class="mobile-list">
-        ${data.groups.map((g, i) => mGroupCard(g, i)).join('')}
+        ${data.groups.map((g, i) => mForumCard(g, i)).join('')}
       </div>
     </div>
   `;

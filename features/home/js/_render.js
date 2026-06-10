@@ -1,7 +1,7 @@
 import { isAuthenticated } from '../../../js/services/auth.js';
 import { renderFab } from '../../../components/ui/fab/fab.js';
 import { memberLabel, peopleIcon } from '../../groups/js/_utils.js';
-import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard, InterestCard, mInterestCard } from './_cards.js';
+import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard, InterestCard, mInterestCard } from '../../../components/shared/forum-card/forum-card.js';
 
 function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
   if (suggestions.length === 0) return cards;
