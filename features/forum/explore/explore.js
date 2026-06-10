@@ -10,6 +10,7 @@ import { renderDesktop, renderMobile, injectSuggestions } from './js/_render.js'
 import { bindTopicTabs } from '../../home/js/_handlers.js';
 import { getCustomForums, deleteCustomForum } from '../../../js/services/custom-forums.js';
 import { showCreateForumModal } from '../create-forum/create-forum.js';
+import { joinForum } from '../../../js/services/forum-access.js';
 
 injectStyle('/features/home/css/home.css');
 injectStyle('/features/home/css/_home-hero.css');
@@ -21,17 +22,32 @@ injectStyle('/features/home/css/_home-mobile.css');
 injectStyle('/features/forum/explore/css/explore.css');
 
 function mergeCustomForum(cf, index) {
+  const session = getSession();
+  const isCreator = session && cf.creatorEmail === session.email;
   return {
     id: cf.id,
     title: cf.title,
     description: cf.description,
-    status: cf.status || 'Online',
+    status: cf.forumStatus || 'Online',
     topic: cf.topic || '',
-    joined: 'none',
+    joined: isCreator ? 'joined' : 'none',
     participants: {
       joined: cf.members || 1,
       capacity: cf.maxMembers || 100,
     },
+    schedule: {
+      day: cf.scheduleDay || '',
+      time: cf.scheduleTime || '',
+      startDate: cf.startDate || '',
+      endDate: cf.endDate || '',
+    },
+    meeting: {
+      type: cf.meetingType || 'Online',
+      platform: cf.platform || '',
+      link: cf.meetingLink || '',
+      location: cf.location || '',
+    },
+    creator: cf.creatorName ? { name: cf.creatorName, username: cf.creatorEmail ? `@${cf.creatorEmail.split('@')[0]}` : '' } : null,
   };
 }
 
@@ -120,7 +136,15 @@ export async function Forums() {
         }
         showCreateForumModal({
           topics: topics.filter(t => t !== 'Semua Topik'),
-          onCreated: refresh,
+          onCreated: (result) => {
+            const customForums = getCustomForums();
+            const customIdx = customForums.findIndex(f => f.id === result.id);
+            if (customIdx !== -1) {
+              const fullIndex = baseForums.length + customIdx;
+              joinForum('course', fullIndex);
+            }
+            refresh();
+          },
         });
         return;
       }
