@@ -15,12 +15,14 @@ injectStyle('/features/home/css/_home-forum.css');
 injectStyle('/features/home/css/_home-forum-status.css');
 injectStyle('/features/home/css/_home-forum-actions.css');
 injectStyle('/features/home/css/_home-mobile.css');
+injectStyle('/features/groups/css/_groups-card.css');
 
 export async function Home() {
   try {
-    const [homeData, detailData] = await Promise.all([
+    const [homeData, detailData, groupsData] = await Promise.all([
       fetchData(DATA_PATHS.HOME),
       fetch(asset(DATA_PATHS.DETAIL)).then(r => r.json()),
+      fetchData(DATA_PATHS.GROUPS),
     ]);
 
     const categories = [...new Set(detailData.map(d => d.course?.category).filter(Boolean))].sort();
@@ -46,12 +48,16 @@ export async function Home() {
     const interestForums = allInterestMatches.slice(0, 2);
     const suggestions = allInterestMatches.slice(2, 7);
 
+    const allGroups = [...(groupsData.groups || [])].sort((a, b) => b.members - a.members);
+    const topGroup = allGroups.length ? allGroups[0] : null;
+
     const data = {
       ...homeData,
       topics,
       forums,
       suggestions,
       interestForums,
+      topGroup,
       mobile: {
         ...homeData.mobile,
         forums: homeData.mobile.forums.map((f, i) =>
