@@ -26,8 +26,6 @@ export async function Search() {
       fetch(asset(DATA_PATHS.DETAIL)).then(r => r.json()),
     ]);
 
-    const categories = [...new Set(searchEngine.index.map(d => d.category).filter(Boolean))].sort();
-
     const session = getSession();
     const userInterests = session?.interests || [];
     const interestForums = userInterests.length > 0
@@ -43,7 +41,7 @@ export async function Search() {
       : [];
 
     const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
-    return isMobile ? renderMobile(searchData, interestForums, categories) : renderDesktop(searchData, interestForums, categories);
+    return isMobile ? renderMobile(searchData, interestForums) : renderDesktop(searchData, interestForums);
   } catch {
     const el = document.createElement('section');
     el.style.cssText = 'padding:3rem 0;text-align:center';

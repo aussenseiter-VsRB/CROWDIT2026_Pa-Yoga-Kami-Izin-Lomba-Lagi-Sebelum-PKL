@@ -8,7 +8,7 @@ export function bindSearchHandlers(refs) {
 
   trendingGrid.innerHTML = trendingTags.join('');
 
-  let currentCategory = 'Semua Topik';
+  let currentFilter = 'Semua';
   let currentQuery = '';
 
   const renderResults = () => {
@@ -25,9 +25,9 @@ export function bindSearchHandlers(refs) {
     clearBtn.style.display = 'flex';
 
     const allResults = searchEngine.search(q);
-    const filtered = currentCategory === 'Semua Topik'
+    const filtered = currentFilter === 'Semua'
       ? allResults
-      : allResults.filter(r => r.category === currentCategory);
+      : allResults.filter(r => r.type === currentFilter);
 
     emptyEl.hidden = filtered.length > 0;
     resultsLabel.textContent = filtered.length
@@ -53,7 +53,7 @@ export function bindSearchHandlers(refs) {
     if (!btn) return;
     filtersEl.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('filter-pill--active'));
     btn.classList.add('filter-pill--active');
-    currentCategory = btn.dataset.category;
+    currentFilter = btn.dataset.filter;
     if (currentQuery.trim()) renderResults();
   });
 

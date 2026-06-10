@@ -4,15 +4,14 @@ import { TrendingCard } from './_cards.js';
 import { InterestCard, mInterestCard } from '../../../components/shared/forum-card/forum-card.js';
 import { bindSearchHandlers } from './_handlers.js';
 
-export function renderDesktop(data, interestForums, categories = []) {
+export function renderDesktop(data, interestForums) {
   const { trendingTags } = buildDiscoveryData(searchEngine.index);
-  const allFilters = ['Semua Topik', ...categories];
 
   const el = document.createElement('section');
   el.className = 'container section';
 
-  const filtersHtml = allFilters.map((f, i) =>
-    `<button class="filter-pill${i === 0 ? ' filter-pill--active' : ''}" data-category="${f}">${f}</button>`
+  const filtersHtml = data.filters.map((f, i) =>
+    `<button class="filter-pill${i === 0 ? ' filter-pill--active' : ''}" data-filter="${f}">${f}</button>`
   ).join('');
 
   el.innerHTML = `
@@ -75,15 +74,14 @@ export function renderDesktop(data, interestForums, categories = []) {
   return el;
 }
 
-export function renderMobile(data, interestForums, categories = []) {
+export function renderMobile(data, interestForums) {
   const { trendingTags } = buildDiscoveryData(searchEngine.index);
-  const allFilters = ['Semua Topik', ...categories];
 
   const el = document.createElement('section');
   el.className = 'mobile-page';
 
-  const filtersHtml = allFilters.map((f, i) =>
-    `<button class="filter-pill${i === 0 ? ' filter-pill--active' : ''}" data-category="${f}">${f}</button>`
+  const filtersHtml = data.filters.map((f, i) =>
+    `<button class="filter-pill${i === 0 ? ' filter-pill--active' : ''}" data-filter="${f}">${f}</button>`
   ).join('');
 
   el.innerHTML = `

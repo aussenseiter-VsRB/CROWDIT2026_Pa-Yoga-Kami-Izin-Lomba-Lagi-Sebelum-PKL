@@ -57,20 +57,6 @@ class SearchEngine {
       });
     });
 
-    (Array.isArray(detail) ? detail : []).forEach((d, i) => {
-      if (d.course) {
-        docs.push({
-          type: 'Kursus',
-          title: d.course.title,
-          description: d.course.description,
-          url: `/detail?index=${i}`,
-          tags: [d.course.category, d.course.status].filter(Boolean),
-          category: d.course.category,
-          meta: `${d.participants?.joined || 0}/${d.participants?.capacity || 0} peserta`,
-        });
-      }
-    });
-
     docs.forEach(doc => {
       doc.category = normalizeCategory(doc.category);
       const raw = `${doc.title} ${doc.description} ${doc.tags.join(' ')} ${doc.category}`.toLowerCase();
