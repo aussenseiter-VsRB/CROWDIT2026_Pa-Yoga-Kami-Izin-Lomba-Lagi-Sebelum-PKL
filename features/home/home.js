@@ -29,7 +29,7 @@ export async function Home() {
     const topics = ['Semua Topik', ...categories];
 
     const forums = homeData.forums.map((f, i) =>
-      mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i)
+      mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i, detailData[i]?.creator)
     );
 
     const session = getSession();
