@@ -68,18 +68,25 @@ export function mSuggestionCard(forum, index) {
 export function ForumCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
   const isJoined = forum.joined === 'joined';
+  const isCustom = !!forum.id;
 
   return `
-    <article class="home-forum-card${isJoined ? ' home-forum-card--joined' : ''}" data-topic="${forum.topic}">
+    <article class="home-forum-card${isJoined ? ' home-forum-card--joined' : ''}${isCustom ? ' home-forum-card--custom' : ''}" data-topic="${forum.topic}">
       <div class="home-forum-card__header">
         <div>
-          <span class="home-forum-card__eyebrow">${forum.status}</span>
+          <span class="home-forum-card__eyebrow">${isCustom ? 'Forum Kustom' : forum.status}</span>
           <h2>${forum.title}</h2>
         </div>
-        ${isJoined
-          ? `<span class="home-status--joined"><i class="bi bi-check-circle-fill"></i> Sudah Bergabung</span>`
-          : `<span class="home-status ${statusClass}"><span aria-hidden="true"></span>${forum.status}</span>`
-        }
+        <div style="display:flex;align-items:center;gap:0.35rem;flex-shrink:0">
+          ${isCustom ? `
+            <button class="forums-icon-btn" data-edit-forum="${forum.id}" title="Edit forum" aria-label="Edit forum"><i class="bi bi-pencil"></i></button>
+            <button class="forums-icon-btn forums-icon-btn--danger" data-delete-forum="${forum.id}" title="Hapus forum" aria-label="Hapus forum"><i class="bi bi-trash"></i></button>
+          ` : ''}
+          ${isJoined
+            ? `<span class="home-status--joined"><i class="bi bi-check-circle-fill"></i> Sudah Bergabung</span>`
+            : `<span class="home-status ${statusClass}"><span aria-hidden="true"></span>${forum.status}</span>`
+          }
+        </div>
       </div>
 
       <p>${forum.description}</p>
@@ -95,6 +102,7 @@ export function ForumCard(forum, index) {
 export function mForumCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
   const isJoined = forum.joined === 'joined';
+  const isCustom = !!forum.id;
 
   return `
     <article class="m-home-forum-card${isJoined ? ' m-home-forum-card--joined' : ''}" data-topic="${forum.topic}">
@@ -102,10 +110,16 @@ export function mForumCard(forum, index) {
         <div>
           <h2>${forum.title}</h2>
         </div>
-        ${isJoined
-          ? `<span class="m-home-status--joined"><i class="bi bi-check-circle-fill"></i> Joined</span>`
-          : `<span class="m-home-status ${statusClass}"><span aria-hidden="true"></span>${forum.status}</span>`
-        }
+        <div style="display:flex;align-items:center;gap:0.35rem;flex-shrink:0">
+          ${isCustom ? `
+            <button class="forums-icon-btn" data-edit-forum="${forum.id}" title="Edit forum" aria-label="Edit forum"><i class="bi bi-pencil"></i></button>
+            <button class="forums-icon-btn forums-icon-btn--danger" data-delete-forum="${forum.id}" title="Hapus forum" aria-label="Hapus forum"><i class="bi bi-trash"></i></button>
+          ` : ''}
+          ${isJoined
+            ? `<span class="m-home-status--joined"><i class="bi bi-check-circle-fill"></i> Joined</span>`
+            : `<span class="m-home-status ${statusClass}"><span aria-hidden="true"></span>${forum.status}</span>`
+          }
+        </div>
       </div>
 
       <p>${forum.description}</p>

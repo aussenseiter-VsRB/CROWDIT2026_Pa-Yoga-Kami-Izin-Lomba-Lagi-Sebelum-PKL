@@ -4,9 +4,14 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-md);
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .m-home-forum-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: var(--space-md);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);

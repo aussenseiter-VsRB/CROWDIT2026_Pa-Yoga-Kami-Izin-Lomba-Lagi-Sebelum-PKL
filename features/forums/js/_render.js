@@ -1,6 +1,6 @@
 import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../../home/js/_cards.js';
 
-function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
+export function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
   if (suggestions.length === 0) return cards;
   const result = [];
   let sIdx = 0;
@@ -21,8 +21,11 @@ export function renderDesktop(data) {
   el.innerHTML = `
     <div class="home-page__inner">
       <section class="forums-hero">
-        <h1 class="forums-hero__title"><i class="bi bi-book"></i> Forum Diskusi</h1>
-        <p class="forums-hero__desc">Temukan forum sesuai mata kuliah dan minat belajarmu</p>
+        <div>
+          <h1 class="forums-hero__title"><i class="bi bi-book"></i> Forum Diskusi</h1>
+          <p class="forums-hero__desc">Temukan forum sesuai mata kuliah dan minat belajarmu</p>
+        </div>
+        <button class="forums-create-btn" data-create-forum type="button"><i class="bi bi-plus-lg"></i> Buat Forum</button>
       </section>
 
       <nav class="home-topics" aria-label="Forum topics">
@@ -55,6 +58,7 @@ export function renderMobile(data) {
       <header class="m-home-hero">
         <h1>Forum Diskusi</h1>
         <p>Temukan forum sesuai mata kuliah dan minat belajarmu</p>
+        <button class="forums-create-btn forums-create-btn--mobile" data-create-forum type="button"><i class="bi bi-plus-lg"></i> Buat Forum</button>
       </header>
 
       <nav class="m-home-topics" aria-label="Forum topics">
