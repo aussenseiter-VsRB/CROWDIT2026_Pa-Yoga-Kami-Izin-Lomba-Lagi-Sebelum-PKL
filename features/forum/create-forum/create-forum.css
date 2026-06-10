@@ -1,0 +1,216 @@
+/* --- Section divider --- */
+.cf-section {
+  margin-bottom: 1.25rem;
+}
+
+.cf-section__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.15rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cf-section__title i {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.cf-section__divider {
+  height: 1px;
+  background: rgba(26, 26, 26, 0.06);
+  margin: 1rem 0 1.25rem;
+}
+
+/* --- Grid row for side-by-side fields --- */
+.cf-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+
+/* --- Status toggle --- */
+.cf-status {
+  margin-bottom: 1rem;
+}
+
+.cf-status__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.cf-status__options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.cf-status__option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0.85rem;
+  border: 1.5px solid rgba(26, 26, 26, 0.08);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.cf-status__option:hover {
+  border-color: rgba(0, 122, 255, 0.2);
+}
+
+.cf-status__option.is-selected {
+  border-color: rgba(0, 122, 255, 0.45);
+  background: rgba(0, 122, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.cf-status__option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cf-status__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: var(--surface-hover);
+  color: var(--muted);
+  font-size: 0.8rem;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.cf-status__option.is-selected .cf-status__icon {
+  background: rgba(0, 122, 255, 0.12);
+  color: var(--accent);
+}
+
+.cf-status__title {
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* --- Meeting type toggle --- */
+.cf-meeting-type {
+  margin-bottom: 1rem;
+}
+
+.cf-meeting-type__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.cf-meeting-type__options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.cf-meeting-type__option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0.85rem;
+  border: 1.5px solid rgba(26, 26, 26, 0.08);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.cf-meeting-type__option:hover {
+  border-color: rgba(0, 122, 255, 0.2);
+}
+
+.cf-meeting-type__option.is-selected {
+  border-color: rgba(0, 122, 255, 0.45);
+  background: rgba(0, 122, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.cf-meeting-type__option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cf-meeting-type__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: var(--surface-hover);
+  color: var(--muted);
+  font-size: 0.8rem;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.cf-meeting-type__option.is-selected .cf-meeting-type__icon {
+  background: rgba(0, 122, 255, 0.12);
+  color: var(--accent);
+}
+
+.cf-meeting-type__title {
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* --- Conditional fields --- */
+.cf-conditional {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.25s ease,
+    margin 0.25s ease;
+  margin-bottom: 0;
+}
+
+.cf-conditional.is-visible {
+  max-height: 300px;
+  opacity: 1;
+  margin-bottom: 0.5rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  .cf-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
