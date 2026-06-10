@@ -39,14 +39,6 @@
   text-align: center;
 }
 
-.auth-logo {
-  width: 4.5rem;
-  height: 4.5rem;
-  margin: 0 auto 1rem;
-  display: block;
-  object-fit: contain;
-}
-
 .login-mark {
   width: 2.8rem;
   height: 2.8rem;
