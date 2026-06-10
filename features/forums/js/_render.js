@@ -58,8 +58,9 @@ export function renderMobile(data) {
       <header class="m-home-hero">
         <h1>Forum Diskusi</h1>
         <p>Temukan forum sesuai mata kuliah dan minat belajarmu</p>
-        <button class="forums-create-btn forums-create-btn--mobile" data-create-forum type="button"><i class="bi bi-plus-lg"></i> Buat Forum</button>
       </header>
+
+      <button class="forums-fab" data-create-forum type="button" aria-label="Buat Forum"><i class="bi bi-plus-lg"></i></button>
 
       <nav class="m-home-topics" aria-label="Forum topics">
         ${data.topics.map((topic, index) => `
