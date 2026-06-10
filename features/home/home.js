@@ -26,16 +26,13 @@ export async function Home() {
       fetchData(DATA_PATHS.GROUPS),
     ]);
 
-    const categories = [...new Set(detailData.map(d => d.course?.category).filter(Boolean))].sort();
-    const topics = ['Semua Topik', ...categories];
-
     const forums = homeData.forums.map((f, i) =>
-      mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i, detailData[i]?.creator)
+      mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i)
     );
 
     const session = getSession();
     const userInterests = session?.interests || [];
-    const allInterestMatches = userInterests.length > 0
+    const suggestions = userInterests.length > 0
       ? forums
           .map((f, i) => ({ ...f, _originalIndex: i }))
           .filter(forum =>
@@ -44,21 +41,13 @@ export async function Home() {
               (forum.topic || '').toLowerCase().includes(interest.toLowerCase()) ||
               (forum.title || '').toLowerCase().includes(interest.toLowerCase())
             )
-          )
+          ).slice(0, 5)
       : [];
-    const interestForums = allInterestMatches.slice(0, 2);
-    const suggestions = allInterestMatches.slice(2, 7);
-
-    const allGroups = [...(groupsData.groups || [])].sort((a, b) => b.members - a.members);
-    const topGroup = allGroups.length ? allGroups[0] : null;
 
     const data = {
       ...homeData,
-      topics,
       forums,
       suggestions,
-      interestForums,
-      topGroup,
       mobile: {
         ...homeData.mobile,
         forums: homeData.mobile.forums.map((f, i) =>
@@ -70,7 +59,6 @@ export async function Home() {
     const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const el = isMobile ? renderMobile(data) : renderDesktop(data);
 
-    const session = getSession();
     if (session?.interests?.length) {
       const recs = InterestRecommendations(session.interests);
       if (recs) {

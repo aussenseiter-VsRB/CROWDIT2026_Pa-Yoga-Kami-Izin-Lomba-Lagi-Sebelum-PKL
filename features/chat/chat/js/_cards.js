@@ -1,13 +1,6 @@
 import { escapeHtml, friendColor, formatConversationTime } from './_utils.js';
-import { getUsers } from '../../../../js/services/auth.js';
+import { emailToName } from '../../../../js/services/follow.js';
 import { getCustomGroups } from '../../../../js/services/custom-groups.js';
-
-function emailToDisplayName(email) {
-  const users = getUsers();
-  const u = users.find(u => u.email === email);
-  return u?.name || email;
-}
-
 
 function avatarHtml(name, color, square) {
   const cls = square ? 'chat-avatar chat-avatar--square' : 'chat-avatar';

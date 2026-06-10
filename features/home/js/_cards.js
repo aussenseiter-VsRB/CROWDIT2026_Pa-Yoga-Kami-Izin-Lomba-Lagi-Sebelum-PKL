@@ -16,10 +16,10 @@ export function SuggestionCard(forum, index) {
   const isJoined = forum.joined === 'joined';
 
   return `
-    <article class="home-forum-card home-forum-card--suggestion${isJoined ? ' home-forum-card--joined' : ''}" data-topic="${forum.topic}" data-status="${forum.status}">
+    <article class="home-forum-card home-forum-card--suggestion${isJoined ? ' home-forum-card--joined' : ''}" data-topic="${forum.topic}">
       <div class="home-forum-card__header">
         <div>
-          <span class="home-suggestion-badge">Disarankan untuk Kamu</span>
+          <span class="home-suggestion-badge">&#10024; Disarankan untuk Kamu</span>
           <span class="home-forum-card__eyebrow">${forum.topic || forum.status}</span>
           <h2>${forum.title}</h2>
         </div>
@@ -28,8 +28,6 @@ export function SuggestionCard(forum, index) {
           : `<span class="home-status is-online"><span aria-hidden="true"></span>${forum.status}</span>`
         }
       </div>
-
-      ${forum.creator ? `<div class="home-forum-card__creator">Oleh ${forum.creator.name}</div>` : ''}
 
       <p>${forum.description}</p>
 
@@ -45,10 +43,10 @@ export function mSuggestionCard(forum, index) {
   const isJoined = forum.joined === 'joined';
 
   return `
-    <article class="m-home-forum-card m-home-forum-card--suggestion${isJoined ? ' m-home-forum-card--joined' : ''}" data-topic="${forum.topic}" data-status="${forum.status}">
+    <article class="m-home-forum-card m-home-forum-card--suggestion${isJoined ? ' m-home-forum-card--joined' : ''}" data-topic="${forum.topic}">
       <div class="m-home-forum-card__header">
         <div>
-          <span class="m-home-suggestion-badge">Disarankan untuk Kamu</span>
+          <span class="m-home-suggestion-badge">&#10024; Disarankan untuk Kamu</span>
           <h2>${forum.title}</h2>
         </div>
         ${isJoined
@@ -56,8 +54,6 @@ export function mSuggestionCard(forum, index) {
           : `<span class="m-home-status is-online"><span aria-hidden="true"></span>${forum.status}</span>`
         }
       </div>
-
-      ${forum.creator ? `<div class="home-forum-card__creator">Oleh ${forum.creator.name}</div>` : ''}
 
       <p>${forum.description}</p>
 
@@ -69,7 +65,7 @@ export function mSuggestionCard(forum, index) {
   `;
 }
 
-export function InterestCard(forum, index) {
+export function ForumCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
   const isJoined = forum.joined === 'joined';
 

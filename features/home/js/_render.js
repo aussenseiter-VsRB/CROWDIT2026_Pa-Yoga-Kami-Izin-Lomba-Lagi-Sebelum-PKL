@@ -1,7 +1,4 @@
-import { isAuthenticated } from '../../../js/services/auth.js';
-import { renderFab } from '../../../components/ui/fab/fab.js';
-import { memberLabel, peopleIcon } from '../../groups/js/_utils.js';
-import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard, InterestCard, mInterestCard } from './_cards.js';
+import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from './_cards.js';
 
 function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
   if (suggestions.length === 0) return cards;
@@ -97,15 +94,12 @@ function renderDesktop(data) {
         `).join('')}
       </nav>
 
-      <div class="home-status-chips">
-        <button class="home-status-chip is-active" type="button" data-status="">Semua</button>
-        <button class="home-status-chip" type="button" data-status="Online">Online</button>
-        <button class="home-status-chip" type="button" data-status="Offline">Offline</button>
-      </div>
-
       <div class="home-forum-list">
-        ${visibleCards.join('')}
-        ${hiddenCards.map(h => h.replace('<article', '<article data-hidden="true"')).join('')}
+        ${injectSuggestions(
+          data.forums.map((forum, index) => ForumCard(forum, index)),
+          data.suggestions || [],
+          SuggestionCard
+        ).join('')}
       </div>
 
       ${hasMore ? '<button class="home-show-more" type="button">Lihat Selengkapnya</button>' : ''}
