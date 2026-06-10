@@ -48,12 +48,16 @@ export async function Home() {
     const interestForums = allInterestMatches.slice(0, 2);
     const suggestions = allInterestMatches.slice(2, 7);
 
+    const allGroups = [...(groupsData.groups || [])].sort((a, b) => b.members - a.members);
+    const topGroup = allGroups.length ? allGroups[0] : null;
+
     const data = {
       ...homeData,
       topics,
       forums,
       suggestions,
       interestForums,
+      topGroup,
       mobile: {
         ...homeData.mobile,
         forums: homeData.mobile.forums.map((f, i) =>
