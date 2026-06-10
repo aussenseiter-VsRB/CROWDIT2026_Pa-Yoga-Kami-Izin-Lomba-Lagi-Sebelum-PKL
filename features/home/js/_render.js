@@ -1,4 +1,4 @@
-import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from './_cards.js';
+import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard, InterestCard, mInterestCard } from './_cards.js';
 
 function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
   if (suggestions.length === 0) return cards;
@@ -58,34 +58,6 @@ function renderDesktop(data) {
         </section>
       ` : ''}
 
-      ${data.topGroup ? `
-        <section class="home-top-group-section">
-          <h2 class="home-top-group-title">Grup Teramai</h2>
-          <p class="home-top-group-desc">Komunitas dengan anggota terbanyak</p>
-          <div class="home-top-group-card">
-            <div class="home-top-group-card__body">
-              <div class="home-top-group-card__header">
-                <span class="home-top-group-card__dept">${data.topGroup.department}</span>
-                <span class="home-top-group-card__trophy">&starf; Terpopuler</span>
-              </div>
-              <h3 class="home-top-group-card__title">${data.topGroup.title}</h3>
-              <p class="home-top-group-card__desc">${data.topGroup.description}</p>
-              <a class="home-action is-primary home-top-group-card__action" href="/groups?group=0" data-link>Lihat Grup</a>
-              <div class="home-top-group-card__footer">
-                <span class="home-top-group-card__members">${peopleIcon()} ${memberLabel(data.topGroup.members, data.topGroup.maxMembers)}</span>
-              </div>
-            </div>
-            <div class="home-top-group-card__badge">
-              <div class="home-top-group-card__badge-inner">
-                <span class="home-top-group-card__badge-icon">&starf;</span>
-                <span class="home-top-group-card__badge-label">Grup Teramai</span>
-                <span class="home-top-group-card__badge-sub">Dinobatkan pada ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-              </div>
-            </div>
-          </div>
-        </section>
-      ` : ''}
-
       <nav class="home-topics" aria-label="Forum topics">
         ${data.topics.map((topic, index) => `
           <button class="home-topic ${index === 0 ? 'is-active' : ''}" type="button">
@@ -94,12 +66,15 @@ function renderDesktop(data) {
         `).join('')}
       </nav>
 
+      <div class="home-status-chips">
+        <button class="home-status-chip is-active" type="button" data-status="">Semua</button>
+        <button class="home-status-chip" type="button" data-status="Online">Online</button>
+        <button class="home-status-chip" type="button" data-status="Offline">Offline</button>
+      </div>
+
       <div class="home-forum-list">
-        ${injectSuggestions(
-          data.forums.map((forum, index) => ForumCard(forum, index)),
-          data.suggestions || [],
-          SuggestionCard
-        ).join('')}
+        ${visibleCards.join('')}
+        ${hiddenCards.map(h => h.replace('<article', '<article data-hidden="true"')).join('')}
       </div>
 
       ${hasMore ? '<button class="home-show-more" type="button">Lihat Selengkapnya</button>' : ''}
@@ -109,16 +84,9 @@ function renderDesktop(data) {
   const showMore = el.querySelector('.home-show-more');
   if (showMore) {
     showMore.addEventListener('click', () => {
-      const hidden = el.querySelectorAll('[data-hidden="true"]');
-      if (hidden.length > 0) {
-        hidden.forEach(c => c.removeAttribute('data-hidden'));
-        el.querySelector('.home-forum-empty')?.remove();
-        showMore.textContent = 'Tutup';
-      } else {
-        const cards = el.querySelectorAll('.home-forum-list > article');
-        cards.forEach((c, i) => { if (i >= 9) c.setAttribute('data-hidden', 'true'); });
-        showMore.textContent = 'Lihat Selengkapnya';
-      }
+      el.querySelectorAll('[data-hidden="true"]').forEach(c => c.removeAttribute('data-hidden'));
+      el.querySelector('.home-forum-empty')?.remove();
+      showMore.remove();
     });
   }
 
@@ -136,34 +104,12 @@ function renderMobile(data) {
         <p>${data.mobile.description}</p>
       </header>
 
-      ${isAuthenticated() ? renderFab() : ''}
-
       ${data.interestForums && data.interestForums.length ? `
         <section class="m-home-interest-section">
           <h2 class="m-home-interest-title">Mungkin Anda Tertarik</h2>
           <p class="m-home-interest-desc">Berdasarkan minat belajar Anda</p>
           <div class="m-home-interest-grid">
             ${data.interestForums.map((f, i) => mInterestCard(f, f._originalIndex)).join('')}
-          </div>
-        </section>
-      ` : ''}
-
-      ${data.topGroup ? `
-        <section class="m-home-top-group-section">
-          <h2 class="m-home-top-group-title">Grup Teramai</h2>
-          <p class="m-home-top-group-desc">Komunitas dengan anggota terbanyak</p>
-          <div class="m-home-top-group-card">
-            <div class="m-home-top-group-card__header">
-              <span class="m-home-top-group-card__dept">${data.topGroup.department}</span>
-              <span class="m-home-top-group-card__trophy">&starf; Terpopuler</span>
-            </div>
-            <h3 class="m-home-top-group-card__title">${data.topGroup.title}</h3>
-            <p class="m-home-top-group-card__desc">${data.topGroup.description}</p>
-            <a class="m-home-action is-primary m-home-top-group-card__action" href="/groups?group=0" data-link>Lihat Grup</a>
-            <div class="m-home-top-group-card__footer">
-              <span class="m-home-top-group-card__members">${peopleIcon()} ${memberLabel(data.topGroup.members, data.topGroup.maxMembers)}</span>
-            </div>
-            <div class="m-home-top-group-card__award">Dinobatkan pada ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
           </div>
         </section>
       ` : ''}

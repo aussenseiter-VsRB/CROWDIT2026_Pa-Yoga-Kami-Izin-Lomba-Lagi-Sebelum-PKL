@@ -3,7 +3,6 @@ import { fetchData } from '../../js/utils/api.js';
 import { asset, navigateTo } from '../../js/utils/url.js';
 import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 import { getSession } from '../../js/services/auth.js';
-import { InterestRecommendations } from '../../components/shared/interest-recommendations/interest-recommendations.js';
 import { mergeCourseData } from './js/_utils.js';
 import { renderDesktop, renderMobile } from './js/_render.js';
 import { bindTopicTabs } from './js/_handlers.js';
@@ -26,13 +25,16 @@ export async function Home() {
       fetchData(DATA_PATHS.GROUPS),
     ]);
 
+    const categories = [...new Set(detailData.map(d => d.course?.category).filter(Boolean))].sort();
+    const topics = ['Semua Topik', ...categories];
+
     const forums = homeData.forums.map((f, i) =>
       mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i)
     );
 
     const session = getSession();
     const userInterests = session?.interests || [];
-    const suggestions = userInterests.length > 0
+    const allInterestMatches = userInterests.length > 0
       ? forums
           .map((f, i) => ({ ...f, _originalIndex: i }))
           .filter(forum =>
@@ -41,13 +43,17 @@ export async function Home() {
               (forum.topic || '').toLowerCase().includes(interest.toLowerCase()) ||
               (forum.title || '').toLowerCase().includes(interest.toLowerCase())
             )
-          ).slice(0, 5)
+          )
       : [];
+    const interestForums = allInterestMatches.slice(0, 2);
+    const suggestions = allInterestMatches.slice(2, 7);
 
     const data = {
       ...homeData,
+      topics,
       forums,
       suggestions,
+      interestForums,
       mobile: {
         ...homeData.mobile,
         forums: homeData.mobile.forums.map((f, i) =>
@@ -58,13 +64,6 @@ export async function Home() {
 
     const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const el = isMobile ? renderMobile(data) : renderDesktop(data);
-
-    if (session?.interests?.length) {
-      const recs = InterestRecommendations(session.interests);
-      if (recs) {
-        el.insertBefore(recs, el.firstChild);
-      }
-    }
 
     bindTopicTabs(el);
 

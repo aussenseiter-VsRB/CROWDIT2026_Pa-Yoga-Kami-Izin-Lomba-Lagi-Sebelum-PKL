@@ -132,6 +132,33 @@
   font-size: 0.78rem;
 }
 
+/* --- Mobile Interest Section --- */
+
+.m-home-interest-section {
+  margin-bottom: var(--space-md);
+}
+
+.m-home-interest-title {
+  margin: 0 0 0.15rem;
+  font-size: 1.05rem;
+}
+
+.m-home-interest-desc {
+  margin: 0 0 var(--space-sm);
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.m-home-interest-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+}
+
+.m-home-forum-card--interest {
+  border: 1.5px solid #f59e0b;
+}
+
 /* --- Mobile Suggestion Card --- */
 
 .m-home-forum-card--suggestion {

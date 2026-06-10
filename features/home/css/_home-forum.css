@@ -170,6 +170,37 @@
   color: #34c759;
 }
 
+/* --- Interest Section --- */
+
+.home-interest-section {
+  margin: 1.5rem 0;
+}
+
+.home-interest-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.15rem;
+}
+
+.home-interest-desc {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.home-interest-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.home-forum-card--interest {
+  border: 1.5px solid #f59e0b;
+}
+
+.home-forum-card--interest:hover {
+  border-color: #d97706;
+}
+
 /* --- Suggestion Card --- */
 
 .home-forum-card--suggestion {
