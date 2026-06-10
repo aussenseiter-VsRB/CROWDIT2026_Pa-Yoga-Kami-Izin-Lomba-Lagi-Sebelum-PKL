@@ -1,10 +1,6 @@
 /* --- Forums Hero --- */
 
 .forums-hero {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
   padding: 1.75rem 2rem;
   border-radius: var(--radius-xl);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(249, 250, 251, 0.95));
@@ -31,89 +27,14 @@
   line-height: 1.7;
 }
 
-/* --- Create Forum Button --- */
-
-.forums-create-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex-shrink: 0;
-  min-height: 2.6rem;
-  padding: 0 1.15rem;
-  border: 0;
-  border-radius: var(--radius-pill);
-  background: var(--accent);
-  color: #fff;
-  font: inherit;
-  font-size: 0.88rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    transform var(--transition),
-    background-color var(--transition);
-}
-
-.forums-create-btn:hover {
-  transform: translateY(-1px);
-  background: #0066d6;
-}
-
-.forums-create-btn:active {
-  transform: translateY(0) scale(0.98);
-}
-
-.forums-create-btn--mobile {
-  margin-top: 0.85rem;
-  width: 100%;
-  justify-content: center;
-}
-
-/* --- Custom Forum Icon Buttons (edit/delete) --- */
-
-.forums-icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.8rem;
-  height: 1.8rem;
-  border: 0;
-  border-radius: var(--radius-pill);
-  background: rgba(26, 26, 26, 0.06);
-  color: var(--muted);
-  font-size: 0.78rem;
-  cursor: pointer;
-  transition: background var(--transition), color var(--transition);
-  pointer-events: auto;
-}
-
-.forums-icon-btn:hover {
-  background: rgba(26, 26, 26, 0.12);
-  color: var(--text);
-}
-
-.forums-icon-btn--danger:hover {
-  background: rgba(255, 59, 48, 0.12);
-  color: #ff3b30;
-}
-
-.forums-icon-btn i {
-  line-height: 1;
-}
-
 @media (max-width: 900px) {
   .forums-hero {
     padding: 1.25rem 1.5rem;
-    flex-direction: column;
   }
   .forums-hero__title {
     font-size: clamp(1.4rem, 5vw, 1.8rem);
   }
   .forums-hero__desc {
     font-size: 0.95rem;
-  }
-  .forums-icon-btn {
-    width: 1.65rem;
-    height: 1.65rem;
-    font-size: 0.72rem;
   }
 }
