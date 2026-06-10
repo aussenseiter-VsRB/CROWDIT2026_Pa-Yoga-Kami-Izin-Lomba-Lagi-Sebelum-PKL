@@ -78,6 +78,7 @@ function renderDesktop(data) {
     <div class="login-shell ${transitionClass} ${directionClass}">
       <div class="login-panel">
         <div class="login-copy">
+          <img class="auth-logo" src="/components/assets/StudNowLogo.png" alt="StudNow" />
           <div class="login-mark" aria-hidden="true">${data.copy.mark}</div>
           <h1>${data.copy.title}</h1>
           <p>${data.copy.description}</p>
@@ -185,6 +186,7 @@ function renderMobile(data) {
   el.innerHTML = `
     <div class="mobile-page__inner">
       <header class="mobile-page__hero">
+        <img class="auth-logo" src="/components/assets/StudNowLogo.png" alt="StudNow" />
         <p class="mobile-page__eyebrow">${data.copy.mark}</p>
         <h1>${data.copy.title}</h1>
         <p>${data.copy.description}</p>
