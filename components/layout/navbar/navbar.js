@@ -24,8 +24,9 @@ export function Navbar() {
 
         <nav class="navbar-nav" aria-label="Navigasi desktop">
           <a href="/" data-link>Jelajahi</a>
+          <a href="/forums" data-link>Forum</a>
           <a href="/groups" data-link>Grup</a>
-          ${isAuthenticated() ? '<a href="/chat" data-link>Pesan</a><a href="/profile" data-link>Profil</a>' : ''}
+          ${isAuthenticated() ? '<a href="/chat" data-link>Pesan</a>' : ''}
         </nav>
 
         <div class="navbar-actions">
@@ -64,10 +65,10 @@ export function Navbar() {
 
   function setActive() {
     const path = getHashPath();
-    const profileSubPages = ['/settings', '/edit-profile'];
+    const profileSubPages = ['/profile', '/settings', '/edit-profile'];
     el.querySelectorAll('.navbar-nav a, .navbar-actions a').forEach((a) => {
       const href = a.getAttribute('href');
-      const isMatch = href === path || (href === '/profile' && profileSubPages.includes(path));
+      const isMatch = href === path || (profileSubPages.includes(href) && profileSubPages.includes(path));
       a.classList.toggle('active', isMatch);
     });
     el.style.display = isAuthRoute() ? 'none' : '';

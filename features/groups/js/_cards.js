@@ -5,18 +5,25 @@ export function GroupCard(group, index) {
   const status = getStatus(group.members);
   const joinedText = memberLabel(group.members, group.maxMembers);
   const isJoined = getForumStatus('group', index) === 'joined';
+  const isCustom = !!group.id;
 
   return `
-    <a class="grp-card${isJoined ? ' grp-card--joined' : ''}" href="${isJoined ? `/groups-interior?group=${index}` : `/groups?group=${index}`}" data-link>
+    <a class="grp-card${isJoined ? ' grp-card--joined' : ''}${isCustom ? ' grp-card--custom' : ''}" href="${isJoined ? `/groups-interior?group=${index}` : `/groups?group=${index}`}" data-link>
       <div class="grp-card__header">
         <div>
-          <span class="grp-card__eyebrow">${group.department}</span>
+          <span class="grp-card__eyebrow">${isCustom ? 'Grup Kustom' : group.department}</span>
           <h2>${group.title}</h2>
         </div>
-        ${isJoined
-          ? `<span class="grp-status--joined"><i class="bi bi-check-circle-fill"></i> Sudah Bergabung</span>`
-          : `<span class="grp-status grp-status--${status}"><span aria-hidden="true"></span>${statusLabel(status)}</span>`
-        }
+        <div class="grp-card__badges">
+          ${isCustom ? `
+            <button class="grp-icon-btn" data-edit-group="${group.id}" title="Edit grup" aria-label="Edit grup"><i class="bi bi-pencil"></i></button>
+            <button class="grp-icon-btn grp-icon-btn--danger" data-delete-group="${group.id}" title="Hapus grup" aria-label="Hapus grup"><i class="bi bi-trash"></i></button>
+          ` : ''}
+          ${isJoined
+            ? `<span class="grp-status--joined"><i class="bi bi-check-circle-fill"></i> Sudah Bergabung</span>`
+            : `<span class="grp-status grp-status--${status}"><span aria-hidden="true"></span>${statusLabel(status)}</span>`
+          }
+        </div>
       </div>
 
       <p>${group.description}</p>
@@ -37,6 +44,7 @@ export function GroupCard(group, index) {
 export function mGroupCard(group, index) {
   const status = getStatus(group.members);
   const isJoined = getForumStatus('group', index) === 'joined';
+  const isCustom = !!group.id;
 
   return `
     <a class="mobile-card mobile-card--block${isJoined ? ' mobile-card--joined' : ''}" href="${isJoined ? `/groups-interior?group=${index}` : `/groups?group=${index}`}" data-link>
@@ -44,10 +52,16 @@ export function mGroupCard(group, index) {
         <div>
           <h2>${group.title}</h2>
         </div>
-        ${isJoined
-          ? `<span class="mobile-status--joined"><i class="bi bi-check-circle-fill"></i> Joined</span>`
-          : `<span class="mobile-status-badge mobile-status-badge--${status}"><span class="mobile-status-badge__dot"></span>${statusLabel(status)}</span>`
-        }
+        <div style="display:flex;align-items:center;gap:0.35rem;flex-shrink:0">
+          ${isCustom ? `
+            <button class="grp-icon-btn" data-edit-group="${group.id}" title="Edit grup" aria-label="Edit grup"><i class="bi bi-pencil"></i></button>
+            <button class="grp-icon-btn grp-icon-btn--danger" data-delete-group="${group.id}" title="Hapus grup" aria-label="Hapus grup"><i class="bi bi-trash"></i></button>
+          ` : ''}
+          ${isJoined
+            ? `<span class="mobile-status--joined"><i class="bi bi-check-circle-fill"></i> Joined</span>`
+            : `<span class="mobile-status-badge mobile-status-badge--${status}"><span class="mobile-status-badge__dot"></span>${statusLabel(status)}</span>`
+          }
+        </div>
       </div>
       <p>${group.description}</p>
       <div class="grp-card__footer">

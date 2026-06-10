@@ -5,6 +5,17 @@
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   padding: 2rem 0;
+  position: relative;
+  isolation: isolate;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url(../../assets/kerkom.jpg) center / cover no-repeat;
+  opacity: 0.15;
+  z-index: -1;
 }
 
 /* --- Inner --- */

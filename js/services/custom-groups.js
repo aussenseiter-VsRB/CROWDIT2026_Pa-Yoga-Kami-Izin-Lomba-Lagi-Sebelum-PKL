@@ -20,6 +20,23 @@ export function addCustomGroup(group) {
   return entry;
 }
 
+export function updateCustomGroup(id, updates) {
+  const groups = getCustomGroups();
+  const idx = groups.findIndex(g => g.id === id);
+  if (idx === -1) return null;
+  groups[idx] = { ...groups[idx], ...updates, id };
+  localStorage.setItem(KEY, JSON.stringify(groups));
+  return groups[idx];
+}
+
+export function deleteCustomGroup(id) {
+  const groups = getCustomGroups();
+  const filtered = groups.filter(g => g.id !== id);
+  if (filtered.length === groups.length) return false;
+  localStorage.setItem(KEY, JSON.stringify(filtered));
+  return true;
+}
+
 export function mergeWithBaseGroups(baseGroups = []) {
   return [...baseGroups, ...getCustomGroups()];
 }

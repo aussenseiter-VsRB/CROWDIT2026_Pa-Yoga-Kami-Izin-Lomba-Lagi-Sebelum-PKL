@@ -97,6 +97,25 @@
   font-size: 0.78rem;
 }
 
+/* --- Mobile Suggestion Card --- */
+
+.m-home-forum-card--suggestion {
+  border: 1.5px solid #6366f1;
+}
+
+.m-home-suggestion-badge {
+  display: inline-block;
+  margin-bottom: 0.4rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
 /* --- Mobile Joined State --- */
 
 .m-home-forum-card--joined {

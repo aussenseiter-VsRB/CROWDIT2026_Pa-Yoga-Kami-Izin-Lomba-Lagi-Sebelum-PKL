@@ -2,6 +2,7 @@
 import { getHashPath, getHashParams, navigateTo } from '../utils/url.js';
 import { isAuthenticated } from '../services/auth.js';
 import { Home } from '../../features/home/home.js';
+import { Forums } from '../../features/forums/forums.js';
 import { About } from '../../features/about/about.js';
 import { Contact } from '../../features/contact/contact.js';
 import { Groups } from '../../features/groups/groups.js';
@@ -30,6 +31,7 @@ const protectedRoutes = new Set([
 
 const routes = {
   '/':              Home,
+  '/forums':        Forums,
   '/about':         About,
   '/contact':       Contact,
   '/groups':        Groups,

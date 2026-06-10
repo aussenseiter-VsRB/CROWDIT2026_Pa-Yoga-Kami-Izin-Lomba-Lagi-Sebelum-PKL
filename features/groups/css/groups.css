@@ -98,3 +98,30 @@
 .mobile-status-badge--inactive .mobile-status-badge__dot {
   background: #9ca3af;
 }
+
+.mobile-card h2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobile-card p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .grp-grid {
+    grid-template-columns: 1fr;
+  }
+}

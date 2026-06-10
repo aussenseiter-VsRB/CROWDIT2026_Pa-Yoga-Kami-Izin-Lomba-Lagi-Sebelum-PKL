@@ -4,7 +4,7 @@ import { Footer } from '../../components/layout/footer/footer.js';
 import { TopBar } from '../../components/layout/top-bar/top-bar.js';
 import { BottomBar } from '../../components/layout/bottom-bar/bottom-bar.js';
 import { router } from './router.js';
-import { navigateTo, getHashPath } from '../utils/url.js';
+import { navigateTo, getHashPath, getHashParams } from '../utils/url.js';
 import { initTheme } from './theme.js';
 import { seedSampleNotifications } from '../services/notifications.js';
 
@@ -30,10 +30,12 @@ async function init() {
 
   function toggleFooter() {
     const path = getHashPath();
-    const hide = ['/login', '/signup', '/dm'].includes(path);
+    const params = getHashParams();
+    const isCustomGroupPage = path === '/groups' && (params.has('group') || params.has('index'));
+    const hide = ['/login', '/signup', '/dm'].includes(path) || isCustomGroupPage;
     document.querySelector('#footer').classList.toggle('is-hidden', hide);
     // Reset inline styles that forum-interior.js leaves behind
-    if (path !== '/groups-interior') {
+    if (path !== '/groups-interior' && !isCustomGroupPage) {
       const f = document.querySelector('#footer');
       const m = document.querySelector('#main');
       if (f) f.style.display = '';

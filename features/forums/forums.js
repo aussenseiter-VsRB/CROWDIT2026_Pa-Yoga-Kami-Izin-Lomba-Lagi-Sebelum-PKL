@@ -3,10 +3,9 @@ import { fetchData } from '../../js/utils/api.js';
 import { asset } from '../../js/utils/url.js';
 import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 import { getSession } from '../../js/services/auth.js';
-import { InterestRecommendations } from '../../components/shared/interest-recommendations/interest-recommendations.js';
-import { mergeCourseData } from './js/_utils.js';
+import { mergeCourseData } from '../home/js/_utils.js';
 import { renderDesktop, renderMobile } from './js/_render.js';
-import { bindTopicTabs } from './js/_handlers.js';
+import { bindTopicTabs } from '../home/js/_handlers.js';
 
 injectStyle('/features/home/css/home.css');
 injectStyle('/features/home/css/_home-hero.css');
@@ -15,8 +14,9 @@ injectStyle('/features/home/css/_home-forum.css');
 injectStyle('/features/home/css/_home-forum-status.css');
 injectStyle('/features/home/css/_home-forum-actions.css');
 injectStyle('/features/home/css/_home-mobile.css');
+injectStyle('/features/forums/css/forums.css');
 
-export async function Home() {
+export async function Forums() {
   try {
     const [homeData, detailData] = await Promise.all([
       fetchData(DATA_PATHS.HOME),
@@ -55,13 +55,6 @@ export async function Home() {
 
     const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const el = isMobile ? renderMobile(data) : renderDesktop(data);
-
-    if (session?.interests?.length) {
-      const recs = InterestRecommendations(session.interests);
-      if (recs) {
-        el.insertBefore(recs, el.firstChild);
-      }
-    }
 
     bindTopicTabs(el);
 

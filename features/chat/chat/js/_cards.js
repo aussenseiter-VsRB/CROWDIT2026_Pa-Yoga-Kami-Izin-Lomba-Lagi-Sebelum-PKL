@@ -1,9 +1,20 @@
 import { escapeHtml, friendColor, formatConversationTime } from './_utils.js';
 import { emailToName } from '../../../../js/services/follow.js';
+import { getCustomGroups } from '../../../../js/services/custom-groups.js';
 
 function avatarHtml(name, color, square) {
   const cls = square ? 'chat-avatar chat-avatar--square' : 'chat-avatar';
   return `<div class="${cls}" style="background:${color}">${name.charAt(0).toUpperCase()}</div>`;
+}
+
+function resolveGroupName(forum) {
+  const key = `${forum.type}_${forum.index}`;
+  if (window.__forumNames?.[key]) return window.__forumNames[key];
+  if (forum.type === 'group') {
+    const custom = getCustomGroups().find(g => g.id === forum.index);
+    if (custom?.title) return custom.title;
+  }
+  return forum.type === 'course' ? `Kursus ${forum.index}` : 'Grup';
 }
 
 function mAvatarHtml(name, color, square) {
@@ -54,8 +65,7 @@ export function FriendCard(name) {
 }
 
 export function ForumCard(forum) {
-  const name = window.__forumNames?.[`${forum.type}_${forum.index}`]
-    || (forum.type === 'course' ? `Kursus ${forum.index}` : `Grup ${forum.index}`);
+  const name = resolveGroupName(forum);
   const color = friendColor(name);
   const tag = forum.type === 'course' ? 'Kursus' : 'Grup';
   return `
@@ -115,8 +125,7 @@ export function mFriendCard(name) {
 }
 
 export function mForumCard(forum) {
-  const name = window.__forumNames?.[`${forum.type}_${forum.index}`]
-    || (forum.type === 'course' ? `Kursus ${forum.index}` : `Grup ${forum.index}`);
+  const name = resolveGroupName(forum);
   const color = friendColor(name);
   const tag = forum.type === 'course' ? 'Kursus' : 'Grup';
   return `
