@@ -1,5 +1,5 @@
-import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../../home/js/_cards.js';
-import { renderFab } from '../../../components/ui/fab/fab.js';
+import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../../../home/js/_cards.js';
+import { renderFab } from '../../../../components/ui/fab/fab.js';
 
 export function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
   if (suggestions.length === 0) return cards;

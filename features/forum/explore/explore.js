@@ -1,15 +1,15 @@
-import { injectStyle } from '../../js/utils/styleLoader.js';
-import { fetchData } from '../../js/utils/api.js';
-import { asset } from '../../js/utils/url.js';
-import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
-import { getSession, isAuthenticated } from '../../js/services/auth.js';
-import { navigateTo } from '../../js/utils/url.js';
-import { mergeCourseData } from '../home/js/_utils.js';
-import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../home/js/_cards.js';
+import { injectStyle } from '../../../js/utils/styleLoader.js';
+import { fetchData } from '../../../js/utils/api.js';
+import { asset } from '../../../js/utils/url.js';
+import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
+import { getSession, isAuthenticated } from '../../../js/services/auth.js';
+import { navigateTo } from '../../../js/utils/url.js';
+import { mergeCourseData } from '../../home/js/_utils.js';
+import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../../home/js/_cards.js';
 import { renderDesktop, renderMobile, injectSuggestions } from './js/_render.js';
-import { bindTopicTabs } from '../home/js/_handlers.js';
-import { getCustomForums, deleteCustomForum } from '../../js/services/custom-forums.js';
-import { showCreateForumModal } from './create-forum/create-forum.js';
+import { bindTopicTabs } from '../../home/js/_handlers.js';
+import { getCustomForums, deleteCustomForum } from '../../../js/services/custom-forums.js';
+import { showCreateForumModal } from '../create-forum/create-forum.js';
 
 injectStyle('/features/home/css/home.css');
 injectStyle('/features/home/css/_home-hero.css');
@@ -18,7 +18,7 @@ injectStyle('/features/home/css/_home-forum.css');
 injectStyle('/features/home/css/_home-forum-status.css');
 injectStyle('/features/home/css/_home-forum-actions.css');
 injectStyle('/features/home/css/_home-mobile.css');
-injectStyle('/features/forums/css/forums.css');
+injectStyle('/features/forum/explore/css/explore.css');
 
 function mergeCustomForum(cf, index) {
   return {

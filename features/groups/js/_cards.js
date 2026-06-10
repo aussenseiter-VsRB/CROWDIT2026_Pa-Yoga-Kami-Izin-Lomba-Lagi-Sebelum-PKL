@@ -8,7 +8,7 @@ export function GroupCard(group, index) {
   const isCustom = !!group.id;
 
   return `
-    <a class="grp-card${isJoined ? ' grp-card--joined' : ''}${isCustom ? ' grp-card--custom' : ''}" href="${isJoined ? `/groups-interior?group=${index}` : `/groups?group=${index}`}" data-link>
+    <a class="grp-card${isJoined ? ' grp-card--joined' : ''}${isCustom ? ' grp-card--custom' : ''}" href="${isJoined ? `/forum-interior?group=${index}` : `/groups?group=${index}`}" data-link>
       <div class="grp-card__header">
         <div>
           <span class="grp-card__eyebrow">${isCustom ? 'Grup Kustom' : group.department}</span>
@@ -47,7 +47,7 @@ export function mGroupCard(group, index) {
   const isCustom = !!group.id;
 
   return `
-    <a class="mobile-card mobile-card--block${isJoined ? ' mobile-card--joined' : ''}" href="${isJoined ? `/groups-interior?group=${index}` : `/groups?group=${index}`}" data-link>
+    <a class="mobile-card mobile-card--block${isJoined ? ' mobile-card--joined' : ''}" href="${isJoined ? `/forum-interior?group=${index}` : `/groups?group=${index}`}" data-link>
       <div class="mobile-card__header">
         <div>
           <h2>${group.title}</h2>

@@ -1,8 +1,7 @@
-import { getSession } from '../services/auth.js';
-import { STORAGE_KEYS, TIMING, API, LIMITS, LCG } from '../core/config.js';
+import { TIMING, API, LIMITS, LCG } from '../core/config.js';
 
-const CACHE_KEY = STORAGE_KEYS.DUMMY_USERS;
-const CACHE_TIME_KEY = STORAGE_KEYS.DUMMY_TS;
+const CACHE_KEY = 'studnow_dummy_users';
+const CACHE_TIME_KEY = 'studnow_dummy_ts';
 const TTL = TIMING.DUMMY_USER_TTL;
 
 function seededShuffle(array, seed) {
@@ -16,8 +15,17 @@ function seededShuffle(array, seed) {
   return arr;
 }
 
+function getSessionDirect() {
+  try {
+    const raw = localStorage.getItem('studnow_session');
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function getUsersForContext(forumIndex, count = LIMITS.DEFAULT_USER_COUNT) {
-  const session = getSession();
+  const session = getSessionDirect();
 
   const cached = localStorage.getItem(CACHE_KEY);
   const ts = localStorage.getItem(CACHE_TIME_KEY);

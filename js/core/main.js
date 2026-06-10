@@ -35,7 +35,7 @@ async function init() {
     const hide = ['/login', '/signup', '/dm'].includes(path) || isCustomGroupPage;
     document.querySelector('#footer').classList.toggle('is-hidden', hide);
     // Reset inline styles that forum-interior.js leaves behind
-    if (path !== '/groups-interior' && !isCustomGroupPage) {
+    if (path !== '/forum-interior' && !isCustomGroupPage) {
       const f = document.querySelector('#footer');
       const m = document.querySelector('#main');
       if (f) f.style.display = '';

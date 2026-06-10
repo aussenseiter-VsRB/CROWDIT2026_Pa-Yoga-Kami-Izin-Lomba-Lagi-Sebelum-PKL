@@ -13,6 +13,8 @@ injectStyle('/features/forum/landing/css/_forum-messages.css');
 injectStyle('/features/forum/landing/css/_forum-members.css');
 injectStyle('/features/forum/css/_members.css');
 injectStyle('/features/forum/interior/css/forum-interior.css');
+injectStyle('/features/forum/interior/css/_forum-interior-members.css');
+injectStyle('/features/forum/interior/css/_forum-interior-mobile.css');
 
 export { initForumUsers, getUsers };
 

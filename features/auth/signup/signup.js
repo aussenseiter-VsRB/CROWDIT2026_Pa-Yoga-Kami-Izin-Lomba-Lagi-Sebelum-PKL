@@ -7,7 +7,7 @@ injectStyle('/features/auth/signup/css/_auth-visual.css');
 injectStyle('/features/auth/signup/css/_interest-chips.css');
 import { fetchData } from '../../../js/utils/api.js';
 import { initUsers, register, navigateAfterAuth } from '../../../js/services/auth.js';
-import { InterestChips, getAvailableInterests } from '../../../features/profile/js/_interest-chips.js';
+import { InterestChips, getAvailableInterests } from '../../profile/js/_interest-chips.js';
 
 function field({ type, name, placeholder, icon }) {
   return `
