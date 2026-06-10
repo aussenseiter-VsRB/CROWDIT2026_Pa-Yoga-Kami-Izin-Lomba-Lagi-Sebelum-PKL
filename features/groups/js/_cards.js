@@ -83,7 +83,7 @@ export function Hero(hero) {
         <p class="grp-hero__desc">${hero.description}</p>
         <div class="grp-hero__actions">
           <a class="grp-hero__btn grp-hero__btn--primary" href="${hero.actions[0].href}" data-link>${hero.actions[0].label}</a>
-          <a class="grp-hero__btn grp-hero__btn--secondary" href="${hero.actions[1].href}" data-link>${hero.actions[1].label}</a>
+          <a class="grp-hero__btn grp-hero__btn--secondary" href="#" data-create-group>${hero.actions[1].label}</a>
         </div>
       </div>
     </section>
