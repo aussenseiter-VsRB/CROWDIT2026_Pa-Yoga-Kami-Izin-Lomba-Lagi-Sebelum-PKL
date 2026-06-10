@@ -1,0 +1,40 @@
+/* --- Forums Hero --- */
+
+.forums-hero {
+  padding: 1.75rem 2rem;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(249, 250, 251, 0.95));
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  box-shadow: var(--shadow-md);
+}
+
+.forums-hero__title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.6rem, 2vw, 2.4rem);
+  line-height: 1.1;
+}
+
+.forums-hero__title i {
+  margin-right: 0.5rem;
+  color: var(--accent);
+}
+
+.forums-hero__desc {
+  margin: 0;
+  max-width: 34rem;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .forums-hero {
+    padding: 1.25rem 1.5rem;
+  }
+  .forums-hero__title {
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
+  }
+  .forums-hero__desc {
+    font-size: 0.95rem;
+  }
+}

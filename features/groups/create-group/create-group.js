@@ -1,7 +1,7 @@
 import { injectStyle } from '../../../js/utils/styleLoader.js';
 import { FormField } from '../../../components/ui/form-field/form-field.js';
 import { LIMITS } from '../../../js/core/config.js';
-import { addCustomGroup } from '../../../js/services/custom-groups.js';
+import { addCustomGroup, updateCustomGroup } from '../../../js/services/custom-groups.js';
 
 injectStyle('/components/ui/form-field/form-field.css');
 injectStyle('/features/groups/create-group/create-group.css');
@@ -80,7 +80,8 @@ function validateGroup(values) {
   return '';
 }
 
-export function showCreateGroupModal({ categories = [], onCreated } = {}) {
+export function showCreateGroupModal({ categories = [], onCreated, editGroup } = {}) {
+  const isEdit = !!editGroup;
   const overlay = document.createElement('div');
   overlay.className = 'cg-overlay';
 
@@ -88,14 +89,14 @@ export function showCreateGroupModal({ categories = [], onCreated } = {}) {
     <div class="cg-modal" role="dialog" aria-modal="true" aria-labelledby="cg-modal-title">
       <button class="cg-modal__close" type="button" aria-label="Tutup"><i class="bi bi-x"></i></button>
       <div class="cg-modal__icon"><i class="bi bi-people-fill"></i></div>
-      <h2 class="cg-modal__title" id="cg-modal-title">Buat Grup Baru</h2>
-      <p class="cg-modal__desc">Buat komunitas belajar sesuai kategori dan minatmu. Grup akan tersimpan di perangkatmu.</p>
+      <h2 class="cg-modal__title" id="cg-modal-title">${isEdit ? 'Edit Grup' : 'Buat Grup Baru'}</h2>
+      <p class="cg-modal__desc">${isEdit ? 'Ubah informasi grup buatanmu.' : 'Buat komunitas belajar sesuai kategori dan minatmu. Grup akan tersimpan di perangkatmu.'}</p>
       <form class="cg-form" novalidate>
         <p class="cg-form__error" aria-live="polite" hidden></p>
         <div class="cg-form__fields"></div>
         <div class="cg-form__actions">
           <button class="cg-form__btn cg-form__btn--cancel" type="button">Batal</button>
-          <button class="cg-form__btn cg-form__btn--submit" type="submit">Buat Grup</button>
+          <button class="cg-form__btn cg-form__btn--submit" type="submit">${isEdit ? 'Simpan' : 'Buat Grup'}</button>
         </div>
       </form>
     </div>
@@ -114,9 +115,20 @@ export function showCreateGroupModal({ categories = [], onCreated } = {}) {
 
   const maxInput = fields.querySelector('[name="maxMembers"]');
   if (maxInput) {
-    maxInput.value = String(LIMITS.DEFAULT_MEMBER_LIMIT);
+    maxInput.value = String(isEdit ? editGroup.maxMembers : LIMITS.DEFAULT_MEMBER_LIMIT);
     maxInput.min = '2';
     maxInput.max = '500';
+  }
+
+  if (isEdit) {
+    fields.querySelector('[name="department"]').value = editGroup.department || '';
+    fields.querySelector('[name="title"]').value = editGroup.title || '';
+    fields.querySelector('[name="description"]').value = editGroup.description || '';
+    const privacyRadio = fields.querySelector(`input[name="privacy"][value="${editGroup.privacy || 'public'}"]`);
+    if (privacyRadio) {
+      privacyRadio.checked = true;
+      fields.querySelectorAll('.cg-privacy__option').forEach(el => el.classList.toggle('is-selected', el.querySelector('input') === privacyRadio));
+    }
   }
 
   const errorEl = overlay.querySelector('.cg-form__error');
@@ -142,18 +154,29 @@ export function showCreateGroupModal({ categories = [], onCreated } = {}) {
 
     errorEl.hidden = true;
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Membuat...';
+    submitBtn.textContent = isEdit ? 'Menyimpan...' : 'Membuat...';
 
-    const group = addCustomGroup({
-      department: values.department,
-      title: values.title,
-      description: values.description,
-      maxMembers: values.maxMembers,
-      privacy: values.privacy,
-    });
+    let result;
+    if (isEdit) {
+      result = updateCustomGroup(editGroup.id, {
+        department: values.department,
+        title: values.title,
+        description: values.description,
+        maxMembers: values.maxMembers,
+        privacy: values.privacy,
+      });
+    } else {
+      result = addCustomGroup({
+        department: values.department,
+        title: values.title,
+        description: values.description,
+        maxMembers: values.maxMembers,
+        privacy: values.privacy,
+      });
+    }
 
     close();
-    if (onCreated) onCreated(group);
+    if (onCreated) onCreated(result);
   });
 
   document.body.appendChild(overlay);

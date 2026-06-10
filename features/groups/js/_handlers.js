@@ -1,6 +1,6 @@
 import { isAuthenticated } from '../../../js/services/auth.js';
 import { navigateTo } from '../../../js/utils/url.js';
-import { mergeWithBaseGroups } from '../../../js/services/custom-groups.js';
+import { mergeWithBaseGroups, getCustomGroups, deleteCustomGroup } from '../../../js/services/custom-groups.js';
 
 function getCategoriesFromGroups(groups = []) {
   return [...new Set(groups.map((group) => group.department).filter(Boolean))].sort();
@@ -42,5 +42,32 @@ export function initGroupsHandlers(root, baseData) {
         onCreated: () => refreshGroups(root, baseData.groups),
       });
     });
+  });
+
+  root.addEventListener('click', (e) => {
+    const editBtn = e.target.closest('[data-edit-group]');
+    if (editBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const id = editBtn.getAttribute('data-edit-group');
+      const group = getCustomGroups().find(g => g.id === id);
+      if (!group) return;
+      showCreateGroupModal({
+        categories: getCategoriesFromGroups(mergeWithBaseGroups(baseData.groups)),
+        editGroup: group,
+        onCreated: () => refreshGroups(root, baseData.groups),
+      });
+      return;
+    }
+
+    const deleteBtn = e.target.closest('[data-delete-group]');
+    if (deleteBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const id = deleteBtn.getAttribute('data-delete-group');
+      if (!confirm('Hapus grup ini?')) return;
+      deleteCustomGroup(id);
+      refreshGroups(root, baseData.groups);
+    }
   });
 }

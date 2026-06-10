@@ -5,6 +5,10 @@
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow-sm);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
   transition:
     transform var(--transition),
     box-shadow var(--transition),
@@ -39,6 +43,9 @@
 .grp-card h2 {
   margin: 0;
   font-size: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .grp-card p {
@@ -220,4 +227,48 @@
 
 .grp-join-btn:active {
   transform: translateY(0) scale(0.98);
+}
+
+/* --- Custom group icon buttons --- */
+.grp-card__badges {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.grp-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: rgba(26, 26, 26, 0.06);
+  color: var(--muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  pointer-events: auto;
+}
+
+.grp-icon-btn:hover {
+  background: rgba(26, 26, 26, 0.12);
+  color: var(--text);
+}
+
+.grp-icon-btn--danger:hover {
+  background: rgba(255, 59, 48, 0.12);
+  color: #ff3b30;
+}
+
+.grp-icon-btn i {
+  line-height: 1;
+}
+
+.mobile-card .grp-icon-btn {
+  width: 1.65rem;
+  height: 1.65rem;
+  font-size: 0.72rem;
 }

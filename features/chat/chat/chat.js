@@ -2,6 +2,7 @@ import { injectStyle } from '../../../js/utils/styleLoader.js';
 import { fetchData } from '../../../js/utils/api.js';
 import { asset } from '../../../js/utils/url.js';
 import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
+import { getCustomGroups } from '../../../js/services/custom-groups.js';
 import { renderDesktop, renderMobile } from './js/_render.js';
 
 injectStyle('/css/_shared.css');
@@ -22,6 +23,10 @@ export async function Chat() {
     });
     (groupsRes.groups || []).forEach((item, i) => {
       if (item?.title) window.__forumNames[`group_${i}`] = item.title;
+    });
+    const baseLen = (groupsRes.groups || []).length;
+    getCustomGroups().forEach((item, i) => {
+      if (item?.title) window.__forumNames[`group_${baseLen + i}`] = item.title;
     });
 
     const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;

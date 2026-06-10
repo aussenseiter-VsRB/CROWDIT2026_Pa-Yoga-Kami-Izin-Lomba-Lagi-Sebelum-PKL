@@ -7,9 +7,9 @@ function getItems() {
   const authed = isAuthenticated();
   return [
     { label: 'Jelajahi', href: '/', icon: 'bi bi-compass' },
+    { label: 'Forum', href: '/forums', icon: 'bi bi-chat-square-text' },
     { label: 'Grup', href: '/groups', icon: 'bi bi-people' },
     ...(authed ? [{ label: 'Pesan', href: '/chat', icon: 'bi bi-chat-dots' }] : []),
-    ...(authed ? [{ label: 'Profil', href: '/profile', icon: 'bi bi-person' }] : []),
   ];
 }
 

@@ -1,4 +1,4 @@
-import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from './_cards.js';
+import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../../home/js/_cards.js';
 
 function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
   if (suggestions.length === 0) return cards;
@@ -14,29 +14,15 @@ function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
   return result;
 }
 
-function renderDesktop(data) {
+export function renderDesktop(data) {
   const el = document.createElement('section');
   el.className = 'home-page container section';
 
   el.innerHTML = `
     <div class="home-page__inner">
-      <section class="home-hero" aria-label="Hero section">
-        <div class="home-hero__copy">
-          <p class="home-hero__eyebrow">${data.hero.eyebrow}</p>
-          <h1 class="home-hero__title">${data.hero.title}</h1>
-          <p class="home-hero__text">${data.hero.text}</p>
-
-          <div class="home-hero__actions">
-            <a class="home-button home-button--primary" href="${data.hero.actions[0].href}" data-link>${data.hero.actions[0].label}</a>
-          </div>
-        </div>
-
-        <div class="home-hero__aside">
-          <p class="home-hero__aside-title">${data.aside.title}</p>
-          <ul class="home-hero__aside-list">
-            ${data.aside.stats.map(s => `<li><strong>${s.value}</strong><span>${s.label}</span></li>`).join('')}
-          </ul>
-        </div>
+      <section class="forums-hero">
+        <h1 class="forums-hero__title"><i class="bi bi-book"></i> Forum Diskusi</h1>
+        <p class="forums-hero__desc">Temukan forum sesuai mata kuliah dan minat belajarmu</p>
       </section>
 
       <nav class="home-topics" aria-label="Forum topics">
@@ -60,15 +46,15 @@ function renderDesktop(data) {
   return el;
 }
 
-function renderMobile(data) {
+export function renderMobile(data) {
   const el = document.createElement('section');
   el.className = 'm-home-page';
 
   el.innerHTML = `
     <div class="m-home-page__inner">
       <header class="m-home-hero">
-        <h1>${data.mobile.title}</h1>
-        <p>${data.mobile.description}</p>
+        <h1>Forum Diskusi</h1>
+        <p>Temukan forum sesuai mata kuliah dan minat belajarmu</p>
       </header>
 
       <nav class="m-home-topics" aria-label="Forum topics">
@@ -78,17 +64,6 @@ function renderMobile(data) {
           </button>
         `).join('')}
       </nav>
-
-      ${data.stats ? `
-        <div class="mobile-stats-grid">
-          ${data.stats.map(s => `
-            <div class="mobile-stat-card">
-              <span class="mobile-stat-card__value">${s.value}</span>
-              <span class="mobile-stat-card__label">${s.label}</span>
-            </div>
-          `).join('')}
-        </div>
-      ` : ''}
 
       <div class="m-home-forum-list">
         ${injectSuggestions(
@@ -102,5 +77,3 @@ function renderMobile(data) {
 
   return el;
 }
-
-export { renderDesktop, renderMobile };

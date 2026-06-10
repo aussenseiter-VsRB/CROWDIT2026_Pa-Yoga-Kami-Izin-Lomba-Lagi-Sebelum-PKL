@@ -91,6 +91,25 @@
   color: #34c759;
 }
 
+/* --- Suggestion Card --- */
+
+.home-forum-card--suggestion {
+  border: 1.5px solid #6366f1;
+}
+
+.home-suggestion-badge {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
 .home-forum-card__footer {
   display: flex;
   align-items: center;
