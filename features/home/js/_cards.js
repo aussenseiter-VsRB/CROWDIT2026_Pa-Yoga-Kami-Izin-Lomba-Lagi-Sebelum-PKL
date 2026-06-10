@@ -41,34 +41,6 @@ export function SuggestionCard(forum, index) {
   `;
 }
 
-export function mSuggestionCard(forum, index) {
-  const isJoined = forum.joined === 'joined';
-
-  return `
-    <article class="m-home-forum-card m-home-forum-card--suggestion${isJoined ? ' m-home-forum-card--joined' : ''}" data-topic="${forum.topic}" data-status="${forum.status}">
-      <div class="m-home-forum-card__header">
-        <div>
-          <span class="m-home-suggestion-badge">Disarankan untuk Kamu</span>
-          <h2>${forum.title}</h2>
-        </div>
-        ${isJoined
-          ? `<span class="m-home-status--joined"><i class="bi bi-check-circle-fill"></i> Joined</span>`
-          : `<span class="m-home-status is-online"><span aria-hidden="true"></span>${forum.status}</span>`
-        }
-      </div>
-
-      ${forum.creator ? `<div class="home-forum-card__creator">Oleh ${forum.creator.name}</div>` : ''}
-
-      <p>${forum.description}</p>
-
-      <div class="m-home-forum-card__footer">
-        ${ParticipantBar(forum.participants)}
-        <a class="m-home-action ${isJoined ? 'is-secondary' : 'is-primary'}" href="/detail?index=${index}" data-link>${isJoined ? 'Buka Forum' : 'Detail'}</a>
-      </div>
-    </article>
-  `;
-}
-
 export function InterestCard(forum, index) {
   const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
   const isJoined = forum.joined === 'joined';
@@ -166,89 +138,6 @@ export function mSuggestionCard(forum, index) {
       <div class="m-home-forum-card__footer">
         ${ParticipantBar(forum.participants)}
         <a class="m-home-action ${isJoined ? 'is-secondary' : 'is-primary'}" href="/detail?index=${index}" data-link>${isJoined ? 'Buka Forum' : 'Detail'}</a>
-      </div>
-    </article>
-  `;
-}
-
-export function ForumCard(forum, index) {
-  const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
-  const isJoined = forum.joined === 'joined';
-  const isCustom = !!forum.id;
-
-  return `
-    <article class="home-forum-card${isJoined ? ' home-forum-card--joined' : ''}${isCustom ? ' home-forum-card--custom' : ''}" data-topic="${forum.topic}">
-      <div class="home-forum-card__header">
-        <div>
-          <span class="home-forum-card__eyebrow">${isCustom ? 'Forum Kustom' : forum.status}</span>
-          <h2>${forum.title}</h2>
-        </div>
-        <div style="display:flex;align-items:center;gap:0.35rem;flex-shrink:0">
-          ${isCustom ? `
-            <button class="forums-icon-btn" data-edit-forum="${forum.id}" title="Edit forum" aria-label="Edit forum"><i class="bi bi-pencil"></i></button>
-            <button class="forums-icon-btn forums-icon-btn--danger" data-delete-forum="${forum.id}" title="Hapus forum" aria-label="Hapus forum"><i class="bi bi-trash"></i></button>
-          ` : ''}
-          ${isJoined
-            ? `<span class="home-status--joined"><i class="bi bi-check-circle-fill"></i> Sudah Bergabung</span>`
-            : `<span class="home-status ${statusClass}"><span aria-hidden="true"></span>${forum.status}</span>`
-          }
-        </div>
-      </div>
-
-      ${forum.creator ? `<div class="home-forum-card__creator">Oleh ${forum.creator.name}</div>` : ''}
-
-      <p>${forum.description}</p>
-
-      <div class="home-forum-card__footer">
-        ${ParticipantBar(forum.participants)}
-        <a class="home-action ${isJoined ? 'is-secondary' : 'is-primary'}" href="/detail?index=${index}" data-link>${isJoined ? 'Buka Forum' : 'Detail'}</a>
-      </div>
-    </article>
-  `;
-}
-
-export function mInterestCard(forum, index) {
-  const isJoined = forum.joined === 'joined';
-
-  return `
-    <article class="m-home-interest-card${isJoined ? ' m-home-interest-card--joined' : ''}" data-topic="${forum.topic}" data-status="${forum.status}">
-      <h3 class="m-home-interest-card__title">${forum.title}</h3>
-      <a class="m-home-action m-home-interest-card__action ${isJoined ? 'is-secondary' : 'is-primary'}" href="/detail?index=${index}" data-link>${isJoined ? 'Buka Forum' : 'Detail'}</a>
-    </article>
-  `;
-}
-
-export function ForumCard(forum, index) {
-  const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
-  const isJoined = forum.joined === 'joined';
-  const isCustom = !!forum.id;
-
-  return `
-    <article class="home-forum-card${isJoined ? ' home-forum-card--joined' : ''}${isCustom ? ' home-forum-card--custom' : ''}" data-topic="${forum.topic}" data-status="${forum.status}">
-      <div class="home-forum-card__header">
-        <div>
-          <span class="home-forum-card__eyebrow">${isCustom ? 'Forum Kustom' : forum.status}</span>
-          <h2>${forum.title}</h2>
-        </div>
-        <div style="display:flex;align-items:center;gap:0.35rem;flex-shrink:0">
-          ${isCustom ? `
-            <button class="forums-icon-btn" data-edit-forum="${forum.id}" title="Edit forum" aria-label="Edit forum"><i class="bi bi-pencil"></i></button>
-            <button class="forums-icon-btn forums-icon-btn--danger" data-delete-forum="${forum.id}" title="Hapus forum" aria-label="Hapus forum"><i class="bi bi-trash"></i></button>
-          ` : ''}
-          ${isJoined
-            ? `<span class="home-status--joined"><i class="bi bi-check-circle-fill"></i> Sudah Bergabung</span>`
-            : `<span class="home-status ${statusClass}"><span aria-hidden="true"></span>${forum.status}</span>`
-          }
-        </div>
-      </div>
-
-      ${forum.creator ? `<div class="home-forum-card__creator">Oleh ${forum.creator.name}</div>` : ''}
-
-      <p>${forum.description}</p>
-
-      <div class="home-forum-card__footer">
-        ${ParticipantBar(forum.participants)}
-        <a class="home-action ${isJoined ? 'is-secondary' : 'is-primary'}" href="/detail?index=${index}" data-link>${isJoined ? 'Buka Forum' : 'Detail'}</a>
       </div>
     </article>
   `;
