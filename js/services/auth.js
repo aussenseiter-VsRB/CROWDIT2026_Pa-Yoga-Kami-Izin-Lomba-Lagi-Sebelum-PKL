@@ -30,20 +30,20 @@ export function login(email, password) {
   if (!user) {
     return { success: false, error: 'Email atau password salah' };
   }
-  const session = { email: user.email, name: user.name };
+  const session = { email: user.email, name: user.name, interests: user.interests || [] };
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
   return { success: true, user: session };
 }
 
-export function register(name, email, password) {
+export function register(name, email, password, interests) {
   const users = getUsers();
   if (users.find(u => u.email === email)) {
     return { success: false, error: 'Email sudah terdaftar' };
   }
-  const newUser = { name, email, password };
+  const newUser = { name, email, password, interests: interests || [] };
   users.push(newUser);
   saveUsers(users);
-  const session = { email, name };
+  const session = { email, name, interests: newUser.interests };
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
   return { success: true, user: session };
 }
@@ -54,7 +54,15 @@ export function logout() {
 
 export function getSession() {
   const s = localStorage.getItem(SESSION_KEY);
-  return s ? JSON.parse(s) : null;
+  if (!s) return null;
+  const session = JSON.parse(s);
+  if (!session.interests) {
+    const users = getUsers();
+    const user = users.find(u => u.email === session.email);
+    if (user?.interests) session.interests = user.interests;
+    else session.interests = [];
+  }
+  return session;
 }
 
 export function isAuthenticated() {
@@ -63,4 +71,18 @@ export function isAuthenticated() {
 
 export function navigateAfterAuth(path) {
   navigateTo(path);
+}
+
+export function updateInterests(email, interests) {
+  const users = getUsers();
+  const user = users.find(u => u.email === email);
+  if (!user) return false;
+  user.interests = interests;
+  saveUsers(users);
+  const ses = getSession();
+  if (ses && ses.email === email) {
+    ses.interests = interests;
+    localStorage.setItem(SESSION_KEY, JSON.stringify(ses));
+  }
+  return true;
 }

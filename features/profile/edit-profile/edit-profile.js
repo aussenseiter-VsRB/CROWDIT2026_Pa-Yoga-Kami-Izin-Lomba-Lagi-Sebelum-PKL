@@ -1,10 +1,12 @@
 import { injectStyle } from '../../../js/utils/styleLoader.js';
 injectStyle('/features/profile/edit-profile/css/edit-profile.css');
 injectStyle('/features/profile/edit-profile/css/_edit-profile-form.css');
+injectStyle('/features/auth/signup/css/_interest-chips.css');
 
 import { getSession, isAuthenticated, navigateAfterAuth } from '../../../js/services/auth.js';
 import { navigateTo } from '../../../js/utils/url.js';
 import { STORAGE_KEYS } from '../../../js/core/config.js';
+import { InterestChips, getAvailableInterests } from '../js/_interest-chips.js';
 
 const AVATAR_KEY = STORAGE_KEYS.AVATAR;
 
@@ -66,6 +68,7 @@ export async function EditProfile() {
         <label class="m-edit-profile__label" for="ep-bio">Bio</label>
         <textarea class="m-edit-profile__input m-edit-profile__textarea" id="ep-bio" rows="3" placeholder="Tulis bio singkat...">${bio}</textarea>
       </div>
+      <div class="m-edit-profile__field" data-interest-section></div>
       <div class="m-edit-profile__actions">
         <button class="m-edit-profile__cancel" id="js-ep-cancel" type="button">Batal</button>
         <button class="m-edit-profile__save" id="js-ep-save" type="button">Simpan</button>
@@ -75,6 +78,15 @@ export async function EditProfile() {
 
   el.querySelector('.m-edit-profile__back').addEventListener('click', () => navigateTo('/profile'));
   el.querySelector('#js-ep-cancel').addEventListener('click', () => navigateTo('/profile'));
+
+  const interestSection = el.querySelector('[data-interest-section]');
+  let currentInterests = [];
+
+  const available = await getAvailableInterests();
+  const users = JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS) || '[]');
+  const user = users.find(u => u.email === session.email);
+  currentInterests = [...(user?.interests || [])];
+  interestSection.appendChild(InterestChips(available, currentInterests));
 
   const avatarEl = el.querySelector('#js-ep-avatar');
   const changeBtn = el.querySelector('#js-ep-change');
@@ -112,12 +124,14 @@ export async function EditProfile() {
     if (idx !== -1) {
       users[idx].name = name;
       users[idx].email = email;
+      users[idx].interests = currentInterests;
       localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
 
       const ses = JSON.parse(sessionStorage.getItem(STORAGE_KEYS.SESSION) || localStorage.getItem(STORAGE_KEYS.SESSION));
       if (ses) {
         ses.name = name;
         ses.email = email;
+        ses.interests = currentInterests;
         const storage = sessionStorage.getItem(STORAGE_KEYS.SESSION) ? 'sessionStorage' : 'localStorage';
         window[storage].setItem(STORAGE_KEYS.SESSION, JSON.stringify(ses));
       }
