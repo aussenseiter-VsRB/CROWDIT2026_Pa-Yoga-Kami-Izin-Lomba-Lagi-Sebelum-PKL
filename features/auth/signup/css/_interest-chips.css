@@ -49,3 +49,13 @@
   background: var(--accent);
   color: #fff;
 }
+
+.interest-chip--more {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: transparent;
+}
+
+.interest-chip--more:hover {
+  background: var(--accent-soft);
+}

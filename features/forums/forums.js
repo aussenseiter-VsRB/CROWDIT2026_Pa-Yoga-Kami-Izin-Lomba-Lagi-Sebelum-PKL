@@ -2,10 +2,14 @@ import { injectStyle } from '../../js/utils/styleLoader.js';
 import { fetchData } from '../../js/utils/api.js';
 import { asset } from '../../js/utils/url.js';
 import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
-import { getSession } from '../../js/services/auth.js';
+import { getSession, isAuthenticated } from '../../js/services/auth.js';
+import { navigateTo } from '../../js/utils/url.js';
 import { mergeCourseData } from '../home/js/_utils.js';
-import { renderDesktop, renderMobile } from './js/_render.js';
+import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../home/js/_cards.js';
+import { renderDesktop, renderMobile, injectSuggestions } from './js/_render.js';
 import { bindTopicTabs } from '../home/js/_handlers.js';
+import { getCustomForums, deleteCustomForum } from '../../js/services/custom-forums.js';
+import { showCreateForumModal } from './create-forum/create-forum.js';
 
 injectStyle('/features/home/css/home.css');
 injectStyle('/features/home/css/_home-hero.css');
@@ -16,6 +20,21 @@ injectStyle('/features/home/css/_home-forum-actions.css');
 injectStyle('/features/home/css/_home-mobile.css');
 injectStyle('/features/forums/css/forums.css');
 
+function mergeCustomForum(cf, index) {
+  return {
+    id: cf.id,
+    title: cf.title,
+    description: cf.description,
+    status: cf.status || 'Online',
+    topic: cf.topic || '',
+    joined: 'none',
+    participants: {
+      joined: cf.members || 1,
+      capacity: cf.maxMembers || 100,
+    },
+  };
+}
+
 export async function Forums() {
   try {
     const [homeData, detailData] = await Promise.all([
@@ -23,14 +42,20 @@ export async function Forums() {
       fetch(asset(DATA_PATHS.DETAIL)).then(r => r.json()),
     ]);
 
-    const forums = homeData.forums.map((f, i) =>
+    const baseForums = homeData.forums.map((f, i) =>
       mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i)
     );
+
+    const customForums = getCustomForums().map((cf, i) =>
+      mergeCustomForum(cf, baseForums.length + i)
+    );
+
+    const allForums = [...baseForums, ...customForums];
 
     const session = getSession();
     const userInterests = session?.interests || [];
     const suggestions = userInterests.length > 0
-      ? forums
+      ? baseForums
           .map((f, i) => ({ ...f, _originalIndex: i }))
           .filter(forum =>
             forum.joined !== 'joined' &&
@@ -43,7 +68,7 @@ export async function Forums() {
 
     const data = {
       ...homeData,
-      forums,
+      forums: allForums,
       suggestions,
       mobile: {
         ...homeData.mobile,
@@ -57,6 +82,53 @@ export async function Forums() {
     const el = isMobile ? renderMobile(data) : renderDesktop(data);
 
     bindTopicTabs(el);
+
+    function refresh() {
+      Forums().then(newEl => {
+        el.replaceWith(newEl);
+      });
+    }
+
+    el.addEventListener('click', (e) => {
+      const createBtn = e.target.closest('[data-create-forum]');
+      if (createBtn) {
+        e.preventDefault();
+        if (!isAuthenticated()) {
+          navigateTo('/signup');
+          return;
+        }
+        showCreateForumModal({
+          topics: homeData.topics.filter(t => t !== 'Semua Topik'),
+          onCreated: refresh,
+        });
+        return;
+      }
+
+      const editBtn = e.target.closest('[data-edit-forum]');
+      if (editBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = editBtn.getAttribute('data-edit-forum');
+        const forum = getCustomForums().find(f => f.id === id);
+        if (!forum) return;
+        showCreateForumModal({
+          topics: homeData.topics.filter(t => t !== 'Semua Topik'),
+          editForum: forum,
+          onCreated: refresh,
+        });
+        return;
+      }
+
+      const deleteBtn = e.target.closest('[data-delete-forum]');
+      if (deleteBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = deleteBtn.getAttribute('data-delete-forum');
+        if (!confirm('Hapus forum ini?')) return;
+        deleteCustomForum(id);
+        refresh();
+      }
+    });
 
     return el;
   } catch (err) {
