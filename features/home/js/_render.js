@@ -86,9 +86,16 @@ function renderDesktop(data) {
   const showMore = el.querySelector('.home-show-more');
   if (showMore) {
     showMore.addEventListener('click', () => {
-      el.querySelectorAll('[data-hidden="true"]').forEach(c => c.removeAttribute('data-hidden'));
-      el.querySelector('.home-forum-empty')?.remove();
-      showMore.remove();
+      const hidden = el.querySelectorAll('[data-hidden="true"]');
+      if (hidden.length > 0) {
+        hidden.forEach(c => c.removeAttribute('data-hidden'));
+        el.querySelector('.home-forum-empty')?.remove();
+        showMore.textContent = 'Tutup';
+      } else {
+        const cards = el.querySelectorAll('.home-forum-list > article');
+        cards.forEach((c, i) => { if (i >= 9) c.setAttribute('data-hidden', 'true'); });
+        showMore.textContent = 'Lihat Selengkapnya';
+      }
     });
   }
 

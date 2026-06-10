@@ -137,6 +137,13 @@
   line-height: 1.7;
 }
 
+.home-forum-card__creator {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 0.82rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
 /* --- Card Footer --- */
 
 .home-forum-card--joined {

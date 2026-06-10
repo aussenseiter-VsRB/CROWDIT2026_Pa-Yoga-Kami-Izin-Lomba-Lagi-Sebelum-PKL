@@ -43,7 +43,7 @@ export async function Forums() {
     ]);
 
     const baseForums = homeData.forums.map((f, i) =>
-      mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i)
+      mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i, detailData[i]?.creator)
     );
 
     const customForums = getCustomForums().map((cf, i) =>
@@ -66,14 +66,35 @@ export async function Forums() {
           ).slice(0, 5)
       : [];
 
+    const categories = [...new Set(detailData.map(d => d.course?.category).filter(Boolean))].sort();
+    const topics = ['Semua Topik', ...categories];
+
+    const topForum = allForums.reduce((best, f) =>
+      (f.participants?.joined || 0) > ((best && best.participants?.joined) || 0) ? f : best, null);
+
+    const catCount = {};
+    detailData.forEach(d => { const c = d.course?.category; if (c) catCount[c] = (catCount[c] || 0) + 1; });
+    const topCatEntry = Object.entries(catCount).sort((a, b) => b[1] - a[1])[0];
+
+    const drCreator = detailData.find(d => d.creator?.name?.includes('Dr.'))?.creator;
+    const credibleCreator = drCreator || detailData.find(d => d.creator)?.creator;
+
+    const heroStats = {
+      topForum: topForum ? { title: topForum.title, count: topForum.participants?.joined || 0 } : null,
+      topCategory: topCatEntry ? { name: topCatEntry[0], count: topCatEntry[1] } : null,
+      topCreator: credibleCreator ? { name: credibleCreator.name, username: credibleCreator.username } : null,
+    };
+
     const data = {
       ...homeData,
+      topics,
       forums: allForums,
       suggestions,
+      heroStats,
       mobile: {
         ...homeData.mobile,
         forums: homeData.mobile.forums.map((f, i) =>
-          mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i)
+          mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i, detailData[i]?.creator)
         ),
       },
     };
@@ -98,7 +119,7 @@ export async function Forums() {
           return;
         }
         showCreateForumModal({
-          topics: homeData.topics.filter(t => t !== 'Semua Topik'),
+          topics: topics.filter(t => t !== 'Semua Topik'),
           onCreated: refresh,
         });
         return;
@@ -112,7 +133,7 @@ export async function Forums() {
         const forum = getCustomForums().find(f => f.id === id);
         if (!forum) return;
         showCreateForumModal({
-          topics: homeData.topics.filter(t => t !== 'Semua Topik'),
+          topics: topics.filter(t => t !== 'Semua Topik'),
           editForum: forum,
           onCreated: refresh,
         });

@@ -29,6 +29,8 @@ export function SuggestionCard(forum, index) {
         }
       </div>
 
+      ${forum.creator ? `<div class="home-forum-card__creator">Oleh ${forum.creator.name}</div>` : ''}
+
       <p>${forum.description}</p>
 
       <div class="home-forum-card__footer">
@@ -54,6 +56,8 @@ export function mSuggestionCard(forum, index) {
           : `<span class="m-home-status is-online"><span aria-hidden="true"></span>${forum.status}</span>`
         }
       </div>
+
+      ${forum.creator ? `<div class="home-forum-card__creator">Oleh ${forum.creator.name}</div>` : ''}
 
       <p>${forum.description}</p>
 
@@ -81,6 +85,8 @@ export function InterestCard(forum, index) {
           : `<span class="home-status ${statusClass}"><span aria-hidden="true"></span>${forum.status}</span>`
         }
       </div>
+
+      ${forum.creator ? `<div class="home-forum-card__creator">Oleh ${forum.creator.name}</div>` : ''}
 
       <p>${forum.description}</p>
 
@@ -127,6 +133,8 @@ export function ForumCard(forum, index) {
         </div>
       </div>
 
+      ${forum.creator ? `<div class="home-forum-card__creator">Oleh ${forum.creator.name}</div>` : ''}
+
       <p>${forum.description}</p>
 
       <div class="home-forum-card__footer">
@@ -159,6 +167,8 @@ export function mForumCard(forum, index) {
           }
         </div>
       </div>
+
+      ${forum.creator ? `<div class="home-forum-card__creator">Oleh ${forum.creator.name}</div>` : ''}
 
       <p>${forum.description}</p>
 
