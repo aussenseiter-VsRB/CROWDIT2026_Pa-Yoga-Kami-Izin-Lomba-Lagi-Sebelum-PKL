@@ -4,19 +4,52 @@
     "title": "Forum studi modern untuk diskusi, tugas, dan kolaborasi.",
     "text": "Gabung dengan pelajar lain untuk memecahkan soal, bertukar ide, dan menyelesaikan proyek dalam ruang yang rapi, profesional, dan mudah dinavigasi.",
     "actions": [
-      { "label": "Jelajahi grup", "href": "/groups", "variant": "primary" }
+      {
+        "label": "Jelajahi grup",
+        "href": "/groups",
+        "variant": "primary"
+      }
     ]
   },
   "aside": {
     "title": "Ringkasan komunitas",
     "stats": [
-      { "value": "24", "label": "Forum aktif" },
-      { "value": "48", "label": "Postingan baru hari ini" },
-      { "value": "16", "label": "Mentor online" }
+      {
+        "value": "24",
+        "label": "Forum aktif"
+      },
+      {
+        "value": "96",
+        "label": "Postingan baru hari ini"
+      },
+      {
+        "value": "16",
+        "label": "Mentor online"
+      }
     ]
   },
-  "topics": ["Semua Topik", "Ilmu Komputer", "Matematika", "Filsafat"],
+  "topics": [
+    "Semua Topik",
+    "Ilmu Komputer",
+    "Matematika",
+    "Filsafat"
+  ],
   "forums": [
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
     {},
     {},
     {},
@@ -28,18 +61,80 @@
     {}
   ],
   "stats": [
-    { "value": "24", "label": "Forum aktif" },
-    { "value": "48", "label": "Postingan baru hari ini" },
-    { "value": "16", "label": "Mentor online" }
+    {
+      "value": "24",
+      "label": "Forum aktif"
+    },
+    {
+      "value": "96",
+      "label": "Postingan baru hari ini"
+    },
+    {
+      "value": "16",
+      "label": "Mentor online"
+    }
   ],
   "mobile": {
     "title": "Jelajahi Forum",
     "description": "Temukan grup belajar, bergabunglah dalam diskusi, dan unggul bersama.",
     "forums": [
-      { "action": "Buka" },
-      { "action": "Buka" },
-      { "action": "Detail" },
-      { "action": "Detail" }
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Detail"
+      },
+      {
+        "action": "Detail"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      },
+      {
+        "action": "Buka"
+      }
     ]
   }
 }

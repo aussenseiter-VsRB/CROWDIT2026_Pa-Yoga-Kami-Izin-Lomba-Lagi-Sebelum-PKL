@@ -1,3 +1,70 @@
+/* --- Status Chips --- */
+
+.home-status-chips {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.home-status-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0 1rem;
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.home-status-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.home-status-chip.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.home-forum-list [data-hidden="true"] {
+  display: none;
+}
+
+.home-show-more {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border: 1.5px dashed rgba(26, 26, 26, 0.15);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.home-show-more:hover {
+  border-color: var(--accent);
+  background: rgba(0, 122, 255, 0.04);
+}
+
+.home-filter-empty {
+  grid-column: 1 / -1;
+  margin: 2rem 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
 /* --- Forum Grid --- */
 
 .home-forum-list {
@@ -94,6 +161,37 @@
 .home-status--joined i {
   font-size: 0.7rem;
   color: #34c759;
+}
+
+/* --- Interest Section --- */
+
+.home-interest-section {
+  margin: 1.5rem 0;
+}
+
+.home-interest-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.15rem;
+}
+
+.home-interest-desc {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.home-interest-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.home-forum-card--interest {
+  border: 1.5px solid #f59e0b;
+}
+
+.home-forum-card--interest:hover {
+  border-color: #d97706;
 }
 
 /* --- Suggestion Card --- */
