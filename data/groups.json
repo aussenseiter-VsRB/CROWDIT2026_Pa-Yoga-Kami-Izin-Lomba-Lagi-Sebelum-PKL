@@ -9,8 +9,8 @@
       { "value": "156", "label": "Diskusi Hari Ini" }
     ],
     "actions": [
-      { "label": "Jelajahi Semua Grup", "href": "#groups", "variant": "primary" },
-      { "label": "Buat Grup Baru", "href": "/signup", "variant": "secondary" }
+      { "label": "Jelajahi Semua Grup", "href": "#groups", "variant": "secondary" },
+      { "label": "Buat Grup Baru", "href": "/signup", "variant": "primary" }
     ]
   },
   "groups": [

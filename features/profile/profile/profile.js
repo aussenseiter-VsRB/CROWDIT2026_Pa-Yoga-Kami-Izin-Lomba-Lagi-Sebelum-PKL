@@ -5,7 +5,9 @@ import { getHashParams, navigateTo } from '../../../js/utils/url.js';
 import { InterestChips, getAvailableInterests } from '../js/_interest-chips.js';
 import { showQrModal } from '../../../components/ui/qr-modal/qr-modal.js';
 import { isFollowing, toggleFollowUser, getFollowingCount, getFollowersCount, getFriends, isBlocked, blockUser, unblockUser } from '../../../js/services/follow.js';
-import { STORAGE_KEYS, DEFAULTS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
+import { STORAGE_KEYS, DEFAULTS, MOBILE_BREAKPOINT, DATA_PATHS } from '../../../js/core/config.js';
+import { getJoinedForums } from '../../../js/services/forum-access.js';
+import { ForumCard, mForumCard } from '../../../components/shared/forum-card/forum-card.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/css/_shared-profile.css');
@@ -79,6 +81,71 @@ function getActivities() {
   if (stored) return JSON.parse(stored);
   localStorage.setItem(ACTIVITIES_KEY, JSON.stringify(DEFAULTS.ACTIVITIES));
   return [...DEFAULTS.ACTIVITIES];
+}
+
+async function loadJoinedForums(container, isMobile) {
+  const joined = getJoinedForums();
+  if (joined.length === 0) {
+    container.innerHTML = '<p style="color:var(--muted-alt);font-size:0.9rem;padding:0.5rem 0">Belum bergabung ke forum manapun</p>';
+    return;
+  }
+
+  try {
+    const [detailData, groupsData] = await Promise.all([
+      fetchData(DATA_PATHS.DETAIL),
+      fetchData(DATA_PATHS.GROUPS),
+    ]);
+
+    const sorted = joined.sort((a, b) => (b.joinedAt || 0) - (a.joinedAt || 0));
+
+    sorted.forEach((entry) => {
+      let cardData;
+      if (entry.type === 'course') {
+        const detail = detailData?.[entry.index];
+        if (!detail) return;
+        cardData = {
+          _type: 'forum',
+          _realIndex: entry.index,
+          title: detail.course?.title || 'Forum',
+          description: detail.course?.description || '',
+          status: detail.course?.status || 'Online',
+          topic: detail.course?.category || '',
+          joined: 'joined',
+          participants: {
+            joined: detail.participants?.joined || 0,
+            capacity: detail.participants?.capacity || 100,
+          },
+          creator: detail.creator || null,
+        };
+      } else if (entry.type === 'group') {
+        const group = groupsData?.groups?.[entry.index];
+        if (!group) return;
+        const memberCount = group.members || 0;
+        const status = memberCount >= 50 ? 'popular' : memberCount >= 10 ? 'active' : 'inactive';
+        cardData = {
+          _type: 'group',
+          _realIndex: entry.index,
+          title: group.title || 'Grup',
+          description: group.description || '',
+          department: group.department || '',
+          topic: group.department || '',
+          status,
+          joined: 'joined',
+          participants: {
+            joined: memberCount,
+            capacity: group.maxMembers || 100,
+          },
+          creator: null,
+        };
+      }
+      if (cardData) {
+        const html = isMobile ? mForumCard(cardData, entry.index) : ForumCard(cardData, entry.index);
+        container.insertAdjacentHTML('beforeend', html);
+      }
+    });
+  } catch (err) {
+    container.innerHTML = '<p style="color:var(--muted-alt);font-size:0.9rem;padding:0.5rem 0">Gagal memuat forum</p>';
+  }
 }
 
 function iconMap(name) {
@@ -374,7 +441,7 @@ function renderDesktop() {
 
         <div class="d-profile__activity">
           <p class="d-profile__section-title">Aktivitas Terbaru</p>
-          <div class="d-profile__activity-list"></div>
+          <div class="home-forum-list" id="js-joined-forums"></div>
         </div>
 
         <div class="d-profile__logout-wrap">
@@ -476,21 +543,7 @@ function renderDesktop() {
     }));
   });
 
-  const activities = getActivities();
-  const activityList = el.querySelector('.d-profile__activity-list');
-  activities.forEach((act) => {
-    const item = document.createElement('div');
-    item.className = 'd-profile__activity-item';
-    item.innerHTML = `
-      <span class="d-profile__activity-icon d-profile__activity-icon--${act.color}">${iconMap(act.icon)}</span>
-      <div class="d-profile__activity-text">
-        <span class="d-profile__activity-title">${act.title}</span>
-        <span class="d-profile__activity-desc">${act.desc}</span>
-      </div>
-      <span class="d-profile__activity-time">${act.time}</span>
-    `;
-    activityList.appendChild(item);
-  });
+  loadJoinedForums(el.querySelector('#js-joined-forums'), false);
 
   const privacyToggle = el.querySelector('.d-profile__toggle-input');
   const privacyIcon = el.querySelector('.d-profile__privacy-icon');
@@ -659,7 +712,6 @@ function renderMobile() {
   let interests = getInterests();
   const bio = getBio();
   const isPublic = getPrivacy() === 'public';
-  const activities = getActivities();
   const ownFollowingCount = getFollowingCount(session.email);
   const ownFollowersCount = getFollowersCount(session.email);
 
@@ -727,18 +779,7 @@ function renderMobile() {
 
       <div class="mobile-activity">
         <p class="mobile-section-title">Aktivitas Terbaru</p>
-        <div class="mobile-activity-list" id="js-activity-list">
-          ${activities.map(a => `
-            <div class="mobile-activity-item">
-              <span class="mobile-activity-icon mobile-activity-icon--${a.color}"><i class="${mapIcon(a.icon)}"></i></span>
-              <div class="mobile-activity-body">
-                <span class="mobile-activity-title">${a.title}</span>
-                <span class="mobile-activity-desc">${a.desc}</span>
-              </div>
-              <span class="mobile-activity-time">${a.time}</span>
-            </div>
-          `).join('')}
-        </div>
+        <div class="m-home-forum-list" id="js-joined-forums-mobile"></div>
       </div>
 
       <p class="m-profile__section-title">Pengaturan</p>
@@ -896,6 +937,8 @@ function renderMobile() {
       }
     });
   });
+
+  loadJoinedForums(el.querySelector('#js-joined-forums-mobile'), true);
 
   return el;
 }
