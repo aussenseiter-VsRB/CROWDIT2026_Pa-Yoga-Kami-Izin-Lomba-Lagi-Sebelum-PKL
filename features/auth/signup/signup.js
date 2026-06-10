@@ -1,11 +1,13 @@
 import { injectStyle } from '../../../js/utils/styleLoader.js';
-import { DATA_PATHS, TIMING, LIMITS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
+import { DATA_PATHS, TIMING, LIMITS, STORAGE_KEYS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/features/auth/signup/css/_auth-form.css');
 injectStyle('/features/auth/signup/css/_auth-visual.css');
+injectStyle('/features/auth/signup/css/_interest-chips.css');
 import { fetchData } from '../../../js/utils/api.js';
 import { initUsers, register, navigateAfterAuth } from '../../../js/services/auth.js';
+import { InterestChips, getAvailableInterests } from '../../../features/profile/js/_interest-chips.js';
 
 function field({ type, name, placeholder, icon }) {
   return `
@@ -79,6 +81,8 @@ function renderDesktop(data) {
           <div class="signup-error" aria-live="polite" hidden></div>
           ${data.fields.map(f => field(f)).join('')}
 
+          <div class="signup-interests" data-interest-section></div>
+
           <label class="signup-terms">
             <input type="checkbox" checked />
             <span>${data.termsLabel}</span>
@@ -123,6 +127,12 @@ function renderDesktop(data) {
       return;
     }
 
+    if (!selectedInterests.length) {
+      errorEl.textContent = 'Pilih minimal satu minat belajar';
+      errorEl.hidden = false;
+      return;
+    }
+
     if (passwordInput.value !== confirmInput.value) {
       errorEl.textContent = 'Password tidak cocok';
       errorEl.hidden = false;
@@ -135,7 +145,7 @@ function renderDesktop(data) {
       return;
     }
 
-    const result = register(nameInput.value.trim(), emailInput.value.trim(), passwordInput.value);
+    const result = register(nameInput.value.trim(), emailInput.value.trim(), passwordInput.value, selectedInterests);
 
     if (!result.success) {
       errorEl.textContent = result.error;
@@ -150,6 +160,12 @@ function renderDesktop(data) {
     window.setTimeout(() => {
       navigateAfterAuth('/profile');
     }, TIMING.AUTH_NAV_DELAY);
+  });
+
+  let selectedInterests = [];
+  getAvailableInterests().then(available => {
+    const section = el.querySelector('[data-interest-section]');
+    section.appendChild(InterestChips(available, selectedInterests, (vals) => { selectedInterests = vals; }));
   });
 
   return el;
@@ -181,6 +197,7 @@ function renderMobile(data) {
           }
           return `<input class="mobile-input" type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" autocomplete="${field.name}" />`;
         }).join('')}
+        <div class="signup-interests" data-interest-section></div>
         <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;color:var(--text);cursor:pointer;margin:0.5rem 0">
           <input type="checkbox" checked style="accent-color:var(--accent)" />
           <span>${data.termsLabel}</span>
@@ -233,6 +250,12 @@ function renderMobile(data) {
       return;
     }
 
+    if (!selectedInterests.length) {
+      errorEl.textContent = 'Pilih minimal satu minat belajar';
+      errorEl.hidden = false;
+      return;
+    }
+
     if (passwordInput.value !== confirmInput.value) {
       errorEl.textContent = 'Password tidak cocok';
       errorEl.hidden = false;
@@ -245,7 +268,7 @@ function renderMobile(data) {
       return;
     }
 
-    const result = register(nameInput.value.trim(), emailInput.value.trim(), passwordInput.value);
+    const result = register(nameInput.value.trim(), emailInput.value.trim(), passwordInput.value, selectedInterests);
 
     if (!result.success) {
       errorEl.textContent = result.error;
@@ -260,6 +283,12 @@ function renderMobile(data) {
     window.setTimeout(() => {
       navigateAfterAuth('/profile');
     }, TIMING.AUTH_NAV_DELAY);
+  });
+
+  let selectedInterests = [];
+  getAvailableInterests().then(available => {
+    const section = el.querySelector('[data-interest-section]');
+    section.appendChild(InterestChips(available, selectedInterests, (vals) => { selectedInterests = vals; }));
   });
 
   return el;

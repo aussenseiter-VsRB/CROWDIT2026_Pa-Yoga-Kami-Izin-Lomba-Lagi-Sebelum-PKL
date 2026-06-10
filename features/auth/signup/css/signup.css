@@ -91,6 +91,11 @@
   font-weight: 700;
 }
 
+/* --- Interest chips --- */
+.signup-interests {
+  margin: 0.5rem 0;
+}
+
 /* --- Errors --- */
 .login-error, .signup-error {
   padding: 0.65rem 1rem;

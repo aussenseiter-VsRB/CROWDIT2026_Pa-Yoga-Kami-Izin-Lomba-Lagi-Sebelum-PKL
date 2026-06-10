@@ -98,7 +98,8 @@ studNow/
 │   │       ├── css/
 │   │       │   ├── signup.css
 │   │       │   ├── _auth-form.css
-│   │       │   └── _auth-visual.css
+│   │       │   ├── _auth-visual.css
+│   │       │   └── _interest-chips.css  # Chip/pill styles — dipakai signup, edit-profile, profile
 │   │       └── signup.js         # Membaca dari /data/auth.json
 │   ├── chat/                     # Fitur terkait pesan — dikelompokkan bersama
 │   │   ├── chat/
@@ -204,6 +205,8 @@ studNow/
 │   │   │   └── _notifications-card.css
 │   │   └── notifications.js      # Membaca dari /data/notifications.json
 │   ├── profile/                  # Fitur terkait profil — dikelompokkan bersama
+│   │   ├── js/
+│   │   │   └── _interest-chips.js # Shared chip renderer — dipakai profile, edit-profile, signup
 │   │   ├── profile/
 │   │   │   ├── js/
 │   │   │   ├── css/
@@ -247,7 +250,8 @@ studNow/
     │   └── qr-modal/qr-modal.js + .css
     └── shared/                   # Komponen shared dengan logic ringan
         ├── page-header/page-header.js + .css
-        └── tambah-minat/tambah-minat.js + .css
+        ├── tambah-minat/tambah-minat.js + .css
+        └── interest-recommendations/interest-recommendations.js + .css
 ```
 
 ---
@@ -416,6 +420,13 @@ import { getSession } from '../../js/services/auth.js';
 ### Data Tambahan — Forum Join Flow
 
 Data join forum disimpan di `localStorage` (key: `STORAGE_KEYS.FORUMS` dari `js/core/config.js`):
+
+### Data Tambahan — Interest System
+
+- User interests disimpan di `localStorage` pada user object di `STORAGE_KEYS.USERS` array: `{ name, email, password, interests: ["Kategori1", "Kategori2"] }`.
+- Session object (`STORAGE_KEYS.SESSION`) juga menyertakan field `interests` setelah login/register.
+- Daftar interest yang tersedia di-dedup runtime dari `data/detail.json` (field `course.category`) dan `data/groups.json` (field `department`) — tidak ada file JSON baru.
+- Komponen `InterestChips` (toggle chips) dan `InterestRecommendations` (card hasil rekomendasi) membaca interest dari session.
 
 ```json
 {
@@ -603,7 +614,9 @@ Setiap response yang membuat fitur baru, halaman, komponen, utility, atau peruba
 
 - State disimpan di `localStorage` — semua key didefinisikan di `js/core/config.js` (`STORAGE_KEYS.USERS`, `STORAGE_KEYS.SESSION`, dll).
 - `data/users.json` berisi 3 seed users (Fatan, All, Manca) — di-seed ulang otomatis saat versi berubah.
-- `js/services/auth.js` menyediakan: `initUsers()`, `login()`, `register()`, `logout()`, `getSession()`, `isAuthenticated()`, `navigateAfterAuth()`.
+- `js/services/auth.js` menyediakan: `initUsers()`, `login()`, `register()`, `logout()`, `getSession()`, `isAuthenticated()`, `navigateAfterAuth()`, `updateInterests()`.
+- `register()` sekarang menerima parameter ke-4 `interests` (array string). User object di localStorage berbentuk `{ name, email, password, interests }`.
+- `login()` menyertakan `interests` di session object.
 - Halaman yang membutuhkan login harus redirect ke `/login` jika tidak ada session.
 - Navbar dan top-bar menukar tombol "Login"/"Create" dengan nama user saat terautentikasi.
 - Bottom-bar dan navbar otomatis sembunyi di halaman auth (`/login`, `/signup`).
