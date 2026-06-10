@@ -93,27 +93,12 @@ export function InterestCard(forum, index) {
 }
 
 export function mInterestCard(forum, index) {
-  const statusClass = forum.status === 'Online' ? 'is-online' : 'is-offline';
   const isJoined = forum.joined === 'joined';
 
   return `
-    <article class="m-home-forum-card m-home-forum-card--interest${isJoined ? ' m-home-forum-card--joined' : ''}" data-topic="${forum.topic}" data-status="${forum.status}">
-      <div class="m-home-forum-card__header">
-        <div>
-          <h2>${forum.title}</h2>
-        </div>
-        ${isJoined
-          ? `<span class="m-home-status--joined"><i class="bi bi-check-circle-fill"></i> Joined</span>`
-          : `<span class="m-home-status ${statusClass}"><span aria-hidden="true"></span>${forum.status}</span>`
-        }
-      </div>
-
-      <p>${forum.description}</p>
-
-      <div class="m-home-forum-card__footer">
-        ${ParticipantBar(forum.participants)}
-        <a class="m-home-action ${isJoined ? 'is-secondary' : 'is-primary'}" href="/detail?index=${index}" data-link>${isJoined ? 'Buka Forum' : 'Detail'}</a>
-      </div>
+    <article class="m-home-interest-card${isJoined ? ' m-home-interest-card--joined' : ''}" data-topic="${forum.topic}" data-status="${forum.status}">
+      <h3 class="m-home-interest-card__title">${forum.title}</h3>
+      <a class="m-home-action m-home-interest-card__action ${isJoined ? 'is-secondary' : 'is-primary'}" href="/detail?index=${index}" data-link>${isJoined ? 'Buka Forum' : 'Detail'}</a>
     </article>
   `;
 }

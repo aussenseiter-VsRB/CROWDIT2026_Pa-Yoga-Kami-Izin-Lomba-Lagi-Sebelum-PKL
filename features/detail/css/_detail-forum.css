@@ -99,3 +99,27 @@
 .dtl-leave-section {
   padding: 1rem 1.5rem;
 }
+
+@media (max-width: 900px) {
+  .dtl-forum-card__stat {
+    padding: 0.6rem;
+  }
+
+  .dtl-forum-card__stat-value {
+    font-size: 1.15rem;
+  }
+
+  .dtl-forum-card__stat-label {
+    font-size: 0.7rem;
+  }
+
+  .dtl-join-btn {
+    min-height: 2.7rem;
+    font-size: 0.88rem;
+  }
+
+  .dtl-leave-btn {
+    min-height: 2.4rem;
+    font-size: 0.82rem;
+  }
+}
