@@ -19,7 +19,7 @@ export function Navbar() {
     el.innerHTML = `
       <div class="container navbar__inner">
         <a class="navbar-logo" href="/" data-link aria-label="Beranda StudNow">
-          <img class="navbar-logo__img" src="../../assets/StudNowLogo.png" alt="StudNow" />
+          <img class="navbar-logo__img" src="assets/StudNowLogo.png" alt="StudNow" />
         </a>
 
         <nav class="navbar-nav" aria-label="Navigasi desktop">
@@ -52,8 +52,8 @@ export function Navbar() {
       const avatarSrc = localStorage.getItem(STORAGE_KEYS.AVATAR);
       const initial = session.name.charAt(0).toUpperCase();
       authEl.innerHTML = avatarSrc
-        ? `<img src="${avatarSrc}" alt="" style="width:1.6rem;height:1.6rem;border-radius:50%;object-fit:cover;flex-shrink:0"> ${session.name}`
-        : `<span style="display:inline-flex;align-items:center;justify-content:center;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--accent);color:#fff;font-size:0.7rem;font-weight:700;flex-shrink:0">${initial}</span> ${session.name}`;
+        ? `<img src="${avatarSrc}" alt="${session.name}" class="navbar-avatar" />`
+        : `<span class="navbar-avatar">${initial}</span>`;
       authEl.href = '/profile';
       authEl.classList.remove('navbar-action--primary');
     } else {

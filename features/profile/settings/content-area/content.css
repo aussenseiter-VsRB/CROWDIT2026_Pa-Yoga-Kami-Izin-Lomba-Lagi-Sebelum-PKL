@@ -1,15 +1,19 @@
-/* ── Content ── */
 .m-settings__content {
   width: 100%;
 }
 
-@media (min-width: 901px) {
+@media (max-width: 768px) {
   .m-settings__content {
-    max-width: 700px;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .m-settings__card {
+    box-sizing: border-box;
+    padding: 0.75rem 1rem;
   }
 }
 
-/* ── Section ── */
 .m-settings__section {
   margin-bottom: 2rem;
 }
@@ -35,7 +39,6 @@
   }
 }
 
-/* ── Card ── */
 .m-settings__card {
   width: 100%;
   border: 1px solid var(--border-color);
@@ -43,20 +46,15 @@
   background: var(--surface);
   padding: 0.75rem 1rem;
   box-shadow: var(--card-shadow);
+  overflow: hidden;
 }
 
 @media (min-width: 901px) {
   .m-settings__card {
-    padding: 1rem 1.25rem;
-    border-radius: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 0;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--border-color);
-    transition: all 0.2s ease;
-  }
-
-  .m-settings__card:hover {
-    border-color: var(--accent-soft);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 }
 
@@ -66,12 +64,12 @@
   }
 }
 
-/* ── Items ── */
 .m-settings__item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   width: 100%;
+  box-sizing: border-box;
   border: 0;
   background: none;
   padding: 0;
@@ -88,46 +86,44 @@
 
 @media (min-width: 901px) {
   .m-settings__item {
-    padding: 1rem 1.2rem;
-    border-radius: 0.85rem;
-    transition: all 0.2s ease;
+    padding: 1rem 1.25rem;
+    border-radius: 0;
+    transition: background 0.15s ease;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .m-settings__item:last-child {
+    border-bottom: none;
   }
 
   .m-settings__item:hover {
     background: var(--surface-hover);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  }
-
-  .m-settings__item:hover .m-settings__item-chevron {
-    color: var(--text-secondary);
-    transform: translateX(3px);
   }
 
   .m-settings__item:active {
-    transform: scale(0.99);
+    transform: none;
+  }
+
+  .m-settings__item--danger:hover {
+    background: rgba(255, 59, 48, 0.06);
   }
 
   .m-settings__item-chevron {
-    transition: transform 0.2s ease, color 0.2s ease;
     color: var(--border-color);
+    transition: transform 0.15s ease, color 0.15s ease;
+  }
+
+  .m-settings__item:hover .m-settings__item-chevron {
+    color: var(--muted);
+    transform: translateX(3px);
   }
 
   .m-settings__item-desc {
     font-size: 0.82rem;
     margin-top: 0.15rem;
   }
-
-  .m-settings__item--danger {
-    transition: all 0.2s ease;
-  }
-
-  .m-settings__item--danger:hover {
-    background: rgba(255, 59, 48, 0.08);
-    box-shadow: 0 2px 8px rgba(255, 59, 48, 0.12);
-  }
 }
 
-/* ── Item icon ── */
 .m-settings__item-icon {
   flex: 0 0 auto;
   width: 2rem;
@@ -142,11 +138,11 @@
 
 @media (min-width: 901px) {
   .m-settings__item-icon {
-    width: 2.2rem;
-    height: 2.2rem;
-    border-radius: 0.65rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.6rem;
     font-size: 1rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-right: 0.25rem;
   }
 }
 
@@ -157,7 +153,6 @@
 .m-settings__item-icon--gray { background: var(--muted); }
 .m-settings__item-icon--red { background: var(--accent-2); }
 
-/* ── Item body ── */
 .m-settings__item-body {
   flex: 1;
   min-width: 0;
@@ -195,13 +190,13 @@
   opacity: 0.7;
 }
 
-/* ── Toggle ── */
 .m-settings__toggle {
   position: relative;
   display: inline-flex;
   width: 2.4rem;
   height: 1.4rem;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .m-settings__toggle input {
@@ -242,20 +237,25 @@
   box-shadow: 0 1px 4px rgba(0,0,0,0.25);
 }
 
-/* ── Chevron ── */
 .m-settings__item-chevron {
   flex: 0 0 auto;
   color: var(--border-color);
   font-size: 0.85rem;
+  margin-left: auto;
 }
 
-/* ── Press feedback ── */
 .m-settings__item:active,
 .m-settings__item--danger:active {
   transform: scale(0.98);
 }
 
-/* ── Toast ── */
+@media (min-width: 901px) {
+  .m-settings__item:active,
+  .m-settings__item--danger:active {
+    transform: none;
+  }
+}
+
 .m-settings__toast {
   position: fixed;
   bottom: 2rem;
@@ -280,7 +280,6 @@
   transform: translateX(-50%) translateY(0);
 }
 
-/* ── Modal ── */
 .m-settings__modal-overlay {
   position: fixed;
   inset: 0;
@@ -412,15 +411,6 @@
   font-size: 1rem;
 }
 
-/* ── Version ── */
-.m-settings__version {
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--muted-alt);
-  margin-top: 2.5rem;
-}
-
-/* ── Keyframes ── */
 @keyframes mfFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
