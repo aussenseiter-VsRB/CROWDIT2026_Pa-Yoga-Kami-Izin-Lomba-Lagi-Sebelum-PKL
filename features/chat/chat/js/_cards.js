@@ -1,6 +1,13 @@
 import { escapeHtml, friendColor, formatConversationTime } from './_utils.js';
-import { emailToName } from '../../../../js/services/follow.js';
+import { getUsers } from '../../../../js/services/auth.js';
 import { getCustomGroups } from '../../../../js/services/custom-groups.js';
+
+function emailToDisplayName(email) {
+  const users = getUsers();
+  const u = users.find(u => u.email === email);
+  return u?.name || email;
+}
+
 
 function avatarHtml(name, color, square) {
   const cls = square ? 'chat-avatar chat-avatar--square' : 'chat-avatar';
@@ -25,7 +32,8 @@ function mAvatarHtml(name, color, square) {
 /* --- Desktop Cards --- */
 
 export function ConversationCard(conv) {
-  const name = emailToName(conv.with);
+  const name = emailToDisplayName(conv.with);
+
   const color = friendColor(name);
   const fromMe = conv.fromMe ? '<span class="chat-preview__fromMe">Kamu: </span>' : '';
   const unread = conv.unread > 0
@@ -68,14 +76,18 @@ export function ForumCard(forum) {
   const name = resolveGroupName(forum);
   const color = friendColor(name);
   const tag = forum.type === 'course' ? 'Kursus' : 'Grup';
+  const tooltip = name ? ` title="${escapeHtml(name)}"` : '';
+
+
   return `
     <a class="chat-card" href="/groups-interior?${forum.type === 'course' ? 'index' : 'group'}=${forum.index}" data-link>
       ${avatarHtml(name, color, true)}
       <div class="chat-card-body">
         <div class="chat-card-row">
-          <span class="chat-name">${name}</span>
+          <span class="chat-name chat-name--forum"${tooltip}>${name}</span>
           <span class="chat-tag">${tag}</span>
         </div>
+
         <div class="chat-preview">Bergabung</div>
       </div>
     </a>
@@ -85,7 +97,8 @@ export function ForumCard(forum) {
 /* --- Mobile Cards --- */
 
 export function mConversationCard(conv) {
-  const name = emailToName(conv.with);
+  const name = emailToDisplayName(conv.with);
+
   const color = friendColor(name);
   const fromMe = conv.fromMe ? '<span class="chatm-preview__fromMe">Kamu: </span>' : '';
   const unread = conv.unread > 0
@@ -128,14 +141,18 @@ export function mForumCard(forum) {
   const name = resolveGroupName(forum);
   const color = friendColor(name);
   const tag = forum.type === 'course' ? 'Kursus' : 'Grup';
+  const tooltip = name ? ` title="${escapeHtml(name)}"` : '';
+
+
   return `
     <a class="chatm-card" href="/groups-interior?${forum.type === 'course' ? 'index' : 'group'}=${forum.index}" data-link>
       ${mAvatarHtml(name, color, true)}
       <div class="chat-card-body">
         <div class="chat-card-row">
-          <span class="chatm-name">${name}</span>
+          <span class="chatm-name chat-name--forum"${tooltip}>${name}</span>
           <span class="chat-tag">${tag}</span>
         </div>
+
         <div class="chatm-preview">Bergabung</div>
       </div>
     </a>
