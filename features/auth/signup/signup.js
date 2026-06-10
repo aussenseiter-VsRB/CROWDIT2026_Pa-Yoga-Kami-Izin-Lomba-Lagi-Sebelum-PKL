@@ -71,7 +71,7 @@ function renderDesktop(data) {
 
       <div class="signup-panel">
         <div class="signup-copy">
-          <div class="signup-mark" aria-hidden="true">${data.copy.mark}</div>
+          <div class="signup-mark" aria-hidden="true"><img src="${window.BASE}/assets/StudNowLogo.png" alt="" class="signup-mark__logo" /></div>
           <h1>${data.copy.title}</h1>
           <p>${data.copy.description}</p>
         </div>
@@ -176,7 +176,7 @@ function renderMobile(data) {
   el.innerHTML = `
     <div class="mobile-page__inner">
       <header class="mobile-page__hero">
-        <p class="mobile-page__eyebrow">${data.copy.eyebrow}</p>
+        <p class="mobile-page__eyebrow"><img src="${window.BASE}/assets/StudNowIcon.svg" alt="" class="mobile-page__eyebrow-icon" /> ${data.copy.eyebrow}</p>
         <h1>${data.copy.title}</h1>
         <p>${data.copy.description}</p>
       </header>

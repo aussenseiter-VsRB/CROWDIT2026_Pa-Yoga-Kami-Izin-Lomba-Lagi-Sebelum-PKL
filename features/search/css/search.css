@@ -136,6 +136,15 @@
   font-size: 0.85rem;
 }
 
+/* --- Interest card override (remove orange outline) --- */
+
+#js-discovery .home-forum-card--interest {
+  border-color: rgba(26, 26, 26, 0.08);
+}
+#js-discovery .home-forum-card--interest:hover {
+  border-color: rgba(0, 122, 255, 0.16);
+}
+
 /* --- Responsive --- */
 
 @media (max-width: 900px) {

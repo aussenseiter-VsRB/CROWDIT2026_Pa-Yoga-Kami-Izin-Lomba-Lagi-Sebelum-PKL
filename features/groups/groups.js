@@ -9,10 +9,13 @@ import { initGroupsHandlers } from './js/_handlers.js';
 
 injectStyle('/css/_shared.css');
 injectStyle('/css/_shared-profile.css');
+injectStyle('/features/home/css/home.css');
+injectStyle('/features/home/css/_home-mobile.css');
 injectStyle('/features/groups/css/groups.css');
 injectStyle('/features/groups/css/_groups-card.css');
 injectStyle('/features/groups/css/_groups-hero.css');
 injectStyle('/features/forum/explore/css/explore.css');
+injectStyle('/components/ui/fab/fab.css');
 
 export async function Groups() {
   const data = await fetchData(DATA_PATHS.GROUPS);
@@ -34,9 +37,19 @@ export async function Groups() {
     },
   }));
 
+  const topGroup = mappedGroups.reduce((best, g) =>
+    (g.participants?.joined || 0) > ((best && best.participants?.joined) || 0) ? g : best, null);
+
+  const totalMembers = mappedGroups.reduce((s, g) => s + (g.participants?.joined || 0), 0);
+
   const pageData = {
     ...data,
     groups: mappedGroups,
+    stats: {
+      totalGroups: mappedGroups.length,
+      totalMembers,
+      topGroup: topGroup ? { title: topGroup.title, count: topGroup.participants?.joined || 0 } : null,
+    },
   };
 
   const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;

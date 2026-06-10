@@ -4,7 +4,7 @@ import { asset, navigateTo } from '../../js/utils/url.js';
 import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../js/core/config.js';
 import { getSession, isAuthenticated } from '../../js/services/auth.js';
 import { getForumStatus } from '../../js/services/forum-access.js';
-import { mergeCourseData } from './js/_utils.js';
+import { mergeCourseData, normalizeCategory } from './js/_utils.js';
 import { getStatus } from '../groups/js/_utils.js';
 import { renderDesktop, renderMobile } from './js/_render.js';
 import { bindTopicTabs } from './js/_handlers.js';
@@ -29,7 +29,7 @@ export async function Home() {
     ]);
 
     const categories = [...new Set(detailData.map(d => d.course?.category).filter(Boolean))].sort();
-    const topics = ['Semua Topik', ...categories];
+    const topics = ['Semua Topik', ...categories.map(normalizeCategory)];
 
     const forums = homeData.forums.map((f, i) => ({
       ...mergeCourseData(f, detailData[i]?.course, detailData[i]?.participants, i, detailData[i]?.creator),

@@ -4,12 +4,11 @@ import { ResultCard } from './_cards.js';
 export function bindSearchHandlers(refs) {
   const { input, clearBtn, filtersEl, discovery, resultsPanel,
           resultsList, resultsLabel, emptyEl, trendingGrid,
-          suggestedGrid, trendingTags, suggested } = refs;
+          trendingTags } = refs;
 
   trendingGrid.innerHTML = trendingTags.join('');
-  suggestedGrid.innerHTML = suggested.join('');
 
-  let currentFilter = 'Semua';
+  let currentCategory = 'Semua Topik';
   let currentQuery = '';
 
   const renderResults = () => {
@@ -26,9 +25,9 @@ export function bindSearchHandlers(refs) {
     clearBtn.style.display = 'flex';
 
     const allResults = searchEngine.search(q);
-    const filtered = currentFilter === 'Semua'
+    const filtered = currentCategory === 'Semua Topik'
       ? allResults
-      : allResults.filter(r => r.type === currentFilter);
+      : allResults.filter(r => r.category === currentCategory);
 
     emptyEl.hidden = filtered.length > 0;
     resultsLabel.textContent = filtered.length
@@ -54,7 +53,7 @@ export function bindSearchHandlers(refs) {
     if (!btn) return;
     filtersEl.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('filter-pill--active'));
     btn.classList.add('filter-pill--active');
-    currentFilter = btn.dataset.filter;
+    currentCategory = btn.dataset.category;
     if (currentQuery.trim()) renderResults();
   });
 

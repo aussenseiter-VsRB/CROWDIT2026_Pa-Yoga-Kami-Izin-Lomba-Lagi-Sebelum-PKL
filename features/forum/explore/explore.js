@@ -4,7 +4,7 @@ import { asset } from '../../../js/utils/url.js';
 import { DATA_PATHS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
 import { getSession, isAuthenticated } from '../../../js/services/auth.js';
 import { navigateTo } from '../../../js/utils/url.js';
-import { mergeCourseData } from '../../home/js/_utils.js';
+import { mergeCourseData, normalizeCategory } from '../../home/js/_utils.js';
 import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard } from '../../../components/shared/forum-card/forum-card.js';
 import { renderDesktop, renderMobile, injectSuggestions } from './js/_render.js';
 import { bindTopicTabs } from '../../home/js/_handlers.js';
@@ -83,7 +83,7 @@ export async function Forums() {
       : [];
 
     const categories = [...new Set(detailData.map(d => d.course?.category).filter(Boolean))].sort();
-    const topics = ['Semua Topik', ...categories];
+    const topics = ['Semua Topik', ...categories.map(normalizeCategory)];
 
     const topForum = allForums.reduce((best, f) =>
       (f.participants?.joined || 0) > ((best && best.participants?.joined) || 0) ? f : best, null);

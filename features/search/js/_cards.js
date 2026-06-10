@@ -39,7 +39,10 @@ export function ResultCard(item, query) {
   const isOnline = item.stat && item.stat.toLowerCase().includes('online');
   return `
     <a class="mobile-card search-card search-card--link" href="${item.url}" data-link>
-      <span class="mobile-card__tag">${item.type}</span>
+      <div class="search-card__row">
+        <span class="mobile-card__tag">${item.type}</span>
+        ${item.category ? `<span class="search-card__category">${escape(item.category)}</span>` : ''}
+      </div>
       ${item.meta ? `<p class="search-result__meta">${escape(item.meta)}</p>` : ''}
       <h2>${highlight(item.title, query)}</h2>
       <p>${highlight(item.description, query)}</p>

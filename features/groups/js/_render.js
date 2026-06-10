@@ -1,4 +1,3 @@
-import { isAuthenticated } from '../../../js/services/auth.js';
 import { ForumCard, mForumCard } from '../../../components/shared/forum-card/forum-card.js';
 import { Hero } from './_cards.js';
 
@@ -21,25 +20,38 @@ export function renderDesktop(data) {
 
 export function renderMobile(data) {
   const el = document.createElement('section');
-  el.className = 'mobile-page';
+  el.className = 'm-home-page';
 
   el.innerHTML = `
-    <div class="mobile-page__inner">
-      <header class="mobile-page__hero">
-        <p class="mobile-page__eyebrow">${data.hero.eyebrow}</p>
-        <h1>${data.hero.title}</h1>
+    <div class="m-home-page__inner">
+      <header class="m-home-hero">
+        <h1>Grup Belajar</h1>
         <p>${data.hero.description}</p>
-        <div class="mobile-page__actions">
-          ${data.hero.actions.map(action => {
-            if (action.label === 'Buat Grup Baru') {
-              return `<a class="mobile-page__action is-${action.variant}" href="#" data-create-group>${action.label}</a>`;
-            }
-            const label = !isAuthenticated() && action.href === '/signup' ? 'Sign up' : action.label;
-            return `<a class="mobile-page__action is-${action.variant}" href="${action.href}" data-link>${label}</a>`;
-          }).join('')}
-        </div>
       </header>
-      <div class="mobile-list">
+
+      <div class="m-forums-stats">
+        <div class="m-forums-stat">
+          <i class="bi bi-people"></i>
+          <span><strong>${data.stats.totalGroups} grup</strong> — ${data.stats.totalMembers} anggota</span>
+        </div>
+        ${data.stats.topGroup ? `
+          <div class="m-forums-stat">
+            <i class="bi bi-trophy"></i>
+            <span><strong>${data.stats.topGroup.title}</strong> — ${data.stats.topGroup.count} anggota</span>
+          </div>
+        ` : ''}
+      </div>
+
+      <button class="fab" data-create-group type="button" aria-label="Buat Grup"><i class="bi bi-plus-lg"></i></button>
+
+      <div class="m-home-status-chips">
+        <button class="m-home-status-chip is-active" type="button" data-status="">Semua</button>
+        <button class="m-home-status-chip" type="button" data-status="popular">Populer</button>
+        <button class="m-home-status-chip" type="button" data-status="active">Aktif</button>
+        <button class="m-home-status-chip" type="button" data-status="inactive">Kurang Aktif</button>
+      </div>
+
+      <div class="m-home-forum-list" id="groups-mobile-list">
         ${data.groups.map((g, i) => mForumCard(g, i)).join('')}
       </div>
     </div>

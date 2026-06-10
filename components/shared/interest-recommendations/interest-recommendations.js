@@ -1,6 +1,7 @@
 import { injectStyle } from '../../../js/utils/styleLoader.js';
 import { asset, navigateTo } from '../../../js/utils/url.js';
 import { DATA_PATHS } from '../../../js/core/config.js';
+import { normalizeCategory } from '../../features/home/js/_utils.js';
 
 injectStyle('/components/shared/interest-recommendations/interest-recommendations.css');
 
@@ -16,7 +17,7 @@ function deduplicate(items) {
 
 function computeRelevance(item, interests) {
   const lower = interests.map(i => i.toLowerCase());
-  const text = (item.category || '').toLowerCase();
+  const text = normalizeCategory(item.category || '').toLowerCase();
   const title = (item.title || '').toLowerCase();
   let score = 0;
   lower.forEach(interest => {
@@ -73,13 +74,13 @@ export function InterestRecommendations(interests, { variant = 'card' } = {}) {
       const lowerInterests = interests.map(i => i.toLowerCase());
 
       const courses = detail.map((d, i) => {
-        const cat = d.course?.category || '';
-        const match = lowerInterests.some(li => cat.toLowerCase().includes(li) || d.course?.title?.toLowerCase().includes(li));
+        const cat = normalizeCategory(d.course?.category || '');
+        const match = lowerInterests.some(li => cat.toLowerCase().includes(li) || (d.course?.title && d.course.title.toLowerCase().includes(li)));
         if (!match) return null;
         return {
           title: d.course.title,
           description: d.course.description,
-          category: d.course.category,
+          category: cat,
           type: 'course',
           href: `/detail?index=${i}`,
         };
@@ -92,7 +93,7 @@ export function InterestRecommendations(interests, { variant = 'card' } = {}) {
         return {
           title: g.title,
           description: g.description,
-          category: g.department,
+          category: dept,
           type: 'group',
           href: '/groups',
         };
@@ -100,13 +101,13 @@ export function InterestRecommendations(interests, { variant = 'card' } = {}) {
 
       const forumCourses = (forum.courses || []).map((f, i) => {
         if (!detail[i]?.course) return null;
-        const cat = detail[i].course.category || '';
-        const match = lowerInterests.some(li => cat.toLowerCase().includes(li) || detail[i].course.title?.toLowerCase().includes(li));
+        const cat = normalizeCategory(detail[i].course.category || '');
+        const match = lowerInterests.some(li => cat.toLowerCase().includes(li) || (detail[i].course.title && detail[i].course.title.toLowerCase().includes(li)));
         if (!match) return null;
         return {
           title: 'Forum ' + detail[i].course.title,
           description: `${f.memberCount}/${f.memberLimit} anggota`,
-          category: detail[i].course.category,
+          category: cat,
           type: 'forum',
           href: '/#/forum',
         };

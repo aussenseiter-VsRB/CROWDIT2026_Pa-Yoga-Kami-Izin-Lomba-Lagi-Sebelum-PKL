@@ -20,6 +20,14 @@
   font-weight: 800;
   letter-spacing: 0.09em;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.mobile-page__eyebrow-icon {
+  width: 0.9rem;
+  height: 0.9rem;
 }
 
 /* --- Hero --- */

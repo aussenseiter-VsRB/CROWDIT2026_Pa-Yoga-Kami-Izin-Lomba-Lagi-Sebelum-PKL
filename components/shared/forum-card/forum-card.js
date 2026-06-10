@@ -24,9 +24,9 @@ function ParticipantBar(participants, label) {
 export function SuggestionCard(item, index) {
   const isGroup = item._type === 'group';
   const isJoined = item.joined === 'joined';
-  const href = isGroup
-    ? (isJoined ? `/forum-interior?group=${item._realIndex ?? index}` : `/groups?group=${item._realIndex ?? index}`)
-    : `/detail?index=${item._realIndex ?? index}`;
+  const href = isJoined
+    ? (isGroup ? `/forum-interior?group=${item._realIndex ?? index}` : `/forum-interior?index=${item._realIndex ?? index}`)
+    : (isGroup ? `/groups?group=${item._realIndex ?? index}` : `/detail?index=${item._realIndex ?? index}`);
 
   return `
     <article class="home-forum-card home-forum-card--suggestion${isJoined ? ' home-forum-card--joined' : ''}" data-topic="${item.topic}" data-status="${item.status}">
@@ -67,9 +67,9 @@ export function SuggestionCard(item, index) {
 export function InterestCard(item, index) {
   const isGroup = item._type === 'group';
   const isJoined = item.joined === 'joined';
-  const href = isGroup
-    ? (isJoined ? `/forum-interior?group=${item._realIndex ?? index}` : `/groups?group=${item._realIndex ?? index}`)
-    : `/detail?index=${item._realIndex ?? index}`;
+  const href = isJoined
+    ? (isGroup ? `/forum-interior?group=${item._realIndex ?? index}` : `/forum-interior?index=${item._realIndex ?? index}`)
+    : (isGroup ? `/groups?group=${item._realIndex ?? index}` : `/detail?index=${item._realIndex ?? index}`);
 
   return `
     <article class="home-forum-card home-forum-card--interest${isJoined ? ' home-forum-card--joined' : ''}" data-topic="${item.topic}" data-status="${item.status}">
@@ -109,9 +109,9 @@ export function InterestCard(item, index) {
 export function mInterestCard(item, index) {
   const isGroup = item._type === 'group';
   const isJoined = item.joined === 'joined';
-  const href = isGroup
-    ? (isJoined ? `/forum-interior?group=${item._realIndex ?? index}` : `/groups?group=${item._realIndex ?? index}`)
-    : `/detail?index=${item._realIndex ?? index}`;
+  const href = isJoined
+    ? (isGroup ? `/forum-interior?group=${item._realIndex ?? index}` : `/forum-interior?index=${item._realIndex ?? index}`)
+    : (isGroup ? `/groups?group=${item._realIndex ?? index}` : `/detail?index=${item._realIndex ?? index}`);
 
   return `
     <article class="m-home-interest-card${isJoined ? ' m-home-interest-card--joined' : ''}" data-topic="${item.topic}" data-status="${item.status}">
@@ -135,9 +135,9 @@ export function ForumCard(forum, index) {
   const isCustom = !!forum.id;
   const typeLabel = isGroup ? 'Grup' : 'Forum';
   const typeIcon = isGroup ? 'bi-people' : 'bi-chat-square-text';
-  const href = isGroup
-    ? (isJoined ? `/forum-interior?group=${forum._realIndex}` : `/groups?group=${forum._realIndex}`)
-    : `/detail?index=${forum._realIndex ?? index}`;
+  const href = isJoined
+    ? (isGroup ? `/forum-interior?group=${forum._realIndex}` : `/forum-interior?index=${forum._realIndex ?? index}`)
+    : (isGroup ? `/groups?group=${forum._realIndex}` : `/detail?index=${forum._realIndex ?? index}`);
 
   return `
     <article class="home-forum-card${isJoined ? ' home-forum-card--joined' : ''}${isCustom ? ' home-forum-card--custom' : ''}" data-topic="${forum.topic}" data-status="${forum.status}" data-type="${forum._type || 'forum'}">
@@ -184,9 +184,9 @@ export function ForumCard(forum, index) {
 export function mSuggestionCard(item, index) {
   const isGroup = item._type === 'group';
   const isJoined = item.joined === 'joined';
-  const href = isGroup
-    ? (isJoined ? `/forum-interior?group=${item._realIndex ?? index}` : `/groups?group=${item._realIndex ?? index}`)
-    : `/detail?index=${item._realIndex ?? index}`;
+  const href = isJoined
+    ? (isGroup ? `/forum-interior?group=${item._realIndex ?? index}` : `/forum-interior?index=${item._realIndex ?? index}`)
+    : (isGroup ? `/groups?group=${item._realIndex ?? index}` : `/detail?index=${item._realIndex ?? index}`);
 
   return `
     <article class="m-home-forum-card m-home-forum-card--suggestion${isJoined ? ' m-home-forum-card--joined' : ''}" data-topic="${item.topic}">
@@ -229,9 +229,9 @@ export function mForumCard(forum, index) {
   const isCustom = !!forum.id;
   const typeLabel = isGroup ? 'Grup' : 'Forum';
   const typeIcon = isGroup ? 'bi-people' : 'bi-chat-square-text';
-  const href = isGroup
-    ? (isJoined ? `/forum-interior?group=${forum._realIndex}` : `/groups?group=${forum._realIndex}`)
-    : `/detail?index=${forum._realIndex ?? index}`;
+  const href = isJoined
+    ? (isGroup ? `/forum-interior?group=${forum._realIndex}` : `/forum-interior?index=${forum._realIndex ?? index}`)
+    : (isGroup ? `/groups?group=${forum._realIndex}` : `/detail?index=${forum._realIndex ?? index}`);
 
   return `
     <article class="m-home-forum-card${isJoined ? ' m-home-forum-card--joined' : ''}" data-topic="${forum.topic}" data-status="${forum.status}" data-type="${forum._type || 'forum'}">

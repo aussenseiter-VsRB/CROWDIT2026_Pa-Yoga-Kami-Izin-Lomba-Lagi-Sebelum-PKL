@@ -1,5 +1,6 @@
 import { asset } from '../utils/url.js';
 import { DATA_PATHS, SEARCH_SCORES, LIMITS } from '../core/config.js';
+import { normalizeCategory } from '../../features/home/js/_utils.js';
 
 class SearchEngine {
   constructor() {
@@ -71,6 +72,7 @@ class SearchEngine {
     });
 
     docs.forEach(doc => {
+      doc.category = normalizeCategory(doc.category);
       const raw = `${doc.title} ${doc.description} ${doc.tags.join(' ')} ${doc.category}`.toLowerCase();
       const terms = this.tokenize(raw);
       const ngramSet = new Set();

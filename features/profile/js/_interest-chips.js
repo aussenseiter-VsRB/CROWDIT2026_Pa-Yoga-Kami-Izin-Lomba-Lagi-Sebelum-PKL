@@ -1,4 +1,5 @@
 import { asset } from '../../../js/utils/url.js';
+import { normalizeCategory } from '../../home/js/_utils.js';
 import { showInterestOverlay } from './_interest-overlay.js';
 
 const VISIBLE_LIMIT = 6;
@@ -10,7 +11,7 @@ export async function getAvailableInterests() {
   ]);
   const set = new Set();
   detail.forEach(item => {
-    if (item.course?.category) set.add(item.course.category);
+    if (item.course?.category) set.add(normalizeCategory(item.course.category));
   });
   (groups.groups || []).forEach(item => {
     if (item.department) set.add(item.department);

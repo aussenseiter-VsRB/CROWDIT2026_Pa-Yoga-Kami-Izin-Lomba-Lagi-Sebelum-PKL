@@ -1,16 +1,18 @@
 import { searchEngine } from '../../../js/services/search.js';
 import { buildDiscoveryData } from './_utils.js';
-import { TrendingCard, SuggestedCard } from './_cards.js';
+import { TrendingCard } from './_cards.js';
+import { InterestCard, mInterestCard } from '../../../components/shared/forum-card/forum-card.js';
 import { bindSearchHandlers } from './_handlers.js';
 
-export function renderDesktop(data) {
-  const { trendingTags, suggested } = buildDiscoveryData(searchEngine.index);
+export function renderDesktop(data, interestForums, categories = []) {
+  const { trendingTags } = buildDiscoveryData(searchEngine.index);
+  const allFilters = ['Semua Topik', ...categories];
 
   const el = document.createElement('section');
   el.className = 'container section';
 
-  const filtersHtml = data.filters.map((f, i) =>
-    `<button class="filter-pill${i === 0 ? ' filter-pill--active' : ''}" data-filter="${f}">${f}</button>`
+  const filtersHtml = allFilters.map((f, i) =>
+    `<button class="filter-pill${i === 0 ? ' filter-pill--active' : ''}" data-category="${f}">${f}</button>`
   ).join('');
 
   el.innerHTML = `
@@ -35,10 +37,14 @@ export function renderDesktop(data) {
           <p class="search-page__section-label">${data.trendingLabel}</p>
           <div class="suggested-grid" id="js-trending"></div>
         </div>
-        <div class="search-page__section">
-          <p class="search-page__section-label">${data.suggestedLabel}</p>
-          <div class="suggested-grid" id="js-suggested"></div>
-        </div>
+        ${interestForums && interestForums.length ? `
+          <div class="search-page__section">
+            <p class="search-page__section-label">${data.suggestedLabel}</p>
+            <div class="suggested-grid home-interest-grid">
+              ${interestForums.map((f, i) => InterestCard(f, i)).join('')}
+            </div>
+          </div>
+        ` : ''}
       </div>
 
       <div id="js-results" hidden>
@@ -63,22 +69,21 @@ export function renderDesktop(data) {
     resultsLabel: el.querySelector('#js-results-label'),
     emptyEl: el.querySelector('#js-empty'),
     trendingGrid: el.querySelector('#js-trending'),
-    suggestedGrid: el.querySelector('#js-suggested'),
     trendingTags: trendingTags.map(t => TrendingCard(t)),
-    suggested: suggested.map(s => SuggestedCard(s)),
   });
 
   return el;
 }
 
-export function renderMobile(data) {
-  const { trendingTags, suggested } = buildDiscoveryData(searchEngine.index);
+export function renderMobile(data, interestForums, categories = []) {
+  const { trendingTags } = buildDiscoveryData(searchEngine.index);
+  const allFilters = ['Semua Topik', ...categories];
 
   const el = document.createElement('section');
   el.className = 'mobile-page';
 
-  const filtersHtml = data.filters.map((f, i) =>
-    `<button class="filter-pill${i === 0 ? ' filter-pill--active' : ''}" data-filter="${f}">${f}</button>`
+  const filtersHtml = allFilters.map((f, i) =>
+    `<button class="filter-pill${i === 0 ? ' filter-pill--active' : ''}" data-category="${f}">${f}</button>`
   ).join('');
 
   el.innerHTML = `
@@ -102,10 +107,14 @@ export function renderMobile(data) {
           <p class="search-page__section-label">${data.trendingLabel}</p>
           <div class="mobile-list" id="js-trending"></div>
         </div>
-        <div class="search-page__section">
-          <p class="search-page__section-label">${data.suggestedLabel}</p>
-          <div class="mobile-list" id="js-suggested"></div>
-        </div>
+        ${interestForums && interestForums.length ? `
+          <div class="search-page__section">
+            <p class="search-page__section-label">${data.suggestedLabel}</p>
+            <div class="mobile-list m-home-interest-grid">
+              ${interestForums.map((f, i) => mInterestCard(f, i)).join('')}
+            </div>
+          </div>
+        ` : ''}
       </div>
 
       <div id="js-results" hidden>
@@ -130,9 +139,7 @@ export function renderMobile(data) {
     resultsLabel: el.querySelector('#js-results-label'),
     emptyEl: el.querySelector('#js-empty'),
     trendingGrid: el.querySelector('#js-trending'),
-    suggestedGrid: el.querySelector('#js-suggested'),
     trendingTags: trendingTags.map(t => TrendingCard(t)),
-    suggested: suggested.map(s => SuggestedCard(s)),
   });
 
   return el;

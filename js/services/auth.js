@@ -1,5 +1,6 @@
 import { navigateTo, asset } from '../utils/url.js';
 import { STORAGE_KEYS, USERS_VERSION, DATA_PATHS } from '../core/config.js';
+import { normalizeCategory } from '../../features/home/js/_utils.js';
 
 const USERS_KEY = STORAGE_KEYS.USERS;
 const USERS_VERSION_KEY = STORAGE_KEYS.USERS_VERSION;
@@ -30,7 +31,8 @@ export function login(email, password) {
   if (!user) {
     return { success: false, error: 'Email atau password salah' };
   }
-  const session = { email: user.email, name: user.name, interests: user.interests || [] };
+  const interests = (user.interests || []).map(normalizeCategory);
+  const session = { email: user.email, name: user.name, interests };
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
   return { success: true, user: session };
 }
@@ -40,10 +42,11 @@ export function register(name, email, password, interests) {
   if (users.find(u => u.email === email)) {
     return { success: false, error: 'Email sudah terdaftar' };
   }
-  const newUser = { name, email, password, interests: interests || [] };
+  interests = (interests || []).map(normalizeCategory);
+  const newUser = { name, email, password, interests };
   users.push(newUser);
   saveUsers(users);
-  const session = { email, name, interests: newUser.interests };
+  const session = { email, name, interests };
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
   return { success: true, user: session };
 }
@@ -62,6 +65,7 @@ export function getSession() {
     if (user?.interests) session.interests = user.interests;
     else session.interests = [];
   }
+  session.interests = session.interests.map(normalizeCategory);
   return session;
 }
 
@@ -77,6 +81,7 @@ export function updateInterests(email, interests) {
   const users = getUsers();
   const user = users.find(u => u.email === email);
   if (!user) return false;
+  interests = interests.map(normalizeCategory);
   user.interests = interests;
   saveUsers(users);
   const ses = getSession();

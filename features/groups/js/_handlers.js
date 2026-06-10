@@ -37,12 +37,16 @@ function refreshGroups(root, baseGroups) {
 
   const grid = root.querySelector('.grp-grid');
   const list = root.querySelector('.mobile-list');
+  const mobileList = root.querySelector('.m-home-forum-list');
 
   if (grid) {
     grid.innerHTML = mapped.map((g, i) => ForumCard(g, i)).join('');
   }
   if (list) {
     list.innerHTML = mapped.map((g, i) => mForumCard(g, i)).join('');
+  }
+  if (mobileList) {
+    mobileList.innerHTML = mapped.map((g, i) => mForumCard(g, i)).join('');
   }
 
   if (!isMobile && merged.length) {
@@ -62,6 +66,17 @@ export function initGroupsHandlers(root, baseData) {
       showCreateGroupModal({
         categories: getCategoriesFromGroups(mergeWithBaseGroups(baseData.groups)),
         onCreated: () => refreshGroups(root, baseData.groups),
+      });
+    });
+  });
+
+  root.querySelectorAll('.m-home-status-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const status = chip.dataset.status;
+      root.querySelectorAll('.m-home-status-chip').forEach(c => c.classList.remove('is-active'));
+      chip.classList.add('is-active');
+      root.querySelectorAll('.m-home-forum-card').forEach(card => {
+        card.style.display = (!status || card.dataset.status === status) ? '' : 'none';
       });
     });
   });

@@ -7,6 +7,7 @@ import { getSession, isAuthenticated, navigateAfterAuth } from '../../../js/serv
 import { navigateTo } from '../../../js/utils/url.js';
 import { STORAGE_KEYS } from '../../../js/core/config.js';
 import { InterestChips, getAvailableInterests } from '../js/_interest-chips.js';
+import { normalizeCategory } from '../../home/js/_utils.js';
 
 const AVATAR_KEY = STORAGE_KEYS.AVATAR;
 
@@ -85,7 +86,7 @@ export async function EditProfile() {
   const available = await getAvailableInterests();
   const users = JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS) || '[]');
   const user = users.find(u => u.email === session.email);
-  currentInterests = [...(user?.interests || [])];
+  currentInterests = [...(user?.interests || [])].map(normalizeCategory);
   interestSection.appendChild(InterestChips(available, currentInterests));
 
   const avatarEl = el.querySelector('#js-ep-avatar');
@@ -124,14 +125,15 @@ export async function EditProfile() {
     if (idx !== -1) {
       users[idx].name = name;
       users[idx].email = email;
-      users[idx].interests = currentInterests;
+      const normalizedInterests = currentInterests.map(normalizeCategory);
+      users[idx].interests = normalizedInterests;
       localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
 
       const ses = JSON.parse(sessionStorage.getItem(STORAGE_KEYS.SESSION) || localStorage.getItem(STORAGE_KEYS.SESSION));
       if (ses) {
         ses.name = name;
         ses.email = email;
-        ses.interests = currentInterests;
+        ses.interests = normalizedInterests;
         const storage = sessionStorage.getItem(STORAGE_KEYS.SESSION) ? 'sessionStorage' : 'localStorage';
         window[storage].setItem(STORAGE_KEYS.SESSION, JSON.stringify(ses));
       }
