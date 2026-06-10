@@ -30,6 +30,9 @@ export function renderMobile(data) {
         <p>${data.hero.description}</p>
         <div class="mobile-page__actions">
           ${data.hero.actions.map(action => {
+            if (action.label === 'Buat Grup Baru') {
+              return `<a class="mobile-page__action is-${action.variant}" href="#" data-create-group>${action.label}</a>`;
+            }
             const label = !isAuthenticated() && action.href === '/signup' ? 'Sign up' : action.label;
             return `<a class="mobile-page__action is-${action.variant}" href="${action.href}" data-link>${label}</a>`;
           }).join('')}

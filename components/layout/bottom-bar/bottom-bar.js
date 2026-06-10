@@ -38,7 +38,9 @@ export function BottomBar() {
   const setActive = () => {
     const path = getHashPath();
     el.querySelectorAll('.bottom-bar__item').forEach((item) => {
-      item.classList.toggle('is-active', item.getAttribute('href') === path);
+      const href = item.getAttribute('href');
+      const isGroupsRoute = href === '/groups' && (path === '/groups' || path === '/groups-interior');
+      item.classList.toggle('is-active', href === path || isGroupsRoute);
     });
     el.style.display = isAuthRoute() ? 'none' : '';
   };

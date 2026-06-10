@@ -33,7 +33,7 @@ async function init() {
     const hide = ['/login', '/signup', '/dm'].includes(path);
     document.querySelector('#footer').classList.toggle('is-hidden', hide);
     // Reset inline styles that forum-interior.js leaves behind
-    if (path !== '/forum-interior') {
+    if (path !== '/groups-interior') {
       const f = document.querySelector('#footer');
       const m = document.querySelector('#main');
       if (f) f.style.display = '';

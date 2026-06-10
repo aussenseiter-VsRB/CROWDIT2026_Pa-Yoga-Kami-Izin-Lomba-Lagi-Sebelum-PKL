@@ -15,13 +15,13 @@ export function attachCTA(el, data) {
       return;
     }
     if (status === 'joined') {
-      navigateTo(`/forum-interior?${forumType === 'course' ? 'index' : 'group'}=${index}`);
+      navigateTo(`/groups-interior?${forumType === 'course' ? 'index' : 'group'}=${index}`);
       return;
     }
     if (privacy === 'public') {
       joinForum(forumType, index);
       updateCTA(el, 'joined');
-      navigateTo(`/forum-interior?${forumType === 'course' ? 'index' : 'group'}=${index}`);
+      navigateTo(`/groups-interior?${forumType === 'course' ? 'index' : 'group'}=${index}`);
     } else {
       requestJoin(forumType, index, serverName);
       updateCTA(el, 'pending');
@@ -45,7 +45,7 @@ export function bindForumUpdates(el, forumType, index) {
     const current = getForumStatus(forumType, index);
     if (current === 'joined' && el.__forumData.status === 'pending') {
       el.__forumData.status = 'joined';
-      navigateTo(`/forum-interior?${forumType === 'course' ? 'index' : 'group'}=${index}`);
+      navigateTo(`/groups-interior?${forumType === 'course' ? 'index' : 'group'}=${index}`);
     }
   };
   window.addEventListener('forum-join-update', onUpdate, { once: false });

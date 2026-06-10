@@ -7,7 +7,7 @@ export function GroupCard(group, index) {
   const isJoined = getForumStatus('group', index) === 'joined';
 
   return `
-    <a class="grp-card${isJoined ? ' grp-card--joined' : ''}" href="${isJoined ? `/forum-interior?group=${index}` : `/forum?group=${index}`}" data-link>
+    <a class="grp-card${isJoined ? ' grp-card--joined' : ''}" href="${isJoined ? `/groups-interior?group=${index}` : `/groups?group=${index}`}" data-link>
       <div class="grp-card__header">
         <div>
           <span class="grp-card__eyebrow">${group.department}</span>
@@ -39,7 +39,7 @@ export function mGroupCard(group, index) {
   const isJoined = getForumStatus('group', index) === 'joined';
 
   return `
-    <a class="mobile-card mobile-card--block${isJoined ? ' mobile-card--joined' : ''}" href="${isJoined ? `/forum-interior?group=${index}` : `/forum?group=${index}`}" data-link>
+    <a class="mobile-card mobile-card--block${isJoined ? ' mobile-card--joined' : ''}" href="${isJoined ? `/groups-interior?group=${index}` : `/groups?group=${index}`}" data-link>
       <div class="mobile-card__header">
         <div>
           <h2>${group.title}</h2>
@@ -83,7 +83,7 @@ export function Hero(hero) {
         <p class="grp-hero__desc">${hero.description}</p>
         <div class="grp-hero__actions">
           <a class="grp-hero__btn grp-hero__btn--primary" href="${hero.actions[0].href}" data-link>${hero.actions[0].label}</a>
-          <a class="grp-hero__btn grp-hero__btn--secondary" href="${hero.actions[1].href}" data-link>${hero.actions[1].label}</a>
+          <a class="grp-hero__btn grp-hero__btn--secondary" href="#" data-create-group>${hero.actions[1].label}</a>
         </div>
       </div>
     </section>

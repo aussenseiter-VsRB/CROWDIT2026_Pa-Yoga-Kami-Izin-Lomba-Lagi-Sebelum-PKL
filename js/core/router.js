@@ -1,5 +1,5 @@
 // maps paths → page components (viewport adaptation handled inside each page)
-import { getHashPath } from '../utils/url.js';
+import { getHashPath, getHashParams, navigateTo } from '../utils/url.js';
 import { isAuthenticated } from '../services/auth.js';
 import { Home } from '../../features/home/home.js';
 import { About } from '../../features/about/about.js';
@@ -25,8 +25,7 @@ const protectedRoutes = new Set([
   '/profile',
   '/edit-profile',
   '/notifications',
-  '/forum-interior',
-  '/settings',
+  '/groups-interior',
 ]);
 
 const routes = {
@@ -41,13 +40,30 @@ const routes = {
   '/search':        Search,
   '/notifications': Notifications,
   '/detail':        Detail,
-  '/forum':         Forum,
-  '/forum-interior': ForumInterior,
+  '/groups-interior': ForumInterior,
   '/dm':            DM,
   '/edit-profile':  EditProfile,
   '/settings':      Settings,
   '/help':          Help,
 };
+
+function resolvePage(path) {
+  const params = getHashParams();
+  if (path === '/groups' && (params.has('group') || params.has('index'))) {
+    return Forum;
+  }
+  return routes[path] ?? routes['/'];
+}
+
+function redirectLegacyForumPaths(path) {
+  if (path !== '/forum' && path !== '/forum-interior') return false;
+
+  const params = getHashParams();
+  const target = path === '/forum' ? '/groups' : '/groups-interior';
+  const qs = params.toString();
+  navigateTo(`${target}${qs ? `?${qs}` : ''}`);
+  return true;
+}
 
 let previousPath = getHashPath();
 let isRouting = false; // Guard variable to prevent concurrent renders
@@ -59,7 +75,9 @@ export async function router() {
 
   try {
     const path = getHashPath();
-    const Page = routes[path] ?? routes['/'];
+    if (redirectLegacyForumPaths(path)) return;
+
+    const Page = resolvePage(path);
 
     const authRoutes = new Set(['/login', '/signup']);
     const isAuthTransition = authRoutes.has(previousPath) && authRoutes.has(path);
