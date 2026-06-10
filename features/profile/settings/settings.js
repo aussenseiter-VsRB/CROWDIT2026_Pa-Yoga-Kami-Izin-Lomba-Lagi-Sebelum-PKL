@@ -20,14 +20,13 @@ export async function Settings() {
   const el = document.createElement('section');
   el.className = 'm-settings';
 
-  const versionHtml = `<p class="m-settings__version">${data.version}</p>`;
-
   el.innerHTML = `
     <div class="m-settings__header">
       <button class="m-settings__back" type="button" aria-label="Kembali"><i class="bi bi-arrow-left"></i></button>
       <h1 class="m-settings__title">${data.header.title}</h1>
     </div>
     <div class="m-settings__layout" id="settings-layout"></div>
+    <div class="m-settings__version">${data.version}</div>
   `;
 
   el.querySelector('.m-settings__back').addEventListener('click', () => navigateTo('/profile'));
@@ -43,7 +42,6 @@ export async function Settings() {
   panel.className = 'm-settings__panel';
   const contentPanel = ContentPanel();
   panel.appendChild(contentPanel.element);
-  panel.insertAdjacentHTML('beforeend', versionHtml);
   layout.appendChild(panel);
 
   window.addEventListener('theme-change', (e) => {
