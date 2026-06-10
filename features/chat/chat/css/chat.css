@@ -2,6 +2,53 @@
 .chat-section {
   margin-bottom: 2.5rem;
 }
+
+/* Header sederhana (menggantikan hero) */
+.chat-page__topbar {
+  margin: 1.2rem 0 0.75rem;
+}
+.chat-page__topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 0.75rem 1rem;
+}
+.chat-page__topbar-icon {
+  color: var(--accent);
+  font-size: 1.15rem;
+}
+.chat-page__topbar-title {
+  font-weight: 800;
+  flex: 1;
+}
+.chat-page__new-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--surface-hover, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 0.5rem 0.85rem;
+}
+.chat-page__new-btn:active {
+  opacity: 0.8;
+}
+.chat-page__new-pencil {
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+/* Jarak minimal 24px antara topbar/header dan section pertama */
+.chat-section--with-top-gap {
+  margin-top: 24px;
+}
+
 .chat-section-title {
   font-size: 0.85rem;
   font-weight: 700;
@@ -29,6 +76,25 @@
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 0.6rem;
 }
+
+/* Forum nama: beri tooltip + jangan terpotong */
+.chat-card-body {
+  flex: 1;
+  min-width: 0;
+}
+.chat-name {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 180px;
+}
+.chat-name--forum {
+  max-width: 220px;
+}
+
 .chat-card {
   display: flex;
   align-items: center;
@@ -51,6 +117,7 @@
   transform: translateY(0);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
+
 .chat-avatar-wrap {
   position: relative;
   flex-shrink: 0;
@@ -97,25 +164,12 @@
   60% { transform: scale(1.15); }
   100% { transform: scale(1); opacity: 1; }
 }
-.chat-card-body {
-  flex: 1;
-  min-width: 0;
-}
 .chat-card-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
   margin-bottom: 0.15rem;
-}
-.chat-name {
-  font-weight: 600;
-  font-size: 0.92rem;
-  color: var(--text);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 180px;
 }
 .chat-tag {
   font-size: 0.65rem;
@@ -167,6 +221,17 @@
   background: var(--border-color);
   margin: 0.25rem 1.25rem;
 }
+
+/* Mobile topbar spacing */
+.chat-page__topbar--mobile {
+  margin-top: 0.75rem;
+}
+
+/* Padding spacer after topbar */
+.chat-mobile-gap {
+  height: 24px;
+}
+
 .chatm-card {
   display: flex;
   align-items: center;
@@ -229,6 +294,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 180px;
+}
+.chatm-name--forum {
+  max-width: 160px;
 }
 .chatm-time {
   font-size: 0.66rem;
@@ -313,8 +381,31 @@
   line-height: 1.35;
 }
 
+/* --- Mobile Forum horizontal scroll --- */
+@media (max-width: 900px) {
+  .chat-mobile-forums {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding: 0 1.25rem 0.75rem;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+
+  .chat-mobile-forums .chatm-card {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-width: 76vw;
+  }
+
+  .chatm-section-title {
+    padding-right: 1.25rem;
+  }
+}
+
 .chat-error {
   color: var(--muted);
   padding: 2rem;
   text-align: center;
 }
+

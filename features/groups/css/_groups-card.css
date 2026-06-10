@@ -24,13 +24,25 @@
 /* --- Card header --- */
 .grp-card__header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1rem;
 }
 
+.grp-card__header > div:first-child {
+  min-width: 0;
+}
+
+
+
+
+
+
+
 .grp-card__eyebrow {
+
+
   display: inline-flex;
   margin-bottom: 0.35rem;
   color: var(--accent);
@@ -46,7 +58,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: 100%;
 }
+
 
 .grp-card p {
   margin: 0;
