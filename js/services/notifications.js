@@ -116,12 +116,12 @@ export function seedSampleNotifications() {
   if (existing.length > 0) return;
 
   const samples = [
-    { type: 'forum', title: 'Balasan baru di Persiapan UTS Kalkulus', description: 'Fatan membalas: "Saya juga masih bingung soal integral lipat dua..."', link: '/forum?index=0', time: new Date(Date.now() - 120000).toISOString() },
-    { type: 'mention', title: 'Mention dari All di Struktur Data', description: 'All menyebut Anda dalam diskusi tentang pohon biner', link: '/forum?index=1', time: new Date(Date.now() - 300000).toISOString() },
+    { type: 'forum', title: 'Balasan baru di Persiapan UTS Kalkulus', description: 'Fatan membalas: "Saya juga masih bingung soal integral lipat dua..."', link: '/groups?index=0', time: new Date(Date.now() - 120000).toISOString() },
+    { type: 'mention', title: 'Mention dari All di Struktur Data', description: 'All menyebut Anda dalam diskusi tentang pohon biner', link: '/groups?index=1', time: new Date(Date.now() - 300000).toISOString() },
     { type: 'group', title: 'Anggota baru di grup Fisika', description: 'Manca bergabung ke grup Mekanika Klasik', link: '/groups', time: new Date(Date.now() - 3600000).toISOString() },
-    { type: 'forum', title: 'Thread baru di Aljabar Linear', description: 'Diskusi baru: "Pemecahan soal eigenvalues" telah dimulai', link: '/forum?index=4', time: new Date(Date.now() - 7200000).toISOString() },
+    { type: 'forum', title: 'Thread baru di Aljabar Linear', description: 'Diskusi baru: "Pemecahan soal eigenvalues" telah dimulai', link: '/groups?index=4', time: new Date(Date.now() - 7200000).toISOString() },
     { type: 'badge', title: 'Badge "Rajin Belajar" diraih!', description: 'Selesaikan 10 kursus untuk mendapatkan badge ini', link: '/profile', time: new Date(Date.now() - 86400000).toISOString() },
-    { type: 'forum', title: 'Pembahasan soal UTS mendatang', description: 'Admin mengumumkan jadwal sesi tambahan untuk persiapan UTS', link: '/forum?index=0', time: new Date(Date.now() - 172800000).toISOString() },
+    { type: 'forum', title: 'Pembahasan soal UTS mendatang', description: 'Admin mengumumkan jadwal sesi tambahan untuk persiapan UTS', link: '/groups?index=0', time: new Date(Date.now() - 172800000).toISOString() },
   ];
 
   notifIdCounter = Date.now() + 100;

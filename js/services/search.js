@@ -37,7 +37,7 @@ class SearchEngine {
           type: 'Forum',
           title: d.course.title,
           description: d.course.description,
-          url: `/forum?index=${i}`,
+          url: `/groups?index=${i}`,
           tags: [d.course.status].filter(Boolean),
           category: d.course.category,
         });
@@ -49,7 +49,7 @@ class SearchEngine {
         type: 'Grup',
         title: g.title,
         description: g.description,
-        url: `/forum?group=${i}`,
+        url: `/groups?group=${i}`,
         tags: [g.department],
         category: g.department,
         meta: `${g.members}/${g.maxMembers} anggota`,

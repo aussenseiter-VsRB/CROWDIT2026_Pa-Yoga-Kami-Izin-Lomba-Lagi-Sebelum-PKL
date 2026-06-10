@@ -36,7 +36,7 @@ export async function ForumInterior(externalParams) {
   const idx = isCourse ? courseIdx : groupIdx;
 
   if (getForumStatus(type, idx) !== 'joined') {
-    navigateTo(`/forum?${isCourse ? 'index' : 'group'}=${idx}`);
+    navigateTo(`/groups?${isCourse ? 'index' : 'group'}=${idx}`);
     return errEl('<p style="text-align:center;padding:2rem;color:var(--muted)"><i class="bi bi-arrow-repeat"></i> Mengalihkan...</p>');
   }
 

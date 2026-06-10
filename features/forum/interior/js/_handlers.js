@@ -21,7 +21,7 @@ export function bindLeaveBtn(btn, forumType, forumIndex) {
     btn.disabled = true;
     btn.innerHTML = '<i class="bi bi-hourglass"></i> Meninggalkan...';
     leaveForum(forumType, forumIndex);
-    navigateTo(`/forum?${forumType === 'course' ? 'index' : 'group'}=${forumIndex}`);
+    navigateTo(`/groups?${forumType === 'course' ? 'index' : 'group'}=${forumIndex}`);
   });
 }
 
