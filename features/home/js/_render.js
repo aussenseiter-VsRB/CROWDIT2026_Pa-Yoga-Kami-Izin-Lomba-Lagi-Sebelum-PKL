@@ -1,5 +1,6 @@
 import { isAuthenticated } from '../../../js/services/auth.js';
 import { renderFab } from '../../../components/ui/fab/fab.js';
+import { memberLabel, peopleIcon } from '../../groups/js/_utils.js';
 import { ForumCard, mForumCard, SuggestionCard, mSuggestionCard, InterestCard, mInterestCard } from './_cards.js';
 
 function injectSuggestions(cards, suggestions, suggestionCardFn, interval = 4) {
@@ -56,6 +57,34 @@ function renderDesktop(data) {
           <p class="home-interest-desc">Berdasarkan minat belajar Anda</p>
           <div class="home-interest-grid">
             ${data.interestForums.map((f, i) => InterestCard(f, f._originalIndex)).join('')}
+          </div>
+        </section>
+      ` : ''}
+
+      ${data.topGroup ? `
+        <section class="home-top-group-section">
+          <h2 class="home-top-group-title">Grup Teramai</h2>
+          <p class="home-top-group-desc">Komunitas dengan anggota terbanyak</p>
+          <div class="home-top-group-card">
+            <div class="home-top-group-card__body">
+              <div class="home-top-group-card__header">
+                <span class="home-top-group-card__dept">${data.topGroup.department}</span>
+                <span class="home-top-group-card__trophy">&starf; Terpopuler</span>
+              </div>
+              <h3 class="home-top-group-card__title">${data.topGroup.title}</h3>
+              <p class="home-top-group-card__desc">${data.topGroup.description}</p>
+              <a class="home-action is-primary home-top-group-card__action" href="/groups?group=0" data-link>Lihat Grup</a>
+              <div class="home-top-group-card__footer">
+                <span class="home-top-group-card__members">${peopleIcon()} ${memberLabel(data.topGroup.members, data.topGroup.maxMembers)}</span>
+              </div>
+            </div>
+            <div class="home-top-group-card__badge">
+              <div class="home-top-group-card__badge-inner">
+                <span class="home-top-group-card__badge-icon">&starf;</span>
+                <span class="home-top-group-card__badge-label">Grup Teramai</span>
+                <span class="home-top-group-card__badge-sub">Dinobatkan pada ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+              </div>
+            </div>
           </div>
         </section>
       ` : ''}
@@ -121,6 +150,26 @@ function renderMobile(data) {
           <p class="m-home-interest-desc">Berdasarkan minat belajar Anda</p>
           <div class="m-home-interest-grid">
             ${data.interestForums.map((f, i) => mInterestCard(f, f._originalIndex)).join('')}
+          </div>
+        </section>
+      ` : ''}
+
+      ${data.topGroup ? `
+        <section class="m-home-top-group-section">
+          <h2 class="m-home-top-group-title">Grup Teramai</h2>
+          <p class="m-home-top-group-desc">Komunitas dengan anggota terbanyak</p>
+          <div class="m-home-top-group-card">
+            <div class="m-home-top-group-card__header">
+              <span class="m-home-top-group-card__dept">${data.topGroup.department}</span>
+              <span class="m-home-top-group-card__trophy">&starf; Terpopuler</span>
+            </div>
+            <h3 class="m-home-top-group-card__title">${data.topGroup.title}</h3>
+            <p class="m-home-top-group-card__desc">${data.topGroup.description}</p>
+            <a class="m-home-action is-primary m-home-top-group-card__action" href="/groups?group=0" data-link>Lihat Grup</a>
+            <div class="m-home-top-group-card__footer">
+              <span class="m-home-top-group-card__members">${peopleIcon()} ${memberLabel(data.topGroup.members, data.topGroup.maxMembers)}</span>
+            </div>
+            <div class="m-home-top-group-card__award">Dinobatkan pada ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
           </div>
         </section>
       ` : ''}
