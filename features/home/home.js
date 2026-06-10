@@ -56,6 +56,7 @@ export async function Home() {
     const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const el = isMobile ? renderMobile(data) : renderDesktop(data);
 
+    const session = getSession();
     if (session?.interests?.length) {
       const recs = InterestRecommendations(session.interests);
       if (recs) {
