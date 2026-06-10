@@ -26,6 +26,7 @@ const protectedRoutes = new Set([
   '/edit-profile',
   '/notifications',
   '/forum-interior',
+  '/settings',
 ]);
 
 const routes = {

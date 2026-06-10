@@ -1,5 +1,3 @@
-/* --- Header --- */
-
 .m-edit-profile {
   max-width: 500px;
   margin: 0 auto;
@@ -45,8 +43,6 @@
   color: var(--text);
 }
 
-/* --- Photo Section --- */
-
 .m-edit-profile__photo {
   display: flex;
   flex-direction: column;
@@ -67,7 +63,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
 }
 
 .m-edit-profile__avatar-img {
@@ -104,4 +100,350 @@
 
 .m-edit-profile__change-photo--danger {
   color: var(--accent-2);
+}
+
+.m-edit-profile__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.m-edit-profile__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.m-edit-profile__label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--muted-alt);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.m-edit-profile__input {
+  min-height: 2.6rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.65rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.m-edit-profile__input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0,122,255,0.12);
+}
+
+.m-edit-profile__textarea {
+  min-height: 5rem;
+  padding: 0.7rem 0.85rem;
+  resize: vertical;
+}
+
+.m-edit-profile__actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.m-edit-profile__save {
+  flex: 1;
+  min-height: 2.6rem;
+  border: 0;
+  border-radius: 0.65rem;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.m-edit-profile__save:active {
+  opacity: 0.8;
+}
+
+.m-edit-profile__cancel {
+  flex: 1;
+  min-height: 2.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.65rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.m-edit-profile__cancel:active {
+  background: var(--surface-alt);
+}
+
+@media (min-width: 901px) {
+  .m-edit-profile {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 0;
+    min-height: auto;
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "photo form";
+    grid-template-columns: 320px 1fr;
+  }
+
+  .m-edit-profile__header {
+    grid-area: header;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-alt) 30%, #1e40af 65%, #172554 100%);
+    padding: 3rem 3rem;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .m-edit-profile__header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 2.5rem 2.5rem;
+  }
+
+  .m-edit-profile__header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.12) 0%, transparent 50%),
+                radial-gradient(circle at -10% 100%, rgba(0,0,0,0.1) 0%, transparent 50%);
+  }
+
+  .m-edit-profile__title {
+    color: #ffffff;
+    font-size: 1.65rem;
+    font-weight: 800;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .m-edit-profile__back {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    position: relative;
+    z-index: 2;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.85rem;
+    transition: all 0.2s ease;
+  }
+
+  .m-edit-profile__back:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateX(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .m-edit-profile__back:active {
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateX(-3px) scale(0.98);
+  }
+
+  .m-edit-profile__photo {
+    grid-area: photo;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3.5rem 2.5rem;
+    margin-bottom: 0;
+    border-right: 1px solid var(--border-color);
+    background: var(--bg);
+    gap: 2rem;
+  }
+
+  .m-edit-profile__avatar {
+    width: 8rem;
+    height: 8rem;
+    font-size: 3.2rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 50%;
+  }
+
+  .m-edit-profile__avatar:hover {
+    transform: scale(1.05) translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  }
+
+  .m-edit-profile__avatar-img {
+    border-radius: 50%;
+  }
+
+  .m-edit-profile__photo-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    width: 100%;
+  }
+
+  .m-edit-profile__change-photo {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem 1.2rem;
+    font-size: 0.9rem;
+    background: var(--surface);
+    border: 1.5px solid var(--border-color);
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    font-weight: 600;
+  }
+
+  .m-edit-profile__change-photo:hover {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 122, 255, 0.2);
+  }
+
+  .m-edit-profile__change-photo:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.15);
+  }
+
+  .m-edit-profile__change-photo--danger {
+    color: var(--accent-2);
+    border-color: rgba(255, 59, 48, 0.3);
+  }
+
+  .m-edit-profile__change-photo--danger:hover {
+    background: var(--accent-2);
+    color: #ffffff;
+    border-color: var(--accent-2);
+    box-shadow: 0 6px 16px rgba(255, 59, 48, 0.2);
+  }
+
+  .m-edit-profile__form {
+    grid-area: form;
+    padding: 3.5rem;
+    gap: 1.75rem;
+  }
+
+  .m-edit-profile__field {
+    gap: 0.6rem;
+  }
+
+  .m-edit-profile__label {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--muted-alt);
+  }
+
+  .m-edit-profile__input {
+    min-height: 2.95rem;
+    font-size: 0.95rem;
+    padding: 0 1.1rem;
+    border-radius: 0.85rem;
+    border: 1.5px solid var(--border-color);
+    transition: all 0.2s ease;
+    background: var(--surface);
+  }
+
+  .m-edit-profile__input:hover {
+    border-color: var(--muted-alt);
+    background: var(--surface-hover);
+  }
+
+  .m-edit-profile__input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    background: var(--surface);
+  }
+
+  .m-edit-profile__textarea {
+    padding: 1rem 1.1rem;
+    min-height: 7rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .m-edit-profile__actions {
+    margin-top: 2rem;
+    justify-content: flex-end;
+    gap: 1.2rem;
+  }
+
+  .m-edit-profile__save,
+  .m-edit-profile__cancel {
+    flex: 0 0 auto;
+    width: 150px;
+    min-height: 2.95rem;
+    border-radius: 0.85rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+  }
+
+  .m-edit-profile__save {
+    background: var(--accent);
+    color: #ffffff;
+    border: 0;
+    box-shadow: 0 4px 14px rgba(0, 122, 255, 0.25);
+  }
+
+  .m-edit-profile__save:hover {
+    background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+    box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .m-edit-profile__save:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.2);
+  }
+
+  .m-edit-profile__cancel {
+    background: var(--surface);
+    color: var(--text);
+    border: 1.5px solid var(--border-color);
+  }
+
+  .m-edit-profile__cancel:hover {
+    background: var(--surface-hover);
+    border-color: var(--muted-alt);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .m-edit-profile__cancel:active {
+    transform: translateY(0);
+  }
 }

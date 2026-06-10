@@ -4,19 +4,22 @@ injectStyle('/features/profile/edit-profile/css/_edit-profile-form.css');
 
 import { getSession, isAuthenticated, navigateAfterAuth } from '../../../js/services/auth.js';
 import { navigateTo } from '../../../js/utils/url.js';
-import { STORAGE_KEYS, MOBILE_BREAKPOINT } from '../../../js/core/config.js';
+import { STORAGE_KEYS } from '../../../js/core/config.js';
 
 const AVATAR_KEY = STORAGE_KEYS.AVATAR;
 
 function iconArrowLeft() { return '<i class="bi bi-arrow-left"></i>'; }
 function iconCamera() { return '<i class="bi bi-camera"></i>'; }
 
-function getAvatar() {
-  return localStorage.getItem(AVATAR_KEY);
+function getAvatar(email) {
+  return localStorage.getItem(AVATAR_KEY + '_' + email) || localStorage.getItem(AVATAR_KEY);
 }
 
-function saveAvatar(base64) {
+function saveAvatar(base64, email) {
   localStorage.setItem(AVATAR_KEY, base64);
+  if (email) {
+    localStorage.setItem(AVATAR_KEY + '_' + email, base64);
+  }
 }
 
 export async function EditProfile() {
@@ -27,7 +30,8 @@ export async function EditProfile() {
 
   const session = getSession();
   const initial = session.name.charAt(0).toUpperCase();
-  const avatarSrc = getAvatar();
+  const avatarSrc = getAvatar(session.email);
+  const bio = localStorage.getItem(STORAGE_KEYS.BIO + '_' + session.email) || localStorage.getItem(STORAGE_KEYS.BIO) || '';
 
   const el = document.createElement('section');
   el.className = 'm-edit-profile';
@@ -60,7 +64,7 @@ export async function EditProfile() {
       </div>
       <div class="m-edit-profile__field">
         <label class="m-edit-profile__label" for="ep-bio">Bio</label>
-        <textarea class="m-edit-profile__input m-edit-profile__textarea" id="ep-bio" rows="3" placeholder="Tulis bio singkat..."></textarea>
+        <textarea class="m-edit-profile__input m-edit-profile__textarea" id="ep-bio" rows="3" placeholder="Tulis bio singkat...">${bio}</textarea>
       </div>
       <div class="m-edit-profile__actions">
         <button class="m-edit-profile__cancel" id="js-ep-cancel" type="button">Batal</button>
@@ -84,7 +88,7 @@ export async function EditProfile() {
     const reader = new FileReader();
     reader.onload = (ev) => {
       const dataUrl = ev.target.result;
-      saveAvatar(dataUrl);
+      saveAvatar(dataUrl, session.email);
       avatarEl.innerHTML = `<img class="m-edit-profile__avatar-img" src="${dataUrl}" alt="Foto profil" />`;
     };
     reader.readAsDataURL(file);
@@ -93,20 +97,23 @@ export async function EditProfile() {
 
   removeBtn.addEventListener('click', () => {
     localStorage.removeItem(AVATAR_KEY);
+    localStorage.removeItem(AVATAR_KEY + '_' + session.email);
     avatarEl.innerHTML = initial;
   });
 
   el.querySelector('#js-ep-save').addEventListener('click', () => {
     const name = el.querySelector('#ep-name').value.trim();
     const email = el.querySelector('#ep-email').value.trim();
-    const bio = el.querySelector('#ep-bio').value.trim();
+    const bioText = el.querySelector('#ep-bio').value.trim();
     if (!name || !email) return;
+
     const users = JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS) || '[]');
     const idx = users.findIndex(u => u.email === session.email);
     if (idx !== -1) {
       users[idx].name = name;
       users[idx].email = email;
       localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+
       const ses = JSON.parse(sessionStorage.getItem(STORAGE_KEYS.SESSION) || localStorage.getItem(STORAGE_KEYS.SESSION));
       if (ses) {
         ses.name = name;
@@ -115,7 +122,25 @@ export async function EditProfile() {
         window[storage].setItem(STORAGE_KEYS.SESSION, JSON.stringify(ses));
       }
     }
-    if (bio) localStorage.setItem(STORAGE_KEYS.BIO, bio);
+
+    // Save bio
+    localStorage.setItem(STORAGE_KEYS.BIO, bioText);
+    localStorage.setItem(STORAGE_KEYS.BIO + '_' + email, bioText);
+
+    // If email has changed, migrate data from old email to new email
+    if (email !== session.email) {
+      const oldAvatar = localStorage.getItem(AVATAR_KEY + '_' + session.email);
+      if (oldAvatar) {
+        localStorage.setItem(AVATAR_KEY + '_' + email, oldAvatar);
+        localStorage.removeItem(AVATAR_KEY + '_' + session.email);
+      }
+      const oldBio = localStorage.getItem(STORAGE_KEYS.BIO + '_' + session.email);
+      if (oldBio) {
+        localStorage.setItem(STORAGE_KEYS.BIO + '_' + email, oldBio);
+        localStorage.removeItem(STORAGE_KEYS.BIO + '_' + session.email);
+      }
+    }
+
     navigateTo('/profile');
   });
 
